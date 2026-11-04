@@ -1,0 +1,288 @@
+---
+import type { Roadmap } from '../data/roadmaps';
+
+interface Props {
+  roadmap: Roadmap;
+}
+
+const { roadmap } = Astro.props;
+---
+
+<div class="roadmap-container max-w-4xl mx-auto" data-roadmap-id={roadmap.slug}>
+  <!-- Roadmap Progress Hero Card -->
+  <div class="bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder rounded-2xl p-6 sm:p-8 mb-8 shadow-sm">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+      <div>
+        <span class="inline-block text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-400 mb-2">
+          {roadmap.difficulty} • ~{roadmap.estimatedWeeks} Weeks
+        </span>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">{roadmap.title}</h1>
+        <p class="text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-xl">{roadmap.subtitle}</p>
+      </div>
+
+      <!-- Live Progress Gauge -->
+      <div class="flex items-center gap-4 bg-slate-50 dark:bg-slate-900/60 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shrink-0">
+        <div class="relative w-16 h-16 flex items-center justify-center">
+          <svg class="w-16 h-16 transform -rotate-90">
+            <circle cx="32" cy="32" r="26" stroke="currentColor" stroke-width="5" class="text-slate-200 dark:text-slate-800" fill="transparent" />
+            <circle id="progress-circle" cx="32" cy="32" r="26" stroke="currentColor" stroke-width="5" class="text-emerald-500 transition-all duration-300" stroke-dasharray="163.36" stroke-dashoffset="163.36" stroke-linecap="round" fill="transparent" />
+          </svg>
+          <span id="progress-text" class="absolute font-extrabold text-xs text-slate-900 dark:text-white">0%</span>
+        </div>
+        <div>
+          <div class="text-xs font-semibold text-slate-900 dark:text-white">Your Progress</div>
+          <div id="completed-count" class="text-xs text-slate-500 dark:text-slate-400">0 of {roadmap.nodes.length} completed</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Toolbar (Filters, Export, Reset) -->
+    <div class="flex flex-wrap items-center justify-between gap-3 mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 text-xs">
+      <!-- Filter Pills -->
+      <div class="flex items-center gap-1.5" id="level-filters">
+        <button class="filter-btn active px-3 py-1.5 rounded-lg bg-emerald-500 text-white font-medium" data-filter="all">All Phases</button>
+        <button class="filter-btn px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium hover:bg-slate-200 dark:hover:bg-slate-700" data-filter="beginner">Beginner</button>
+        <button class="filter-btn px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium hover:bg-slate-200 dark:hover:bg-slate-700" data-filter="intermediate">Intermediate</button>
+        <button class="filter-btn px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium hover:bg-slate-200 dark:hover:bg-slate-700" data-filter="advanced">Advanced</button>
+      </div>
+
+      <!-- Export & Print -->
+      <div class="flex items-center gap-2">
+        <button id="export-checklist-btn" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 cursor-pointer">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          Export Checklist
+        </button>
+        <button onclick="window.print()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 cursor-pointer">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+          Print / PDF
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timeline Nodes Container -->
+  <div class="relative pl-6 sm:pl-8 border-l-2 border-slate-200 dark:border-slate-800 space-y-8 my-8" id="nodes-timeline">
+    {roadmap.nodes.map((node, index) => (
+      <div 
+        class="roadmap-node group relative bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder rounded-2xl p-5 sm:p-6 transition-all hover:border-emerald-500/50 hover:shadow-md cursor-pointer"
+        data-id={node.id}
+        data-level={node.level}
+      >
+        <!-- Timeline Step Marker Dot -->
+        <div class="absolute -left-[35px] sm:-left-[43px] top-6 w-6 h-6 rounded-full bg-white dark:bg-darkbg border-2 border-slate-300 dark:border-slate-700 flex items-center justify-center node-dot transition-colors">
+          <span class="text-[10px] font-bold text-slate-500">{index + 1}</span>
+        </div>
+
+        <div class="flex items-start justify-between gap-4">
+          <div class="flex-grow">
+            <div class="flex items-center gap-2 mb-1.5 flex-wrap">
+              <span class={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                node.level === 'beginner' ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' :
+                node.level === 'intermediate' ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300' :
+                'bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300'
+              }`}>
+                {node.level}
+              </span>
+              <span class="text-xs text-slate-400 font-medium">⏱ ~{node.estimatedHours} Hours</span>
+              <span class="text-xs text-slate-400 font-medium">• {node.category}</span>
+            </div>
+
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white group-hover:text-emerald-500 transition-colors">
+              {node.title}
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 line-clamp-2">
+              {node.description}
+            </p>
+
+            <!-- Key topics tags -->
+            <div class="flex flex-wrap gap-1.5 mt-3">
+              {node.keyTopics.map(topic => (
+                <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                  {topic}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <!-- Mark As Done Toggle Checkbox -->
+          <div class="shrink-0 pt-1">
+            <label class="flex items-center gap-2 cursor-pointer select-none" onclick="event.stopPropagation()">
+              <input 
+                type="checkbox" 
+                class="node-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-emerald-600 focus:ring-emerald-500 cursor-pointer transition-colors"
+                data-node-id={node.id}
+              />
+            </label>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Detail Modal Drawer -->
+  <div id="node-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-darkcard w-full max-w-xl rounded-2xl border border-slate-200 dark:border-darkborder shadow-2xl overflow-hidden p-6 max-h-[85vh] overflow-y-auto">
+      <div class="flex items-start justify-between gap-4 mb-4">
+        <div>
+          <span id="modal-level" class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400"></span>
+          <h2 id="modal-title" class="text-xl font-bold text-slate-900 dark:text-white mt-2"></h2>
+        </div>
+        <button id="close-modal-btn" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <p id="modal-desc" class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6"></p>
+
+      <div class="mb-6">
+        <h4 class="text-xs font-bold uppercase text-slate-400 tracking-wider mb-2">Key Concepts to Master</h4>
+        <ul id="modal-topics" class="space-y-1.5 text-xs text-slate-700 dark:text-slate-300"></ul>
+      </div>
+
+      <div class="mb-6 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-500/20">
+        <h4 class="text-xs font-bold text-emerald-800 dark:text-emerald-300 mb-1">🏁 Checkpoint Goal</h4>
+        <p id="modal-checkpoint" class="text-xs text-emerald-700 dark:text-emerald-400"></p>
+      </div>
+
+      <div>
+        <h4 class="text-xs font-bold uppercase text-slate-400 tracking-wider mb-2">Recommended Free Resources</h4>
+        <div id="modal-resources" class="space-y-2"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline define:vars={{ nodes: roadmap.nodes, roadmapId: roadmap.slug }}>
+  const storageKey = `roadmap_progress_${roadmapId}`;
+  let completed = JSON.parse(localStorage.getItem(storageKey) || '[]');
+
+  const checkboxes = document.querySelectorAll('.node-checkbox');
+  const progressText = document.getElementById('progress-text');
+  const progressCircle = document.getElementById('progress-circle');
+  const completedCount = document.getElementById('completed-count');
+  const circumference = 2 * Math.PI * 26; // r=26
+
+  function updateProgress() {
+    checkboxes.forEach(cb => {
+      const id = cb.getAttribute('data-node-id');
+      const isDone = completed.includes(id);
+      cb.checked = isDone;
+
+      const nodeCard = cb.closest('.roadmap-node');
+      const dot = nodeCard?.querySelector('.node-dot');
+      if (isDone) {
+        nodeCard?.classList.add('border-emerald-500/60', 'bg-emerald-50/20', 'dark:bg-emerald-950/10');
+        if (dot) {
+          dot.classList.add('bg-emerald-500', 'border-emerald-500');
+          dot.innerHTML = `<svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>`;
+        }
+      } else {
+        nodeCard?.classList.remove('border-emerald-500/60', 'bg-emerald-50/20', 'dark:bg-emerald-950/10');
+        if (dot) {
+          dot.classList.remove('bg-emerald-500', 'border-emerald-500');
+          dot.innerText = '';
+        }
+      }
+    });
+
+    const percent = Math.round((completed.length / nodes.length) * 100);
+    if (progressText) progressText.innerText = `${percent}%`;
+    if (completedCount) completedCount.innerText = `${completed.length} of ${nodes.length} completed`;
+
+    if (progressCircle) {
+      const offset = circumference - (percent / 100) * circumference;
+      progressCircle.style.strokeDashoffset = offset.toString();
+    }
+
+    localStorage.setItem(storageKey, JSON.stringify(completed));
+  }
+
+  checkboxes.forEach(cb => {
+    cb.addEventListener('change', (e) => {
+      const id = e.target.getAttribute('data-node-id');
+      if (e.target.checked) {
+        if (!completed.includes(id)) completed.push(id);
+      } else {
+        completed = completed.filter(x => x !== id);
+      }
+      updateProgress();
+    });
+  });
+
+  // Modal interactions
+  const modal = document.getElementById('node-modal');
+  const closeModalBtn = document.getElementById('close-modal-btn');
+  const modalTitle = document.getElementById('modal-title');
+  const modalDesc = document.getElementById('modal-desc');
+  const modalLevel = document.getElementById('modal-level');
+  const modalTopics = document.getElementById('modal-topics');
+  const modalCheckpoint = document.getElementById('modal-checkpoint');
+  const modalResources = document.getElementById('modal-resources');
+
+  document.querySelectorAll('.roadmap-node').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = card.getAttribute('data-id');
+      const node = nodes.find(n => n.id === id);
+      if (!node) return;
+
+      modalTitle.innerText = node.title;
+      modalDesc.innerText = node.description;
+      modalLevel.innerText = `${node.level} • ~${node.estimatedHours} Hours`;
+      modalCheckpoint.innerText = node.checkpointTask;
+
+      modalTopics.innerHTML = node.keyTopics.map(t => `<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>${t}</li>`).join('');
+      modalResources.innerHTML = node.recommendedResources.map(r => `
+        <a href="${r.url}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/80 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs transition-colors">
+          <span class="font-medium text-slate-800 dark:text-slate-200">${r.title}</span>
+          <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold uppercase">Free ↗</span>
+        </a>
+      `).join('');
+
+      modal.classList.remove('hidden');
+    });
+  });
+
+  closeModalBtn?.addEventListener('click', () => modal.classList.add('hidden'));
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) modal.classList.add('hidden');
+  });
+
+  // Level filters
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active', 'bg-emerald-500', 'text-white'));
+      btn.classList.add('active', 'bg-emerald-500', 'text-white');
+
+      const filter = btn.getAttribute('data-filter');
+      document.querySelectorAll('.roadmap-node').forEach(card => {
+        const level = card.getAttribute('data-level');
+        if (filter === 'all' || level === filter) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // Export checklist as Markdown text
+  const exportBtn = document.getElementById('export-checklist-btn');
+  exportBtn?.addEventListener('click', () => {
+    let md = `# ${roadmapId.toUpperCase()} Roadmap Progress Checklist\n\n`;
+    nodes.forEach(n => {
+      const isDone = completed.includes(n.id);
+      md += `- [${isDone ? 'x' : ' '}] ${n.title} (~${n.estimatedHours}h)\n  Task: ${n.checkpointTask}\n\n`;
+    });
+
+    const blob = new Blob([md], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${roadmapId}-checklist.md`;
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  updateProgress();
+</script>

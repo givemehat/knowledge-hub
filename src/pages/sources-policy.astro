@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Fact-Checking & Sourcing Policy" description="How facts, technical claims, and sources are verified on Knowledge Hub.">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
+    <div>
+      <span class="text-xs font-bold uppercase tracking-wider text-emerald-500">Integrity First</span>
+      <h1 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight mt-1">
+        Sourcing & Fact-Checking Policy
+      </h1>
+      <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">
+        Knowledge Hub par har dawa (claim) aur statistic primary documentation se verify kiya jaata hai.
+      </p>
+    </div>
+
+    <div class="space-y-6 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+      <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder space-y-2">
+        <h3 class="font-bold text-base text-slate-900 dark:text-white">1. Primary Sources Only</h3>
+        <p>Hum third-party blog summaries ya second-hand rumors par rely nahi karte. Sourcing hamesha official documentation (e.g. Python, Docker, Qiskit), peer-reviewed research papers (arXiv, IEEE, NeurIPS), ya government gazettes (Ministry of Law, NPCI) se hoti hai.</p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder space-y-2">
+        <h3 class="font-bold text-base text-slate-900 dark:text-white">2. Last-Verified Dates & Confidence Badges</h3>
+        <p>Har article ke header par date of verification aur confidence rating di jaati hai:</p>
+        <ul class="list-disc pl-5 space-y-1 text-slate-500">
+          <li><strong>High Confidence:</strong> Settled theory ya verified official API standards.</li>
+          <li><strong>Medium Confidence:</strong> Rapidly changing toolchains with active migrations.</li>
+          <li><strong>Evolving:</strong> Active policy debates ya early preview technologies (e.g. bleeding edge AI models).</li>
+        </ul>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder space-y-2">
+        <h3 class="font-bold text-base text-slate-900 dark:text-white">3. Neutrality on Politics & Policy</h3>
+        <p>Sarkar aur policy topics par hum unbiased rahenge. Fact aur Opinion me clear distinction rakha jaata hai, aur constitutional provisions ko primary text se quote kiya jaata hai bina kisi political partisanship ke.</p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder space-y-2">
+        <h3 class="font-bold text-base text-slate-900 dark:text-white">4. Link Integrity Checks</h3>
+        <p>Build step me automatic link validation run hota hai taaki koi bhi 404 ya broken resource link site par na rahe.</p>
+      </div>
+    </div>
+  </div>
+</Layout>

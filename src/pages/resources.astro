@@ -1,0 +1,54 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { CURATED_RESOURCES } from '../data/resources';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Layout title="Curated Resources Library" description="Handpicked, verified YouTube videos, official docs, books, and free tools for learners.">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="max-w-3xl mb-12">
+      <span class="text-xs font-bold uppercase tracking-wider text-emerald-500">100% Free & Verified</span>
+      <h1 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight mt-1">
+        Curated Learning Resources
+      </h1>
+      <p class="text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+        Random YouTube playlists se door rahein. Yahan sirf wahi resources hain jinko engineers ne evaluate aur test kiya hai.
+      </p>
+    </div>
+
+    <!-- Resources Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {CURATED_RESOURCES.map(res => (
+        <a 
+          href={res.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder rounded-2xl p-6 hover:border-emerald-500/60 hover:shadow-lg transition-all flex flex-col justify-between"
+        >
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                {res.type}
+              </span>
+              <span class="text-[10px] font-bold text-emerald-500">Free</span>
+            </div>
+
+            <h3 class="font-bold text-base text-slate-900 dark:text-white group-hover:text-emerald-500 transition-colors">
+              {res.title}
+            </h3>
+
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">
+              💡 {res.whyWatch}
+            </p>
+          </div>
+
+          <div class="mt-6 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-400">
+            <span>By {res.author}</span>
+            <span class="font-bold text-emerald-500 group-hover:translate-x-1 transition-transform">Visit Link ↗</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</Layout>

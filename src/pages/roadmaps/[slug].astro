@@ -1,0 +1,35 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import InteractiveRoadmap from '../../components/InteractiveRoadmap.astro';
+import { ROADMAPS, type Roadmap } from '../../data/roadmaps';
+
+export function getStaticPaths() {
+  return ROADMAPS.map(roadmap => ({
+    params: { slug: roadmap.slug },
+    props: { roadmap }
+  }));
+}
+
+interface Props {
+  roadmap: Roadmap;
+}
+
+const { roadmap } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Layout title={roadmap.title} description={roadmap.subtitle}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs text-slate-500 mb-6 font-medium">
+      <a href={`${base}/`} class="hover:text-emerald-500">Home</a>
+      <span>/</span>
+      <a href={`${base}/roadmaps/`} class="hover:text-emerald-500">Roadmaps</a>
+      <span>/</span>
+      <span class="text-slate-900 dark:text-white font-semibold">{roadmap.title}</span>
+    </nav>
+
+    <!-- Component -->
+    <InteractiveRoadmap roadmap={roadmap} />
+  </div>
+</Layout>

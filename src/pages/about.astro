@@ -1,0 +1,54 @@
+---
+import Layout from '../layouts/Layout.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Layout title="About Knowledge Hub — Mission & Principles" description="Why we built Knowledge Hub and our editorial commitment to clean, high-density, accessible learning.">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="space-y-8">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-500">Mission & Manifesto</span>
+        <h1 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight mt-1">
+          About Knowledge Hub
+        </h1>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 mt-3 leading-relaxed">
+          Knowledge Hub is built as "the modern Wikipedia for builders and students": fast, clean, high-density, and 100% focused on helping you find, understand, and apply knowledge in minutes.
+        </p>
+      </div>
+
+      <!-- Core Pillars Bento -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder">
+          <div class="text-2xl mb-2">⚡</div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-1">Zero Backend, Pure Speed</h3>
+          <p class="text-xs text-slate-500 leading-relaxed">100% static HTML generation. No databases, no auth cookies, sub-second page loads globally.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder">
+          <div class="text-2xl mb-2">🛡️</div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-1">No Ads, No Tracking</h3>
+          <p class="text-xs text-slate-500 leading-relaxed">No invasive scripts, popups, paywalls, or sponsored spam. Clean editorial integrity.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder">
+          <div class="text-2xl mb-2">🧠</div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-1">Cognitive & Ergonomic UX</h3>
+          <p class="text-xs text-slate-500 leading-relaxed">Designed adhering to Hick's Law, Fitts's Law, Miller's chunking, and mobile thumb-reach targets.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder">
+          <div class="text-2xl mb-2">🇮🇳</div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-1">Hinglish First-Class</h3>
+          <p class="text-xs text-slate-500 leading-relaxed">Technical concepts explained in natural Indian technical parlance with English terminology intact.</p>
+        </div>
+      </div>
+
+      <div class="p-8 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed space-y-4">
+        <h3 class="text-base font-bold text-slate-900 dark:text-white">Our Editorial Promise</h3>
+        <p>
+          Internet par technical content do extremes me phasa hua hai: ya toh 3 ghante ki repetitive YouTube videos jisme 10 minute ka kaam hota hai, ya fir dense research papers jo aam student ko samajh nahi aate.
+        </p>
+        <p>
+          Knowledge Hub bridges this gap: <strong>Har topic 30 second me scan ho sakta hai, 3 minute me core theory clear karta hai, aur real runnable code provide karta hai.</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+</Layout>

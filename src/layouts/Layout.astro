@@ -1,0 +1,119 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SearchModal from '../components/SearchModal.astro';
+import MobileNav from '../components/MobileNav.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  category?: string;
+  ogType?: string;
+}
+
+const {
+  title,
+  description = "Knowledge Hub - Modern, fast, and verified knowledge portal for students, developers, and tech learners.",
+  category = "Technology",
+  ogType = "website"
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO Meta Tags -->
+    <title>{title} | Knowledge Hub</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={`${title} | Knowledge Hub`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content="Knowledge Hub" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} | Knowledge Hub`} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Typography: Inter, Plus Jakarta Sans, JetBrains Mono, Noto Sans Devanagari -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Inline Dark Theme Script (Zero-FOUC) -->
+    <script is:inline>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+
+      if (theme === 'light') {
+        document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+      window.localStorage.setItem('theme', theme);
+    </script>
+  </head>
+  <body class="bg-surface-light dark:bg-darkbg text-slate-800 dark:text-slate-100 min-h-screen flex flex-col font-sans selection:bg-emerald-500 selection:text-white transition-colors duration-150 pb-16 md:pb-0">
+    <!-- Accessibility Skip Link -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 px-4 py-2 bg-emerald-600 text-white font-bold rounded-lg shadow-lg">
+      Skip to main content
+    </a>
+
+    <Header />
+    <SearchModal />
+
+    <main id="main-content" class="flex-grow">
+      <slot />
+    </main>
+
+    <Footer />
+    <MobileNav />
+
+    <!-- Global Theme & Language Scripts -->
+    <script is:inline>
+      const themeBtn = document.getElementById('theme-toggle-btn');
+      themeBtn?.addEventListener('click', () => {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      });
+
+      // Language Mode Toggle
+      const langBtn = document.getElementById('lang-toggle-btn');
+      const langLabel = document.getElementById('lang-label');
+      let isHinglish = localStorage.getItem('lang_pref') !== 'en';
+
+      function updateLangUI() {
+        if (langLabel) {
+          langLabel.innerText = isHinglish ? 'हिन्दी / Hinglish' : 'English Mode';
+        }
+        document.body.classList.toggle('lang-english-only', !isHinglish);
+      }
+
+      langBtn?.addEventListener('click', () => {
+        isHinglish = !isHinglish;
+        localStorage.setItem('lang_pref', isHinglish ? 'hi' : 'en');
+        updateLangUI();
+      });
+
+      updateLangUI();
+    </script>
+  </body>
+</html>

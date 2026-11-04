@@ -1,0 +1,17 @@
+{
+  "name": "knowledge-hub",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Knowledge Hub - Modern, fast, and reliable static knowledge portal for college students and developers",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/tailwind": "^6.0.2",
+    "astro": "^5.18.2",
+    "fuse.js": "^7.1.0",
+    "tailwindcss": "^3.4.17"
+  }
+}

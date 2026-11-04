@@ -1,0 +1,74 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { ROADMAPS } from '../../data/roadmaps';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Layout title="Interactive Career & Tech Roadmaps" description="Step-by-step career and engineering roadmaps with local progress tracking and free curated resources.">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Header -->
+    <div class="max-w-3xl mb-12">
+      <span class="text-xs font-bold uppercase tracking-wider text-emerald-500">Structured Guidance</span>
+      <h1 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight mt-1">
+        Interactive Engineering Roadmaps
+      </h1>
+      <p class="text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+        Har roadmap me phase-by-phase milestones, estimated hours, "Mark as done" localStorage tracking, aur free resources hain.
+      </p>
+    </div>
+
+    <!-- Roadmaps Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {ROADMAPS.map(roadmap => (
+        <a 
+          href={`${base}/roadmaps/${roadmap.slug}/`}
+          class="group bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder rounded-3xl p-8 hover:border-emerald-500/60 hover:shadow-xl transition-all flex flex-col justify-between"
+        >
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300">
+                {roadmap.difficulty}
+              </span>
+              <span class="text-xs text-slate-400 font-medium">⏱ ~{roadmap.estimatedWeeks} Weeks</span>
+            </div>
+
+            <h2 class="text-2xl font-black text-slate-900 dark:text-white group-hover:text-emerald-500 transition-colors">
+              {roadmap.title}
+            </h2>
+
+            {roadmap.titleHindi && (
+              <p class="text-xs text-slate-400 font-hindi mt-1">
+                {roadmap.titleHindi}
+              </p>
+            )}
+
+            <p class="text-sm text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
+              {roadmap.subtitle}
+            </p>
+
+            <!-- Milestones preview -->
+            <div class="mt-6 space-y-2">
+              <h4 class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Milestone Phases</h4>
+              <div class="space-y-1.5">
+                {roadmap.nodes.map((node, i) => (
+                  <div class="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300">
+                    <span class="w-4 h-4 rounded-full bg-slate-100 dark:bg-slate-800 text-[10px] flex items-center justify-center font-bold text-slate-500 shrink-0">
+                      {i + 1}
+                    </span>
+                    <span class="truncate">{node.title}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-bold text-emerald-500">
+            <span>{roadmap.nodes.length} Key Checkpoints</span>
+            <span class="group-hover:translate-x-1 transition-transform">Launch Interactive Roadmap →</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</Layout>
