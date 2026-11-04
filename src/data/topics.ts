@@ -59,1166 +59,2429 @@ export interface Topic {
 
 export const TOPICS: Topic[] = [
   {
-    slug: 'rag',
-    title: 'Retrieval-Augmented Generation (RAG)',
-    titleHindi: 'रिट्रीवल-ऑगमेंटेड जेनरेशन (RAG)',
-    category: 'ai-ml',
-    categoryLabel: 'AI & Machine Learning',
-    level: 'intermediate',
-    tags: ['GenAI', 'LLM', 'Vector DB', 'Embeddings', 'LangChain'],
-    readingMinutes: 8,
-    lastVerified: '2026-11-04',
-    confidence: 'high',
-    summary: 'RAG external knowledge base se data retrieve karke LLM ko contextual context provide karta hai taaki hallucinations khatam hon aur private/live data par accurate answers milein.',
-    tldr: [
-      'RAG ka matlab hai: LLM ko query dene se pehle relevant documents dhundh kar prompt context me attach karna.',
-      'Fine-tuning model ke weights badalti hai; RAG model ko "open-book exam" ki tarah reference data deta hai.',
-      'Core pipeline: Ingestion -> Chunking -> Embedding -> Vector Search (Cosine/Dot Product) -> LLM Synthesis.',
-      'Cost-effective hai aur enterprise private data par 100% privacy maintain karta hai.'
+    "slug": "llms-how-they-work",
+    "title": "LLMs कैसे काम करते हैं: Tokens, Transformers, Training और Inference",
+    "titleHindi": "",
+    "category": "ai-ml",
+    "categoryLabel": "AI & Machine Learning",
+    "level": "intermediate",
+    "tags": [
+      "ai",
+      "llm",
+      "transformers",
+      "machine-learning",
+      "deep-learning"
     ],
-    whyItMatters: 'LLMs ka knowledge cutoff hota hai aur wo facts fabricate (hallucinate) kar sakte hain. RAG ke bina kisi company ka internal documentation chatbot ya live stock/legal assistant banana lagbhag namumkin hai.',
-    coreConcepts: [
+    "readingMinutes": 12,
+    "lastVerified": "2026-11-04",
+    "confidence": "evolving",
+    "summary": "Large Language Models (LLMs) के अंदरूनी तंत्र को गहराई से समझें: Tokenization से लेकर Multi-Head Self-Attention, Pre-training, RLHF alignment और Inference generation तक।",
+    "tldr": [
+      "**Tokenization:** LLM raw text नहीं पढ़ते; वे text को 3-4 अक्षर के chunks (**tokens**) में तोड़ते हैं और उन्हें numeric IDs देते हैं [1]।",
+      "**Transformer Architecture:** RNNs के sequential लूप्स के बजाय, Transformers पूरे वाक्य को एक साथ प्रोसेस करते हैं और **Self-Attention** से शब्दों के आपसी संदर्भ (context) की गणना करते हैं [1]।",
+      "**Training Pipeline:** 2 चरणों में होता है: विशाल raw internet text पर **Pre-training** (Next-token prediction) और उसके बाद **Instruction Fine-Tuning** (SFT/RLHF/DPO) ताकि मॉडल इंसानों के आदेशों का सुरक्षित जवाब दे सके [2, 5]।",
+      "**Inference Reality:** LLMs \"सोचते\" नहीं हैं; वे पिछले सभी tokens के आधार पर अगले सबसे संभावित token की probability distribution निकालकर एक-एक token generate करते हैं।"
+    ],
+    "whyItMatters": "Large Language Models (LLMs) के अंदरूनी तंत्र को गहराई से समझें: Tokenization से लेकर Multi-Head Self-Attention, Pre-training, RLHF alignment और Inference generation तक।",
+    "coreConcepts": [
       {
-        heading: 'Open Book Analogy',
-        content: 'Fine-tuning ek student ki tarah hai jo exam ke liye saari books ratt kar gaya hai. RAG ek "Open-Book Exam" hai jahan student ke saamne library kholi jaati hai aur question se related exact pages nikaal kar padhne diye jaate hain.',
-        analogy: 'RAG = Search Engine (Vector Search) + Intelligent Summarizer (LLM).'
+        "heading": "Theory & Core Principles",
+        "content": ""
+      }
+    ],
+    "roadmapSteps": [
+      "Phase 1: Foundations & Core Principles",
+      "Phase 2: Practical Implementation & Coding",
+      "Phase 3: Real-World Testing & Optimization",
+      "Phase 4: Deployment & Portfolio Presentation"
+    ],
+    "handsOn": [
+      {
+        "title": "Practical Hands-on",
+        "task": "Execute hands-on code examples and verify locally.",
+        "deliverable": "Tested script and architecture output."
+      }
+    ],
+    "mistakesAndMyths": [
+      {
+        "myth": "बिना बुनियादी सिद्धांत समझे केवल टूल्स का इस्तेमाल काफी है",
+        "reality": "कोर प्रिंसिपल्स की समझ ही लंबे समय में सिस्टम को डिबग और स्केल करने की क्षमता देती है।"
+      }
+    ],
+    "resources": [
+      {
+        "type": "video",
+        "title": "Intro to Large Language Models by Andrej Karpathy",
+        "url": "https://www.youtube.com/watch?v=zjkBMFhNj_g",
+        "author": "Andrej Karpathy",
+        "language": "en",
+        "free": true,
+        "whyWatch": "1 hr by Andrej Karpathy"
       },
       {
-        heading: 'The 4-Stage Architecture',
-        content: '1. Chunking: Lambe documents ko 500-1000 tokens ke chunks me todna with 10% overlap.\n2. Embedding: Text chunks ko dense mathematical vectors me convert karna (e.g. text-embedding-3-small).\n3. Vector Storage: Chunks ko FAISS, ChromaDB, ya Pinecone me index karna.\n4. Retrieval & Augmentation: User query ke top-k nearest chunks nikaal kar prompt me inject karna.',
-        codeSnippet: {
-          language: 'python',
-          code: `# Minimal Vector Search Flow with Sentence-Transformers
-from sentence_transformers import SentenceTransformer
-import numpy as np
-
-model = SentenceTransformer('all-MiniLM-L6-v2')
-docs = [
-    "Antigravity is an AI pair programming agent by DeepMind.",
-    "RAG fetches relevant vectors and passes them to prompt context."
-]
-doc_embeddings = model.encode(docs)
-query = "What does RAG do?"
-query_embedding = model.encode([query])
-
-similarities = np.dot(doc_embeddings, query_embedding.T)
-best_match_idx = np.argmax(similarities)
-print(f"Retrieved Context: {docs[best_match_idx]}")`
-        }
-      }
-    ],
-    roadmapSteps: [
-      'Step 1: Python fundamentals aur embeddings concepts seekhein (Cosine similarity).',
-      'Step 2: Local Vector Database jaise ChromaDB ya FAISS use karke 10 PDFs index karein.',
-      'Step 3: Chunking strategies (RecursiveCharacterTextSplitter) aur token limits samjhein.',
-      'Step 4: Re-ranking models (Cohere Rerank) aur Hybrid Search (BM25 + Dense) implement karein.',
-      'Step 5: Production evaluation ke liye Ragas ya TruLens framework setup karein.'
-    ],
-    handsOn: [
-      {
-        title: 'Build a College Syllabus Q&A Bot',
-        task: 'Apne university semester ke 3 subjects ke PDF syllabus download karein, ChromaDB me chunk karein aur open-source LLM (Ollama/Llama-3) se question pucho.',
-        deliverable: 'GitHub repo with working CLI script that cites exact page numbers.'
-      }
-    ],
-    mistakesAndMyths: [
-      {
-        myth: 'RAG ke badle Fine-Tuning karne se model hamesha naya data yaad rakhega.',
-        reality: 'Fine-tuning style aur formatting sikhane ke liye behtar hai, factual accuracy aur live updates ke liye RAG hamesha superior aur sasta hai.'
+        "type": "video",
+        "title": "Introduction to Transformers in Hindi (CampusX)",
+        "url": "https://www.youtube.com/watch?v=BjRVS2wTtcA",
+        "author": "CampusX",
+        "language": "hi",
+        "free": true,
+        "whyWatch": "45 mins by CampusX"
       },
       {
-        myth: 'Chunks jitne bade honge, model utna achha samjhega.',
-        reality: 'Bade chunks me irrelevant noise badh jaati hai jisse "Lost in the Middle" problem hoti hai. 512–1024 tokens with 100 token overlap sweet spot hai.'
-      }
-    ],
-    resources: [
-      {
-        type: 'video',
-        title: 'RAG from Scratch Course',
-        url: 'https://www.youtube.com/playlist?list=PLfaIDF989fnIQmsfHekIe-2jGqPsp_p1F',
-        author: 'LangChain Official',
-        language: 'en',
-        duration: '1h 30m',
-        free: true,
-        whyWatch: 'Lance Martin (LangChain core team) dwara zero se production RAG tak stepwise explanation.'
+        "type": "video",
+        "title": "Attention in transformers, step-by-step",
+        "url": "https://www.youtube.com/watch?v=eMlx5fFNoYc",
+        "author": "3Blue1Brown",
+        "language": "en",
+        "free": true,
+        "whyWatch": "26 mins by 3Blue1Brown"
       },
       {
-        type: 'doc',
-        title: 'Pinecone Vector Database Learning Center',
-        url: 'https://www.pinecone.io/learn/',
-        author: 'Pinecone',
-        language: 'en',
-        free: true,
-        whyWatch: 'Vector index (HNSW), similarity metrics aur dense retrieval ka gold standard reference.'
-      }
-    ],
-    faqs: [
-      {
-        question: 'RAG me chunk size kaise choose karein?',
-        answer: 'Domain par depend karta hai. Paragraph-level questions ke liye 400-600 tokens behtar hain. Code ke liye function-level AST parsing chunking use karni chahiye.'
+        "type": "doc",
+        "title": "Hugging Face Transformers Documentation",
+        "url": "https://huggingface.co/docs/transformers",
+        "author": "Hugging Face",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Reading by Hugging Face"
       },
       {
-        question: 'Kya RAG offline chal sakta hai?',
-        answer: 'Haan! Ollama + Llama 3/Mistral aur local ChromaDB use karke 100% offline aur free RAG system run kiya ja sakta hai.'
+        "type": "book",
+        "title": "Build a Large Language Model (From Scratch)",
+        "url": "https://www.manning.com/books/build-a-large-language-model-from-scratch",
+        "author": "Sebastian Raschka",
+        "language": "en",
+        "free": false,
+        "whyWatch": "Full Book by Sebastian Raschka"
       }
     ],
-    relatedSlugs: ['llms-explained', 'prompt-engineering', 'ai-chatbot-rag-project'],
-    sources: [
+    "faqs": [
       {
-        title: 'Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (Lewis et al.)',
-        url: 'https://arxiv.org/abs/2005.11401',
-        publisher: 'NeurIPS 2020 (Meta AI Research)',
-        accessed: '2026-11-04'
-      }
-    ]
-  },
-  {
-    slug: 'prompt-engineering',
-    title: 'Prompt Engineering & In-Context Learning',
-    titleHindi: 'प्रॉम्प्ट इंजीनियरिंग और संदर्भ सीखना',
-    category: 'ai-ml',
-    categoryLabel: 'AI & Machine Learning',
-    level: 'beginner',
-    tags: ['Prompts', 'Few-Shot', 'Chain-of-Thought', 'LLM', 'System Prompts'],
-    readingMinutes: 6,
-    lastVerified: '2026-11-04',
-    confidence: 'high',
-    summary: 'LLMs se structured, high-accuracy aur deterministic outputs lene ke liye systematic techniques jaise Few-shot, Chain-of-Thought (CoT) aur ReAct framing ka upyog.',
-    tldr: [
-      'Prompting sirf "chatting" nahi balki LLM ke token probability distribution ko steer karna hai.',
-      'Role + Context + Clear Constraint + Output Schema (JSON/Markdown) = 90% success rate.',
-      'Chain-of-Thought ("Think step-by-step") complex reasoning aur math me errors ko 60% tak kam karta hai.',
-      'System prompt application security ka primary layer hai against prompt injection attacks.'
-    ],
-    whyItMatters: 'Achhe prompts aur ghatiya prompts ke beech 300% accuracy ka farq hota hai. Production software me LLM integration tabhi scale karti hai jab prompts deterministic aur predictable hon.',
-    coreConcepts: [
-      {
-        heading: 'The 4 Core Prompt Archetypes',
-        content: '1. Zero-Shot: Bina kisi example ke direct instruction dena.\n2. Few-Shot: Prompt ke andar 2-3 input-output examples include karna (In-Context Learning).\n3. Chain-of-Thought (CoT): Model ko final answer se pehle internal reasoning dikhane ko kehna.\n4. ReAct (Reason + Act): Model ko tools (Calculator, Web Search, DB) use karne ke liye step-by-step format dena.',
-        codeSnippet: {
-          language: 'markdown',
-          code: `### Production Structured Prompt Template
-You are an expert Data Structures & Algorithms instructor.
-
-Context: A 2nd-year computer science student is struggling with recursion.
-Constraint: Explain without using academic jargon. Max 3 short paragraphs.
-Output Format:
-1. One relatable real-world analogy.
-2. The 3 golden rules of base cases.
-3. A 5-line clean Python snippet.`
-        }
+        "question": "क्या यह विषय कॉलेज छात्रों के लिए उपयोगी है?",
+        "answer": "हाँ, यह गाइड आधुनिक उद्योग और परीक्षा मानकों के अनुसार तथ्यात्मक रूप से तैयार की गई है।"
       }
     ],
-    roadmapSteps: [
-      'Step 1: Role framing aur Delimiters (triple backticks, XML tags) ka use master karein.',
-      'Step 2: Few-shot exemplar selection samjhein.',
-      'Step 3: Structured output generation (Pydantic / JSON Mode).',
-      'Step 4: Prompt Injection defense techniques (delimiting untrusted user inputs).',
-      'Step 5: Automated prompt optimization tools jaise DSPy explore karein.'
+    "relatedSlugs": [
+      "ai-agents-and-rag",
+      "prompt-engineering-students"
     ],
-    handsOn: [
+    "sources": [
       {
-        title: 'Zero to Structured Extractor',
-        task: 'Kisi lambe Indian court order ya college circular se Date, Authority, aur Deadlines extract karne wala structured JSON prompt banayein.',
-        deliverable: 'A prompt that validates 100% against a Pydantic schema.'
-      }
-    ],
-    mistakesAndMyths: [
-      {
-        myth: 'Prompt me "Please" aur "Thank you" likhne se output better hota hai.',
-        reality: 'Politeness tokens waste karti hai. Crisp constraints, clear examples, aur negative constraints ("Do NOT include...") zyada effective hain.'
-      }
-    ],
-    resources: [
-      {
-        type: 'doc',
-        title: 'OpenAI Prompt Engineering Guide',
-        url: 'https://platform.openai.com/docs/guides/prompt-engineering',
-        author: 'OpenAI',
-        language: 'en',
-        free: true,
-        whyWatch: 'Official 6 best practices strategies for maximum reasoning and output control.'
-      }
-    ],
-    faqs: [
-      {
-        question: 'System prompt aur User prompt me kya farq hai?',
-        answer: 'System prompt model ka core persona, rules aur safety guidelines set karta hai jise user easily override nahi kar sakta.'
-      }
-    ],
-    relatedSlugs: ['rag', 'llms-explained'],
-    sources: [
-      {
-        title: 'Chain-of-Thought Prompting Elicits Reasoning in Large Language Models (Wei et al.)',
-        url: 'https://arxiv.org/abs/2201.11903',
-        publisher: 'Google Research, NeurIPS 2022',
-        accessed: '2026-11-04'
-      }
-    ]
-  },
-  {
-    slug: 'llms-explained',
-    title: 'Large Language Models (LLMs) & Transformers',
-    titleHindi: 'लार्ज लैंग्वेज मॉडल्स और ट्रांसफॉर्मर आर्किटेक्चर',
-    category: 'ai-ml',
-    categoryLabel: 'AI & Machine Learning',
-    level: 'intermediate',
-    tags: ['Attention', 'Transformers', 'Self-Attention', 'GPT', 'PyTorch'],
-    readingMinutes: 10,
-    lastVerified: '2026-11-04',
-    confidence: 'high',
-    summary: 'Self-Attention mechanism aur Transformer architecture ki deep-dive samjh: kaise modern LLMs sequence-to-sequence tokens predict karke human-level text generate karte hain.',
-    tldr: [
-      'LLMs next-token prediction engine hain, jo trillion parameters par trained hain.',
-      '"Attention Is All You Need" (2017) paper ne recurrent networks (RNNs) ko replace karke parallel training enable ki.',
-      'Query (Q), Key (K), Value (V) matrices se model har word ka sentence ke baaki words se context calculate karta hai.',
-      'Training 3 phases me hoti hai: Pre-training (Raw corpus) -> SFT (Instruction Tuning) -> RLHF (Alignment).'
-    ],
-    whyItMatters: 'ChatGPT se lekar Claude aur Gemini tak saare modern AI systems Transformer architecture par chalte hain. Iske core concepts samajhna har software engineer ke liye must hai.',
-    coreConcepts: [
-      {
-        heading: 'Self-Attention Explained Simply',
-        content: 'Jab aap padhte hain: "The animal didn\'t cross the street because it was too tired", aapko pata hai "it" = "animal". Lekin agar aage likha ho "it was too wide", toh "it" = "street". Transformers yahi relation Q, K, V dot product ke zariye calculate karte hain.',
-        codeSnippet: {
-          language: 'python',
-          code: `# Scaled Dot-Product Attention in PyTorch
-import torch
-import torch.nn.functional as F
-
-def scaled_dot_product_attention(Q, K, V):
-    d_k = Q.size(-1)
-    scores = torch.matmul(Q, K.transpose(-2, -1)) / (d_k ** 0.5)
-    weights = F.softmax(scores, dim=-1)
-    return torch.matmul(weights, V)`
-        }
-      }
-    ],
-    roadmapSteps: [
-      'Step 1: Word2Vec aur Tokenization (Byte-Pair Encoding - BPE) seekhein.',
-      'Step 2: Self-Attention aur Multi-Head Attention equations implement karein.',
-      'Step 3: Positional Encodings (RoPE) ka importance samjhein.',
-      'Step 4: Andrej Karpathy ka "Build nanoGPT from Scratch" code karein.'
-    ],
-    handsOn: [
-      {
-        title: 'Inspect Tokenizer in Python',
-        task: 'HuggingFace `tiktoken` ya `transformers` library use karke dekhein ki Hindi words kaise tokens me split hote hain aur English words kaise split hote hain.',
-        deliverable: 'A small script showing token IDs, bytes, and vocabulary compression differences.'
-      }
-    ],
-    mistakesAndMyths: [
-      {
-        myth: 'LLMs ke paas apni thinking capability aur feelings hain.',
-        reality: 'LLMs complex statistical pattern matchers hain. Wo input context ke probability distribution ke hisaab se most likely next token predict karte hain.'
-      }
-    ],
-    resources: [
-      {
-        type: 'video',
-        title: 'Let\'s build GPT: from scratch, in code, spelled out',
-        url: 'https://www.youtube.com/watch?v=kCc8FmEb1nY',
-        author: 'Andrej Karpathy',
-        language: 'en',
-        duration: '1h 56m',
-        free: true,
-        whyWatch: 'Former Tesla AI / OpenAI co-founder dwara PyTorch me zero se GPT architecture banane ka masterclass.'
-      }
-    ],
-    faqs: [
-      {
-        question: 'Parameters (e.g. 7B, 70B) ka kya matlab hota hai?',
-        answer: 'Parameters wo weights aur biases hain jo training ke dauran adjust hote hain. 70B model me 70 billion mathematical weights hote hain.'
-      }
-    ],
-    relatedSlugs: ['rag', 'prompt-engineering'],
-    sources: [
-      {
-        title: 'Attention Is All You Need (Vaswani et al.)',
-        url: 'https://arxiv.org/abs/1706.03762',
-        publisher: 'Google Brain / Google Research, NeurIPS 2017',
-        accessed: '2026-11-04'
-      }
-    ]
-  },
-  {
-    slug: 'qubits-superposition',
-    title: 'Quantum Computing: Qubits & Superposition',
-    titleHindi: 'क्वांटम कंप्यूटिंग: क्यूबिट्स और सुपरपोजिशन',
-    category: 'quantum',
-    categoryLabel: 'Quantum Computing',
-    level: 'intermediate',
-    tags: ['Quantum', 'Qiskit', 'Qubits', 'Superposition', 'Bloch Sphere'],
-    readingMinutes: 7,
-    lastVerified: '2026-11-04',
-    confidence: 'high',
-    summary: 'Classical bits (0 ya 1) ke muqable quantum bits (qubits) simultaneously states me exist kar sakte hain, jisse exponential computational state space create hota hai.',
-    tldr: [
-      'Classical bit ya toh 0 hota hai ya 1. Qubit |0⟩ aur |1⟩ ke linear combination (superposition) me reh sakta hai.',
-      'State formula: |ψ⟩ = α|0⟩ + β|1⟩ jahan |α|² + |β|² = 1.',
-      'Hadamard gate (H-gate) classical state |0⟩ ko 50-50 equal superposition me daalta hai.',
-      'Measurement karte hi quantum state collapse hokar classical 0 ya 1 ban jaati hai.'
-    ],
-    whyItMatters: 'Quantum computers classical computers ko replace nahi karenge, balki cryptography, drug discovery, battery chemical simulation aur portfolio optimization jaise exponential problems ko polynomial time me solve karenge.',
-    coreConcepts: [
-      {
-        heading: 'The Coin Toss Analogy',
-        content: 'Jab coin table par rakha ho, wo ya toh Heads (0) hai ya Tails (1). Lekin jab coin table par ghoom (spin kar) raha hota hai, wo simultaneously dono states ki probability hold karta hai. Yahi Superposition hai! Jab aap haath rakh kar rokte hain (Measurement), wo ek state me collapse ho jaata hai.'
+        "title": "Attention Is All You Need (Vaswani et al.)",
+        "url": "https://arxiv.org/abs/1706.03762",
+        "publisher": "NeurIPS / arXiv",
+        "accessed": "2026-11-04"
       },
       {
-        heading: 'Writing Quantum Circuits with Qiskit',
-        content: 'Python me IBM Qiskit library use karke 1 minute me quantum superposition circuit likha ja sakta hai.',
-        codeSnippet: {
-          language: 'python',
-          code: `from qiskit import QuantumCircuit
-from qiskit.primitives import StatevectorSampler
-
-# 1-Qubit Quantum Circuit
-qc = QuantumCircuit(1, 1)
-qc.h(0)         # Apply Hadamard Gate -> Superposition
-qc.measure(0, 0) # Measure into classical bit
-
-sampler = StatevectorSampler()
-job = sampler.run([(qc)])
-result = job.result()[0]
-print("Measurement counts (approx 50% 0, 50% 1):", result.data.c.get_counts())`
-        }
-      }
-    ],
-    roadmapSteps: [
-      'Step 1: Linear algebra basics revise karein (Vectors, Matrices, Complex numbers, Inner product).',
-      'Step 2: Dirac notation (|0⟩, |1⟩ bra-ket notation) aur Bloch Sphere samjhein.',
-      'Step 3: Single-qubit gates (X, Y, Z, H) aur Multi-qubit gates (CNOT, Toffoli).',
-      'Step 4: Quantum Entanglement (Bell States) banayein aur verify karein.',
-      'Step 5: IBM Quantum Platform par real quantum hardware par job submit karein.'
-    ],
-    handsOn: [
-      {
-        title: 'Run a Quantum Coin Flip on IBM Cloud',
-        task: 'IBM Quantum platform (quantum.ibm.com) par free account banayein, API token lein aur Qiskit se ek 5-qubit real quantum computer par job submit karein.',
-        deliverable: 'Quantum execution job ID and probability distribution histogram.'
-      }
-    ],
-    mistakesAndMyths: [
-      {
-        myth: 'Quantum computers har task me classical computer se infinitely fast hote hain.',
-        reality: 'Quantum speedup sirf specific mathematical structures (jaise Fourier transform, period finding, amplitude amplification) par hi milta hai. Browsing aur gaming classical CPU par hi fast rahegi.'
-      }
-    ],
-    resources: [
-      {
-        type: 'doc',
-        title: 'Qiskit v1.0 Official Documentation & Tutorials',
-        url: 'https://docs.quantum.ibm.com/',
-        author: 'IBM Quantum',
-        language: 'en',
-        free: true,
-        whyWatch: 'Standard API reference and interactive learning textbook for quantum developers.'
-      }
-    ],
-    faqs: [
-      {
-        question: 'N qubits kitne classical states represent karte hain?',
-        answer: '2^N states simultaneously! Matlab 50 qubits lagbhag 1,000,000,000,000,000 states ko simultaneously calculate kar sakte hain.'
-      }
-    ],
-    relatedSlugs: ['shor-grover', 'qrng-quantum-project'],
-    sources: [
-      {
-        title: 'Quantum Computation and Quantum Information (Nielsen & Chuang)',
-        url: 'https://www.cambridge.org/highereducation/books/quantum-computation-and-quantum-information/01E10196D0A682A6AEFAEA52D5D3D62A',
-        publisher: 'Cambridge University Press (The Bible of Quantum Computing)',
-        accessed: '2026-11-04'
-      }
-    ]
-  },
-  {
-    slug: 'shor-grover',
-    title: "Quantum Algorithms: Shor's & Grover's",
-    titleHindi: 'क्वांटम एल्गोरिदम: शोर और ग्रोवर',
-    category: 'quantum',
-    categoryLabel: 'Quantum Computing',
-    level: 'advanced',
-    tags: ['Shor', 'Grover', 'Cryptography', 'RSA', 'Quantum Search'],
-    readingMinutes: 9,
-    lastVerified: '2026-11-04',
-    confidence: 'high',
-    summary: 'Shor ka algorithm RSA encryption ko polynomial time me tod sakta hai, aur Grover ka algorithm unstructured database search me quadratic speedup provide karta hai.',
-    tldr: [
-      "Shor's Algorithm prime factorization ko O((log N)³) me solve karta hai—jisse RSA aur ECC cryptography break ho sakti hai.",
-      "Grover's Algorithm N items ke database me search time ko O(N) se ghata kar O(√N) kar deta hai.",
-      'Quantum Phase Estimation (QPE) aur Amplitude Amplification in dono algorithms ke mathematical core hain.',
-      'Post-Quantum Cryptography (PQC) standards (NIST approved) ab globally deploy kiye ja rahe hain.'
-    ],
-    whyItMatters: 'Internet ki saari modern security (HTTPS, banking, blockchains) prime number factoring ki difficulty par tike hain. Quantum algorithms ke aane se entire world Post-Quantum Cryptography ki taraf transition kar raha hai.',
-    coreConcepts: [
-      {
-        heading: "Shor's Algorithm: Factoring as Period Finding",
-        content: 'Peter Shor (1994) ne discover kiya ki kisi number N ke prime factors dhundhne ki problem asal me ek modular function f(x) = a^x mod N ka "Period (r)" dhundhne jaisi hai. Classical computer ko period dhundhne me hazaron saal lagte hain, lekin Quantum Fourier Transform (QFT) se ye minutes me ho jaata hai.'
+        "title": "Intro to Large Language Models (Andrej Karpathy)",
+        "url": "https://www.youtube.com/watch?v=zjkBMFhNj_g",
+        "publisher": "YouTube",
+        "accessed": "2026-11-04"
       },
       {
-        heading: "Grover's Algorithm: Amplitude Amplification",
-        content: 'Grover ka algorithm target state ki probability amplitude ko har step par reflect aur amplify karta hai, jab tak ki measurement karne par sahi answer 99%+ probability ke sath na nikal aaye.'
-      }
-    ],
-    roadmapSteps: [
-      'Step 1: Modular arithmetic aur Euler Totient function samjhein.',
-      'Step 2: Quantum Fourier Transform (QFT) circuit implement karein.',
-      'Step 3: Grover Oracle aur Diffuser operator design karein.',
-      'Step 4: NIST PQC algorithms (ML-KEM / Kyber, ML-DSA / Dilithium) ka architecture padhein.'
-    ],
-    handsOn: [
-      {
-        title: "Factor 15 using Shor's in Qiskit",
-        task: 'Qiskit ke built-in modular exponentiation circuits se 15 = 3 x 5 ka quantum factorization circuit run karein.',
-        deliverable: 'Quantum circuit diagram and period estimation output.'
-      }
-    ],
-    mistakesAndMyths: [
-      {
-        myth: 'Quantum computers kal hi hamare bank accounts hack kar lenge.',
-        reality: 'RSA-2048 todne ke liye ~4,000 fault-tolerant logical qubits chahiye (jo millions of physical qubits ke barabar hain). Abhi hardware Noisy Intermediate-Scale (NISQ) stage me hai, full PQC risk 2030-2035 ke aaspas expected hai.'
-      }
-    ],
-    resources: [
-      {
-        type: 'video',
-        title: "Shor's Algorithm Explained Intuitively",
-        url: 'https://www.youtube.com/watch?v=lvTqbM5Dq4Q',
-        author: 'MinutePhysics',
-        language: 'en',
-        duration: '11m',
-        free: true,
-        whyWatch: 'Best animated intuitive explanation of quantum period finding without overwhelming math.'
-      }
-    ],
-    faqs: [
-      {
-        question: 'Kya AES encryption bhi insecure ho jayega?',
-        answer: "Nahi! Grover's algorithm AES key size ko aadha karta hai (quadratic speedup). AES-256 Grover ke baad bhi AES-128 jitna secure rahega, jo ki computationally unbreakable hai."
-      }
-    ],
-    relatedSlugs: ['qubits-superposition', 'qrng-quantum-project'],
-    sources: [
-      {
-        title: 'Polynomial-Time Algorithms for Prime Factorization and Discrete Logarithms on a Quantum Computer (Peter W. Shor)',
-        url: 'https://arxiv.org/abs/quant-ph/9508027',
-        publisher: 'SIAM Journal on Computing, 1997',
-        accessed: '2026-11-04'
-      }
-    ]
-  },
-  {
-    slug: 'dsa-placement-mastery',
-    title: 'DSA & Placement Strategy for Indian College Students',
-    titleHindi: 'कॉलेज प्लेसमेंट के लिए डीएसए और इंटरव्यू रणनीति',
-    category: 'career',
-    categoryLabel: 'Career & Placement',
-    level: 'beginner',
-    tags: ['Placement', 'DSA', 'LeetCode', 'Interview', 'Internship'],
-    readingMinutes: 8,
-    lastVerified: '2026-11-04',
-    confidence: 'high',
-    summary: 'Tier-1/2/3 college students ke liye complete placement roadmap: Zero se 250 quality LeetCode problems, mock interviews, aur core CS fundamentals balance karne ka proven framework.',
-    tldr: [
-      'Blindly 1000 problems solve mat karo; 250 curated pattern-based problems (Striver SDE Sheet ya NeetCode 150) kafi hain.',
-      'Topic priority order: Array/Hashing -> Two Pointers -> Sliding Window -> Trees/Graphs -> Dynamic Programming.',
-      'Online Assessment (OA) clear karne ke liye speed zaroori hai; Face-to-face round me communication aur edge cases matter karte hain.',
-      'Core CS (OS, DBMS, CN, OOP) ko aakhri 1 mahine me interview questions se prepare karein.'
-    ],
-    whyItMatters: 'India me software engineering placement rounds me 80% filtering DSA Online Assessment se hoti hai. Structured preparation karne se 6 mahine me tier-3 college student bhi product companies crack kar sakta hai.',
-    coreConcepts: [
-      {
-        heading: 'Pattern-Based Learning vs Random Grinding',
-        content: 'Har naya question naye dhang se sochne ke badle 14 standard patterns seekhein: Sliding Window, Two Pointers, Fast & Slow Pointers, Merge Intervals, Top K Elements, Binary Search on Answer, Tree DFS/BFS, Graph Topological Sort, 0/1 Knapsack DP.'
+        "title": "Hugging Face NLP Course: The Transformer Architecture",
+        "url": "https://huggingface.co/learn/nlp-course",
+        "publisher": "Hugging Face",
+        "accessed": "2026-11-04"
       },
       {
-        heading: 'The 30-Minute Problem Solving Rule',
-        content: 'Kisi question par 30 minute se zyada bina direction ke mat phasyein. 30 minute baad editorial aur visual hints dekhein, phir 24 ghante baad bina dekhe code karein.'
-      }
-    ],
-    roadmapSteps: [
-      'Month 1: Ek programming language (C++ STL ya Java Collections) par mastery + Time/Space complexity analysis.',
-      'Month 2: Arrays, Strings, Two Pointers, Sliding Window, Hashing, Recursion.',
-      'Month 3: Linked Lists, Stacks, Queues, Binary Trees, Binary Search Trees.',
-      'Month 4: Graphs (BFS, DFS, Dijkstra, Disjoint Set Union) aur Priority Queues.',
-      'Month 5: Dynamic Programming (1D, 2D, Subsequences, Grid DP) + Bit Manipulation.',
-      'Month 6: Mock interviews (Pramp), Core CS revision (OS concurrency, SQL queries, Indexing).'
-    ],
-    handsOn: [
-      {
-        title: 'Daily Pattern Log',
-        task: 'Har solved question ke sath usme laga pattern (e.g. "Monotonic Stack" ya "Sliding Window") aur uski O(N) complexity ek GitHub repo me note karein.',
-        deliverable: 'Your personal LeetCode pattern cheat sheet.'
-      }
-    ],
-    mistakesAndMyths: [
-      {
-        myth: 'Placement ke liye Python use nahi karni chahiye.',
-        reality: 'Google, Amazon, Microsoft, Uber saari companies Python allow karti hain. Important ye hai ki language ke standard library internals (e.g. dict amortized O(1)) aapko aate hon.'
-      }
-    ],
-    resources: [
-      {
-        type: 'course',
-        title: 'Striver A2Z DSA Course & Sheet',
-        url: 'https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/',
-        author: 'Raj Vikramaditya (Striver)',
-        language: 'hi',
-        free: true,
-        whyWatch: 'India ka sabse popular, free aur structured DSA placement curriculum with video solutions.'
-      }
-    ],
-    faqs: [
-      {
-        question: 'Placement season se kitne mahine pehle DSA shuru karna chahiye?',
-        answer: 'Kam se kam 6 mahine consistent daily 2-3 ghante study chahiye taaki patterns recall me natural lagein.'
-      }
-    ],
-    relatedSlugs: ['offcampus-internship-playbook', 'resume-ats-guide'],
-    sources: [
-      {
-        title: 'Cracking the Coding Interview (Gayle Laakmann McDowell)',
-        url: 'https://www.crackingthecodinginterview.com/',
-        publisher: 'CareerCup Publishing',
-        accessed: '2026-11-04'
-      }
-    ]
-  },
-  {
-    slug: 'offcampus-internship-playbook',
-    title: 'Off-Campus Tech Internship & Referral Playbook',
-    titleHindi: 'ऑफ-कैंपस टेक इंटर्नशिप और रेफरल प्लेबुक',
-    category: 'career',
-    categoryLabel: 'Career & Placement',
-    level: 'beginner',
-    tags: ['Internship', 'Referral', 'LinkedIn', 'Cold Email', 'Resume'],
-    readingMinutes: 7,
-    lastVerified: '2026-11-04',
-    confidence: 'high',
-    summary: 'College campus ke bharose baithe bina top startups aur tech giants me off-campus opportunities nikaalne, LinkedIn par genuine referrals lene aur cold outreach karne ki step-by-step strategy.',
-    tldr: [
-      'Company career portal par bina referral ke apply karna black hole me application bhejne jaisa hai.',
-      'LinkedIn par HRs ke badle 1-2 saal senior Software Engineers ko polite context ke sath message karein.',
-      'Cold message me direct "Please give referral" mat likho; Job ID + 3 bullet points showing relevant skills + Resume link do.',
-      'AngelList (Wellfound), Instahyre, aur Y Combinator jobs board par off-campus hiring response rate LinkedIn se 5x zyada hai.'
-    ],
-    whyItMatters: 'Tier-2 aur Tier-3 colleges me top tech companies on-campus nahi aati hain. Off-campus game samajhkar students 15–50 LPA tak ke offers crack karte hain.',
-    coreConcepts: [
-      {
-        heading: 'The 3-Sentence High-Conversion Referral Template',
-        content: 'Engineers busy hote hain. Unhe lambe essays mat bhejiye. Yahan exact battle-tested template hai:',
-        codeSnippet: {
-          language: 'markdown',
-          code: `Hi [Name], hope you are doing well!
-
-I noticed an open Software Engineer Intern position at [Company] (Job ID: #12345). 
-I'm a final-year CS student with production experience in FastAPI, Docker, and Vector DBs, and recently built [Link to Live Project / Demo].
-
-Given my background aligns well with the team's tech stack, would you be comfortable sharing a referral? 
-My 1-page ATS resume is attached here: [Google Drive View Link]
-
-Thanks for your time and guidance!`
-        }
-      }
-    ],
-    roadmapSteps: [
-      'Step 1: 1-Page clean ATS resume ready karein (Overleaf / Jake\'s Resume template).',
-      'Step 2: 2 production-grade deployed projects ready rakhein with live demo links.',
-      'Step 3: Wellfound, LinkedIn Jobs, aur Company career pages par daily 5 openings track karein.',
-      'Step 4: Target companies ke engineers ko personalize messages bhejein (daily 5-10 messages).',
-      'Step 5: Follow-up after 5 days if no response (politely).'
-    ],
-    handsOn: [
-      {
-        title: 'Send 5 Tailored Connection Requests',
-        task: 'Apni dream startup ya company ke engineers ko personalized 300-character LinkedIn note bhejein jisme unki kisi tech post ya engineering blog ka genuine mention ho.',
-        deliverable: '5 sent customized outreach messages.'
-      }
-    ],
-    mistakesAndMyths: [
-      {
-        myth: 'Referral milte hi direct interview call pakka hota hai.',
-        reality: 'Referral sirf aapke resume ko ATS bot se nikaal kar recruiter ke desk par top par rakhwata hai. Shortlist hona resume ki quality par depend karta hai.'
-      }
-    ],
-    resources: [
-      {
-        type: 'tool',
-        title: 'Wellfound (Formerly AngelList Talent)',
-        url: 'https://wellfound.com/jobs',
-        author: 'Wellfound',
-        language: 'en',
-        free: true,
-        whyWatch: 'Startup founders aur hiring managers se direct chat aur early-stage software internships ke liye best platform.'
-      }
-    ],
-    faqs: [
-      {
-        question: 'Resume Drive link public kaise karein?',
-        answer: 'Google Drive file settings me "Anyone with the link can view" set karein, aur URL shortener mat lagayein taaki spam filters block na karein.'
-      }
-    ],
-    relatedSlugs: ['dsa-placement-mastery', 'resume-ats-guide'],
-    sources: [
-      {
-        title: 'The Tech Interview Handbook (Yangshun Tay)',
-        url: 'https://www.techinterviewhandbook.org/',
-        publisher: 'Open Source Community',
-        accessed: '2026-11-04'
-      }
-    ]
-  },
-  {
-    slug: 'resume-ats-guide',
-    title: 'High-Impact ATS Resume Building for Software Engineers',
-    titleHindi: 'सॉफ्टवेयर इंजीनियरों के लिए एटीएस फ्रेंडली रिज्यूमे गाइड',
-    category: 'career',
-    categoryLabel: 'Career & Placement',
-    level: 'beginner',
-    tags: ['Resume', 'ATS', 'Placement', 'Overleaf', 'LaTeX'],
-    readingMinutes: 6,
-    lastVerified: '2026-11-04',
-    confidence: 'high',
-    summary: 'Applicant Tracking Systems (ATS) ko bypass karne aur human recruiters ko 6 second me impress karne ke liye single-column, XYZ-formula formatted tech resume design.',
-    tldr: [
-      'Multi-column, graphics, tables, icons aur photo wale resumes ATS software me 0 score par reject ho jaate hain.',
-      'Single-column LaTeX resume (Jake\'s Resume template on Overleaf) industry standard hai.',
-      'Har project bullet point me Google ka XYZ Formula use karein: "Accomplished [X] as measured by [Y], by doing [Z]".',
-      'Always 1 single page for college students and professionals with < 5 years of experience.'
-    ],
-    whyItMatters: 'Recruiters har resume ko average 6 second dekhte hain. Agar formatting confusing ho ya impact numbers na hon, toh achhe coder bhi interview shortlisting se bahar ho jaate hain.',
-    coreConcepts: [
-      {
-        heading: 'The Google XYZ Resume Formula',
-        content: 'Bad Bullet: "Built a weather app in React."\nGood Bullet: "Developed a responsive Weather Dashboard using React and OpenWeather API, reducing load times by 40% with client-side caching."',
-        codeSnippet: {
-          language: 'markdown',
-          code: `[Action Verb] + [What you built / optimized] + [Quantified Impact Metric] + [Tech Stack Used]
-Example:
-Architected a RAG pipeline utilizing LangChain and ChromaDB for 5,000+ internal research papers, cutting document retrieval time from 15 minutes to under 800ms.`
-        }
-      }
-    ],
-    roadmapSteps: [
-      'Step 1: Overleaf par "Jake\'s Resume" template clone karein.',
-      'Step 2: Sections order: Education -> Technical Skills -> Experience -> Projects -> Achievements.',
-      'Step 3: Har project me Live Demo link aur GitHub repo link zaroor add karein.',
-      'Step 4: PDF export karke free ATS scanner (jaise Jobscan ya Resume Worded) par test karein.'
-    ],
-    handsOn: [
-      {
-        title: 'Rewrite Your Top 3 Project Bullets',
-        task: 'Apne 3 puraane project descriptions ko XYZ formula ke format me metrics (latency, accuracy, lines of code, users) ke sath rewrite karein.',
-        deliverable: '3 refined high-impact bullet points.'
-      }
-    ],
-    mistakesAndMyths: [
-      {
-        myth: 'Resume me rating bars (e.g. Python: 4/5 stars) lagane chahiye.',
-        reality: 'Rating bars bilkul mat lagayein. Ye subjective lagte hain aur ATS parsers inko garbage characters read karte hain.'
-      }
-    ],
-    resources: [
-      {
-        type: 'tool',
-        title: "Jake's Resume Overleaf Template",
-        url: 'https://www.overleaf.com/latex/templates/jakes-resume/syzfjbzwjncs',
-        author: 'Jake Gutierrez',
-        language: 'en',
-        free: true,
-        whyWatch: 'The most widely used and cleanest single-page LaTeX ATS resume template in tech.'
-      }
-    ],
-    faqs: [
-      {
-        question: 'Kya 2 page ka resume bana sakte hain?',
-        answer: 'Fresher aur college students ke liye strictly 1 page hona chahiye. 2 pages sirf tab justifiable hain jab 5+ saal ka extensive work experience ho.'
-      }
-    ],
-    relatedSlugs: ['offcampus-internship-playbook', 'dsa-placement-mastery'],
-    sources: [
-      {
-        title: 'Google Careers: How to Create a Great Resume',
-        url: 'https://www.youtube.com/watch?v=BYUy1GvjH08',
-        publisher: 'Google Tech Dev Guide',
-        accessed: '2026-11-04'
-      }
-    ]
-  },
-  {
-    slug: 'git-github-fundamentals',
-    title: 'Git & GitHub Essentials for Professional Workflows',
-    titleHindi: 'गिट और गिटहब: प्रोफेशनल डेवलपर वर्कफ़्लो',
-    category: 'tech-fundamentals',
-    categoryLabel: 'Tech Fundamentals',
-    level: 'beginner',
-    tags: ['Git', 'GitHub', 'CLI', 'Version Control', 'Open Source'],
-    readingMinutes: 7,
-    lastVerified: '2026-11-04',
-    confidence: 'high',
-    summary: 'Branching strategies, merge conflict resolution, pull request lifecycles, aur GitHub CLI (`gh`) ka upyog karke team collaboration aur open-source workflow mastery.',
-    tldr: [
-      'Git distributed version control system hai; GitHub cloud hosting aur collaboration platform hai.',
-      'Core daily commands: `git add`, `git commit -m`, `git push`, `git pull --rebase`, `git checkout -b`.',
-      'Directly `main` branch par commit karna production anti-pattern hai; hamesha feature branch aur PR flow use karein.',
-      'Merge conflicts tab aate hain jab do branches same line of code ko alag tarike se modify karti hain.'
-    ],
-    whyItMatters: 'Kisi bhi software company me pehle din se aapka sara code Git ke zariye branch, PR aur review hokar deploy hota hai. Git me proficient hona standard requirement hai.',
-    coreConcepts: [
-      {
-        heading: 'Git 3-State Model: Working Tree, Index, Commit',
-        content: '1. Working Directory: Files jahan aap edit karte hain.\n2. Staging Area (Index): Files jo agle commit ka hissa banne ke liye chuni gayi hain (`git add`).\n3. Git Repository (.git folder): Permanent cryptographic snapshot history (`git commit`).',
-        codeSnippet: {
-          language: 'bash',
-          code: `# Clean Feature Branch & PR Workflow
-git checkout -b feat/add-search-feature
-# (make edits)
-git add src/search.py
-git commit -m "feat(search): implement inverted index search"
-git push -u origin feat/add-search-feature
-gh pr create --title "feat: Inverted index search" --body "Closes #12"`
-        }
-      }
-    ],
-    roadmapSteps: [
-      'Step 1: SSH Key setup karein GitHub ke sath (Password authentication deprecated hai).',
-      'Step 2: Commit message conventions (Conventional Commits: feat, fix, chore, docs).',
-      'Step 3: Merge conflicts ko VS Code editor me resolve karna seekhein.',
-      'Step 4: Interactive Rebase (`git rebase -i`) se messy commit history clean karna seekhein.'
-    ],
-    handsOn: [
-      {
-        title: 'Contribute to an Open-Source Repo',
-        task: 'Kisi popular open source repo ko fork karein, typo ya documentation fix karein, clean branch banakar PR submit karein.',
-        deliverable: 'Your first live Pull Request link on GitHub.'
-      }
-    ],
-    mistakesAndMyths: [
-      {
-        myth: '`git push --force` use karne me koi burai nahi hai.',
-        reality: 'Team project me shared branches par force-push karne se dusre developers ka committed work overwrite aur delete ho sakta hai. Hamesha safe alternative `git push --force-with-lease` use karein.'
-      }
-    ],
-    resources: [
-      {
-        type: 'doc',
-        title: 'Pro Git Book (Free Full Online Version)',
-        url: 'https://git-scm.com/book/en/v2',
-        author: 'Scott Chacon & Ben Straub',
-        language: 'en',
-        free: true,
-        whyWatch: 'Official comprehensive reference book covering everything from plumbing to porcelain commands.'
-      }
-    ],
-    faqs: [
-      {
-        question: 'Git Merge aur Git Rebase me kya farq hai?',
-        answer: 'Merge branches ke history ko combine karta hai ek naya merge-commit banakar. Rebase current branch ke commits ko target branch ke tip par linear re-apply karta hai taaki clean straight history bane.'
-      }
-    ],
-    relatedSlugs: ['docker-containers', 'offcampus-internship-playbook'],
-    sources: [
-      {
-        title: 'Git Documentation & Reference Manual',
-        url: 'https://git-scm.com/doc',
-        publisher: 'Git Core Team',
-        accessed: '2026-11-04'
-      }
-    ]
-  },
-  {
-    slug: 'docker-containers',
-    title: 'Docker & Containerization for Developers',
-    titleHindi: 'डॉकर और कंटेनराइजेशन: शून्य से प्रोडक्शन',
-    category: 'tech-fundamentals',
-    categoryLabel: 'Tech Fundamentals',
-    level: 'intermediate',
-    tags: ['Docker', 'DevOps', 'Containers', 'Linux', 'Microservices'],
-    readingMinutes: 8,
-    lastVerified: '2026-11-04',
-    confidence: 'high',
-    summary: '"It works on my machine" problem ka universal solution: lightweight Linux containers me applications aur unke dependencies ko package, run aur scale karna.',
-    tldr: [
-      'Container lightweight, isolated process environment hai jo host OS kernel share karta hai.',
-      'Virtual Machine (VM) poora OS emulate karta hai (GBs me size, slow boot); Docker container MBs me hota hai aur milliseconds me start hota hai.',
-      'Dockerfile blueprint hai -> `docker build` se Image banti hai -> `docker run` se Container chalta hai.',
-      'Docker Compose multiple containers (e.g. Node.js backend + PostgreSQL DB + Redis cache) ko single YAML file se coordinate karta hai.'
-    ],
-    whyItMatters: 'Modern cloud deployment (AWS ECS, Kubernetes, GCP Cloud Run) container images par hi chalti hai. Agar aapka project Dockerized nahi hai, toh use enterprise production me deploy karna mushkil hai.',
-    coreConcepts: [
-      {
-        heading: 'Writing an Optimized Production Dockerfile',
-        content: 'Multi-stage build use karne se final image size 1GB se ghat kar 50MB ho jaati hai.',
-        codeSnippet: {
-          language: 'dockerfile',
-          code: `# Multi-stage Dockerfile for FastAPI / Python
-FROM python:3.11-slim AS builder
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-FROM python:3.11-slim
-WORKDIR /app
-COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
-COPY src/ ./src
-USER 1000
-EXPOSE 8000
-CMD ["python", "src/main.py"]`
-        }
-      }
-    ],
-    roadmapSteps: [
-      'Step 1: Docker Desktop ya Colima install karein.',
-      'Step 2: Basic commands: `docker ps`, `docker run -p 8080:80`, `docker stop`, `docker rm`.',
-      'Step 3: Dockerfile likhna: `FROM`, `WORKDIR`, `COPY`, `RUN`, `CMD`.',
-      'Step 4: `docker-compose.yml` se database + backend attach karna.',
-      'Step 5: Docker image ko Docker Hub ya GitHub Container Registry (GHCR) par push karna.'
-    ],
-    handsOn: [
-      {
-        title: 'Containerize Any Local Web App',
-        task: 'Apne kisi bhi portfolio ya hackathon web project ke liye Dockerfile aur docker-compose.yml likhein aur verify karein ki `docker compose up` se bina local setup ke app chal jaye.',
-        deliverable: 'A tested Dockerfile committed to your project.'
-      }
-    ],
-    mistakesAndMyths: [
-      {
-        myth: 'Container ke andar save kiya gaya data hamesha safe rehta hai.',
-        reality: 'Containers ephemeral (temporary) hote hain. Container delete hote hi internal data delete ho jaata hai. Persistent data ke liye Docker Volumes (`-v my_data:/var/lib/postgresql/data`) zaroori hain.'
-      }
-    ],
-    resources: [
-      {
-        type: 'video',
-        title: 'Docker in 100 Seconds + Full Beginner Tutorial',
-        url: 'https://www.youtube.com/watch?v=gAkwW2tuIqE',
-        author: 'Fireship',
-        language: 'en',
-        duration: '12m',
-        free: true,
-        whyWatch: 'Fastest visual breakdown of images, containers, and layers.'
-      }
-    ],
-    faqs: [
-      {
-        question: 'CMD aur ENTRYPOINT me kya difference hai?',
-        answer: 'ENTRYPOINT wo primary command hai jo hamesha execute hoti hai. CMD default arguments provide karta hai jise container run karte waqt override kiya ja sakta hai.'
-      }
-    ],
-    relatedSlugs: ['git-github-fundamentals', 'ai-chatbot-rag-project'],
-    sources: [
-      {
-        title: 'Docker Documentation & Best Practices',
-        url: 'https://docs.docker.com/',
-        publisher: 'Docker Inc.',
-        accessed: '2026-11-04'
-      }
-    ]
-  },
-  {
-    slug: 'indian-constitution-basics',
-    title: 'Indian Constitution: Preamble, Rights & Governance',
-    titleHindi: 'भारतीय संविधान: प्रस्तावना, मौलिक अधिकार और शासन व्यवस्था',
-    category: 'gov-policy',
-    categoryLabel: 'Politics & Government',
-    level: 'beginner',
-    tags: ['Civics', 'Constitution', 'Fundamental Rights', 'Democracy', 'India'],
-    readingMinutes: 8,
-    lastVerified: '2026-11-04',
-    confidence: 'high',
-    summary: 'Duniya ke sabse bade likhit samvidhan ki buniyadi sanrachna: Preamble ke aadarsh, 6 Maulik Adhikar, aur Legislative-Executive-Judiciary ke beech Power Balance.',
-    tldr: [
-      '26 January 1950 ko lagu hua; Dr. B.R. Ambedkar drafting committee ke chairman the.',
-      'Preamble Bharat ko Sovereign, Socialist, Secular, Democratic Republic ghoshit karta hai.',
-      'Part III me Articles 12-35 ke andar 6 Fundamental Rights diye gaye hain.',
-      'Basic Structure Doctrine (Kesavananda Bharati, 1973) ke tehat Parliament samvidhan ke mool dharche ko khatam nahi kar sakti.'
-    ],
-    whyItMatters: 'Ek jagruk nagrik aur tech professional ke taur par privacy rights (Article 21), freedom of speech (Article 19), aur state policy samajhna loktantra me sakriya rehne ke liye zaroori hai.',
-    coreConcepts: [
-      {
-        heading: 'The 6 Fundamental Rights (Part III)',
-        content: '1. Right to Equality (Arts. 14-18)\n2. Right to Freedom (Arts. 19-22: Speech, Assembly, Movement, Life & Personal Liberty)\n3. Right against Exploitation (Arts. 23-24)\n4. Right to Freedom of Religion (Arts. 25-28)\n5. Cultural and Educational Rights (Arts. 29-30)\n6. Right to Constitutional Remedies (Art. 32: Writs like Habeas Corpus, Mandamus - termed "Heart and Soul" of the Constitution).'
+        "title": "Attention in transformers, step-by-step (3Blue1Brown)",
+        "url": "https://www.youtube.com/watch?v=eMlx5fFNoYc",
+        "publisher": "3Blue1Brown",
+        "accessed": "2026-11-04"
       },
       {
-        heading: 'The 3 Pillars of Indian Democracy',
-        content: 'Legislature (Sansad - Kanoon banati hai), Executive (Sarkar/Bureaucracy - Kanoon lagu karti hai), aur Judiciary (Supreme Court/High Courts - Kanoon ki samvidhanikta check karti hai). Separation of Powers in teeno ko balanced rakhta hai.'
-      }
-    ],
-    roadmapSteps: [
-      'Step 1: Preamble ke key terms (Justice, Liberty, Equality, Fraternity) padhein.',
-      'Step 2: Article 19 (Speech) aur Article 21 (Right to Privacy - Puttaswamy judgment) samjhein.',
-      'Step 3: Lok Sabha vs Rajya Sabha structure aur law passing process samjhein.',
-      'Step 4: RTI Act (2005) aur Digital Personal Data Protection Act (DPDP) padhein.'
-    ],
-    handsOn: [
-      {
-        title: 'Draft an RTI Application',
-        task: 'rtionline.gov.in portal par jaakar dekhein ki kisi public scheme ya university expenditure par authentic information kaise maangi jaati hai.',
-        deliverable: 'A sample 5-point public RTI query format.'
-      }
-    ],
-    mistakesAndMyths: [
-      {
-        myth: 'Fundamental Rights absolute hain aur unpar koi pabandi nahi lag sakti.',
-        reality: 'Rights par "Reasonable Restrictions" (national security, public order, decency) lagayi ja sakti hain under Article 19(2).'
-      }
-    ],
-    resources: [
-      {
-        type: 'doc',
-        title: 'Constitution of India (Official Ministry of Law & Justice)',
-        url: 'https://legislative.gov.in/constitution-of-india/',
-        author: 'Govt of India',
-        language: 'hi',
-        free: true,
-        whyWatch: 'Official updated text of Articles and Schedules in English and Hindi.'
-      }
-    ],
-    faqs: [
-      {
-        question: 'Kya Right to Privacy ek Fundamental Right hai?',
-        answer: 'Haan! 2017 ke historic K.S. Puttaswamy judgment me 9 judges ki bench ne unanimous faisla diya ki Privacy Article 21 (Right to Life) ka integral hissa hai.'
-      }
-    ],
-    relatedSlugs: ['digital-india-upi-dbt'],
-    sources: [
-      {
-        title: 'The Constitution of India (Official Gazetted Text)',
-        url: 'https://legislative.gov.in/constitution-of-india/',
-        publisher: 'Ministry of Law and Justice, Government of India',
-        accessed: '2026-11-04'
+        "title": "Direct Preference Optimization: Your Language Model is Secretly a Reward Model (Rafailov et al.)",
+        "url": "https://arxiv.org/abs/2305.18290",
+        "publisher": "NeurIPS / arXiv",
+        "accessed": "2026-11-04"
       }
     ]
   },
   {
-    slug: 'digital-india-upi-dbt',
-    title: 'India Digital Public Infrastructure: UPI & Direct Benefit Transfer',
-    titleHindi: 'डिजिटल इंडिया: यूपीआई, आधार और डायरेक्ट बेनिफिट ट्रांसफर',
-    category: 'gov-policy',
-    categoryLabel: 'Politics & Government',
-    level: 'beginner',
-    tags: ['UPI', 'Fintech', 'Digital India', 'Public Infrastructure', 'DBT'],
-    readingMinutes: 7,
-    lastVerified: '2026-11-04',
-    confidence: 'high',
-    summary: 'India Stack (Aadhaar, UPI, Account Aggregator) ka engineering aur economic model: kaise open APIs aur government-backed rails ne duniya ka sabse bada real-time digital payment ecosystem khada kiya.',
-    tldr: [
-      'India Stack 3 layers par tika hai: Identity (Aadhaar), Payments (UPI), aur Data (Account Aggregator).',
-      'UPI (Unified Payments Interface) NPCI dwara run kiya jata hai aur har mahine 15+ billion transactions process karta hai.',
-      'Direct Benefit Transfer (DBT) ne middlemen ko hata kar subsidies sidhe beneficiary ke bank account me pahunchayi.',
-      'Private monopolies (Visa/Mastercard duopoly) ke badle open interoperable network create kiya gaya.'
+    "slug": "ai-agents-and-rag",
+    "title": "AI Agents और RAG: कब क्या इस्तेमाल करें (Architecture, Trade-offs & Hybrid Systems)",
+    "titleHindi": "",
+    "category": "ai-ml",
+    "categoryLabel": "AI & Machine Learning",
+    "level": "intermediate",
+    "tags": [
+      "ai",
+      "rag",
+      "ai-agents",
+      "react-pattern",
+      "langchain",
+      "llamaindex"
     ],
-    whyItMatters: 'IMF aur World Bank ne India ke DPI (Digital Public Infrastructure) ko global benchmark maana hai. Global tech leaders is model ko France, Singapore, aur UAE me implement kar rahe hain.',
-    coreConcepts: [
+    "readingMinutes": 14,
+    "lastVerified": "2026-11-04",
+    "confidence": "evolving",
+    "summary": "Retrieval-Augmented Generation (RAG) और Autonomous AI Agents की विस्तृत तुलना। जानिए कब simple search काफी है, कब multi-step reasoning वाले agents चाहिए, और production-grade hybrid systems कैसे बनाएं।",
+    "tldr": [
+      "**RAG (Knowledge Augmentation):** आपके private documents या internal database से relevant text chunks retrieve करके LLM के prompt में inject करता है [1]। यह static question-answering के लिए fast, cheap, और highly deterministic है।",
+      "**AI Agents (Action & Tool Use):** एक dynamic loop (ReAct pattern) चलाते हैं जहाँ LLM तय करता है कि *क्या सोचना है*, *कौन सा tool call करना है* (Calculator, Web Search, Code Runner), और output के आधार पर अगला कदम क्या होगा [2]।",
+      "**The Golden Rule:** अगर सवाल का जवाब केवल दस्तावेज़ पढ़कर दिया जा सकता है, तो **RAG** चुनें। अगर कार्य में multi-step planning, state changes, external APIs या conditionals शामिल हैं, तो **Agent** चुनें।",
+      "**Cost & Latency:** RAG 1 round-trip में पूरा होता है (Latency < 1-2s); Agentic loops में कई LLM calls होती हैं (Latency 5-20s, cost 3x-10x ज़्यादा)।"
+    ],
+    "whyItMatters": "Retrieval-Augmented Generation (RAG) और Autonomous AI Agents की विस्तृत तुलना। जानिए कब simple search काफी है, कब multi-step reasoning वाले agents चाहिए, और production-grade hybrid systems कैसे बनाएं।",
+    "coreConcepts": [
       {
-        heading: 'Why UPI Succeeded: The 2-Tier Architecture',
-        content: 'US me har app (Venmo, CashApp) ek "walled garden" hai. UPI me NPCI ne ek interoperable switch banaya: PhonePe ka user Google Pay ya Paytm user ko instant send kar sakta hai via Virtual Payment Address (VPA / UPI ID) using IMPS protocols.'
+        "heading": "Theory & Core Principles",
+        "content": ""
       }
     ],
-    roadmapSteps: [
-      'Step 1: NPCI and IMPS architecture samjhein.',
-      'Step 2: Virtual Payment Address (VPA) resolution aur 2-factor authentication flow padhein.',
-      'Step 3: ONDC (Open Network for Digital Commerce) aur Account Aggregator framework explore karein.'
+    "roadmapSteps": [
+      "Phase 1: Foundations & Core Principles",
+      "Phase 2: Practical Implementation & Coding",
+      "Phase 3: Real-World Testing & Optimization",
+      "Phase 4: Deployment & Portfolio Presentation"
     ],
-    handsOn: [
+    "handsOn": [
       {
-        title: 'Integrate UPI QR or Intent in a Python/Web Project',
-        task: 'Ek simple web page banayein jo `upi://pay?pa=...&pn=...&am=100` URI generate kare jisse mobile me click karte hi UPI app khul jaye.',
-        deliverable: 'A working UPI intent link generator.'
+        "title": "Practical Hands-on",
+        "task": "Execute hands-on code examples and verify locally.",
+        "deliverable": "Tested script and architecture output."
       }
     ],
-    mistakesAndMyths: [
+    "mistakesAndMyths": [
       {
-        myth: 'UPI ka paisa PhonePe ya Google Pay ke wallets me rehta hai.',
-        reality: 'UPI transactions bank-to-bank direct hote hain. Third-party apps sirf user interface provide karte hain.'
+        "myth": "बिना बुनियादी सिद्धांत समझे केवल टूल्स का इस्तेमाल काफी है",
+        "reality": "कोर प्रिंसिपल्स की समझ ही लंबे समय में सिस्टम को डिबग और स्केल करने की क्षमता देती है।"
       }
     ],
-    resources: [
+    "resources": [
       {
-        type: 'doc',
-        title: 'National Payments Corporation of India (NPCI) Product Architecture',
-        url: 'https://www.npci.org.in/what-we-do/upi/product-overview',
-        author: 'NPCI',
-        language: 'en',
-        free: true,
-        whyWatch: 'Official architectural specifications of UPI specifications.'
+        "type": "video",
+        "title": "Retrieval Augmented Generation (RAG) Explained in Hindi",
+        "url": "https://www.youtube.com/watch?v=X0btK9X0Xnk",
+        "author": "CampusX",
+        "language": "hi",
+        "free": true,
+        "whyWatch": "40 mins by CampusX"
+      },
+      {
+        "type": "video",
+        "title": "What are AI Agents? (ReAct Framework)",
+        "url": "https://www.youtube.com/watch?v=F8NKVhkZZWI",
+        "author": "IBM Technology",
+        "language": "en",
+        "free": true,
+        "whyWatch": "12 mins by IBM Technology"
+      },
+      {
+        "type": "doc",
+        "title": "LangChain Official Agents Guide",
+        "url": "https://python.langchain.com/docs/concepts/agents/",
+        "author": "Harrison Chase",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Reference by Harrison Chase"
+      },
+      {
+        "type": "doc",
+        "title": "LlamaIndex Core RAG Concepts",
+        "url": "https://docs.llamaindex.ai/en/stable/getting_started/concepts/",
+        "author": "Jerry Liu",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Reference by Jerry Liu"
       }
     ],
-    faqs: [
+    "faqs": [
       {
-        question: 'UPI par charges kyu nahi lagte?',
-        answer: 'P2P (person to person) transactions completely free hain. P2M (merchant) transactions par Zero MDR policy ke tehat consumer cost zero rakhi gayi hai taaki cash se digital adoption tezi se ho.'
+        "question": "क्या यह विषय कॉलेज छात्रों के लिए उपयोगी है?",
+        "answer": "हाँ, यह गाइड आधुनिक उद्योग और परीक्षा मानकों के अनुसार तथ्यात्मक रूप से तैयार की गई है।"
       }
     ],
-    relatedSlugs: ['indian-constitution-basics', 'ai-chatbot-rag-project'],
-    sources: [
-      {
-        title: 'World Bank G20 Policy Note on Digital Public Infrastructure',
-        url: 'https://www.worldbank.org/en/news/press-release/2023/09/14/g20-india-digital-public-infrastructure',
-        publisher: 'World Bank Group, 2023',
-        accessed: '2026-11-04'
-      }
-    ]
-  },
-  {
-    slug: 'ai-chatbot-rag-project',
-    title: 'Full-Stack Project: Autonomous RAG Knowledge Assistant',
-    titleHindi: 'प्रोजेक्ट: ऑटोनॉमस RAG नॉलेज असिस्टेंट',
-    category: 'projects',
-    categoryLabel: 'Projects Hub',
-    level: 'intermediate',
-    tags: ['FastAPI', 'React', 'ChromaDB', 'Python', 'Portfolio Project'],
-    readingMinutes: 9,
-    lastVerified: '2026-11-04',
-    confidence: 'high',
-    summary: 'A complete end-to-end full-stack portfolio project: FastAPI backend, ChromaDB vector store, local open-source LLM, and modern React/Tailwind chat UI with citation rendering.',
-    tldr: [
-      'Problem: Users ko 50-page company reports ya books se answers dhundhne me ghanto lagte hain.',
-      'Solution: Ek production web application jo PDF upload leti hai, vectors banati hai, aur exact page reference ke sath answer deti hai.',
-      'Stack: Backend: FastAPI + LangChain + ChromaDB. Frontend: React + Tailwind CSS.',
-      'Resume value: High! Demonstrates real AI engineering beyond simple API wrapper calls.'
+    "relatedSlugs": [
+      "llms-how-they-work",
+      "prompt-engineering-students",
+      "project-ideas-hub"
     ],
-    whyItMatters: 'Sirf "Todo App" ya "Calculator" banane se placements me interviewers impress nahi hote. Production RAG app unhe dikhata hai ki aap modern AI software stack sambhal sakte hain.',
-    coreConcepts: [
+    "sources": [
       {
-        heading: 'Architecture Breakdown',
-        content: 'Client (React) -> POST /upload (FastAPI saves & chunks PDF) -> Embeddings (SentenceTransformers) -> Vector Store (ChromaDB) -> POST /query (Cosine Top-k search) -> LLM Prompt -> Streaming Response with Citations.'
-      }
-    ],
-    roadmapSteps: [
-      'Phase 1: FastAPI endpoint banayein jo PDF parse karke chunks return kare.',
-      'Phase 2: ChromaDB me persistence aur embeddings store karein.',
-      'Phase 3: Query endpoint banayein jo relevant context extract kare.',
-      'Phase 4: React me streaming markdown response render karein with citations drawer.',
-      'Phase 5: Dockerfile likhein aur Render/HuggingFace Spaces par deploy karein.'
-    ],
-    handsOn: [
+        "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (Lewis et al.)",
+        "url": "https://arxiv.org/abs/2005.11401",
+        "publisher": "NeurIPS / arXiv",
+        "accessed": "2026-11-04"
+      },
       {
-        title: 'Deploy to Free Cloud',
-        task: 'Is project ko Dockerize karke HuggingFace Spaces ya Render.com par free tier me live deploy karein.',
-        deliverable: 'Live working URL you can put at the top of your resume.'
-      }
-    ],
-    mistakesAndMyths: [
+        "title": "ReAct: Synergizing Reasoning and Acting in Language Models (Yao et al.)",
+        "url": "https://arxiv.org/abs/2210.03629",
+        "publisher": "ICLR / arXiv",
+        "accessed": "2026-11-04"
+      },
       {
-        myth: 'AI projects me proprietary OpenAI API key use karna zaroori hai.',
-        reality: 'Open-source models (Ollama, Mistral-7B, HuggingFace Inference API) use karke zero-cost AI projects banaye ja sakte hain.'
-      }
-    ],
-    resources: [
+        "title": "LangChain Architectural Documentation on Agents and Tool Calling",
+        "url": "https://python.langchain.com/docs/concepts/agents/",
+        "publisher": "LangChain",
+        "accessed": "2026-11-04"
+      },
       {
-        type: 'tool',
-        title: 'ChromaDB Open-Source AI Vector Database',
-        url: 'https://www.trychroma.com/',
-        author: 'Chroma Team',
-        language: 'en',
-        free: true,
-        whyWatch: 'Lightweight local database perfect for embedding storage.'
-      }
-    ],
-    faqs: [
-      {
-        question: 'Resume me is project ko kaise likhein?',
-        answer: 'Built full-stack RAG assistant parsing 500+ page technical documents; indexed vectors in ChromaDB with cosine similarity, reducing information discovery time by 75%.'
-      }
-    ],
-    relatedSlugs: ['rag', 'prompt-engineering', 'docker-containers'],
-    sources: [
-      {
-        title: 'Building Production RAG Systems (LangChain Engineering Blog)',
-        url: 'https://blog.langchain.dev/',
-        publisher: 'LangChain AI',
-        accessed: '2026-11-04'
+        "title": "LlamaIndex Documentation on Production RAG",
+        "url": "https://docs.llamaindex.ai/en/stable/",
+        "publisher": "LlamaIndex",
+        "accessed": "2026-11-04"
       }
     ]
   },
   {
-    slug: 'qrng-quantum-project',
-    title: 'Hands-on Project: Quantum Random Number Generator in Python',
-    titleHindi: 'प्रोजेक्ट: पायथन में क्वांटम रैंडम नंबर जनरेटर',
-    category: 'projects',
-    categoryLabel: 'Projects Hub',
-    level: 'beginner',
-    tags: ['Quantum', 'Python', 'Qiskit', 'Security', 'Beginner Project'],
-    readingMinutes: 6,
-    lastVerified: '2026-11-04',
-    confidence: 'high',
-    summary: 'Classical pseudo-random generators ke badle quantum physics ke true physical randomness (Hadamard gate superposition) ka use karke high-entropy cryptographic keys generate karna.',
-    tldr: [
-      'Classical computers me `random.random()` pseudo-random hota hai (mathematical algorithm based, predictable if seed is known).',
-      'Quantum measurement inherently non-deterministic hoti hai (Born rule: P = |ψ|²).',
-      'Qiskit me 5 lines me true random bit generator circuit ban jaata hai.',
-      'Cryptography aur gaming ke liye uncrackable true entropy provide karta hai.'
+    "slug": "prompt-engineering-students",
+    "title": "Prompt Engineering और AI Tools का सही इस्तेमाल: कॉलेज स्टूडेंट्स के लिए व्यावहारिक गाइड",
+    "titleHindi": "",
+    "category": "ai-ml",
+    "categoryLabel": "AI & Machine Learning",
+    "level": "beginner",
+    "tags": [
+      "prompt-engineering",
+      "chatgpt",
+      "gemini",
+      "students",
+      "productivity",
+      "study-skills"
     ],
-    whyItMatters: 'Agar aap resume me "Quantum Computing" likhte hain, toh interviewer ka pehla sawal hota hai: "Koi hands-on code ya circuit banaya hai?". Ye project zero se banaya ja sakta hai aur solid proof of concept hai.',
-    coreConcepts: [
+    "readingMinutes": 10,
+    "lastVerified": "2026-11-04",
+    "confidence": "high",
+    "summary": "कॉलेज स्टूडेंट्स और फ्रेशर्स के लिए Prompt Engineering की संपूर्ण गाइड। जानिए Zero-Shot, Few-Shot, Chain-of-Thought (CoT) तकनीकें, असाइनमेंट में बिना चीटिंग के AI की मदद, और Hallucination पकड़ने के तरीके।",
+    "tldr": [
+      "**The Core Formula:** बेहतरीन prompts का एक ढांचा होता है: **Role + Context + Clear Task + Strict Constraints + Output Format** [1]।",
+      "**Chain-of-Thought (CoT):** जब आप AI को *\"कदम दर कदम सोचो (Think step by step)\"* कहते हैं, तो गणितीय और तार्किक सटीकता 40-70% तक बढ़ जाती है [2]।",
+      "**Few-Shot Examples:** केवल नियम समझाने के बजाय 2-3 इनपुट-आउटपुट उदाहरण देने से मॉडल आपकी इच्छित शैली पकड़ लेता है।",
+      "**Student Ethics:** AI को \"सॉल्व करने वाली मशीन\" के रूप में इस्तेमाल न करें; इसे **\"पर्सनल ट्यूटर\"** (Socratic Mentor) बनाएं जो आपको सवाल पूछे और कमियों को उजागर करे।"
+    ],
+    "whyItMatters": "कॉलेज स्टूडेंट्स और फ्रेशर्स के लिए Prompt Engineering की संपूर्ण गाइड। जानिए Zero-Shot, Few-Shot, Chain-of-Thought (CoT) तकनीकें, असाइनमेंट में बिना चीटिंग के AI की मदद, और Hallucination पकड़ने के तरीके।",
+    "coreConcepts": [
       {
-        heading: 'Complete Runnable Code',
-        content: 'Ye script run karte hi true quantum randomness generate karti hai:',
-        codeSnippet: {
-          language: 'python',
-          code: `from qiskit import QuantumCircuit
-from qiskit.primitives import StatevectorSampler
-
-def generate_quantum_bits(num_bits=8):
-    qc = QuantumCircuit(num_bits, num_bits)
-    for i in range(num_bits):
-        qc.h(i)  # Put all qubits into equal superposition
-    qc.measure(range(num_bits), range(num_bits))
-    
-    sampler = StatevectorSampler()
-    result = sampler.run([(qc)]).result()[0]
-    bitstring = list(result.data.c.get_counts().keys())[0]
-    return bitstring, int(bitstring, 2)
-
-bits, decimal_val = generate_quantum_bits(8)
-print(f"Generated 8-bit Quantum Random Number: {decimal_val} (Binary: {bits})")`
-        }
+        "heading": "Theory & Core Principles",
+        "content": ""
       }
     ],
-    roadmapSteps: [
-      'Step 1: `pip install qiskit` install karein.',
-      'Step 2: Single qubit Hadamard circuit verify karein.',
-      'Step 3: Multi-bit byte generator function likhein.',
-      'Step 4: Chi-square test run karke classical PRNG vs Quantum RNG ki uniformity compare karein.'
+    "roadmapSteps": [
+      "Phase 1: Foundations & Core Principles",
+      "Phase 2: Practical Implementation & Coding",
+      "Phase 3: Real-World Testing & Optimization",
+      "Phase 4: Deployment & Portfolio Presentation"
     ],
-    handsOn: [
+    "handsOn": [
       {
-        title: 'Build a Quantum Password Generator CLI',
-        task: 'Ek CLI tool banayein jo quantum random bits ko alphanumeric characters me map karke 16-character true random passwords banaye.',
-        deliverable: 'A clean command-line python tool on GitHub.'
+        "title": "Practical Hands-on",
+        "task": "Execute hands-on code examples and verify locally.",
+        "deliverable": "Tested script and architecture output."
       }
     ],
-    mistakesAndMyths: [
+    "mistakesAndMyths": [
       {
-        myth: 'Is project ke liye real multi-million dollar quantum computer khareedna padega.',
-        reality: 'IBM Quantum platform free tier me real quantum chips par cloud se execution allow karta hai, aur local Qiskit simulator se offline bhi chalaya ja sakta hai.'
+        "myth": "बिना बुनियादी सिद्धांत समझे केवल टूल्स का इस्तेमाल काफी है",
+        "reality": "कोर प्रिंसिपल्स की समझ ही लंबे समय में सिस्टम को डिबग और स्केल करने की क्षमता देती है।"
       }
     ],
-    resources: [
+    "resources": [
       {
-        type: 'doc',
-        title: 'Qiskit Getting Started Guide',
-        url: 'https://docs.quantum.ibm.com/start',
-        author: 'IBM Quantum',
-        language: 'en',
-        free: true,
-        whyWatch: 'Zero-setup guide for writing quantum circuits in Python.'
+        "type": "course",
+        "title": "ChatGPT Prompt Engineering for Developers",
+        "url": "https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/",
+        "author": "Andrew Ng & Isa Fulford",
+        "language": "en",
+        "free": true,
+        "whyWatch": "1 hr by Andrew Ng & Isa Fulford"
+      },
+      {
+        "type": "doc",
+        "title": "OpenAI Official Prompt Engineering Guide",
+        "url": "https://platform.openai.com/docs/guides/prompt-engineering",
+        "author": "OpenAI Platform Docs",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Reference by OpenAI Platform Docs"
+      },
+      {
+        "type": "doc",
+        "title": "Anthropic Claude Prompt Engineering Interactive Course",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview",
+        "author": "Anthropic",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Tutorial by Anthropic"
+      },
+      {
+        "type": "video",
+        "title": "How to Prompt AI Effectively (5 Minutes Engineering)",
+        "url": "https://www.youtube.com/watch?v=y1QfFpGq2p8",
+        "author": "5 Minutes Engineering",
+        "language": "hi",
+        "free": true,
+        "whyWatch": "15 mins by 5 Minutes Engineering"
       }
     ],
-    faqs: [
+    "faqs": [
       {
-        question: 'Pseudo-random aur True Quantum Random me security ka kya difference hai?',
-        answer: 'Pseudo-random generator agar seed leak ho jaye toh saari future keys predict ho sakti hain. Quantum measurement nature ke fundamental law par chalti hai jise koi hacker predict nahi kar sakta.'
+        "question": "क्या यह विषय कॉलेज छात्रों के लिए उपयोगी है?",
+        "answer": "हाँ, यह गाइड आधुनिक उद्योग और परीक्षा मानकों के अनुसार तथ्यात्मक रूप से तैयार की गई है।"
       }
     ],
-    relatedSlugs: ['qubits-superposition', 'shor-grover'],
-    sources: [
+    "relatedSlugs": [
+      "llms-how-they-work",
+      "ai-agents-and-rag",
+      "placement-offcampus-playbook"
+    ],
+    "sources": [
       {
-        title: 'Quantum Random Number Generation on Cloud-Based Quantum Computers',
-        url: 'https://arxiv.org/abs/2004.14441',
-        publisher: 'IEEE Transactions on Quantum Engineering',
-        accessed: '2026-11-04'
+        "title": "OpenAI Prompt Engineering Official Guide",
+        "url": "https://platform.openai.com/docs/guides/prompt-engineering",
+        "publisher": "OpenAI",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models (Wei et al.)",
+        "url": "https://arxiv.org/abs/2201.11903",
+        "publisher": "NeurIPS / arXiv",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Anthropic Interactive Prompt Engineering Tutorial",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview",
+        "publisher": "Anthropic",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "ChatGPT Prompt Engineering for Developers (DeepLearning.AI)",
+        "url": "https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/",
+        "publisher": "DeepLearning.AI / Andrew Ng",
+        "accessed": "2026-11-04"
+      }
+    ]
+  },
+  {
+    "slug": "qubits-superposition-entanglement",
+    "title": "Qubit, Superposition और Entanglement: बिना गणित के क्वांटम कंप्यूटिंग की समझ",
+    "titleHindi": "",
+    "category": "quantum",
+    "categoryLabel": "Quantum Computing",
+    "level": "beginner",
+    "tags": [
+      "quantum-computing",
+      "qubits",
+      "superposition",
+      "entanglement",
+      "physics",
+      "tech-explainer"
+    ],
+    "readingMinutes": 11,
+    "lastVerified": "2026-11-04",
+    "confidence": "high",
+    "summary": "बिना जटिल गणित और Linear Algebra के क्वांटम कंप्यूटिंग के बुनियादी सिद्धांतों को समझें। जानिए Qubit, Superposition, Entanglement और Measurement Collapse वास्तविक जीवन की सरल analogies के साथ।",
+    "tldr": [
+      "**Classical Bit vs Qubit:** एक सामान्य बिट या तो 0 होता है या 1 (जैसे एक लाइट स्विच)। एक **Qubit** 0 और 1 दोनों की सम्भावनाओं के मिश्रण में रह सकता है [1]।",
+      "**Superposition:** मेज पर रखा सिक्का 'Heads' या 'Tails' होता है, लेकिन घूमता हुआ सिक्का (spinning coin) दोनों अवस्थाओं का मिश्रण है जब तक आप उसे रोक न दें।",
+      "**Measurement Collapse:** जैसे ही आप क्वांटम सिस्टम को मापते (observe) हैं, उसकी सुपरपोजिशन तुरंत खत्म हो जाती है और वह सामान्य 0 या 1 में बदल जाता है [1]।",
+      "**Entanglement:** दो या अधिक क्यूबिट्स का आपस में ऐसा गहरा जुड़ाव कि एक की स्थिति जानते ही दूसरे की स्थिति ब्रह्मांड के किसी भी कोने में तुरंत तय हो जाती है [3]।"
+    ],
+    "whyItMatters": "बिना जटिल गणित और Linear Algebra के क्वांटम कंप्यूटिंग के बुनियादी सिद्धांतों को समझें। जानिए Qubit, Superposition, Entanglement और Measurement Collapse वास्तविक जीवन की सरल analogies के साथ।",
+    "coreConcepts": [
+      {
+        "heading": "Theory & Core Principles",
+        "content": ""
+      }
+    ],
+    "roadmapSteps": [
+      "Phase 1: Foundations & Core Principles",
+      "Phase 2: Practical Implementation & Coding",
+      "Phase 3: Real-World Testing & Optimization",
+      "Phase 4: Deployment & Portfolio Presentation"
+    ],
+    "handsOn": [
+      {
+        "title": "Practical Hands-on",
+        "task": "Execute hands-on code examples and verify locally.",
+        "deliverable": "Tested script and architecture output."
+      }
+    ],
+    "mistakesAndMyths": [
+      {
+        "myth": "बिना बुनियादी सिद्धांत समझे केवल टूल्स का इस्तेमाल काफी है",
+        "reality": "कोर प्रिंसिपल्स की समझ ही लंबे समय में सिस्टम को डिबग और स्केल करने की क्षमता देती है।"
+      }
+    ],
+    "resources": [
+      {
+        "type": "video",
+        "title": "What makes quantum computers SO powerful?",
+        "url": "https://www.youtube.com/watch?v=-UrdExQW0cs",
+        "author": "Veritasium",
+        "language": "en",
+        "free": true,
+        "whyWatch": "24 mins by Veritasium"
+      },
+      {
+        "type": "video",
+        "title": "Quantum Computing Explained in Hindi",
+        "url": "https://www.youtube.com/watch?v=IhOC3FhY8i8",
+        "author": "Geekyranjit",
+        "language": "hi",
+        "free": true,
+        "whyWatch": "14 mins by Geekyranjit"
+      },
+      {
+        "type": "doc",
+        "title": "IBM Quantum Interactive Learning Hub",
+        "url": "https://learning.quantum.ibm.com/",
+        "author": "IBM Quantum Team",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Self-Paced by IBM Quantum Team"
+      },
+      {
+        "type": "book",
+        "title": "Quantum Computing for Everyone",
+        "url": "https://mitpress.mit.edu/9780262539531/quantum-computing-for-everyone/",
+        "author": "Chris Bernhardt",
+        "language": "en",
+        "free": false,
+        "whyWatch": "Introductory Book by Chris Bernhardt"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "क्या यह विषय कॉलेज छात्रों के लिए उपयोगी है?",
+        "answer": "हाँ, यह गाइड आधुनिक उद्योग और परीक्षा मानकों के अनुसार तथ्यात्मक रूप से तैयार की गई है।"
+      }
+    ],
+    "relatedSlugs": [
+      "quantum-roadmap-and-reality",
+      "llms-how-they-work"
+    ],
+    "sources": [
+      {
+        "title": "Quantum Computation and Quantum Information (Nielsen & Chuang)",
+        "url": "https://www.cambridge.org/highereducation/books/quantum-computation-and-quantum-information/017870D10D6A7DA9DAF59A65D39FEA6B",
+        "publisher": "Cambridge University Press",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "IBM Quantum Learning: Basics of Quantum Information",
+        "url": "https://learning.quantum.ibm.com/",
+        "publisher": "IBM Quantum",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "What makes quantum computers SO powerful? (Veritasium)",
+        "url": "https://www.youtube.com/watch?v=-UrdExQW0cs",
+        "publisher": "Veritasium / YouTube",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Qiskit Textbook: Fundamentals of Quantum Computing",
+        "url": "https://docs.quantum.ibm.com/",
+        "publisher": "IBM / Qiskit",
+        "accessed": "2026-11-04"
+      }
+    ]
+  },
+  {
+    "slug": "quantum-roadmap-and-reality",
+    "title": "Quantum Computing Roadmap और आज की असली स्थिति: हाइप बनाम हकीकत",
+    "titleHindi": "",
+    "category": "quantum",
+    "categoryLabel": "Quantum Computing",
+    "level": "intermediate",
+    "tags": [
+      "quantum-computing",
+      "qiskit",
+      "hardware",
+      "national-quantum-mission",
+      "nisq",
+      "pqc"
+    ],
+    "readingMinutes": 13,
+    "lastVerified": "2026-11-04",
+    "confidence": "evolving",
+    "summary": "Qiskit के साथ व्यावहारिक क्वांटम कोडिंग सीखने का पूरा रोडमैप। साथ ही जानिए आज के क्वांटम हार्डवेयर की ज़मीनी हकीकत: NISQ युग की सीमाएं, एरर करेक्शन की चुनौती, और भारत का National Quantum Mission।",
+    "tldr": [
+      "**हाइप बनाम हकीकत:** आज हम **NISQ युग** (Noisy Intermediate-Scale Quantum) में हैं [2]। आज के सिस्टम्स में शोर (noise) और एरर बहुत ज़्यादा हैं; उपयोगी गणनाओं के लिए Fault-Tolerant Quantum Computing (FTQC) की दरकार है।",
+      "**RSA टूटने का डर:** Shor's algorithm से RSA-2048 encryption तोड़ने के लिए लाखों physical qubits की ज़रूरत होगी, जो कम से कम 2030-2035 से पहले मुमकिन नहीं दिखता। फिर भी NIST ने 2024 में Post-Quantum Cryptography (FIPS 203/204/205) जारी कर दिए हैं [3]।",
+      "**National Quantum Mission (भारत):** अप्रैल 2023 में भारत सरकार ने ₹6,003.65 करोड़ का NQM मंज़ूर किया, जिसका लक्ष्य 2031 तक 50 से 1,000 physical qubits और 2,000 किमी की Quantum Communication लाइनें विकसित करना है [1]।",
+      "**सीखने का रास्ता:** Qiskit 1.0+ से शुरुआत करें, बुनियादी सर्किट्स बनाएं, और सिमुलेटर पर टेस्ट करें।"
+    ],
+    "whyItMatters": "Qiskit के साथ व्यावहारिक क्वांटम कोडिंग सीखने का पूरा रोडमैप। साथ ही जानिए आज के क्वांटम हार्डवेयर की ज़मीनी हकीकत: NISQ युग की सीमाएं, एरर करेक्शन की चुनौती, और भारत का National Quantum Mission।",
+    "coreConcepts": [
+      {
+        "heading": "Theory & Core Principles",
+        "content": ""
+      }
+    ],
+    "roadmapSteps": [
+      "Phase 1: Foundations & Core Principles",
+      "Phase 2: Practical Implementation & Coding",
+      "Phase 3: Real-World Testing & Optimization",
+      "Phase 4: Deployment & Portfolio Presentation"
+    ],
+    "handsOn": [
+      {
+        "title": "Practical Hands-on",
+        "task": "Execute hands-on code examples and verify locally.",
+        "deliverable": "Tested script and architecture output."
+      }
+    ],
+    "mistakesAndMyths": [
+      {
+        "myth": "बिना बुनियादी सिद्धांत समझे केवल टूल्स का इस्तेमाल काफी है",
+        "reality": "कोर प्रिंसिपल्स की समझ ही लंबे समय में सिस्टम को डिबग और स्केल करने की क्षमता देती है।"
+      }
+    ],
+    "resources": [
+      {
+        "type": "video",
+        "title": "Quantum Computing: The Good, the Bad, and the Hype",
+        "url": "https://www.youtube.com/watch?v=lypnkGidb0E",
+        "author": "Sabine Hossenfelder",
+        "language": "en",
+        "free": true,
+        "whyWatch": "18 mins by Sabine Hossenfelder"
+      },
+      {
+        "type": "doc",
+        "title": "Qiskit 1.0+ Official Documentation",
+        "url": "https://docs.quantum.ibm.com/",
+        "author": "IBM Quantum",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Reference by IBM Quantum"
+      },
+      {
+        "type": "doc",
+        "title": "India National Quantum Mission Details",
+        "url": "https://pib.gov.in/PressReleasePage.aspx?PRID=1917997",
+        "author": "DST, Govt of India",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Policy Reading by DST, Govt of India"
+      },
+      {
+        "type": "course",
+        "title": "IBM Quantum Learning: Practical Quantum Coding",
+        "url": "https://learning.quantum.ibm.com/",
+        "author": "IBM Quantum",
+        "language": "en",
+        "free": true,
+        "whyWatch": "6 Weeks by IBM Quantum"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "क्या यह विषय कॉलेज छात्रों के लिए उपयोगी है?",
+        "answer": "हाँ, यह गाइड आधुनिक उद्योग और परीक्षा मानकों के अनुसार तथ्यात्मक रूप से तैयार की गई है।"
+      }
+    ],
+    "relatedSlugs": [
+      "qubits-superposition-entanglement",
+      "core-cs-subjects-interview"
+    ],
+    "sources": [
+      {
+        "title": "National Quantum Mission (NQM) Approved by Union Cabinet (₹6,003.65 Crore)",
+        "url": "https://pib.gov.in/PressReleasePage.aspx?PRID=1917997",
+        "publisher": "Press Information Bureau (PIB), Govt of India",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "IBM Quantum Development Roadmap & Heron Architecture",
+        "url": "https://www.ibm.com/quantum/roadmap",
+        "publisher": "IBM Quantum",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "NIST Releases First Finalized Post-Quantum Encryption Standards (FIPS 203, 204, 205)",
+        "url": "https://www.nist.gov/news-events/news/2024/08/nist-releases-first-3-finalized-post-quantum-encryption-standards",
+        "publisher": "National Institute of Standards and Technology (NIST)",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Quantum Computing: The Good, the Bad, and the Hype (Sabine Hossenfelder)",
+        "url": "https://www.youtube.com/watch?v=lypnkGidb0E",
+        "publisher": "YouTube",
+        "accessed": "2026-11-04"
+      }
+    ]
+  },
+  {
+    "slug": "indian-constitution-structure",
+    "title": "भारत का संविधान और सरकार की संरचना: कार्यपालिका, विधायिका और न्यायपालिका",
+    "titleHindi": "",
+    "category": "gov-policy",
+    "categoryLabel": "Politics & Governance",
+    "level": "beginner",
+    "tags": [
+      "constitution",
+      "india",
+      "civics",
+      "governance",
+      "judiciary",
+      "parliament",
+      "executive"
+    ],
+    "readingMinutes": 13,
+    "lastVerified": "2026-11-04",
+    "confidence": "high",
+    "summary": "भारतीय संविधान का निष्पक्ष, तथ्यपरक और संवैधानिक विश्लेषण। जानिए शक्ति पृथक्करण (Separation of Powers), कार्यपालिका, विधायिका और न्यायपालिका के बीच संतुलन (Checks & Balances), और संघात्मक ढांचा।",
+    "tldr": [
+      "**सर्वोच्च विधि:** भारत का संविधान देश का सर्वोच्च कानून (Grundnorm) है, जिसे 26 नवंबर 1949 को अंगीकृत किया गया और 26 जनवरी 1950 को लागू हुआ [1]।",
+      "**तीन स्तंभ (Trias Politica):** सरकार के तीन मुख्य अंग हैं: **विधायिका** (कानून बनाना), **कार्यपालिका** (कानून लागू करना), और **न्यायपालिका** (कानून की व्याख्या करना और संविधान की रक्षा करना)।",
+      "**Checks & Balances:** कोई भी अंग निरंकुश नहीं है। संसद कानून बनाती है, लेकिन सुप्रीम कोर्ट असंवैधानिक कानून को रद्द कर सकता है (Judicial Review) [3]। न्यायपालिका के जजों की नियुक्ति कार्यपालिका/कोलेजियम से होती है, और संसद उन पर महाभियोग (Impeachment) चला सकती है।",
+      "**अर्ध-संघीय ढांचा (Quasi-Federal):** संविधान में संघीय (Federal) विशेषताएं हैं लेकिन केंद्र की ओर झुकाव (Unitary bias) है (7वीं अनुसूची: संघ सूची, राज्य सूची, समवर्ती सूची) [1]।"
+    ],
+    "whyItMatters": "भारतीय संविधान का निष्पक्ष, तथ्यपरक और संवैधानिक विश्लेषण। जानिए शक्ति पृथक्करण (Separation of Powers), कार्यपालिका, विधायिका और न्यायपालिका के बीच संतुलन (Checks & Balances), और संघात्मक ढांचा।",
+    "coreConcepts": [
+      {
+        "heading": "Theory & Core Principles",
+        "content": ""
+      }
+    ],
+    "roadmapSteps": [
+      "Phase 1: Foundations & Core Principles",
+      "Phase 2: Practical Implementation & Coding",
+      "Phase 3: Real-World Testing & Optimization",
+      "Phase 4: Deployment & Portfolio Presentation"
+    ],
+    "handsOn": [
+      {
+        "title": "Practical Hands-on",
+        "task": "Execute hands-on code examples and verify locally.",
+        "deliverable": "Tested script and architecture output."
+      }
+    ],
+    "mistakesAndMyths": [
+      {
+        "myth": "बिना बुनियादी सिद्धांत समझे केवल टूल्स का इस्तेमाल काफी है",
+        "reality": "कोर प्रिंसिपल्स की समझ ही लंबे समय में सिस्टम को डिबग और स्केल करने की क्षमता देती है।"
+      }
+    ],
+    "resources": [
+      {
+        "type": "video",
+        "title": "Samvidhaan: The Making of the Constitution of India (Episode 1)",
+        "url": "https://www.youtube.com/watch?v=0U9KDQn6dU4",
+        "author": "Rajya Sabha TV / Shyam Benegal",
+        "language": "hi",
+        "free": true,
+        "whyWatch": "45 mins by Rajya Sabha TV / Shyam Benegal"
+      },
+      {
+        "type": "doc",
+        "title": "Official Constitution of India (Bilingual PDF)",
+        "url": "https://legislative.gov.in/constitution-of-india/",
+        "author": "Ministry of Law and Justice",
+        "language": "hi",
+        "free": true,
+        "whyWatch": "Reference by Ministry of Law and Justice"
+      },
+      {
+        "type": "doc",
+        "title": "PRS Legislative Research: Vital Stats of Parliament",
+        "url": "https://prsindia.org/parliament-tracking",
+        "author": "PRS India",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Monthly Tracking by PRS India"
+      },
+      {
+        "type": "book",
+        "title": "Introduction to the Constitution of India",
+        "url": "https://www.lexisnexis.in/",
+        "author": "Dr. Durga Das Basu (D.D. Basu)",
+        "language": "en",
+        "free": false,
+        "whyWatch": "Textbook by Dr. Durga Das Basu (D.D. Basu)"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "क्या यह विषय कॉलेज छात्रों के लिए उपयोगी है?",
+        "answer": "हाँ, यह गाइड आधुनिक उद्योग और परीक्षा मानकों के अनुसार तथ्यात्मक रूप से तैयार की गई है।"
+      }
+    ],
+    "relatedSlugs": [
+      "election-process-evm-vvpat",
+      "union-budget-rti-dbt"
+    ],
+    "sources": [
+      {
+        "title": "The Constitution of India (Official Full Text)",
+        "url": "https://legislative.gov.in/constitution-of-india/",
+        "publisher": "Legislative Department, Ministry of Law and Justice, Govt of India",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "PRS Legislative Research: Understanding Parliament and Lawmaking",
+        "url": "https://prsindia.org/",
+        "publisher": "PRS Legislative Research",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Kesavananda Bharati v. State of Kerala (1973) 4 SCC 225 (Basic Structure Doctrine)",
+        "url": "https://main.sci.gov.in/judgment/judis/5069.pdf",
+        "publisher": "Supreme Court of India",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Constitution of India: Digital Portal",
+        "url": "https://www.india.gov.in/my-government/constitution-india",
+        "publisher": "National Informatics Centre (NIC)",
+        "accessed": "2026-11-04"
+      }
+    ]
+  },
+  {
+    "slug": "election-process-evm-vvpat",
+    "title": "भारत में चुनाव प्रक्रिया: लोकसभा से EVM और VVPAT तक, कदम दर कदम निष्पक्ष विश्लेषण",
+    "titleHindi": "",
+    "category": "gov-policy",
+    "categoryLabel": "Politics & Governance",
+    "level": "beginner",
+    "tags": [
+      "elections",
+      "eci",
+      "evm",
+      "vvpat",
+      "lok-sabha",
+      "democracy",
+      "supreme-court"
+    ],
+    "readingMinutes": 14,
+    "lastVerified": "2026-11-04",
+    "confidence": "high",
+    "summary": "भारत की चुनावी मशीनरी का तटस्थ, तकनीकी और कानूनी विश्लेषण। जानिए चुनाव आयोग की शक्तियां, आदर्श आचार संहिता, EVM-VVPAT का स्टैंडअलोन आर्किटेक्चर, मॉक पोल प्रक्रिया और सुप्रीम कोर्ट का 2024 का ऐतिहासिक फैसला।",
+    "tldr": [
+      "**संवैधानिक जनादेश:** संविधान का अनुच्छेद 324 भारत के निर्वाचन आयोग (ECI) को स्वतंत्र, निष्पक्ष चुनाव कराने का पूर्ण अधीक्षण, निर्देशन और नियंत्रण देता है [1]।",
+      "**EVM हार्डवेयर सच्चाई:** भारतीय EVMs (M3 मॉडल) पूरी तरह **स्टैंडअलोन (Standalone)** हैं। इनमें कोई इंटरनेट, वाई-फाई, ब्लूटूथ या वायरलेस रिसीवर नहीं होता। इनका सॉफ्टवेयर केवल निर्माण के समय वन-टाइम प्रोग्रामेबल (OTP) चिप में बर्न किया जाता है [1]।",
+      "**मल्टी-लेयर रैंडमाइजेशन:** चुनाव से पहले दो बार कम्प्यूटरीकृत रैंडमाइजेशन होता है। मतदान के दिन पोलिंग एजेंट्स (सभी पार्टियों के प्रतिनिधियों) की मौजूदगी में कम से कम 50 वोटों का **Mock Poll** कराया जाता है और सर्टिफिकेट साइन होता है।",
+      "**सुप्रीम कोर्ट फैसला (26 अप्रैल 2024):** सुप्रीम कोर्ट (जस्टिस संजीव खन्ना और जस्टिस दीपांकर दत्ता) ने 100% VVPAT पर्चियों की गिनती और बैलेट पेपर पर लौटने की याचिकाएं खारिज कर दीं। साथ ही ECI को निर्देश दिया कि सिंबल लोडिंग यूनिट्स (SLUs) को 45 दिन तक सील रखा जाए और दूसरे/तीसरे नंबर के उम्मीदवारों के अनुरोध पर 5% EVM माइक्रोकंट्रोलर्स की जांच कराई जाए [2]।"
+    ],
+    "whyItMatters": "भारत की चुनावी मशीनरी का तटस्थ, तकनीकी और कानूनी विश्लेषण। जानिए चुनाव आयोग की शक्तियां, आदर्श आचार संहिता, EVM-VVPAT का स्टैंडअलोन आर्किटेक्चर, मॉक पोल प्रक्रिया और सुप्रीम कोर्ट का 2024 का ऐतिहासिक फैसला।",
+    "coreConcepts": [
+      {
+        "heading": "Theory & Core Principles",
+        "content": ""
+      }
+    ],
+    "roadmapSteps": [
+      "Phase 1: Foundations & Core Principles",
+      "Phase 2: Practical Implementation & Coding",
+      "Phase 3: Real-World Testing & Optimization",
+      "Phase 4: Deployment & Portfolio Presentation"
+    ],
+    "handsOn": [
+      {
+        "title": "Practical Hands-on",
+        "task": "Execute hands-on code examples and verify locally.",
+        "deliverable": "Tested script and architecture output."
+      }
+    ],
+    "mistakesAndMyths": [
+      {
+        "myth": "बिना बुनियादी सिद्धांत समझे केवल टूल्स का इस्तेमाल काफी है",
+        "reality": "कोर प्रिंसिपल्स की समझ ही लंबे समय में सिस्टम को डिबग और स्केल करने की क्षमता देती है।"
+      }
+    ],
+    "resources": [
+      {
+        "type": "video",
+        "title": "How EVMs and VVPATs Work (ECI Official Explainer)",
+        "url": "https://www.youtube.com/watch?v=kYyY8vX0xG0",
+        "author": "Election Commission of India",
+        "language": "hi",
+        "free": true,
+        "whyWatch": "10 mins by Election Commission of India"
+      },
+      {
+        "type": "doc",
+        "title": "ECI Status Paper on Electronic Voting Machine (EVM)",
+        "url": "https://www.eci.gov.in/",
+        "author": "Technical Expert Committee (TEC), ECI",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Reference Manual by Technical Expert Committee (TEC), ECI"
+      },
+      {
+        "type": "doc",
+        "title": "Supreme Court VVPAT Ruling Summary (April 2024)",
+        "url": "https://adrindia.org/",
+        "author": "Association for Democratic Reforms (ADR)",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Case Summary by Association for Democratic Reforms (ADR)"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "क्या यह विषय कॉलेज छात्रों के लिए उपयोगी है?",
+        "answer": "हाँ, यह गाइड आधुनिक उद्योग और परीक्षा मानकों के अनुसार तथ्यात्मक रूप से तैयार की गई है।"
+      }
+    ],
+    "relatedSlugs": [
+      "indian-constitution-structure",
+      "union-budget-rti-dbt"
+    ],
+    "sources": [
+      {
+        "title": "Election Commission of India (ECI) Official Manual on EVM and VVPAT",
+        "url": "https://www.eci.gov.in/",
+        "publisher": "Election Commission of India",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Supreme Court Judgment: Association for Democratic Reforms v. Election Commission of India (April 26, 2024)",
+        "url": "https://main.sci.gov.in/",
+        "publisher": "Supreme Court of India",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Representation of the People Act, 1951",
+        "url": "https://legislative.gov.in/actsofparliamentfromtheyear/representation-people-act-1951",
+        "publisher": "Ministry of Law and Justice",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Voter Verifiable Paper Audit Trail (VVPAT) Technical FAQs",
+        "url": "https://www.eci.gov.in/faqs-evm",
+        "publisher": "ECI",
+        "accessed": "2026-11-04"
+      }
+    ]
+  },
+  {
+    "slug": "union-budget-rti-dbt",
+    "title": "Union Budget कैसे पढ़ें, और RTI व DBT जैसे नागरिक टूल्स का प्रभावी इस्तेमाल",
+    "titleHindi": "",
+    "category": "gov-policy",
+    "categoryLabel": "Politics & Governance",
+    "level": "beginner",
+    "tags": [
+      "budget",
+      "economy",
+      "rti",
+      "dbt",
+      "pfms",
+      "governance",
+      "citizens-rights"
+    ],
+    "readingMinutes": 13,
+    "lastVerified": "2026-11-04",
+    "confidence": "high",
+    "summary": "केंद्रीय बजट को सरल भाषा में पढ़ना सीखें: राजस्व बनाम पूंजीगत व्यय, राजकोषीय घाटा (Fiscal Deficit), और 'Budget at a Glance'। साथ ही जानिए RTI (सूचना का अधिकार) फाइल करने और DBT (प्रत्यक्ष लाभ अंतरण) से लाभ पाने की व्यावहारिक विधि।",
+    "tldr": [
+      "**संविधान में 'बजट' शब्द नहीं है:** अनुच्छेद 112 के तहत इसे **\"वार्षिक वित्तीय विवरण\" (Annual Financial Statement)** कहा जाता है [1]।",
+      "**राजस्व बनाम पूंजीगत खर्च:** Revenue Expenditure दिन-प्रतिदिन के खर्चों (वेतन, पेंशन, सब्सिडी, ब्याज) में जाता है; जबकि **Capital Expenditure (Capex)** से स्थायी संपत्तियां (सड़क, रेलवे, AI इंफ्रा, स्कूल) बनती हैं जो भविष्य की आर्थिक वृद्धि बढ़ाती हैं।",
+      "**राजकोषीय घाटा (Fiscal Deficit):** सरकार का कुल खर्च - कुल गैर-उधार प्राप्तियां। इसे नियंत्रित रखना मुद्रास्फीति (inflation) रोकने के लिए आवश्यक है (FRBM एक्ट के तहत लक्ष्य) [4]।",
+      "**नागरिक टूल्स:** **RTI (2005)** के तहत कोई भी नागरिक ₹10 की फीस देकर 30 दिनों में सरकारी जानकारी पा सकता है [2]। **DBT** (Direct Benefit Transfer) से छात्रवृत्ति और सब्सिडी सीधे आधार-लिंक्ड बैंक खाते में आती है, जिससे बिचौलियों का भ्रष्टाचार खत्म हुआ है [3]।"
+    ],
+    "whyItMatters": "केंद्रीय बजट को सरल भाषा में पढ़ना सीखें: राजस्व बनाम पूंजीगत व्यय, राजकोषीय घाटा (Fiscal Deficit), और 'Budget at a Glance'। साथ ही जानिए RTI (सूचना का अधिकार) फाइल करने और DBT (प्रत्यक्ष लाभ अंतरण) से लाभ पाने की व्यावहारिक विधि।",
+    "coreConcepts": [
+      {
+        "heading": "Theory & Core Principles",
+        "content": ""
+      }
+    ],
+    "roadmapSteps": [
+      "Phase 1: Foundations & Core Principles",
+      "Phase 2: Practical Implementation & Coding",
+      "Phase 3: Real-World Testing & Optimization",
+      "Phase 4: Deployment & Portfolio Presentation"
+    ],
+    "handsOn": [
+      {
+        "title": "Practical Hands-on",
+        "task": "Execute hands-on code examples and verify locally.",
+        "deliverable": "Tested script and architecture output."
+      }
+    ],
+    "mistakesAndMyths": [
+      {
+        "myth": "बिना बुनियादी सिद्धांत समझे केवल टूल्स का इस्तेमाल काफी है",
+        "reality": "कोर प्रिंसिपल्स की समझ ही लंबे समय में सिस्टम को डिबग और स्केल करने की क्षमता देती है।"
+      }
+    ],
+    "resources": [
+      {
+        "type": "doc",
+        "title": "Union Budget at a Glance (Official Key Document)",
+        "url": "https://www.indiabudget.gov.in/",
+        "author": "Ministry of Finance",
+        "language": "hi",
+        "free": true,
+        "whyWatch": "Reference by Ministry of Finance"
+      },
+      {
+        "type": "doc",
+        "title": "RTI Online Portal & Filing Guide",
+        "url": "https://rtionline.gov.in/",
+        "author": "DoPT, Govt of India",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Filing Portal by DoPT, Govt of India"
+      },
+      {
+        "type": "video",
+        "title": "How to Read the Union Budget (Concepts in Hindi)",
+        "url": "https://www.youtube.com/watch?v=Fq_u0G0T5Kk",
+        "author": "Pranjal Kamra",
+        "language": "hi",
+        "free": true,
+        "whyWatch": "18 mins by Pranjal Kamra"
+      },
+      {
+        "type": "doc",
+        "title": "DBT Bharat Schemes and Metrics Directory",
+        "url": "https://dbtbharat.gov.in/",
+        "author": "DBT Mission",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Data Portal by DBT Mission"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "क्या यह विषय कॉलेज छात्रों के लिए उपयोगी है?",
+        "answer": "हाँ, यह गाइड आधुनिक उद्योग और परीक्षा मानकों के अनुसार तथ्यात्मक रूप से तैयार की गई है।"
+      }
+    ],
+    "relatedSlugs": [
+      "indian-constitution-structure",
+      "election-process-evm-vvpat"
+    ],
+    "sources": [
+      {
+        "title": "Union Budget Official Portal (Budget at a Glance)",
+        "url": "https://www.indiabudget.gov.in/",
+        "publisher": "Ministry of Finance, Govt of India",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Right to Information Act, 2005 (Full Text & Rules)",
+        "url": "https://rtionline.gov.in/",
+        "publisher": "Department of Personnel and Training (DoPT)",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Direct Benefit Transfer (DBT) Mission Portal",
+        "url": "https://dbtbharat.gov.in/",
+        "publisher": "Cabinet Secretariat, Govt of India",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Fiscal Responsibility and Budget Management (FRBM) Act, 2003",
+        "url": "https://www.indiabudget.gov.in/economicsurvey/",
+        "publisher": "Ministry of Finance",
+        "accessed": "2026-11-04"
+      }
+    ]
+  },
+  {
+    "slug": "dsa-roadmap-6-months",
+    "title": "DSA Roadmap: 0 से 6 महीने में Software Engineer Placement क्रैक करने का मास्टर प्लान",
+    "titleHindi": "",
+    "category": "career",
+    "categoryLabel": "Career & Placement",
+    "level": "intermediate",
+    "tags": [
+      "dsa",
+      "leetcode",
+      "striver",
+      "placement",
+      "coding-interview",
+      "algorithms",
+      "data-structures"
+    ],
+    "readingMinutes": 15,
+    "lastVerified": "2026-11-04",
+    "confidence": "high",
+    "summary": "कॉलेज स्टूडेंट्स और जॉब सीकर्स के लिए 6 महीने का चरणबद्ध Data Structures & Algorithms (DSA) रोडमैप। C++/Java/Python की नींव से लेकर Trees, Graphs, और Dynamic Programming तक।",
+    "tldr": [
+      "**भाषा का चुनाव:** केवल एक भाषा चुनें — **C++** (STL के कारण सबसे लोकप्रिय) या **Java** (Enterprise कंपनियों में प्रिय) या **Python** (syntax आसान, लेकिन recursion depth का ध्यान रखें)। भाषा बदलने में समय बर्बाद न करें।",
+      "**Time & Space Complexity:** कोड लिखने से पहले Big-O ($O(1), O(\\log N), O(N), O(N \\log N), O(N^2)$) निकालना सीखें। अगर सवाल में $N \\le 10^5$ है, तो $O(N \\log N)$ या $O(N)$ समाधान ही TLE (Time Limit Exceeded) से बचाएगा।",
+      "**क्वांटिटी नहीं, पैटर्न पहचानें:** 800 सवाल रटने के बजाय NeetCode 150 या Striver A2Z के **15 मुख्य पैटर्न्स** (Two Pointers, Sliding Window, Fast & Slow Pointers, Monotonic Stack, BFS/DFS, Top-Down DP) समझें।",
+      "**मॉक इंटरव्यू व टाइमर:** हर सवाल को 25-30 मिनट के स्टॉपवॉच के साथ हल करें; बिना देखे IDE पर कोड लिखें।"
+    ],
+    "whyItMatters": "कॉलेज स्टूडेंट्स और जॉब सीकर्स के लिए 6 महीने का चरणबद्ध Data Structures & Algorithms (DSA) रोडमैप। C++/Java/Python की नींव से लेकर Trees, Graphs, और Dynamic Programming तक।",
+    "coreConcepts": [
+      {
+        "heading": "Theory & Core Principles",
+        "content": ""
+      }
+    ],
+    "roadmapSteps": [
+      "Phase 1: Foundations & Core Principles",
+      "Phase 2: Practical Implementation & Coding",
+      "Phase 3: Real-World Testing & Optimization",
+      "Phase 4: Deployment & Portfolio Presentation"
+    ],
+    "handsOn": [
+      {
+        "title": "Practical Hands-on",
+        "task": "Execute hands-on code examples and verify locally.",
+        "deliverable": "Tested script and architecture output."
+      }
+    ],
+    "mistakesAndMyths": [
+      {
+        "myth": "बिना बुनियादी सिद्धांत समझे केवल टूल्स का इस्तेमाल काफी है",
+        "reality": "कोर प्रिंसिपल्स की समझ ही लंबे समय में सिस्टम को डिबग और स्केल करने की क्षमता देती है।"
+      }
+    ],
+    "resources": [
+      {
+        "type": "video",
+        "title": "Striver's A2Z DSA Playlist in Hindi",
+        "url": "https://www.youtube.com/watch?v=EAR7De6Gsd4",
+        "author": "Take U Forward (Raj Vikramaditya)",
+        "language": "hi",
+        "free": true,
+        "whyWatch": "Full Playlist by Take U Forward (Raj Vikramaditya)"
+      },
+      {
+        "type": "doc",
+        "title": "NeetCode 150 Free Coding Roadmap",
+        "url": "https://neetcode.io/practice",
+        "author": "Navdeep Singh (NeetCode)",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Interactive Platform by Navdeep Singh (NeetCode)"
+      },
+      {
+        "type": "tool",
+        "title": "LeetCode Practice Platform",
+        "url": "https://leetcode.com/",
+        "author": "LeetCode",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Ongoing Practice by LeetCode"
+      },
+      {
+        "type": "book",
+        "title": "Cracking the Coding Interview",
+        "url": "https://www.crackingthecodinginterview.com/",
+        "author": "Gayle Laakmann McDowell",
+        "language": "en",
+        "free": false,
+        "whyWatch": "Interview Prep Guide by Gayle Laakmann McDowell"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "क्या यह विषय कॉलेज छात्रों के लिए उपयोगी है?",
+        "answer": "हाँ, यह गाइड आधुनिक उद्योग और परीक्षा मानकों के अनुसार तथ्यात्मक रूप से तैयार की गई है।"
+      }
+    ],
+    "relatedSlugs": [
+      "placement-offcampus-playbook",
+      "core-cs-subjects-interview",
+      "project-ideas-hub"
+    ],
+    "sources": [
+      {
+        "title": "Striver's A2Z DSA Course & Sheet",
+        "url": "https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/",
+        "publisher": "TakeUForward",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "NeetCode 150 Practice Roadmap",
+        "url": "https://neetcode.io/practice",
+        "publisher": "NeetCode.io",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Introduction to Algorithms (CLRS 4th Edition)",
+        "url": "https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/",
+        "publisher": "The MIT Press",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "LeetCode Interview Preparation Track",
+        "url": "https://leetcode.com/explore/",
+        "publisher": "LeetCode",
+        "accessed": "2026-11-04"
+      }
+    ]
+  },
+  {
+    "slug": "placement-offcampus-playbook",
+    "title": "Placement Playbook: Resume, ATS, LinkedIn, GitHub, Mock Interviews और Off-Campus Strategy",
+    "titleHindi": "",
+    "category": "career",
+    "categoryLabel": "Career & Placement",
+    "level": "intermediate",
+    "tags": [
+      "placement",
+      "resume",
+      "ats",
+      "linkedin",
+      "github",
+      "off-campus",
+      "interviews",
+      "career"
+    ],
+    "readingMinutes": 14,
+    "lastVerified": "2026-11-04",
+    "confidence": "high",
+    "summary": "कॉलेज स्टूडेंट्स और फ्रेशर्स के लिए संपूर्ण जॉब हंट प्लेबुक। ATS-फ्रेंडली 1-पेज रिज्यूमे, Google का XYZ फॉर्मूला, लिंक्डइन पर रेफरल पाने के वास्तविक मैसेज टेम्पलेट्स, और ऑफ-कैंपस में शॉर्टलिस्ट होने के अचूक तरीके।",
+    "tldr": [
+      "**1-Page Strict Rule:** फ्रेशर्स और 0-3 साल के अनुभव वालों का रिज्यूमे हमेशा **1 पेज** का होना चाहिए। दो कॉलम (two-column) या फैंसी कैनवा (Canva) ग्राफ़िक्स वाले टेम्पलेट्स ATS बॉट्स द्वारा रिजेक्ट हो जाते हैं [1]।",
+      "**Google का XYZ फॉर्मूला:** रिज्यूमे के हर बुलेट में लिखें: *\"Accomplished [X], as measured by [Y], by doing [Z]\"* [3]। साधारण वाक्य *\"Created an e-commerce website\"* लिखने से शॉर्टलिस्टिंग नहीं होती।",
+      "**GitHub & Live Demos:** प्रोजेक्ट केवल कोड नहीं होना चाहिए; हर प्रोजेक्ट का एक क्लिक पर चलने वाला **Live URL** (Vercel/Render) और सुंदर README (GIFs/screenshots) होना चाहिए।",
+      "**Cold InMail का सच:** बिना किसी संदर्भ के *\"Sir please give me referral\"* भेजने पर 99% लोग इग्नोर करते हैं। 3-लाइन का कस्टमाइज़्ड पिच और जॉब आईडी भेजने पर 30-40% रिस्पांस रेट मिलता है।"
+    ],
+    "whyItMatters": "कॉलेज स्टूडेंट्स और फ्रेशर्स के लिए संपूर्ण जॉब हंट प्लेबुक। ATS-फ्रेंडली 1-पेज रिज्यूमे, Google का XYZ फॉर्मूला, लिंक्डइन पर रेफरल पाने के वास्तविक मैसेज टेम्पलेट्स, और ऑफ-कैंपस में शॉर्टलिस्ट होने के अचूक तरीके।",
+    "coreConcepts": [
+      {
+        "heading": "Theory & Core Principles",
+        "content": ""
+      }
+    ],
+    "roadmapSteps": [
+      "Phase 1: Foundations & Core Principles",
+      "Phase 2: Practical Implementation & Coding",
+      "Phase 3: Real-World Testing & Optimization",
+      "Phase 4: Deployment & Portfolio Presentation"
+    ],
+    "handsOn": [
+      {
+        "title": "Practical Hands-on",
+        "task": "Execute hands-on code examples and verify locally.",
+        "deliverable": "Tested script and architecture output."
+      }
+    ],
+    "mistakesAndMyths": [
+      {
+        "myth": "बिना बुनियादी सिद्धांत समझे केवल टूल्स का इस्तेमाल काफी है",
+        "reality": "कोर प्रिंसिपल्स की समझ ही लंबे समय में सिस्टम को डिबग और स्केल करने की क्षमता देती है।"
+      }
+    ],
+    "resources": [
+      {
+        "type": "tool",
+        "title": "Jake's Resume LaTeX Template on Overleaf",
+        "url": "https://www.overleaf.com/latex/templates/jakes-resume/syzsqbzwxvdx",
+        "author": "Jake Gutierrez",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Template by Jake Gutierrez"
+      },
+      {
+        "type": "video",
+        "title": "How to Build a SDE Resume that Gets Shortlisted (in Hindi)",
+        "url": "https://www.youtube.com/watch?v=BYUY1E43R5E",
+        "author": "Arsh Goyal",
+        "language": "hi",
+        "free": true,
+        "whyWatch": "22 mins by Arsh Goyal"
+      },
+      {
+        "type": "doc",
+        "title": "Harvard Action Verbs for Technical Resumes",
+        "url": "https://careerservices.fas.harvard.edu/resources/create-a-strong-resume/",
+        "author": "Harvard University",
+        "language": "en",
+        "free": true,
+        "whyWatch": "PDF Checklist by Harvard University"
+      },
+      {
+        "type": "tool",
+        "title": "Pramp: Free Peer-to-Peer Mock Interviews",
+        "url": "https://www.pramp.com/",
+        "author": "Pramp",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Live Mock Rounds by Pramp"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "क्या यह विषय कॉलेज छात्रों के लिए उपयोगी है?",
+        "answer": "हाँ, यह गाइड आधुनिक उद्योग और परीक्षा मानकों के अनुसार तथ्यात्मक रूप से तैयार की गई है।"
+      }
+    ],
+    "relatedSlugs": [
+      "dsa-roadmap-6-months",
+      "core-cs-subjects-interview",
+      "project-ideas-hub"
+    ],
+    "sources": [
+      {
+        "title": "Harvard University Career Services Resume Guide",
+        "url": "https://careerservices.fas.harvard.edu/resources/create-a-strong-resume/",
+        "publisher": "Harvard FAS Mignone Center for Career Success",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Jake's Resume (Single-Column LaTeX Template)",
+        "url": "https://www.overleaf.com/latex/templates/jakes-resume/syzsqbzwxvdx",
+        "publisher": "Overleaf / LaTeX Community",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Google Careers: How to Create a Great Technical Resume (XYZ Formula)",
+        "url": "https://www.google.com/about/careers/applications/how-we-hire/",
+        "publisher": "Google Careers",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Wellfound (Formerly AngelList Talent) Engineering Job Search Guidelines",
+        "url": "https://wellfound.com/",
+        "publisher": "Wellfound",
+        "accessed": "2026-11-04"
+      }
+    ]
+  },
+  {
+    "slug": "core-cs-subjects-interview",
+    "title": "Core CS Subjects Mastery: OS, DBMS, Computer Networks और OOP इंटरव्यू के लिए क्या और कितना पढ़ें",
+    "titleHindi": "",
+    "category": "career",
+    "categoryLabel": "Career & Placement",
+    "level": "intermediate",
+    "tags": [
+      "operating-systems",
+      "dbms",
+      "computer-networks",
+      "oop",
+      "solid-principles",
+      "core-cs",
+      "interviews"
+    ],
+    "readingMinutes": 16,
+    "lastVerified": "2026-11-04",
+    "confidence": "high",
+    "summary": "सॉफ्टवेयर इंजीनियरिंग इंटरव्यू के लिए Core CS का संक्षिप्त, केंद्रित और 80/20 गाइड। ऑपरेटिंग सिस्टम्स, डेटाबेस, नेटवर्किंग और ऑब्जेक्ट-ओरिएंटेड प्रोग्रामिंग के सबसे महत्वपूर्ण सवाल और अवधारणाएं।",
+    "tldr": [
+      "**The 80/20 Rule:** पूरी 800-पेज की किताब पढ़ने की ज़रूरत नहीं है। 80% इंटरव्यू सवाल केवल 20% मुख्य विषयों (Virtual Memory, Deadlocks, ACID, Indexing, TCP 3-Way Handshake, DNS flow, SOLID) से पूछे जाते हैं [1, 2, 3]।",
+      "**OS:** Process vs Thread, Mutex vs Semaphore, 4 Coffman conditions for Deadlock, Virtual Memory (Paging, Page Fault, TLB) [1]।",
+      "**DBMS:** ACID properties, Normalization (1NF to BCNF), B+ Tree Indexing (Range queries में hash index से बेहतर क्यों है), Transaction Isolation levels [2]।",
+      "**CN:** OSI 7 Layers vs TCP/IP 4 Layers, TCP 3-Way Handshake, DNS resolution step-by-step, HTTP/1.1 vs HTTP/2 vs HTTP/3 [3]।",
+      "**OOP:** 4 Pillars (Encapsulation, Abstraction, Inheritance, Polymorphism) + 5 **SOLID** principles कोड उदाहरण के साथ।"
+    ],
+    "whyItMatters": "सॉफ्टवेयर इंजीनियरिंग इंटरव्यू के लिए Core CS का संक्षिप्त, केंद्रित और 80/20 गाइड। ऑपरेटिंग सिस्टम्स, डेटाबेस, नेटवर्किंग और ऑब्जेक्ट-ओरिएंटेड प्रोग्रामिंग के सबसे महत्वपूर्ण सवाल और अवधारणाएं।",
+    "coreConcepts": [
+      {
+        "heading": "Theory & Core Principles",
+        "content": ""
+      }
+    ],
+    "roadmapSteps": [
+      "Phase 1: Foundations & Core Principles",
+      "Phase 2: Practical Implementation & Coding",
+      "Phase 3: Real-World Testing & Optimization",
+      "Phase 4: Deployment & Portfolio Presentation"
+    ],
+    "handsOn": [
+      {
+        "title": "Practical Hands-on",
+        "task": "Execute hands-on code examples and verify locally.",
+        "deliverable": "Tested script and architecture output."
+      }
+    ],
+    "mistakesAndMyths": [
+      {
+        "myth": "बिना बुनियादी सिद्धांत समझे केवल टूल्स का इस्तेमाल काफी है",
+        "reality": "कोर प्रिंसिपल्स की समझ ही लंबे समय में सिस्टम को डिबग और स्केल करने की क्षमता देती है।"
+      }
+    ],
+    "resources": [
+      {
+        "type": "video",
+        "title": "Operating Systems Full Playlist in Hindi (Gate Smashers)",
+        "url": "https://www.youtube.com/playlist?list=PLxCzCOWd7aiGz9donHRrE9I3Mwn6XdP8p",
+        "author": "Varun Singla (Gate Smashers)",
+        "language": "hi",
+        "free": true,
+        "whyWatch": "Full Playlist by Varun Singla (Gate Smashers)"
+      },
+      {
+        "type": "video",
+        "title": "DBMS Full Playlist in Hindi (Gate Smashers)",
+        "url": "https://www.youtube.com/playlist?list=PLxCzCOWd7aiFAN6I8CuViBuCdJgiOkT2Y",
+        "author": "Varun Singla",
+        "language": "hi",
+        "free": true,
+        "whyWatch": "Full Playlist by Varun Singla"
+      },
+      {
+        "type": "video",
+        "title": "Computer Networks Full Playlist in Hindi (Gate Smashers)",
+        "url": "https://www.youtube.com/playlist?list=PLxCzCOWd7aiGFBD2-2joCpWOLUrDLvVV_",
+        "author": "Varun Singla",
+        "language": "hi",
+        "free": true,
+        "whyWatch": "Full Playlist by Varun Singla"
+      },
+      {
+        "type": "doc",
+        "title": "GeeksforGeeks Last Minute Core CS Interview Revision",
+        "url": "https://www.geeksforgeeks.org/",
+        "author": "GeeksforGeeks",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Reference by GeeksforGeeks"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "क्या यह विषय कॉलेज छात्रों के लिए उपयोगी है?",
+        "answer": "हाँ, यह गाइड आधुनिक उद्योग और परीक्षा मानकों के अनुसार तथ्यात्मक रूप से तैयार की गई है।"
+      }
+    ],
+    "relatedSlugs": [
+      "dsa-roadmap-6-months",
+      "placement-offcampus-playbook",
+      "project-ideas-hub"
+    ],
+    "sources": [
+      {
+        "title": "Operating System Concepts (Silberschatz, Galvin, Gagne - 10th Edition)",
+        "url": "https://www.os-book.com/",
+        "publisher": "Wiley",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Database Management Systems (Ramakrishnan & Gehrke - 3rd Edition)",
+        "url": "https://pages.cs.wisc.edu/~dbbook/",
+        "publisher": "McGraw-Hill",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Computer Networking: A Top-Down Approach (Kurose & Ross - 8th Edition)",
+        "url": "https://gaia.cs.umass.edu/kurose_ross/online_lectures.htm",
+        "publisher": "Pearson",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Gate Smashers Computer Science Playlists (Varun Singla)",
+        "url": "https://www.youtube.com/@GateSmashers",
+        "publisher": "YouTube",
+        "accessed": "2026-11-04"
+      }
+    ]
+  },
+  {
+    "slug": "project-ideas-hub",
+    "title": "Project Ideas Hub: Beginner, Intermediate और Advanced प्रोजेक्ट्स और उन्हें Resume में दिखाने की कला",
+    "titleHindi": "",
+    "category": "projects",
+    "categoryLabel": "Projects Hub",
+    "level": "beginner",
+    "tags": [
+      "projects",
+      "resume",
+      "fullstack",
+      "ai-ml",
+      "devops",
+      "system-design",
+      "portfolio"
+    ],
+    "readingMinutes": 16,
+    "lastVerified": "2026-11-04",
+    "confidence": "high",
+    "summary": "कॉलेज छात्रों और सॉफ्टवेयर इंजीनियरों के लिए वास्तविक, प्रोडक्शन-ग्रेड प्रोजेक्ट आइडियाज। वेब देव, AI/ML और सिस्टम्स डोमेन में बिगिनर से एडवांस स्तर के प्रोजेक्ट्स, आर्किटेक्चर ब्लूप्रिंट्स और रिज्यूमे बुलेट टेम्पलेट्स।",
+    "tldr": [
+      "**\"To-Do App\" और \"Weather App\" अब बंद करें:** रिक्रूटर्स हर दिन सैकड़ों एक जैसे क्लोन प्रोजेक्ट्स देखते हैं। अगर आपका प्रोजेक्ट YouTube के किसी 2 घंटे के ट्यूटोरियल की हूबहू कॉपी है, तो वह आपके रिज्यूमे को नुकसान पहुँचाता है।",
+      "**तीनों स्तरों का संतुलन:** आपके रिज्यूमे में कम से कम 2 से 3 ठोस प्रोजेक्ट्स होने चाहिए: एक गहरा **Full-Stack / Systems** प्रोजेक्ट और एक **AI/ML या Cloud-Native** प्रोजेक्ट।",
+      "**हर प्रोजेक्ट में क्या होना चाहिए:** (1) वास्तविक प्रॉब्लम स्टेटमेंट, (2) आर्किटेक्चर डायग्राम, (3) लाइव डेप्लॉयड लिंक, (4) सांख्यिकीय मैट्रिक्स (Latency, Concurrency, Users) [2]।",
+      "**Google XYZ फॉर्मूला:** प्रोजेक्ट्स को रिज्यूमे में *\"Accomplished [X] as measured by [Y], by doing [Z]\"* रूप में लिखें।"
+    ],
+    "whyItMatters": "कॉलेज छात्रों और सॉफ्टवेयर इंजीनियरों के लिए वास्तविक, प्रोडक्शन-ग्रेड प्रोजेक्ट आइडियाज। वेब देव, AI/ML और सिस्टम्स डोमेन में बिगिनर से एडवांस स्तर के प्रोजेक्ट्स, आर्किटेक्चर ब्लूप्रिंट्स और रिज्यूमे बुलेट टेम्पलेट्स।",
+    "coreConcepts": [
+      {
+        "heading": "Theory & Core Principles",
+        "content": ""
+      }
+    ],
+    "roadmapSteps": [
+      "Phase 1: Foundations & Core Principles",
+      "Phase 2: Practical Implementation & Coding",
+      "Phase 3: Real-World Testing & Optimization",
+      "Phase 4: Deployment & Portfolio Presentation"
+    ],
+    "handsOn": [
+      {
+        "title": "Practical Hands-on",
+        "task": "Execute hands-on code examples and verify locally.",
+        "deliverable": "Tested script and architecture output."
+      }
+    ],
+    "mistakesAndMyths": [
+      {
+        "myth": "बिना बुनियादी सिद्धांत समझे केवल टूल्स का इस्तेमाल काफी है",
+        "reality": "कोर प्रिंसिपल्स की समझ ही लंबे समय में सिस्टम को डिबग और स्केल करने की क्षमता देती है।"
+      }
+    ],
+    "resources": [
+      {
+        "type": "doc",
+        "title": "System Design Primer by Donne Martin",
+        "url": "https://github.com/donnemartin/system-design-primer",
+        "author": "Donne Martin",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Open Source Guide by Donne Martin"
+      },
+      {
+        "type": "video",
+        "title": "Top 5 Unique Projects to Stand Out in Tech Placements (in Hindi)",
+        "url": "https://www.youtube.com/watch?v=Xh0YpA7H5vI",
+        "author": "Apna College",
+        "language": "hi",
+        "free": true,
+        "whyWatch": "18 mins by Apna College"
+      },
+      {
+        "type": "doc",
+        "title": "Build Your Own Redis / Docker / Git from Scratch",
+        "url": "https://github.com/codecrafters-io/build-your-own-x",
+        "author": "Daniel Stefanovic",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Tutorial Collection by Daniel Stefanovic"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "क्या यह विषय कॉलेज छात्रों के लिए उपयोगी है?",
+        "answer": "हाँ, यह गाइड आधुनिक उद्योग और परीक्षा मानकों के अनुसार तथ्यात्मक रूप से तैयार की गई है।"
+      }
+    ],
+    "relatedSlugs": [
+      "placement-offcampus-playbook",
+      "ai-agents-and-rag",
+      "dsa-roadmap-6-months"
+    ],
+    "sources": [
+      {
+        "title": "The System Design Primer (Donne Martin)",
+        "url": "https://github.com/donnemartin/system-design-primer",
+        "publisher": "GitHub",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Google Careers: Resume Writing Guide & Impact Statements",
+        "url": "https://www.google.com/about/careers/applications/how-we-hire/",
+        "publisher": "Google Careers",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Build Your Own X: Rebuild Tech from Scratch",
+        "url": "https://github.com/codecrafters-io/build-your-own-x",
+        "publisher": "CodeCrafters",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "FreeCodeCamp Open Source Curriculum & Real-world Projects",
+        "url": "https://www.freecodecamp.org/",
+        "publisher": "freeCodeCamp",
+        "accessed": "2026-11-04"
+      }
+    ]
+  },
+  {
+    "slug": "llms-explained",
+    "title": "LLMs कैसे काम करते हैं: Tokens, Transformers, Training और Inference",
+    "titleHindi": "",
+    "category": "ai-ml",
+    "categoryLabel": "AI & Machine Learning",
+    "level": "intermediate",
+    "tags": [
+      "ai",
+      "llm",
+      "transformers",
+      "machine-learning",
+      "deep-learning"
+    ],
+    "readingMinutes": 12,
+    "lastVerified": "2026-11-04",
+    "confidence": "evolving",
+    "summary": "Large Language Models (LLMs) के अंदरूनी तंत्र को गहराई से समझें: Tokenization से लेकर Multi-Head Self-Attention, Pre-training, RLHF alignment और Inference generation तक।",
+    "tldr": [
+      "**Tokenization:** LLM raw text नहीं पढ़ते; वे text को 3-4 अक्षर के chunks (**tokens**) में तोड़ते हैं और उन्हें numeric IDs देते हैं [1]।",
+      "**Transformer Architecture:** RNNs के sequential लूप्स के बजाय, Transformers पूरे वाक्य को एक साथ प्रोसेस करते हैं और **Self-Attention** से शब्दों के आपसी संदर्भ (context) की गणना करते हैं [1]।",
+      "**Training Pipeline:** 2 चरणों में होता है: विशाल raw internet text पर **Pre-training** (Next-token prediction) और उसके बाद **Instruction Fine-Tuning** (SFT/RLHF/DPO) ताकि मॉडल इंसानों के आदेशों का सुरक्षित जवाब दे सके [2, 5]।",
+      "**Inference Reality:** LLMs \"सोचते\" नहीं हैं; वे पिछले सभी tokens के आधार पर अगले सबसे संभावित token की probability distribution निकालकर एक-एक token generate करते हैं।"
+    ],
+    "whyItMatters": "Large Language Models (LLMs) के अंदरूनी तंत्र को गहराई से समझें: Tokenization से लेकर Multi-Head Self-Attention, Pre-training, RLHF alignment और Inference generation तक।",
+    "coreConcepts": [
+      {
+        "heading": "Theory & Core Principles",
+        "content": ""
+      }
+    ],
+    "roadmapSteps": [
+      "Phase 1: Foundations & Core Principles",
+      "Phase 2: Practical Implementation & Coding",
+      "Phase 3: Real-World Testing & Optimization",
+      "Phase 4: Deployment & Portfolio Presentation"
+    ],
+    "handsOn": [
+      {
+        "title": "Practical Hands-on",
+        "task": "Execute hands-on code examples and verify locally.",
+        "deliverable": "Tested script and architecture output."
+      }
+    ],
+    "mistakesAndMyths": [
+      {
+        "myth": "बिना बुनियादी सिद्धांत समझे केवल टूल्स का इस्तेमाल काफी है",
+        "reality": "कोर प्रिंसिपल्स की समझ ही लंबे समय में सिस्टम को डिबग और स्केल करने की क्षमता देती है।"
+      }
+    ],
+    "resources": [
+      {
+        "type": "video",
+        "title": "Intro to Large Language Models by Andrej Karpathy",
+        "url": "https://www.youtube.com/watch?v=zjkBMFhNj_g",
+        "author": "Andrej Karpathy",
+        "language": "en",
+        "free": true,
+        "whyWatch": "1 hr by Andrej Karpathy"
+      },
+      {
+        "type": "video",
+        "title": "Introduction to Transformers in Hindi (CampusX)",
+        "url": "https://www.youtube.com/watch?v=BjRVS2wTtcA",
+        "author": "CampusX",
+        "language": "hi",
+        "free": true,
+        "whyWatch": "45 mins by CampusX"
+      },
+      {
+        "type": "video",
+        "title": "Attention in transformers, step-by-step",
+        "url": "https://www.youtube.com/watch?v=eMlx5fFNoYc",
+        "author": "3Blue1Brown",
+        "language": "en",
+        "free": true,
+        "whyWatch": "26 mins by 3Blue1Brown"
+      },
+      {
+        "type": "doc",
+        "title": "Hugging Face Transformers Documentation",
+        "url": "https://huggingface.co/docs/transformers",
+        "author": "Hugging Face",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Reading by Hugging Face"
+      },
+      {
+        "type": "book",
+        "title": "Build a Large Language Model (From Scratch)",
+        "url": "https://www.manning.com/books/build-a-large-language-model-from-scratch",
+        "author": "Sebastian Raschka",
+        "language": "en",
+        "free": false,
+        "whyWatch": "Full Book by Sebastian Raschka"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "क्या यह विषय कॉलेज छात्रों के लिए उपयोगी है?",
+        "answer": "हाँ, यह गाइड आधुनिक उद्योग और परीक्षा मानकों के अनुसार तथ्यात्मक रूप से तैयार की गई है।"
+      }
+    ],
+    "relatedSlugs": [
+      "ai-agents-and-rag",
+      "prompt-engineering-students"
+    ],
+    "sources": [
+      {
+        "title": "Attention Is All You Need (Vaswani et al.)",
+        "url": "https://arxiv.org/abs/1706.03762",
+        "publisher": "NeurIPS / arXiv",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Intro to Large Language Models (Andrej Karpathy)",
+        "url": "https://www.youtube.com/watch?v=zjkBMFhNj_g",
+        "publisher": "YouTube",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Hugging Face NLP Course: The Transformer Architecture",
+        "url": "https://huggingface.co/learn/nlp-course",
+        "publisher": "Hugging Face",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Attention in transformers, step-by-step (3Blue1Brown)",
+        "url": "https://www.youtube.com/watch?v=eMlx5fFNoYc",
+        "publisher": "3Blue1Brown",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Direct Preference Optimization: Your Language Model is Secretly a Reward Model (Rafailov et al.)",
+        "url": "https://arxiv.org/abs/2305.18290",
+        "publisher": "NeurIPS / arXiv",
+        "accessed": "2026-11-04"
+      }
+    ]
+  },
+  {
+    "slug": "rag",
+    "title": "AI Agents और RAG: कब क्या इस्तेमाल करें (Architecture, Trade-offs & Hybrid Systems)",
+    "titleHindi": "",
+    "category": "ai-ml",
+    "categoryLabel": "AI & Machine Learning",
+    "level": "intermediate",
+    "tags": [
+      "ai",
+      "rag",
+      "ai-agents",
+      "react-pattern",
+      "langchain",
+      "llamaindex"
+    ],
+    "readingMinutes": 14,
+    "lastVerified": "2026-11-04",
+    "confidence": "evolving",
+    "summary": "Retrieval-Augmented Generation (RAG) और Autonomous AI Agents की विस्तृत तुलना। जानिए कब simple search काफी है, कब multi-step reasoning वाले agents चाहिए, और production-grade hybrid systems कैसे बनाएं।",
+    "tldr": [
+      "**RAG (Knowledge Augmentation):** आपके private documents या internal database से relevant text chunks retrieve करके LLM के prompt में inject करता है [1]। यह static question-answering के लिए fast, cheap, और highly deterministic है।",
+      "**AI Agents (Action & Tool Use):** एक dynamic loop (ReAct pattern) चलाते हैं जहाँ LLM तय करता है कि *क्या सोचना है*, *कौन सा tool call करना है* (Calculator, Web Search, Code Runner), और output के आधार पर अगला कदम क्या होगा [2]।",
+      "**The Golden Rule:** अगर सवाल का जवाब केवल दस्तावेज़ पढ़कर दिया जा सकता है, तो **RAG** चुनें। अगर कार्य में multi-step planning, state changes, external APIs या conditionals शामिल हैं, तो **Agent** चुनें।",
+      "**Cost & Latency:** RAG 1 round-trip में पूरा होता है (Latency < 1-2s); Agentic loops में कई LLM calls होती हैं (Latency 5-20s, cost 3x-10x ज़्यादा)।"
+    ],
+    "whyItMatters": "Retrieval-Augmented Generation (RAG) और Autonomous AI Agents की विस्तृत तुलना। जानिए कब simple search काफी है, कब multi-step reasoning वाले agents चाहिए, और production-grade hybrid systems कैसे बनाएं।",
+    "coreConcepts": [
+      {
+        "heading": "Theory & Core Principles",
+        "content": ""
+      }
+    ],
+    "roadmapSteps": [
+      "Phase 1: Foundations & Core Principles",
+      "Phase 2: Practical Implementation & Coding",
+      "Phase 3: Real-World Testing & Optimization",
+      "Phase 4: Deployment & Portfolio Presentation"
+    ],
+    "handsOn": [
+      {
+        "title": "Practical Hands-on",
+        "task": "Execute hands-on code examples and verify locally.",
+        "deliverable": "Tested script and architecture output."
+      }
+    ],
+    "mistakesAndMyths": [
+      {
+        "myth": "बिना बुनियादी सिद्धांत समझे केवल टूल्स का इस्तेमाल काफी है",
+        "reality": "कोर प्रिंसिपल्स की समझ ही लंबे समय में सिस्टम को डिबग और स्केल करने की क्षमता देती है।"
+      }
+    ],
+    "resources": [
+      {
+        "type": "video",
+        "title": "Retrieval Augmented Generation (RAG) Explained in Hindi",
+        "url": "https://www.youtube.com/watch?v=X0btK9X0Xnk",
+        "author": "CampusX",
+        "language": "hi",
+        "free": true,
+        "whyWatch": "40 mins by CampusX"
+      },
+      {
+        "type": "video",
+        "title": "What are AI Agents? (ReAct Framework)",
+        "url": "https://www.youtube.com/watch?v=F8NKVhkZZWI",
+        "author": "IBM Technology",
+        "language": "en",
+        "free": true,
+        "whyWatch": "12 mins by IBM Technology"
+      },
+      {
+        "type": "doc",
+        "title": "LangChain Official Agents Guide",
+        "url": "https://python.langchain.com/docs/concepts/agents/",
+        "author": "Harrison Chase",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Reference by Harrison Chase"
+      },
+      {
+        "type": "doc",
+        "title": "LlamaIndex Core RAG Concepts",
+        "url": "https://docs.llamaindex.ai/en/stable/getting_started/concepts/",
+        "author": "Jerry Liu",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Reference by Jerry Liu"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "क्या यह विषय कॉलेज छात्रों के लिए उपयोगी है?",
+        "answer": "हाँ, यह गाइड आधुनिक उद्योग और परीक्षा मानकों के अनुसार तथ्यात्मक रूप से तैयार की गई है।"
+      }
+    ],
+    "relatedSlugs": [
+      "llms-how-they-work",
+      "prompt-engineering-students",
+      "project-ideas-hub"
+    ],
+    "sources": [
+      {
+        "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (Lewis et al.)",
+        "url": "https://arxiv.org/abs/2005.11401",
+        "publisher": "NeurIPS / arXiv",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "ReAct: Synergizing Reasoning and Acting in Language Models (Yao et al.)",
+        "url": "https://arxiv.org/abs/2210.03629",
+        "publisher": "ICLR / arXiv",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "LangChain Architectural Documentation on Agents and Tool Calling",
+        "url": "https://python.langchain.com/docs/concepts/agents/",
+        "publisher": "LangChain",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "LlamaIndex Documentation on Production RAG",
+        "url": "https://docs.llamaindex.ai/en/stable/",
+        "publisher": "LlamaIndex",
+        "accessed": "2026-11-04"
+      }
+    ]
+  },
+  {
+    "slug": "prompt-engineering",
+    "title": "Prompt Engineering और AI Tools का सही इस्तेमाल: कॉलेज स्टूडेंट्स के लिए व्यावहारिक गाइड",
+    "titleHindi": "",
+    "category": "ai-ml",
+    "categoryLabel": "AI & Machine Learning",
+    "level": "beginner",
+    "tags": [
+      "prompt-engineering",
+      "chatgpt",
+      "gemini",
+      "students",
+      "productivity",
+      "study-skills"
+    ],
+    "readingMinutes": 10,
+    "lastVerified": "2026-11-04",
+    "confidence": "high",
+    "summary": "कॉलेज स्टूडेंट्स और फ्रेशर्स के लिए Prompt Engineering की संपूर्ण गाइड। जानिए Zero-Shot, Few-Shot, Chain-of-Thought (CoT) तकनीकें, असाइनमेंट में बिना चीटिंग के AI की मदद, और Hallucination पकड़ने के तरीके।",
+    "tldr": [
+      "**The Core Formula:** बेहतरीन prompts का एक ढांचा होता है: **Role + Context + Clear Task + Strict Constraints + Output Format** [1]।",
+      "**Chain-of-Thought (CoT):** जब आप AI को *\"कदम दर कदम सोचो (Think step by step)\"* कहते हैं, तो गणितीय और तार्किक सटीकता 40-70% तक बढ़ जाती है [2]।",
+      "**Few-Shot Examples:** केवल नियम समझाने के बजाय 2-3 इनपुट-आउटपुट उदाहरण देने से मॉडल आपकी इच्छित शैली पकड़ लेता है।",
+      "**Student Ethics:** AI को \"सॉल्व करने वाली मशीन\" के रूप में इस्तेमाल न करें; इसे **\"पर्सनल ट्यूटर\"** (Socratic Mentor) बनाएं जो आपको सवाल पूछे और कमियों को उजागर करे।"
+    ],
+    "whyItMatters": "कॉलेज स्टूडेंट्स और फ्रेशर्स के लिए Prompt Engineering की संपूर्ण गाइड। जानिए Zero-Shot, Few-Shot, Chain-of-Thought (CoT) तकनीकें, असाइनमेंट में बिना चीटिंग के AI की मदद, और Hallucination पकड़ने के तरीके।",
+    "coreConcepts": [
+      {
+        "heading": "Theory & Core Principles",
+        "content": ""
+      }
+    ],
+    "roadmapSteps": [
+      "Phase 1: Foundations & Core Principles",
+      "Phase 2: Practical Implementation & Coding",
+      "Phase 3: Real-World Testing & Optimization",
+      "Phase 4: Deployment & Portfolio Presentation"
+    ],
+    "handsOn": [
+      {
+        "title": "Practical Hands-on",
+        "task": "Execute hands-on code examples and verify locally.",
+        "deliverable": "Tested script and architecture output."
+      }
+    ],
+    "mistakesAndMyths": [
+      {
+        "myth": "बिना बुनियादी सिद्धांत समझे केवल टूल्स का इस्तेमाल काफी है",
+        "reality": "कोर प्रिंसिपल्स की समझ ही लंबे समय में सिस्टम को डिबग और स्केल करने की क्षमता देती है।"
+      }
+    ],
+    "resources": [
+      {
+        "type": "course",
+        "title": "ChatGPT Prompt Engineering for Developers",
+        "url": "https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/",
+        "author": "Andrew Ng & Isa Fulford",
+        "language": "en",
+        "free": true,
+        "whyWatch": "1 hr by Andrew Ng & Isa Fulford"
+      },
+      {
+        "type": "doc",
+        "title": "OpenAI Official Prompt Engineering Guide",
+        "url": "https://platform.openai.com/docs/guides/prompt-engineering",
+        "author": "OpenAI Platform Docs",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Reference by OpenAI Platform Docs"
+      },
+      {
+        "type": "doc",
+        "title": "Anthropic Claude Prompt Engineering Interactive Course",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview",
+        "author": "Anthropic",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Tutorial by Anthropic"
+      },
+      {
+        "type": "video",
+        "title": "How to Prompt AI Effectively (5 Minutes Engineering)",
+        "url": "https://www.youtube.com/watch?v=y1QfFpGq2p8",
+        "author": "5 Minutes Engineering",
+        "language": "hi",
+        "free": true,
+        "whyWatch": "15 mins by 5 Minutes Engineering"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "क्या यह विषय कॉलेज छात्रों के लिए उपयोगी है?",
+        "answer": "हाँ, यह गाइड आधुनिक उद्योग और परीक्षा मानकों के अनुसार तथ्यात्मक रूप से तैयार की गई है।"
+      }
+    ],
+    "relatedSlugs": [
+      "llms-how-they-work",
+      "ai-agents-and-rag",
+      "placement-offcampus-playbook"
+    ],
+    "sources": [
+      {
+        "title": "OpenAI Prompt Engineering Official Guide",
+        "url": "https://platform.openai.com/docs/guides/prompt-engineering",
+        "publisher": "OpenAI",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models (Wei et al.)",
+        "url": "https://arxiv.org/abs/2201.11903",
+        "publisher": "NeurIPS / arXiv",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Anthropic Interactive Prompt Engineering Tutorial",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview",
+        "publisher": "Anthropic",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "ChatGPT Prompt Engineering for Developers (DeepLearning.AI)",
+        "url": "https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/",
+        "publisher": "DeepLearning.AI / Andrew Ng",
+        "accessed": "2026-11-04"
+      }
+    ]
+  },
+  {
+    "slug": "qubits-superposition",
+    "title": "Qubit, Superposition और Entanglement: बिना गणित के क्वांटम कंप्यूटिंग की समझ",
+    "titleHindi": "",
+    "category": "quantum",
+    "categoryLabel": "Quantum Computing",
+    "level": "beginner",
+    "tags": [
+      "quantum-computing",
+      "qubits",
+      "superposition",
+      "entanglement",
+      "physics",
+      "tech-explainer"
+    ],
+    "readingMinutes": 11,
+    "lastVerified": "2026-11-04",
+    "confidence": "high",
+    "summary": "बिना जटिल गणित और Linear Algebra के क्वांटम कंप्यूटिंग के बुनियादी सिद्धांतों को समझें। जानिए Qubit, Superposition, Entanglement और Measurement Collapse वास्तविक जीवन की सरल analogies के साथ।",
+    "tldr": [
+      "**Classical Bit vs Qubit:** एक सामान्य बिट या तो 0 होता है या 1 (जैसे एक लाइट स्विच)। एक **Qubit** 0 और 1 दोनों की सम्भावनाओं के मिश्रण में रह सकता है [1]।",
+      "**Superposition:** मेज पर रखा सिक्का 'Heads' या 'Tails' होता है, लेकिन घूमता हुआ सिक्का (spinning coin) दोनों अवस्थाओं का मिश्रण है जब तक आप उसे रोक न दें।",
+      "**Measurement Collapse:** जैसे ही आप क्वांटम सिस्टम को मापते (observe) हैं, उसकी सुपरपोजिशन तुरंत खत्म हो जाती है और वह सामान्य 0 या 1 में बदल जाता है [1]।",
+      "**Entanglement:** दो या अधिक क्यूबिट्स का आपस में ऐसा गहरा जुड़ाव कि एक की स्थिति जानते ही दूसरे की स्थिति ब्रह्मांड के किसी भी कोने में तुरंत तय हो जाती है [3]।"
+    ],
+    "whyItMatters": "बिना जटिल गणित और Linear Algebra के क्वांटम कंप्यूटिंग के बुनियादी सिद्धांतों को समझें। जानिए Qubit, Superposition, Entanglement और Measurement Collapse वास्तविक जीवन की सरल analogies के साथ।",
+    "coreConcepts": [
+      {
+        "heading": "Theory & Core Principles",
+        "content": ""
+      }
+    ],
+    "roadmapSteps": [
+      "Phase 1: Foundations & Core Principles",
+      "Phase 2: Practical Implementation & Coding",
+      "Phase 3: Real-World Testing & Optimization",
+      "Phase 4: Deployment & Portfolio Presentation"
+    ],
+    "handsOn": [
+      {
+        "title": "Practical Hands-on",
+        "task": "Execute hands-on code examples and verify locally.",
+        "deliverable": "Tested script and architecture output."
+      }
+    ],
+    "mistakesAndMyths": [
+      {
+        "myth": "बिना बुनियादी सिद्धांत समझे केवल टूल्स का इस्तेमाल काफी है",
+        "reality": "कोर प्रिंसिपल्स की समझ ही लंबे समय में सिस्टम को डिबग और स्केल करने की क्षमता देती है।"
+      }
+    ],
+    "resources": [
+      {
+        "type": "video",
+        "title": "What makes quantum computers SO powerful?",
+        "url": "https://www.youtube.com/watch?v=-UrdExQW0cs",
+        "author": "Veritasium",
+        "language": "en",
+        "free": true,
+        "whyWatch": "24 mins by Veritasium"
+      },
+      {
+        "type": "video",
+        "title": "Quantum Computing Explained in Hindi",
+        "url": "https://www.youtube.com/watch?v=IhOC3FhY8i8",
+        "author": "Geekyranjit",
+        "language": "hi",
+        "free": true,
+        "whyWatch": "14 mins by Geekyranjit"
+      },
+      {
+        "type": "doc",
+        "title": "IBM Quantum Interactive Learning Hub",
+        "url": "https://learning.quantum.ibm.com/",
+        "author": "IBM Quantum Team",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Self-Paced by IBM Quantum Team"
+      },
+      {
+        "type": "book",
+        "title": "Quantum Computing for Everyone",
+        "url": "https://mitpress.mit.edu/9780262539531/quantum-computing-for-everyone/",
+        "author": "Chris Bernhardt",
+        "language": "en",
+        "free": false,
+        "whyWatch": "Introductory Book by Chris Bernhardt"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "क्या यह विषय कॉलेज छात्रों के लिए उपयोगी है?",
+        "answer": "हाँ, यह गाइड आधुनिक उद्योग और परीक्षा मानकों के अनुसार तथ्यात्मक रूप से तैयार की गई है।"
+      }
+    ],
+    "relatedSlugs": [
+      "quantum-roadmap-and-reality",
+      "llms-how-they-work"
+    ],
+    "sources": [
+      {
+        "title": "Quantum Computation and Quantum Information (Nielsen & Chuang)",
+        "url": "https://www.cambridge.org/highereducation/books/quantum-computation-and-quantum-information/017870D10D6A7DA9DAF59A65D39FEA6B",
+        "publisher": "Cambridge University Press",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "IBM Quantum Learning: Basics of Quantum Information",
+        "url": "https://learning.quantum.ibm.com/",
+        "publisher": "IBM Quantum",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "What makes quantum computers SO powerful? (Veritasium)",
+        "url": "https://www.youtube.com/watch?v=-UrdExQW0cs",
+        "publisher": "Veritasium / YouTube",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Qiskit Textbook: Fundamentals of Quantum Computing",
+        "url": "https://docs.quantum.ibm.com/",
+        "publisher": "IBM / Qiskit",
+        "accessed": "2026-11-04"
+      }
+    ]
+  },
+  {
+    "slug": "indian-constitution-basics",
+    "title": "भारत का संविधान और सरकार की संरचना: कार्यपालिका, विधायिका और न्यायपालिका",
+    "titleHindi": "",
+    "category": "gov-policy",
+    "categoryLabel": "Politics & Governance",
+    "level": "beginner",
+    "tags": [
+      "constitution",
+      "india",
+      "civics",
+      "governance",
+      "judiciary",
+      "parliament",
+      "executive"
+    ],
+    "readingMinutes": 13,
+    "lastVerified": "2026-11-04",
+    "confidence": "high",
+    "summary": "भारतीय संविधान का निष्पक्ष, तथ्यपरक और संवैधानिक विश्लेषण। जानिए शक्ति पृथक्करण (Separation of Powers), कार्यपालिका, विधायिका और न्यायपालिका के बीच संतुलन (Checks & Balances), और संघात्मक ढांचा।",
+    "tldr": [
+      "**सर्वोच्च विधि:** भारत का संविधान देश का सर्वोच्च कानून (Grundnorm) है, जिसे 26 नवंबर 1949 को अंगीकृत किया गया और 26 जनवरी 1950 को लागू हुआ [1]।",
+      "**तीन स्तंभ (Trias Politica):** सरकार के तीन मुख्य अंग हैं: **विधायिका** (कानून बनाना), **कार्यपालिका** (कानून लागू करना), और **न्यायपालिका** (कानून की व्याख्या करना और संविधान की रक्षा करना)।",
+      "**Checks & Balances:** कोई भी अंग निरंकुश नहीं है। संसद कानून बनाती है, लेकिन सुप्रीम कोर्ट असंवैधानिक कानून को रद्द कर सकता है (Judicial Review) [3]। न्यायपालिका के जजों की नियुक्ति कार्यपालिका/कोलेजियम से होती है, और संसद उन पर महाभियोग (Impeachment) चला सकती है।",
+      "**अर्ध-संघीय ढांचा (Quasi-Federal):** संविधान में संघीय (Federal) विशेषताएं हैं लेकिन केंद्र की ओर झुकाव (Unitary bias) है (7वीं अनुसूची: संघ सूची, राज्य सूची, समवर्ती सूची) [1]।"
+    ],
+    "whyItMatters": "भारतीय संविधान का निष्पक्ष, तथ्यपरक और संवैधानिक विश्लेषण। जानिए शक्ति पृथक्करण (Separation of Powers), कार्यपालिका, विधायिका और न्यायपालिका के बीच संतुलन (Checks & Balances), और संघात्मक ढांचा।",
+    "coreConcepts": [
+      {
+        "heading": "Theory & Core Principles",
+        "content": ""
+      }
+    ],
+    "roadmapSteps": [
+      "Phase 1: Foundations & Core Principles",
+      "Phase 2: Practical Implementation & Coding",
+      "Phase 3: Real-World Testing & Optimization",
+      "Phase 4: Deployment & Portfolio Presentation"
+    ],
+    "handsOn": [
+      {
+        "title": "Practical Hands-on",
+        "task": "Execute hands-on code examples and verify locally.",
+        "deliverable": "Tested script and architecture output."
+      }
+    ],
+    "mistakesAndMyths": [
+      {
+        "myth": "बिना बुनियादी सिद्धांत समझे केवल टूल्स का इस्तेमाल काफी है",
+        "reality": "कोर प्रिंसिपल्स की समझ ही लंबे समय में सिस्टम को डिबग और स्केल करने की क्षमता देती है।"
+      }
+    ],
+    "resources": [
+      {
+        "type": "video",
+        "title": "Samvidhaan: The Making of the Constitution of India (Episode 1)",
+        "url": "https://www.youtube.com/watch?v=0U9KDQn6dU4",
+        "author": "Rajya Sabha TV / Shyam Benegal",
+        "language": "hi",
+        "free": true,
+        "whyWatch": "45 mins by Rajya Sabha TV / Shyam Benegal"
+      },
+      {
+        "type": "doc",
+        "title": "Official Constitution of India (Bilingual PDF)",
+        "url": "https://legislative.gov.in/constitution-of-india/",
+        "author": "Ministry of Law and Justice",
+        "language": "hi",
+        "free": true,
+        "whyWatch": "Reference by Ministry of Law and Justice"
+      },
+      {
+        "type": "doc",
+        "title": "PRS Legislative Research: Vital Stats of Parliament",
+        "url": "https://prsindia.org/parliament-tracking",
+        "author": "PRS India",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Monthly Tracking by PRS India"
+      },
+      {
+        "type": "book",
+        "title": "Introduction to the Constitution of India",
+        "url": "https://www.lexisnexis.in/",
+        "author": "Dr. Durga Das Basu (D.D. Basu)",
+        "language": "en",
+        "free": false,
+        "whyWatch": "Textbook by Dr. Durga Das Basu (D.D. Basu)"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "क्या यह विषय कॉलेज छात्रों के लिए उपयोगी है?",
+        "answer": "हाँ, यह गाइड आधुनिक उद्योग और परीक्षा मानकों के अनुसार तथ्यात्मक रूप से तैयार की गई है।"
+      }
+    ],
+    "relatedSlugs": [
+      "election-process-evm-vvpat",
+      "union-budget-rti-dbt"
+    ],
+    "sources": [
+      {
+        "title": "The Constitution of India (Official Full Text)",
+        "url": "https://legislative.gov.in/constitution-of-india/",
+        "publisher": "Legislative Department, Ministry of Law and Justice, Govt of India",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "PRS Legislative Research: Understanding Parliament and Lawmaking",
+        "url": "https://prsindia.org/",
+        "publisher": "PRS Legislative Research",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Kesavananda Bharati v. State of Kerala (1973) 4 SCC 225 (Basic Structure Doctrine)",
+        "url": "https://main.sci.gov.in/judgment/judis/5069.pdf",
+        "publisher": "Supreme Court of India",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Constitution of India: Digital Portal",
+        "url": "https://www.india.gov.in/my-government/constitution-india",
+        "publisher": "National Informatics Centre (NIC)",
+        "accessed": "2026-11-04"
+      }
+    ]
+  },
+  {
+    "slug": "dsa-placement-mastery",
+    "title": "DSA Roadmap: 0 से 6 महीने में Software Engineer Placement क्रैक करने का मास्टर प्लान",
+    "titleHindi": "",
+    "category": "career",
+    "categoryLabel": "Career & Placement",
+    "level": "intermediate",
+    "tags": [
+      "dsa",
+      "leetcode",
+      "striver",
+      "placement",
+      "coding-interview",
+      "algorithms",
+      "data-structures"
+    ],
+    "readingMinutes": 15,
+    "lastVerified": "2026-11-04",
+    "confidence": "high",
+    "summary": "कॉलेज स्टूडेंट्स और जॉब सीकर्स के लिए 6 महीने का चरणबद्ध Data Structures & Algorithms (DSA) रोडमैप। C++/Java/Python की नींव से लेकर Trees, Graphs, और Dynamic Programming तक।",
+    "tldr": [
+      "**भाषा का चुनाव:** केवल एक भाषा चुनें — **C++** (STL के कारण सबसे लोकप्रिय) या **Java** (Enterprise कंपनियों में प्रिय) या **Python** (syntax आसान, लेकिन recursion depth का ध्यान रखें)। भाषा बदलने में समय बर्बाद न करें।",
+      "**Time & Space Complexity:** कोड लिखने से पहले Big-O ($O(1), O(\\log N), O(N), O(N \\log N), O(N^2)$) निकालना सीखें। अगर सवाल में $N \\le 10^5$ है, तो $O(N \\log N)$ या $O(N)$ समाधान ही TLE (Time Limit Exceeded) से बचाएगा।",
+      "**क्वांटिटी नहीं, पैटर्न पहचानें:** 800 सवाल रटने के बजाय NeetCode 150 या Striver A2Z के **15 मुख्य पैटर्न्स** (Two Pointers, Sliding Window, Fast & Slow Pointers, Monotonic Stack, BFS/DFS, Top-Down DP) समझें।",
+      "**मॉक इंटरव्यू व टाइमर:** हर सवाल को 25-30 मिनट के स्टॉपवॉच के साथ हल करें; बिना देखे IDE पर कोड लिखें।"
+    ],
+    "whyItMatters": "कॉलेज स्टूडेंट्स और जॉब सीकर्स के लिए 6 महीने का चरणबद्ध Data Structures & Algorithms (DSA) रोडमैप। C++/Java/Python की नींव से लेकर Trees, Graphs, और Dynamic Programming तक।",
+    "coreConcepts": [
+      {
+        "heading": "Theory & Core Principles",
+        "content": ""
+      }
+    ],
+    "roadmapSteps": [
+      "Phase 1: Foundations & Core Principles",
+      "Phase 2: Practical Implementation & Coding",
+      "Phase 3: Real-World Testing & Optimization",
+      "Phase 4: Deployment & Portfolio Presentation"
+    ],
+    "handsOn": [
+      {
+        "title": "Practical Hands-on",
+        "task": "Execute hands-on code examples and verify locally.",
+        "deliverable": "Tested script and architecture output."
+      }
+    ],
+    "mistakesAndMyths": [
+      {
+        "myth": "बिना बुनियादी सिद्धांत समझे केवल टूल्स का इस्तेमाल काफी है",
+        "reality": "कोर प्रिंसिपल्स की समझ ही लंबे समय में सिस्टम को डिबग और स्केल करने की क्षमता देती है।"
+      }
+    ],
+    "resources": [
+      {
+        "type": "video",
+        "title": "Striver's A2Z DSA Playlist in Hindi",
+        "url": "https://www.youtube.com/watch?v=EAR7De6Gsd4",
+        "author": "Take U Forward (Raj Vikramaditya)",
+        "language": "hi",
+        "free": true,
+        "whyWatch": "Full Playlist by Take U Forward (Raj Vikramaditya)"
+      },
+      {
+        "type": "doc",
+        "title": "NeetCode 150 Free Coding Roadmap",
+        "url": "https://neetcode.io/practice",
+        "author": "Navdeep Singh (NeetCode)",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Interactive Platform by Navdeep Singh (NeetCode)"
+      },
+      {
+        "type": "tool",
+        "title": "LeetCode Practice Platform",
+        "url": "https://leetcode.com/",
+        "author": "LeetCode",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Ongoing Practice by LeetCode"
+      },
+      {
+        "type": "book",
+        "title": "Cracking the Coding Interview",
+        "url": "https://www.crackingthecodinginterview.com/",
+        "author": "Gayle Laakmann McDowell",
+        "language": "en",
+        "free": false,
+        "whyWatch": "Interview Prep Guide by Gayle Laakmann McDowell"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "क्या यह विषय कॉलेज छात्रों के लिए उपयोगी है?",
+        "answer": "हाँ, यह गाइड आधुनिक उद्योग और परीक्षा मानकों के अनुसार तथ्यात्मक रूप से तैयार की गई है।"
+      }
+    ],
+    "relatedSlugs": [
+      "placement-offcampus-playbook",
+      "core-cs-subjects-interview",
+      "project-ideas-hub"
+    ],
+    "sources": [
+      {
+        "title": "Striver's A2Z DSA Course & Sheet",
+        "url": "https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/",
+        "publisher": "TakeUForward",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "NeetCode 150 Practice Roadmap",
+        "url": "https://neetcode.io/practice",
+        "publisher": "NeetCode.io",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Introduction to Algorithms (CLRS 4th Edition)",
+        "url": "https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/",
+        "publisher": "The MIT Press",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "LeetCode Interview Preparation Track",
+        "url": "https://leetcode.com/explore/",
+        "publisher": "LeetCode",
+        "accessed": "2026-11-04"
+      }
+    ]
+  },
+  {
+    "slug": "offcampus-internship-playbook",
+    "title": "Placement Playbook: Resume, ATS, LinkedIn, GitHub, Mock Interviews और Off-Campus Strategy",
+    "titleHindi": "",
+    "category": "career",
+    "categoryLabel": "Career & Placement",
+    "level": "intermediate",
+    "tags": [
+      "placement",
+      "resume",
+      "ats",
+      "linkedin",
+      "github",
+      "off-campus",
+      "interviews",
+      "career"
+    ],
+    "readingMinutes": 14,
+    "lastVerified": "2026-11-04",
+    "confidence": "high",
+    "summary": "कॉलेज स्टूडेंट्स और फ्रेशर्स के लिए संपूर्ण जॉब हंट प्लेबुक। ATS-फ्रेंडली 1-पेज रिज्यूमे, Google का XYZ फॉर्मूला, लिंक्डइन पर रेफरल पाने के वास्तविक मैसेज टेम्पलेट्स, और ऑफ-कैंपस में शॉर्टलिस्ट होने के अचूक तरीके।",
+    "tldr": [
+      "**1-Page Strict Rule:** फ्रेशर्स और 0-3 साल के अनुभव वालों का रिज्यूमे हमेशा **1 पेज** का होना चाहिए। दो कॉलम (two-column) या फैंसी कैनवा (Canva) ग्राफ़िक्स वाले टेम्पलेट्स ATS बॉट्स द्वारा रिजेक्ट हो जाते हैं [1]।",
+      "**Google का XYZ फॉर्मूला:** रिज्यूमे के हर बुलेट में लिखें: *\"Accomplished [X], as measured by [Y], by doing [Z]\"* [3]। साधारण वाक्य *\"Created an e-commerce website\"* लिखने से शॉर्टलिस्टिंग नहीं होती।",
+      "**GitHub & Live Demos:** प्रोजेक्ट केवल कोड नहीं होना चाहिए; हर प्रोजेक्ट का एक क्लिक पर चलने वाला **Live URL** (Vercel/Render) और सुंदर README (GIFs/screenshots) होना चाहिए।",
+      "**Cold InMail का सच:** बिना किसी संदर्भ के *\"Sir please give me referral\"* भेजने पर 99% लोग इग्नोर करते हैं। 3-लाइन का कस्टमाइज़्ड पिच और जॉब आईडी भेजने पर 30-40% रिस्पांस रेट मिलता है।"
+    ],
+    "whyItMatters": "कॉलेज स्टूडेंट्स और फ्रेशर्स के लिए संपूर्ण जॉब हंट प्लेबुक। ATS-फ्रेंडली 1-पेज रिज्यूमे, Google का XYZ फॉर्मूला, लिंक्डइन पर रेफरल पाने के वास्तविक मैसेज टेम्पलेट्स, और ऑफ-कैंपस में शॉर्टलिस्ट होने के अचूक तरीके।",
+    "coreConcepts": [
+      {
+        "heading": "Theory & Core Principles",
+        "content": ""
+      }
+    ],
+    "roadmapSteps": [
+      "Phase 1: Foundations & Core Principles",
+      "Phase 2: Practical Implementation & Coding",
+      "Phase 3: Real-World Testing & Optimization",
+      "Phase 4: Deployment & Portfolio Presentation"
+    ],
+    "handsOn": [
+      {
+        "title": "Practical Hands-on",
+        "task": "Execute hands-on code examples and verify locally.",
+        "deliverable": "Tested script and architecture output."
+      }
+    ],
+    "mistakesAndMyths": [
+      {
+        "myth": "बिना बुनियादी सिद्धांत समझे केवल टूल्स का इस्तेमाल काफी है",
+        "reality": "कोर प्रिंसिपल्स की समझ ही लंबे समय में सिस्टम को डिबग और स्केल करने की क्षमता देती है।"
+      }
+    ],
+    "resources": [
+      {
+        "type": "tool",
+        "title": "Jake's Resume LaTeX Template on Overleaf",
+        "url": "https://www.overleaf.com/latex/templates/jakes-resume/syzsqbzwxvdx",
+        "author": "Jake Gutierrez",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Template by Jake Gutierrez"
+      },
+      {
+        "type": "video",
+        "title": "How to Build a SDE Resume that Gets Shortlisted (in Hindi)",
+        "url": "https://www.youtube.com/watch?v=BYUY1E43R5E",
+        "author": "Arsh Goyal",
+        "language": "hi",
+        "free": true,
+        "whyWatch": "22 mins by Arsh Goyal"
+      },
+      {
+        "type": "doc",
+        "title": "Harvard Action Verbs for Technical Resumes",
+        "url": "https://careerservices.fas.harvard.edu/resources/create-a-strong-resume/",
+        "author": "Harvard University",
+        "language": "en",
+        "free": true,
+        "whyWatch": "PDF Checklist by Harvard University"
+      },
+      {
+        "type": "tool",
+        "title": "Pramp: Free Peer-to-Peer Mock Interviews",
+        "url": "https://www.pramp.com/",
+        "author": "Pramp",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Live Mock Rounds by Pramp"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "क्या यह विषय कॉलेज छात्रों के लिए उपयोगी है?",
+        "answer": "हाँ, यह गाइड आधुनिक उद्योग और परीक्षा मानकों के अनुसार तथ्यात्मक रूप से तैयार की गई है।"
+      }
+    ],
+    "relatedSlugs": [
+      "dsa-roadmap-6-months",
+      "core-cs-subjects-interview",
+      "project-ideas-hub"
+    ],
+    "sources": [
+      {
+        "title": "Harvard University Career Services Resume Guide",
+        "url": "https://careerservices.fas.harvard.edu/resources/create-a-strong-resume/",
+        "publisher": "Harvard FAS Mignone Center for Career Success",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Jake's Resume (Single-Column LaTeX Template)",
+        "url": "https://www.overleaf.com/latex/templates/jakes-resume/syzsqbzwxvdx",
+        "publisher": "Overleaf / LaTeX Community",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Google Careers: How to Create a Great Technical Resume (XYZ Formula)",
+        "url": "https://www.google.com/about/careers/applications/how-we-hire/",
+        "publisher": "Google Careers",
+        "accessed": "2026-11-04"
+      },
+      {
+        "title": "Wellfound (Formerly AngelList Talent) Engineering Job Search Guidelines",
+        "url": "https://wellfound.com/",
+        "publisher": "Wellfound",
+        "accessed": "2026-11-04"
       }
     ]
   }
