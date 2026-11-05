@@ -1,0 +1,37 @@
+---
+interface Props {
+  variant?: 'jaali' | 'rangoli-dots' | 'mandala-accent';
+  opacity?: string;
+  className?: string;
+}
+
+const { variant = 'jaali', opacity = 'opacity-[0.04] dark:opacity-[0.07]', className = '' } = Astro.props;
+---
+
+{variant === 'jaali' && (
+  <svg class={`absolute inset-0 w-full h-full pointer-events-none ${opacity} ${className}`} fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="jaali-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
+        <path d="M20 0 L40 20 L20 40 L0 20 Z" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <circle cx="20" cy="20" r="3" fill="none" stroke="currentColor" stroke-width="1"/>
+        <path d="M0 0 L10 10 M30 10 L40 0 M30 30 L40 40 M0 40 L10 30" stroke="currentColor" stroke-width="1"/>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#jaali-pattern)" />
+  </svg>
+)}
+
+{variant === 'rangoli-dots' && (
+  <svg class={`absolute inset-0 w-full h-full pointer-events-none ${opacity} ${className}`} xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="rangoli-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+        <circle cx="16" cy="16" r="1.5" fill="currentColor" />
+        <circle cx="0" cy="0" r="1" fill="currentColor" />
+        <circle cx="32" cy="0" r="1" fill="currentColor" />
+        <circle cx="0" cy="32" r="1" fill="currentColor" />
+        <circle cx="32" cy="32" r="1" fill="currentColor" />
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#rangoli-grid)" />
+  </svg>
+)}

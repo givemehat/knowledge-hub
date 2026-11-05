@@ -1,0 +1,243 @@
+---
+import Layout from '../layouts/Layout.astro';
+import IndianPattern from '../components/ui/IndianPattern.astro';
+import MetaChip from '../components/ui/MetaChip.astro';
+import CodeBlock from '../components/ui/CodeBlock.astro';
+import MythReality from '../components/ui/MythReality.astro';
+import ResourceCard from '../components/ui/ResourceCard.astro';
+import Accordion from '../components/ui/Accordion.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const sampleFaqs = [
+  {
+    question: 'How do design tokens map across Light and Dark themes?',
+    answer: 'Every semantic token (like `surface-light` and `surface-dark`) is defined as CSS custom properties with automatic system and user-toggle dark mode switching without flash.'
+  },
+  {
+    question: 'Why avoid casual UI emojis in production?',
+    answer: 'Standardizing on Lucide vector SVG icons ensures pixel-perfect rendering across iOS, Android, macOS, and Linux without platform-dependent rendering glitches or misaligned baselines.'
+  }
+];
+
+const sampleCode = `// Python 3.12 Example: Calculating Self-Attention
+import torch
+import torch.nn.functional as F
+
+def self_attention(Q, K, V):
+    d_k = Q.size(-1)
+    scores = torch.matmul(Q, K.transpose(-2, -1)) / (d_k ** 0.5)
+    weights = F.softmax(scores, dim=-1)
+    return torch.matmul(weights, V)
+`;
+---
+
+<Layout title="Modern Bharat Design System — Knowledge Hub" description="Complete design token specifications, typography, surfaces, and interactive component library.">
+  <div class="relative overflow-hidden border-b border-slate-200/80 dark:border-white/10 py-12">
+    <IndianPattern variant="rangoli" opacity={0.035} />
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/20 text-xs font-semibold mb-4">
+          <svg class="w-3.5 h-3.5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" /></svg>
+          Design Tokens & Component Library
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
+          Modern Bharat, Gen-Z Clean
+        </h1>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
+          Apple HIG clarity + Google Material 3 consistency + Microsoft Fluent depth, blended seamlessly with subtle Indian cultural geometry and electric accents.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+    <!-- SECTION 1: COLOR TOKENS -->
+    <section>
+      <div class="mb-6">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">01. Color Palette Tokens</h2>
+        <p class="text-xs text-slate-500 mt-1">High-contrast, accessible semantic tokens with WCAG AA/AAA compliance.</p>
+      </div>
+
+      <!-- Desi Accents Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+        <div class="p-4 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-sm">
+          <div class="h-16 rounded-xl bg-saffron-500 shadow-sm mb-3"></div>
+          <div class="font-bold text-xs text-slate-900 dark:text-white">Surya Saffron</div>
+          <div class="font-mono text-[11px] text-slate-400">#FF851A • Accent Warning</div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-sm">
+          <div class="h-16 rounded-xl bg-peacock-500 shadow-sm mb-3"></div>
+          <div class="font-bold text-xs text-slate-900 dark:text-white">Peacock Teal</div>
+          <div class="font-mono text-[11px] text-slate-400">#0E8A8A • Accent Success</div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-sm">
+          <div class="h-16 rounded-xl bg-brand-500 shadow-sm mb-3"></div>
+          <div class="font-bold text-xs text-slate-900 dark:text-white">Electric Violet</div>
+          <div class="font-mono text-[11px] text-slate-400">#5B3DF5 • Primary Brand</div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-sm">
+          <div class="h-16 rounded-xl bg-kumkum-500 shadow-sm mb-3"></div>
+          <div class="font-bold text-xs text-slate-900 dark:text-white">Kumkum Red</div>
+          <div class="font-mono text-[11px] text-slate-400">#D62F4B • Myth / Destructive</div>
+        </div>
+      </div>
+
+      <!-- Surface Tokens -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="p-4 rounded-2xl bg-surface-light border border-slate-300 text-slate-800 shadow-sm">
+          <div class="font-bold text-xs">Warm Base Canvas</div>
+          <div class="font-mono text-[11px] text-slate-500 mt-1">#FAF8F5 (Light Mode Base)</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-surface-dark border border-white/20 text-white shadow-sm">
+          <div class="font-bold text-xs">Soft Charcoal Canvas</div>
+          <div class="font-mono text-[11px] text-slate-400 mt-1">#121016 (Dark Mode Base)</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-surface-raised dark:bg-darkraised border border-slate-200 dark:border-white/10 shadow-sm">
+          <div class="font-bold text-xs text-slate-900 dark:text-white">Raised Floating Surface</div>
+          <div class="font-mono text-[11px] text-slate-400 mt-1">#FFFFFF / #1F1B29 (Modal / Tooltips)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: TYPOGRAPHY SCALE -->
+    <section class="pt-8 border-t border-slate-200/80 dark:border-white/10">
+      <div class="mb-6">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">02. Typography System</h2>
+        <p class="text-xs text-slate-500 mt-1">Plus Jakarta Sans & Inter for display, Noto Sans Devanagari for Hindi, and JetBrains Mono for code.</p>
+      </div>
+
+      <div class="space-y-6 bg-white dark:bg-darkcard p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-white/10 shadow-sm">
+        <div>
+          <span class="text-[10px] font-mono uppercase text-slate-400">Display 4XL • 48px / 1.1 Leading</span>
+          <div class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight mt-1">
+            Knowledge Hub: भारत का आधुनिक ज्ञान केंद्र
+          </div>
+        </div>
+
+        <div>
+          <span class="text-[10px] font-mono uppercase text-slate-400">Heading 2XL • 24px / 1.2 Leading</span>
+          <div class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
+            LLMs कैसे काम करते हैं: Self-Attention और Transformers
+          </div>
+        </div>
+
+        <div>
+          <span class="text-[10px] font-mono uppercase text-slate-400">Body Standard • 14px / 1.6 Leading (Bilingual)</span>
+          <div class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mt-1">
+            Large Language Models (LLMs) ek statistical probability engine hote hain jo next-token predict karte hain. Har token numeric vectors me convert hokar attention layers ke through cross-reference hota hai.
+          </div>
+        </div>
+
+        <div>
+          <span class="text-[10px] font-mono uppercase text-slate-400">Monospace JetBrains Mono • 12px</span>
+          <div class="font-mono text-xs text-brand-600 dark:text-brand-400 mt-1">
+            const attention = torch.matmul(Q, K.transpose(-2, -1)) / math.sqrt(d_k);
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: META CHIPS & BADGES -->
+    <section class="pt-8 border-t border-slate-200/80 dark:border-white/10">
+      <div class="mb-6">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">03. Meta Chips & Badges</h2>
+        <p class="text-xs text-slate-500 mt-1">High-contrast, separated key-value rows replacing stuck-together text labels.</p>
+      </div>
+
+      <div class="flex flex-wrap gap-4 p-6 bg-white dark:bg-darkcard rounded-3xl border border-slate-200 dark:border-white/10 shadow-sm">
+        <MetaChip label="Difficulty" value="Intermediate" icon="signal" variant="intermediate" />
+        <MetaChip label="Reading Time" value="8 Min Read" icon="clock" variant="neutral" />
+        <MetaChip label="Fact-Checked" value="2026-11-04" icon="shield" variant="success" />
+        <MetaChip label="Confidence" value="High (Empirical)" icon="shield" variant="success" />
+        <MetaChip label="Hypothesis" value="Simulated Scenario" icon="warning" variant="warning" />
+      </div>
+    </section>
+
+    <!-- SECTION 4: CODE BLOCK COMPONENT -->
+    <section class="pt-8 border-t border-slate-200/80 dark:border-white/10">
+      <div class="mb-6">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">04. IDE Code Block with Copy Notification</h2>
+        <p class="text-xs text-slate-500 mt-1">Header language pill, Lucide copy button, toast callback, and JetBrains Mono rendering.</p>
+      </div>
+
+      <div class="max-w-3xl">
+        <CodeBlock code={sampleCode} language="python" filename="attention_mechanism.py" />
+      </div>
+    </section>
+
+    <!-- SECTION 5: MYTH VS REALITY COMPARISON -->
+    <section class="pt-8 border-t border-slate-200/80 dark:border-white/10">
+      <div class="mb-6">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">05. Myth vs Reality Cards</h2>
+        <p class="text-xs text-slate-500 mt-1">Kumkum Red cross-mark for myths, Peacock Teal check-mark for grounded reality.</p>
+      </div>
+
+      <div class="max-w-3xl">
+        <MythReality 
+          myth="Quantum computers classical supercomputers se har kaam me fast hote hain aur laptop replace kar denge."
+          reality="Quantum computers sirf specific mathematical structures (like Shor's factoring ya quantum chemistry) me speedup dete hain. Sequential compute aur everyday tasks me classical chips hamesha superior rahenge."
+        />
+      </div>
+    </section>
+
+    <!-- SECTION 6: CURATED RESOURCE CARD -->
+    <section class="pt-8 border-t border-slate-200/80 dark:border-white/10">
+      <div class="mb-6">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">06. Curated Resource Card</h2>
+        <p class="text-xs text-slate-500 mt-1">Clean editorial layout with single CTA, author pill, duration, and verified free badge.</p>
+      </div>
+
+      <div class="max-w-md">
+        <ResourceCard 
+          title="Let's build GPT: from scratch, in code, spelled out"
+          url="https://www.youtube.com/watch?v=kCc8FmEb1nY"
+          type="video"
+          author="Andrej Karpathy"
+          language="en"
+          duration="2h 15m"
+          free={true}
+          whyWatch="Gold standard video for understanding transformers, self-attention, and PyTorch training from first principles."
+        />
+      </div>
+    </section>
+
+    <!-- SECTION 7: ACCESSIBLE ACCORDION -->
+    <section class="pt-8 border-t border-slate-200/80 dark:border-white/10">
+      <div class="mb-6">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">07. Interactive WAI-ARIA Accordion</h2>
+        <p class="text-xs text-slate-500 mt-1">Accessible FAQ disclosures with smooth rotating chevron indicator.</p>
+      </div>
+
+      <div class="max-w-3xl">
+        <Accordion items={sampleFaqs} />
+      </div>
+    </section>
+
+    <!-- SECTION 8: INDIAN GEOMETRIC PATTERNS -->
+    <section class="pt-8 border-t border-slate-200/80 dark:border-white/10">
+      <div class="mb-6">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">08. Cultural Geometric Textures</h2>
+        <p class="text-xs text-slate-500 mt-1">Subtle Rangoli dot-grid and Jaali architectural lattice SVG generators with low opacity.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="relative h-48 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 overflow-hidden p-6 flex flex-col justify-end">
+          <IndianPattern variant="rangoli" opacity={0.12} />
+          <div class="relative z-10 font-bold text-sm text-slate-900 dark:text-white">Rangoli Dot-Grid Lattice</div>
+          <div class="relative z-10 text-xs text-slate-400">Used across hero backgrounds and feature banners</div>
+        </div>
+
+        <div class="relative h-48 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 overflow-hidden p-6 flex flex-col justify-end">
+          <IndianPattern variant="jaali" opacity={0.12} />
+          <div class="relative z-10 font-bold text-sm text-slate-900 dark:text-white">Jaali Architectural Pattern</div>
+          <div class="relative z-10 text-xs text-slate-400">Used for technical and callout containers</div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>

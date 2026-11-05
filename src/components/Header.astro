@@ -3,86 +3,103 @@ const currentPath = Astro.url.pathname;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
-<header class="sticky top-0 z-40 w-full backdrop-blur-md bg-white/80 dark:bg-darkbg/80 border-b border-slate-200 dark:border-darkborder transition-colors duration-200">
+<header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-white/75 dark:bg-darkbg/75 border-b border-slate-200/80 dark:border-white/10 transition-colors duration-200 shadow-apple-sm">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
     <!-- Brand Logo -->
-    <a href={`${base}/`} class="flex items-center gap-2.5 group">
-      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-white font-bold shadow-md shadow-emerald-500/20 group-hover:scale-105 transition-transform">
+    <a href={`${base}/`} class="flex items-center gap-3 group">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-violet-600 via-indigo-600 to-teal-500 flex items-center justify-center text-white font-bold shadow-md shadow-violet-500/20 group-hover:scale-105 transition-transform relative overflow-hidden">
+        <!-- Indian Jaali Micro Pattern Overlay -->
         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
         </svg>
       </div>
       <div>
-        <span class="font-extrabold text-lg text-slate-900 dark:text-white tracking-tight">Knowledge<span class="text-emerald-500">Hub</span></span>
-        <span class="hidden sm:inline-block text-[10px] uppercase font-semibold px-1.5 py-0.5 ml-1.5 rounded bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-400 border border-emerald-300/40">Free & Static</span>
+        <div class="flex items-center gap-1.5">
+          <span class="font-extrabold text-lg text-slate-900 dark:text-white tracking-tight">Knowledge<span class="text-violet-600 dark:text-violet-400">Hub</span></span>
+          <span class="font-hindi text-xs text-slate-400 font-medium hidden lg:inline">ज्ञान केंद्र</span>
+        </div>
       </div>
     </a>
 
     <!-- Desktop Nav Links -->
-    <nav class="hidden md:flex items-center gap-5 text-sm font-medium text-slate-600 dark:text-slate-300">
-      <a href={`${base}/topics/`} class={`hover:text-emerald-500 transition-colors ${currentPath.includes('/topics') ? 'text-emerald-500 font-semibold' : ''}`}>Topics</a>
-      <a href={`${base}/roadmaps/`} class={`hover:text-emerald-500 transition-colors ${currentPath.includes('/roadmaps') ? 'text-emerald-500 font-semibold' : ''}`}>Roadmaps</a>
-      <a href={`${base}/scenarios/`} class={`hover:text-amber-500 transition-colors ${currentPath.includes('/scenarios') ? 'text-amber-500 font-semibold' : ''}`}>Scenarios</a>
-      <a href={`${base}/research/`} class={`hover:text-indigo-500 transition-colors ${currentPath.includes('/research') ? 'text-indigo-500 font-semibold' : ''}`}>Research</a>
-      <a href={`${base}/resources/`} class={`hover:text-emerald-500 transition-colors ${currentPath.includes('/resources') ? 'text-emerald-500 font-semibold' : ''}`}>Resources</a>
+    <nav class="hidden md:flex items-center gap-1 lg:gap-2 text-xs font-semibold text-slate-600 dark:text-slate-300">
+      <a 
+        href={`${base}/topics/`} 
+        class={`px-3 py-1.5 rounded-lg transition-colors ${currentPath.includes('/topics') ? 'bg-violet-50 dark:bg-violet-950/60 text-violet-600 dark:text-violet-300' : 'hover:text-violet-600 dark:hover:text-white'}`}
+      >
+        Topics
+      </a>
+      <a 
+        href={`${base}/roadmaps/`} 
+        class={`px-3 py-1.5 rounded-lg transition-colors ${currentPath.includes('/roadmaps') ? 'bg-violet-50 dark:bg-violet-950/60 text-violet-600 dark:text-violet-300' : 'hover:text-violet-600 dark:hover:text-white'}`}
+      >
+        Roadmaps
+      </a>
+      <a 
+        href={`${base}/scenarios/`} 
+        class={`px-3 py-1.5 rounded-lg transition-colors ${currentPath.includes('/scenarios') ? 'bg-saffron-50 dark:bg-saffron-950/60 text-saffron-600 dark:text-saffron-300' : 'hover:text-saffron-600 dark:hover:text-white'}`}
+      >
+        Scenarios
+      </a>
+      <a 
+        href={`${base}/research/`} 
+        class={`px-3 py-1.5 rounded-lg transition-colors ${currentPath.includes('/research') ? 'bg-teal-50 dark:bg-teal-950/60 text-teal-600 dark:text-teal-300' : 'hover:text-teal-600 dark:hover:text-white'}`}
+      >
+        Research
+      </a>
+      <a 
+        href={`${base}/resources/`} 
+        class={`px-3 py-1.5 rounded-lg transition-colors ${currentPath.includes('/resources') ? 'bg-violet-50 dark:bg-violet-950/60 text-violet-600 dark:text-violet-300' : 'hover:text-violet-600 dark:hover:text-white'}`}
+      >
+        Resources
+      </a>
     </nav>
 
-    <!-- Search Button & Actions -->
+    <!-- Search Button & Control Actions -->
     <div class="flex items-center gap-2 sm:gap-3">
-      <!-- Cmd+K Search Trigger Button -->
+      <!-- Search Command Palette Trigger -->
       <button 
         type="button" 
         id="open-search-btn"
-        class="flex items-center gap-2.5 px-3 py-1.5 text-xs text-slate-500 dark:text-slate-400 bg-slate-100 hover:bg-slate-200/70 dark:bg-slate-800/80 dark:hover:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700/60 transition-all cursor-pointer"
-        aria-label="Search topics and roadmaps"
+        class="flex items-center gap-2.5 px-3 py-1.5 text-xs text-slate-500 dark:text-slate-400 bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800/80 dark:hover:bg-slate-800 rounded-xl border border-slate-200/80 dark:border-slate-700/60 transition-all cursor-pointer shadow-apple-sm active:scale-98"
+        aria-label="Search knowledge base"
       >
-        <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        <!-- Lucide Search Icon -->
+        <svg class="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <circle cx="11" cy="11" r="8" stroke-width="2"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35"/>
         </svg>
-        <span class="hidden sm:inline">Search Knowledge...</span>
-        <span class="sm:hidden">Search</span>
-        <kbd class="hidden sm:inline-block font-mono text-[10px] px-1.5 py-0.5 rounded bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 shadow-sm text-slate-600 dark:text-slate-300">⌘K</kbd>
+        <span class="hidden sm:inline">Search...</span>
+        <kbd class="hidden sm:inline-block font-mono text-[10px] font-bold px-1.5 py-0.5 rounded bg-white dark:bg-slate-900 border border-slate-300/80 dark:border-slate-700 shadow-sm text-slate-500">⌘K</kbd>
       </button>
 
-      <!-- Language Toggle (Hinglish / English) -->
+      <!-- Language Toggle Pill -->
       <button
         type="button"
         id="lang-toggle-btn"
-        class="px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer"
+        class="px-2.5 py-1.5 text-xs font-bold rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-slate-700/60 transition-all cursor-pointer active:scale-95"
         title="Toggle Hinglish / English explanations"
       >
         <span id="lang-label">हिन्दी / Hinglish</span>
       </button>
 
-      <!-- Theme Toggle Button -->
+      <!-- Theme Mode Toggle -->
       <button
         type="button"
         id="theme-toggle-btn"
-        class="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer"
+        class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700/60 transition-all cursor-pointer active:scale-95"
         aria-label="Toggle dark mode"
       >
-        <!-- Sun Icon (Light) -->
-        <svg id="theme-sun" class="w-4 h-4 hidden dark:block text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
+        <!-- Lucide Sun (Light) -->
+        <svg id="theme-sun" class="w-4 h-4 hidden dark:block text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <circle cx="12" cy="12" r="4" stroke-width="2"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
         </svg>
-        <!-- Moon Icon (Dark) -->
-        <svg id="theme-moon" class="w-4 h-4 block dark:hidden text-slate-700" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+        <!-- Lucide Moon (Dark) -->
+        <svg id="theme-moon" class="w-4 h-4 block dark:hidden text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
         </svg>
       </button>
-
-      <!-- GitHub Link -->
-      <a
-        href="https://github.com/givemehat/knowledge-hub"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="hidden sm:flex items-center justify-center p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-colors"
-        aria-label="View on GitHub"
-      >
-        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-        </svg>
-      </a>
     </div>
   </div>
 </header>

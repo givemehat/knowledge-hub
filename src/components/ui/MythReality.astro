@@ -1,0 +1,44 @@
+---
+interface Props {
+  myth: string;
+  reality: string;
+}
+
+const { myth, reality } = Astro.props;
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-3">
+  <!-- Myth Card (Kumkum Red) -->
+  <div class="p-4 rounded-2xl bg-rose-50/60 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-900/40 space-y-2 shadow-apple-sm">
+    <div class="flex items-center gap-2">
+      <!-- Lucide XCircle -->
+      <svg class="w-4 h-4 text-kumkum-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <circle cx="12" cy="12" r="10" stroke-width="2"/>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 9l-6 6m0-6l6 6"/>
+      </svg>
+      <span class="text-[11px] font-black uppercase tracking-wider text-kumkum-500">
+        गलतफहमी / Common Myth
+      </span>
+    </div>
+    <p class="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 leading-relaxed pl-6">
+      "{myth}"
+    </p>
+  </div>
+
+  <!-- Reality Card (Peacock Teal) -->
+  <div class="p-4 rounded-2xl bg-teal-50/60 dark:bg-teal-950/20 border border-teal-200 dark:border-teal-900/40 space-y-2 shadow-apple-sm">
+    <div class="flex items-center gap-2">
+      <!-- Lucide CheckCircle2 -->
+      <svg class="w-4 h-4 text-teal-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <circle cx="12" cy="12" r="10" stroke-width="2"/>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4"/>
+      </svg>
+      <span class="text-[11px] font-black uppercase tracking-wider text-teal-600 dark:text-teal-400">
+        हकीकत / Ground Reality
+      </span>
+    </div>
+    <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed pl-6">
+      {reality}
+    </p>
+  </div>
+</div>

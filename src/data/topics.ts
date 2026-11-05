@@ -2488,10 +2488,10 @@ export const TOPICS: Topic[] = [
 ];
 
 export const CATEGORIES = [
-  { id: 'ai-ml', name: 'AI & Machine Learning', icon: '🤖', description: 'LLMs, RAG, Prompt Engineering, Agents & Transformers' },
-  { id: 'quantum', name: 'Quantum Computing', icon: '⚛️', description: 'Qubits, Superposition, Shor, Grover & Qiskit' },
-  { id: 'career', name: 'Career & Placement', icon: '💼', description: 'DSA, Off-campus strategies, Resumes & Interview Playbooks' },
-  { id: 'projects', name: 'Projects Hub', icon: '🛠️', description: 'Step-by-step production-grade portfolio projects' },
-  { id: 'tech-fundamentals', name: 'Tech Fundamentals', icon: '⚡', description: 'Git, GitHub, Docker, Linux, APIs & Core Systems' },
-  { id: 'gov-policy', name: 'Politics & Governance', icon: '🏛️', description: 'Constitution, Digital India, UPI, DBT & Public Policy' }
+  { id: 'ai-ml', name: 'AI & Machine Learning', icon: 'cpu', description: 'LLMs, RAG, Prompt Engineering, Agents & Transformers' },
+  { id: 'quantum', name: 'Quantum Computing', icon: 'atom', description: 'Qubits, Superposition, Shor, Grover & Qiskit' },
+  { id: 'career', name: 'Career & Placement', icon: 'briefcase', description: 'DSA, Off-campus strategies, Resumes & Interview Playbooks' },
+  { id: 'projects', name: 'Projects Hub', icon: 'rocket', description: 'Step-by-step production-grade portfolio projects' },
+  { id: 'tech-fundamentals', name: 'Tech Fundamentals', icon: 'terminal', description: 'Git, GitHub, Docker, Linux, APIs & Core Systems' },
+  { id: 'gov-policy', name: 'Politics & Governance', icon: 'landmark', description: 'Constitution, Digital India, UPI, DBT & Public Policy' }
 ];

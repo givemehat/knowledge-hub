@@ -1,98 +1,158 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import IndianPattern from '../components/ui/IndianPattern.astro';
 import { TOPICS, CATEGORIES } from '../data/topics';
 import { ROADMAPS } from '../data/roadmaps';
 import { SCENARIOS } from '../data/scenarios';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const trendingTopics = TOPICS.slice(0, 4);
+
+// Category visual metadata: Lucide SVG icons and duotone accents
+const categoryVisuals: Record<string, { iconSvg: string; gradient: string; textAccent: string; borderAccent: string }> = {
+  'ai-ml': {
+    gradient: 'from-brand-500/15 via-indigo-500/10 to-transparent',
+    textAccent: 'text-brand-600 dark:text-brand-400',
+    borderAccent: 'group-hover:border-brand-500/50',
+    iconSvg: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /><path stroke-linecap="round" stroke-linejoin="round" d="M10 9a2 2 0 100-4 2 2 0 000 4zm4 0a2 2 0 100-4 2 2 0 000 4z" /></svg>`,
+  },
+  'quantum': {
+    gradient: 'from-cyan-500/15 via-blue-500/10 to-transparent',
+    textAccent: 'text-cyan-600 dark:text-cyan-400',
+    borderAccent: 'group-hover:border-cyan-500/50',
+    iconSvg: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(45 12 12)" /><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-45 12 12)" /><circle cx="12" cy="12" r="2" fill="currentColor" /></svg>`,
+  },
+  'career': {
+    gradient: 'from-peacock-500/15 via-emerald-500/10 to-transparent',
+    textAccent: 'text-peacock-600 dark:text-peacock-400',
+    borderAccent: 'group-hover:border-peacock-500/50',
+    iconSvg: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>`,
+  },
+  'projects': {
+    gradient: 'from-saffron-500/15 via-orange-500/10 to-transparent',
+    textAccent: 'text-saffron-600 dark:text-saffron-400',
+    borderAccent: 'group-hover:border-saffron-500/50',
+    iconSvg: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>`,
+  },
+  'tech-fundamentals': {
+    gradient: 'from-haldi-500/15 via-amber-500/10 to-transparent',
+    textAccent: 'text-amber-700 dark:text-haldi-400',
+    borderAccent: 'group-hover:border-haldi-500/50',
+    iconSvg: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>`,
+  },
+  'gov-policy': {
+    gradient: 'from-kumkum-500/15 via-red-500/10 to-transparent',
+    textAccent: 'text-kumkum-600 dark:text-kumkum-400',
+    borderAccent: 'group-hover:border-kumkum-500/50',
+    iconSvg: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 21h18M3 10h18M5 10v11m4-11v11m6-11v11m4-11v11M12 3l9 7H3l9-7z" /></svg>`,
+  },
+};
 ---
 
 <Layout title="Knowledge Hub — Modern Static Knowledge for Builders & Students">
-  <!-- Hero Section with Bento Structure -->
-  <section class="relative pt-12 pb-16 sm:pt-20 sm:pb-24 overflow-hidden border-b border-slate-200/60 dark:border-darkborder/60">
+  <!-- Hero Section with Rangoli Accent & Glass Elevation -->
+  <section class="relative pt-12 pb-16 sm:pt-20 sm:pb-24 overflow-hidden border-b border-slate-200/80 dark:border-white/10">
+    <!-- Subtle Rangoli Accent in Hero Background -->
+    <IndianPattern variant="rangoli" opacity={0.035} />
+
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="text-center max-w-3xl mx-auto">
-        <!-- Badge -->
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300/40 text-emerald-700 dark:text-emerald-300 text-xs font-semibold mb-6">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          Aaj Ke Zamane Ka Wikipedia • 100% Static & Free
+        <!-- Modern Bharat Micro-Badge -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white dark:bg-darkcard border border-brand-500/30 text-brand-700 dark:text-brand-300 text-xs font-semibold mb-6 shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-peacock-500 animate-pulse"></span>
+          <span>आज के ज़माने का विकिपीडिया</span>
+          <span class="text-slate-300 dark:text-slate-600">•</span>
+          <span class="text-slate-500 dark:text-slate-400 font-medium">100% Static & Free</span>
         </div>
 
         <h1 class="text-4xl sm:text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1] mb-6">
-          Find accurate answers in <span class="bg-gradient-to-r from-emerald-500 to-teal-400 bg-clip-text text-transparent">30 seconds</span>.
+          Find accurate answers in{' '}
+          <span class="bg-gradient-to-r from-brand-600 via-peacock-500 to-indigo-600 dark:from-brand-400 dark:via-peacock-400 dark:to-indigo-300 bg-clip-text text-transparent">
+            30 seconds
+          </span>.
         </h1>
 
         <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-8">
-          College students, fresher developers aur curious readers ke liye verified roadmaps, hot tech topics, aur primary sources. Koi login nahi, koi ads nahi.
+          College students, fresher developers aur curious readers ke liye verified roadmaps, hot tech topics, aur primary citations. Koi login nahi, koi ads nahi, 10-minute deep reads.
         </p>
 
-        <!-- Search Bar Hero Trigger -->
+        <!-- Search Bar Hero Trigger with Apple-style Glass & Layered Shadow -->
         <div class="max-w-xl mx-auto mb-8">
           <button
             type="button"
             onclick="document.getElementById('open-search-btn')?.click()"
-            class="w-full flex items-center justify-between px-5 py-3.5 rounded-2xl bg-white dark:bg-darkcard border-2 border-slate-200 dark:border-darkborder shadow-xl shadow-slate-200/50 dark:shadow-none hover:border-emerald-500 transition-all text-sm text-slate-400 cursor-pointer text-left"
+            class="w-full flex items-center justify-between px-5 py-4 rounded-2xl bg-white/90 dark:bg-darkcard/90 backdrop-blur-md border border-slate-200 dark:border-white/15 shadow-elevation dark:shadow-none hover:border-brand-500/60 transition-all text-sm text-slate-400 cursor-pointer text-left group hover:scale-[1.01]"
           >
             <div class="flex items-center gap-3">
-              <svg class="w-5 h-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-              <span>Search topics, roadmaps, or cheat sheets...</span>
+              <div class="w-8 h-8 rounded-xl bg-brand-50 dark:bg-brand-950/60 flex items-center justify-center text-brand-600 dark:text-brand-400 group-hover:scale-110 transition-transform">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+              <span class="text-slate-500 dark:text-slate-400 font-medium text-xs sm:text-sm">Search topics, career roadmaps, or verified cheatsheets...</span>
             </div>
-            <kbd class="font-mono text-xs px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 border text-slate-500">⌘K</kbd>
+            <kbd class="hidden sm:inline-flex items-center gap-1 font-mono text-[11px] font-semibold px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-500">⌘K</kbd>
           </button>
 
           <!-- Quick keyword chips -->
-          <div class="flex flex-wrap items-center justify-center gap-2 mt-3 text-xs text-slate-500">
-            <span>Popular:</span>
-            <a href={`${base}/topics/rag/`} class="hover:text-emerald-500 underline decoration-slate-300">RAG</a>
-            <span>•</span>
-            <a href={`${base}/roadmaps/dsa-placement/`} class="hover:text-emerald-500 underline decoration-slate-300">DSA Roadmap</a>
-            <span>•</span>
-            <a href={`${base}/topics/qubits-superposition/`} class="hover:text-emerald-500 underline decoration-slate-300">Qubits</a>
-            <span>•</span>
-            <a href={`${base}/topics/docker-containers/`} class="hover:text-emerald-500 underline decoration-slate-300">Docker</a>
-            <span>•</span>
-            <a href={`${base}/topics/digital-india-upi-dbt/`} class="hover:text-emerald-500 underline decoration-slate-300">UPI Stack</a>
+          <div class="flex flex-wrap items-center justify-center gap-2 mt-4 text-xs text-slate-500">
+            <span class="text-slate-400 font-medium">Quick Topics:</span>
+            <a href={`${base}/topics/ai-agents-and-rag/`} class="px-2.5 py-1 rounded-lg bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-brand-500 transition-colors">RAG Architecture</a>
+            <a href={`${base}/roadmaps/dsa-placement/`} class="px-2.5 py-1 rounded-lg bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-peacock-500 transition-colors">DSA 6-Month Plan</a>
+            <a href={`${base}/topics/qubits-superposition-entanglement/`} class="px-2.5 py-1 rounded-lg bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-cyan-500 transition-colors">Qubits</a>
+            <a href={`${base}/topics/indian-constitution-structure/`} class="px-2.5 py-1 rounded-lg bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-saffron-500 transition-colors">Samvidhan Basics</a>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Categories Bento Grid -->
+  <!-- Categories Bento Grid (No UI Emojis, Bespoke Lucide SVGs & Duotone Gradients) -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="flex items-center justify-between mb-8">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
       <div>
-        <h2 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Core Knowledge Domains</h2>
-        <p class="text-xs text-slate-500 mt-1">Hick's Law: 6 focused categories structured for rapid progressive discovery.</p>
+        <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-1">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+          Structured Exploration
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">Core Knowledge Domains</h2>
+        <p class="text-xs text-slate-500 mt-1">Hick's Law: 6 focused categories structured for progressive discovery without cognitive fatigue.</p>
       </div>
-      <a href={`${base}/topics/`} class="text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:underline">View All Topics ↗</a>
+      <a href={`${base}/topics/`} class="inline-flex items-center gap-1 text-xs font-bold text-brand-600 dark:text-brand-400 hover:underline">
+        <span>Browse All Topics (19+)</span>
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+      </a>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
       {CATEGORIES.map(cat => {
         const count = TOPICS.filter(t => t.category === cat.id).length;
+        const visual = categoryVisuals[cat.id] || categoryVisuals['ai-ml'];
         return (
           <a
             href={`${base}/topics/?category=${cat.id}`}
-            class="group p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder hover:border-emerald-500/60 hover:shadow-lg hover:-translate-y-0.5 transition-all flex flex-col justify-between"
+            class={`group relative p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 ${visual.borderAccent} hover:shadow-card hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between overflow-hidden`}
           >
-            <div>
-              <div class="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800/80 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-                {cat.icon}
+            <!-- Background mesh accent -->
+            <div class={`absolute inset-0 bg-gradient-to-br ${visual.gradient} opacity-40 group-hover:opacity-100 transition-opacity pointer-events-none`}></div>
+
+            <div class="relative z-10">
+              <div class={`w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800/80 flex items-center justify-center ${visual.textAccent} mb-4 group-hover:scale-110 transition-transform shadow-sm`} set:html={visual.iconSvg}>
               </div>
-              <h3 class="font-bold text-base text-slate-900 dark:text-white group-hover:text-emerald-500 transition-colors">
+              <h3 class="font-bold text-base text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                 {cat.name}
               </h3>
               <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
                 {cat.description}
               </p>
             </div>
-            <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-400">
-              <span>{count} Topics Available</span>
-              <span class="group-hover:translate-x-1 transition-transform font-bold text-emerald-500">Explore →</span>
+
+            <div class="relative z-10 mt-5 pt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+              <span class="font-medium">{count} Verified Guides</span>
+              <span class={`group-hover:translate-x-1 transition-transform font-bold ${visual.textAccent} flex items-center gap-1`}>
+                <span>Explore</span>
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+              </span>
             </div>
           </a>
         );
@@ -100,31 +160,41 @@ const trendingTopics = TOPICS.slice(0, 4);
     </div>
   </section>
 
-  <!-- Trending Topics Section -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-slate-200/60 dark:border-darkborder/60">
-    <div class="flex items-center justify-between mb-8">
+  <!-- Trending Topics Section with Modern MetaChips & TL;DR Callouts -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 border-t border-slate-200/80 dark:border-white/10">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
       <div>
-        <h2 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Trending & High-Impact Topics</h2>
+        <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-peacock-600 dark:text-peacock-400 mb-1">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+          High-Velocity Guides
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">Trending & High-Impact Topics</h2>
         <p class="text-xs text-slate-500 mt-1">3-minute summaries with verified primary sources and runnable code.</p>
       </div>
-      <a href={`${base}/topics/`} class="text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:underline">Explore Library ↗</a>
+      <a href={`${base}/topics/`} class="inline-flex items-center gap-1 text-xs font-bold text-peacock-600 dark:text-peacock-400 hover:underline">
+        <span>Explore Full Library</span>
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+      </a>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       {trendingTopics.map(topic => (
         <a
           href={`${base}/topics/${topic.slug}/`}
-          class="group p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder hover:border-emerald-500/60 transition-all hover:shadow-md flex flex-col justify-between"
+          class="group p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 hover:border-brand-500/60 transition-all hover:shadow-card hover:-translate-y-0.5 flex flex-col justify-between"
         >
           <div>
             <div class="flex items-center justify-between gap-2 mb-3">
-              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-brand-50 dark:bg-brand-950/80 text-brand-700 dark:text-brand-300 border border-brand-500/20">
                 {topic.categoryLabel}
               </span>
-              <span class="text-xs text-slate-400">{topic.readingMinutes} min read</span>
+              <span class="inline-flex items-center gap-1 text-xs text-slate-400">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                {topic.readingMinutes} min read
+              </span>
             </div>
 
-            <h3 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-emerald-500 transition-colors">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
               {topic.title}
             </h3>
 
@@ -132,44 +202,65 @@ const trendingTopics = TOPICS.slice(0, 4);
               {topic.summary}
             </p>
 
-            <!-- Quick TLDR Snippet (Miller's law chunking) -->
-            <div class="mt-4 p-3 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800">
-              <div class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 mb-1">⚡ TL;DR Key Takeaway:</div>
-              <p class="text-xs text-slate-600 dark:text-slate-300 line-clamp-2">{topic.tldr[0]}</p>
+            <!-- Quick TL;DR Callout (Miller's law chunking) with Peacock accent -->
+            <div class="mt-4 p-3.5 rounded-xl bg-peacock-500/5 dark:bg-peacock-950/20 border border-peacock-500/20">
+              <div class="flex items-center gap-1.5 text-[11px] font-bold text-peacock-700 dark:text-peacock-300 mb-1">
+                <svg class="w-3.5 h-3.5 text-peacock-600 dark:text-peacock-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                <span>TL;DR Key Takeaway</span>
+              </div>
+              <p class="text-xs text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed">{topic.tldr[0]}</p>
             </div>
           </div>
 
-          <div class="mt-4 flex flex-wrap items-center gap-1.5">
-            {topic.tags.map(tag => (
-              <span class="text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">
-                #{tag}
-              </span>
-            ))}
+          <div class="mt-5 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex flex-wrap items-center justify-between gap-2">
+            <div class="flex flex-wrap items-center gap-1.5">
+              {topic.tags.slice(0, 3).map(tag => (
+                <span class="text-[10px] px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-500 font-medium">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+            <span class="text-xs font-semibold text-brand-600 dark:text-brand-400 group-hover:translate-x-1 transition-transform flex items-center gap-1">
+              <span>Read Guide</span>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+            </span>
           </div>
         </a>
       ))}
     </div>
   </section>
 
-  <!-- Interactive Roadmaps Banner Callout -->
+  <!-- Interactive Roadmaps Banner Callout (Modern Bharat Gradient + Glass Elevation) -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="rounded-3xl p-8 sm:p-12 bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-700 text-white shadow-xl relative overflow-hidden">
+    <div class="rounded-3xl p-8 sm:p-12 bg-gradient-to-r from-brand-700 via-peacock-700 to-indigo-900 text-white shadow-elevation relative overflow-hidden">
+      <!-- Subtle Jaali Background in Callout -->
+      <IndianPattern variant="jaali" opacity={0.05} />
+
       <div class="relative z-10 max-w-2xl">
-        <span class="inline-block text-xs uppercase tracking-wider font-extrabold px-2.5 py-1 rounded bg-white/20 backdrop-blur-sm mb-4">
+        <div class="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-extrabold px-3 py-1 rounded-full bg-white/15 backdrop-blur-md border border-white/20 mb-4">
+          <svg class="w-3.5 h-3.5 text-peacock-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
           Signature Feature • 100% Free
-        </span>
+        </div>
         <h2 class="text-2xl sm:text-4xl font-black tracking-tight leading-tight mb-4">
-          Visual Interactive Roadmaps with Local Progress Tracking
+          Interactive Career Roadmaps with Zero Tracking
         </h2>
-        <p class="text-sm sm:text-base text-emerald-50 leading-relaxed mb-6">
-          Phase-by-phase timeline, milestones, checklist checkboxes, aur free curated links. Aapki progress browser ke localStorage me safe rehti hai—koi account ya tracking nahi.
+        <p class="text-sm sm:text-base text-slate-200 leading-relaxed mb-6">
+          Phase-by-phase timeline, checklist progress tracking, and curated free resources. Aapki progress purely browser ke <code>localStorage</code> me safe rehti hai—koi account nahi, koi creepy tracking nahi.
         </p>
         <div class="flex flex-wrap gap-3">
-          <a href={`${base}/roadmaps/dsa-placement/`} class="px-5 py-2.5 rounded-xl bg-white text-emerald-800 font-bold text-xs hover:bg-emerald-50 transition-colors shadow-sm">
-            DSA & Placement Roadmap →
+          <a
+            href={`${base}/roadmaps/dsa-placement/`}
+            class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-brand-900 font-bold text-xs hover:bg-slate-100 transition-all shadow-md hover:scale-[1.02]"
+          >
+            <span>DSA & Placement Roadmap</span>
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
           </a>
-          <a href={`${base}/roadmaps/ai-ml-engineer/`} class="px-5 py-2.5 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-bold text-xs transition-colors">
-            AI/ML Engineer Roadmap →
+          <a
+            href={`${base}/roadmaps/ai-ml-engineer/`}
+            class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/20 text-white font-bold text-xs transition-all hover:scale-[1.02]"
+          >
+            <span>AI/ML Engineer Roadmap</span>
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
           </a>
         </div>
       </div>
@@ -177,56 +268,61 @@ const trendingTopics = TOPICS.slice(0, 4);
   </section>
 
   <!-- Research & Scenarios Section -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-slate-200/60 dark:border-darkborder/60">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-slate-200/80 dark:border-white/10">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
       <!-- Left: Flagship Empirical Research -->
-      <div class="p-8 rounded-3xl bg-gradient-to-br from-indigo-950 to-slate-900 text-white flex flex-col justify-between space-y-6">
-        <div class="space-y-4">
+      <div class="p-8 rounded-3xl bg-surface-dark border border-white/10 text-white flex flex-col justify-between space-y-6 relative overflow-hidden shadow-elevation group">
+        <div class="absolute -right-12 -top-12 w-48 h-48 bg-brand-500/20 rounded-full blur-3xl pointer-events-none group-hover:bg-brand-500/30 transition-all"></div>
+        <div class="space-y-4 relative z-10">
           <div class="flex items-center gap-2">
-            <span class="px-2.5 py-1 rounded bg-indigo-500 text-white font-black text-[10px] uppercase tracking-wider">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-brand-500 text-white font-black text-[10px] uppercase tracking-wider">
+              <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
               DATA ANALYSIS
             </span>
-            <span class="text-xs text-indigo-200">• 3.84M Headlines • 2001–2023</span>
+            <span class="text-xs text-brand-300 font-mono">• 3.84M Headlines • 2001–2023</span>
           </div>
           <h3 class="text-2xl font-black tracking-tight leading-tight">
             Headlines of Fear & Hope: Indian Media Sentiment
           </h3>
           <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            22 वर्षों के समाचार शीर्षकों का कम्प्यूटेशनल अध्ययन। संकटों (2008, 2020) और चुनावों (2014) के दौरान भावना और टोन कैसे बदलती है।
+            22 वर्षों के समाचार शीर्षकों का कम्प्यूटेशनल अध्ययन। 2008 वित्तीय संकट, 2014 चुनाव, और 2020 लॉकडाउन के दौरान मीडिया टोन और पोलराइजेशन के डेटा-ड्राइव इन्साइट्स।
           </p>
         </div>
-        <div class="pt-4 flex items-center justify-between border-t border-indigo-900/80">
-          <a href={`${base}/research/media-sentiment-study/`} class="text-xs font-bold text-indigo-400 hover:text-white underline">
-            Read Full Research Paper →
+        <div class="pt-4 flex items-center justify-between border-t border-white/10 relative z-10">
+          <a href={`${base}/research/media-sentiment-study/`} class="inline-flex items-center gap-1 text-xs font-bold text-brand-400 hover:text-white transition-colors">
+            <span>Read Research Paper</span>
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
           </a>
-          <a href={`${base}/research/data-cards/`} class="text-xs text-slate-400 hover:text-slate-200">
-            Kaggle Data Cards
+          <a href={`${base}/research/data-cards/`} class="text-xs text-slate-400 hover:text-slate-200 transition-colors">
+            Kaggle Data Cards ↗
           </a>
         </div>
       </div>
 
       <!-- Right: Red-Teaming & Hypothetical Scenarios -->
-      <div class="p-8 rounded-3xl bg-amber-500/10 border-2 border-amber-500/30 flex flex-col justify-between space-y-6">
+      <div class="p-8 rounded-3xl bg-saffron-500/10 border-2 border-saffron-500/30 flex flex-col justify-between space-y-6 relative overflow-hidden group">
         <div class="space-y-4">
           <div class="flex items-center gap-2">
-            <span class="px-2.5 py-1 rounded bg-amber-500 text-slate-950 font-black text-[10px] uppercase tracking-wider">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-saffron-500 text-slate-950 font-black text-[10px] uppercase tracking-wider">
+              <svg class="w-3 h-3 text-slate-950" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
               HYPOTHETICAL SCENARIOS
             </span>
-            <span class="text-xs text-amber-700 dark:text-amber-400 font-bold">• Red-Teaming Simulations</span>
+            <span class="text-xs text-saffron-700 dark:text-saffron-400 font-bold">• Red-Teaming Simulations</span>
           </div>
           <h3 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
             Critical Systems Futures Studies
           </h3>
           <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-            होर्मुज जलडमरूमध्य की 30-दिवसीय नाकाबंदी, चुनावी डीपफेक्स का डार्क सोशल हमला, या कोर बैंकिंग क्लाउड आउटेज: कारण-शृंखला (Causal Chains) और शाखा-परिणाम।
+            Strait of Hormuz chokepoint closure, deepfake cascade in state elections, aur financial cloud outage: Causal Chains (Mermaid diagrams) aur branching probabilistic outcomes.
           </p>
         </div>
-        <div class="pt-4 flex items-center justify-between border-t border-amber-500/20">
-          <a href={`${base}/scenarios/`} class="text-xs font-bold text-amber-600 dark:text-amber-400 hover:underline">
-            Explore All 3 Scenarios →
+        <div class="pt-4 flex items-center justify-between border-t border-saffron-500/20">
+          <a href={`${base}/scenarios/`} class="inline-flex items-center gap-1 text-xs font-bold text-saffron-600 dark:text-saffron-400 hover:underline">
+            <span>Explore All 3 Scenarios</span>
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
           </a>
           <a href={`${base}/research/fact-vs-hypothesis/`} class="text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">
-            Fact vs Hypothesis Protocol
+            Fact vs Hypothesis Protocol ↗
           </a>
         </div>
       </div>

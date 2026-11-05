@@ -1,55 +1,74 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import IndianPattern from '../../components/ui/IndianPattern.astro';
 import { TOPICS, CATEGORIES } from '../../data/topics';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Visual metadata for categories without emojis
+const categoryLabels: Record<string, string> = {
+  'ai-ml': 'AI & Machine Learning',
+  'quantum': 'Quantum Computing',
+  'career': 'Career & Placement',
+  'projects': 'Projects Hub',
+  'tech-fundamentals': 'Tech Fundamentals',
+  'gov-policy': 'Politics & Governance',
+};
 ---
 
-<Layout title="All Knowledge Topics & Guides" description="Browse all verified topics across AI, Quantum Computing, Placement, and Tech Fundamentals.">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <!-- Header -->
-    <div class="max-w-3xl mb-8">
-      <span class="text-xs font-bold uppercase tracking-wider text-emerald-500">Curated Repository</span>
-      <h1 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight mt-1">
-        Knowledge Library & Topic Guides
-      </h1>
-      <p class="text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
-        Har topic me TL;DR box, core concepts, mini-projects, aur primary citations included hain.
-      </p>
-    </div>
+<Layout title="Knowledge Library & Topic Guides — Knowledge Hub" description="Browse 19+ verified topics across AI, Quantum Computing, Placement, and Tech Fundamentals with runnable code and primary sources.">
+  <div class="relative overflow-hidden border-b border-slate-200/80 dark:border-white/10 py-12">
+    <IndianPattern variant="jaali" opacity={0.03} />
 
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/20 text-xs font-semibold mb-4">
+          <svg class="w-3.5 h-3.5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+          Curated Knowledge Repository
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
+          Topics & Architectural Guides
+        </h1>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
+          Har guide me structured TL;DR takeaways, core concepts with code snippets, hands-on mini projects, myth busters, aur primary academic citations shamil hain.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
     <!-- Filters Bar (Hick's Law - minimal intuitive filters) -->
-    <div class="bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder rounded-2xl p-4 mb-8 shadow-sm space-y-3">
-      <!-- Category Chips -->
-      <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none" id="category-filter-chips">
-        <button class="cat-filter active shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500 text-white cursor-pointer" data-category="all">
-          All Categories ({TOPICS.length})
+    <div class="bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 rounded-2xl p-4 sm:p-5 mb-8 shadow-sm space-y-4">
+      <!-- Category Chips (Lucide SVG style, zero emojis) -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none" id="category-filter-chips">
+        <button class="cat-filter active shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-brand-500 text-white shadow-sm cursor-pointer" data-category="all">
+          All Guides ({TOPICS.length})
         </button>
         {CATEGORIES.map(cat => (
-          <button class="cat-filter shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer" data-category={cat.id}>
-            {cat.icon} {cat.name}
+          <button class="cat-filter shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer transition-colors" data-category={cat.id}>
+            {cat.name}
           </button>
         ))}
       </div>
 
       <!-- Level Chips & Search -->
-      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-white/10">
         <div class="flex items-center gap-1.5 text-xs font-medium" id="level-filter-chips">
-          <span class="text-slate-400 mr-1 text-[11px]">Level:</span>
-          <button class="level-filter active px-2.5 py-1 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300" data-level="all">All</button>
-          <button class="level-filter px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400" data-level="beginner">Beginner</button>
-          <button class="level-filter px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400" data-level="intermediate">Intermediate</button>
-          <button class="level-filter px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400" data-level="advanced">Advanced</button>
+          <span class="text-slate-400 mr-1 text-[11px]">Difficulty:</span>
+          <button class="level-filter active px-2.5 py-1 rounded-lg bg-brand-50 dark:bg-brand-950 text-brand-700 dark:text-brand-300 font-semibold border border-brand-500/20" data-level="all">All</button>
+          <button class="level-filter px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400" data-level="beginner">Beginner</button>
+          <button class="level-filter px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400" data-level="intermediate">Intermediate</button>
+          <button class="level-filter px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400" data-level="advanced">Advanced</button>
         </div>
 
-        <div class="relative w-full sm:w-64">
+        <div class="relative w-full sm:w-72">
           <input 
             type="text" 
             id="topic-search-input"
-            placeholder="Filter topics by keyword..."
-            class="w-full text-xs px-3 py-1.5 pl-8 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none focus:border-emerald-500"
+            placeholder="Search topics by keyword..."
+            class="w-full text-xs px-3.5 py-2 pl-9 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-brand-500"
           />
-          <svg class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
         </div>
@@ -61,7 +80,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       {TOPICS.map(topic => (
         <a 
           href={`${base}/topics/${topic.slug}/`}
-          class="topic-card group bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder rounded-2xl p-6 hover:border-emerald-500/60 hover:shadow-lg transition-all flex flex-col justify-between"
+          class="topic-card group bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 rounded-2xl p-6 hover:border-brand-500/60 hover:shadow-card hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between"
           data-category={topic.category}
           data-level={topic.level}
           data-title={topic.title.toLowerCase()}
@@ -69,94 +88,136 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         >
           <div>
             <div class="flex items-center justify-between gap-2 mb-3">
-              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-brand-50 dark:bg-brand-950/80 text-brand-700 dark:text-brand-300 border border-brand-500/20">
                 {topic.categoryLabel}
               </span>
-              <span class="text-xs text-slate-400 font-medium">⏱ {topic.readingMinutes} min read</span>
+              <span class="inline-flex items-center gap-1 text-xs text-slate-400 font-medium">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                {topic.readingMinutes} min read
+              </span>
             </div>
 
-            <h3 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-emerald-500 transition-colors">
+            <h3 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors leading-snug">
               {topic.title}
             </h3>
 
-            <p class="text-xs text-slate-600 dark:text-slate-400 mt-2 line-clamp-3 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-400 mt-2.5 line-clamp-3 leading-relaxed">
               {topic.summary}
             </p>
           </div>
 
-          <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
-            <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400">
+          <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+            <span class={`text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full ${
+              topic.level === 'beginner' ? 'bg-peacock-500/10 text-peacock-600 dark:text-peacock-400' :
+              topic.level === 'intermediate' ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400' :
+              'bg-brand-500/10 text-brand-600 dark:text-brand-400'
+            }`}>
               {topic.level}
             </span>
-            <span class="text-xs font-semibold text-emerald-500 group-hover:translate-x-1 transition-transform">
-              Read Guide →
+            <span class="inline-flex items-center gap-1 text-xs font-semibold text-brand-600 dark:text-brand-400 group-hover:translate-x-1 transition-transform">
+              <span>Read Guide</span>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
             </span>
           </div>
         </a>
       ))}
     </div>
+
+    <!-- Empty State -->
+    <div id="no-topics-found" class="hidden text-center py-16">
+      <div class="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mx-auto text-slate-400 mb-3">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+      </div>
+      <h3 class="text-sm font-bold text-slate-900 dark:text-white">Koi topic nahi mila</h3>
+      <p class="text-xs text-slate-500 mt-1">Filters clear karein ya dusra search term try karein.</p>
+    </div>
   </div>
 </Layout>
 
 <script is:inline>
-  const urlParams = new URLSearchParams(window.location.search);
-  const initialCat = urlParams.get('category') || 'all';
+  let activeCat = 'all';
+  let activeLevel = 'all';
+  let searchTerm = '';
 
-  let selectedCategory = initialCat;
-  let selectedLevel = 'all';
-  let searchQuery = '';
-
-  const catBtns = document.querySelectorAll('.cat-filter');
-  const levelBtns = document.querySelectorAll('.level-filter');
-  const searchInput = document.getElementById('topic-search-input');
   const cards = document.querySelectorAll('.topic-card');
+  const emptyState = document.getElementById('no-topics-found');
 
-  function filterCards() {
+  // Handle URL query parameter ?category=...
+  const urlParams = new URLSearchParams(window.location.search);
+  const initialCat = urlParams.get('category');
+  if (initialCat) {
+    activeCat = initialCat;
+    document.querySelectorAll('.cat-filter').forEach(btn => {
+      if (btn.getAttribute('data-category') === initialCat) {
+        btn.classList.add('active', 'bg-brand-500', 'text-white', 'shadow-sm');
+        btn.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+      } else {
+        btn.classList.remove('active', 'bg-brand-500', 'text-white', 'shadow-sm');
+        btn.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+      }
+    });
+  }
+
+  function filterTopics() {
+    let visible = 0;
     cards.forEach(card => {
       const cat = card.getAttribute('data-category');
       const level = card.getAttribute('data-level');
       const title = card.getAttribute('data-title');
       const tags = card.getAttribute('data-tags');
 
-      const matchesCat = selectedCategory === 'all' || cat === selectedCategory;
-      const matchesLevel = selectedLevel === 'all' || level === selectedLevel;
-      const matchesSearch = !searchQuery || title.includes(searchQuery) || tags.includes(searchQuery);
+      const matchCat = activeCat === 'all' || cat === activeCat;
+      const matchLevel = activeLevel === 'all' || level === activeLevel;
+      const matchSearch = searchTerm === '' || title?.includes(searchTerm) || tags?.includes(searchTerm);
 
-      if (matchesCat && matchesLevel && matchesSearch) {
+      if (matchCat && matchLevel && matchSearch) {
         card.style.display = 'flex';
+        visible++;
       } else {
         card.style.display = 'none';
       }
     });
+
+    if (emptyState) {
+      emptyState.style.display = visible === 0 ? 'block' : 'none';
+    }
   }
 
-  catBtns.forEach(btn => {
-    if (btn.getAttribute('data-category') === selectedCategory) {
-      catBtns.forEach(b => b.classList.remove('active', 'bg-emerald-500', 'text-white'));
-      btn.classList.add('active', 'bg-emerald-500', 'text-white');
-    }
-
+  // Category chip listeners
+  document.querySelectorAll('.cat-filter').forEach(btn => {
     btn.addEventListener('click', () => {
-      catBtns.forEach(b => b.classList.remove('active', 'bg-emerald-500', 'text-white'));
-      btn.classList.add('active', 'bg-emerald-500', 'text-white');
-      selectedCategory = btn.getAttribute('data-category');
-      filterCards();
+      document.querySelectorAll('.cat-filter').forEach(b => {
+        b.classList.remove('active', 'bg-brand-500', 'text-white', 'shadow-sm');
+        b.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+      });
+      btn.classList.add('active', 'bg-brand-500', 'text-white', 'shadow-sm');
+      btn.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+      activeCat = btn.getAttribute('data-category') || 'all';
+      filterTopics();
     });
   });
 
-  levelBtns.forEach(btn => {
+  // Level chip listeners
+  document.querySelectorAll('.level-filter').forEach(btn => {
     btn.addEventListener('click', () => {
-      levelBtns.forEach(b => b.classList.remove('active', 'bg-emerald-100', 'text-emerald-700', 'dark:bg-emerald-950', 'dark:text-emerald-300'));
-      btn.classList.add('active', 'bg-emerald-100', 'text-emerald-700', 'dark:bg-emerald-950', 'dark:text-emerald-300');
-      selectedLevel = btn.getAttribute('data-level');
-      filterCards();
+      document.querySelectorAll('.level-filter').forEach(b => {
+        b.classList.remove('active', 'bg-brand-50', 'dark:bg-brand-950', 'text-brand-700', 'dark:text-brand-300', 'font-semibold', 'border', 'border-brand-500/20');
+        b.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-400');
+      });
+      btn.classList.add('active', 'bg-brand-50', 'dark:bg-brand-950', 'text-brand-700', 'dark:text-brand-300', 'font-semibold', 'border', 'border-brand-500/20');
+      btn.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-400');
+      activeLevel = btn.getAttribute('data-level') || 'all';
+      filterTopics();
     });
   });
 
-  searchInput?.addEventListener('input', (e) => {
-    searchQuery = e.target.value.toLowerCase().trim();
-    filterCards();
+  // Search input listener
+  document.getElementById('topic-search-input')?.addEventListener('input', (e) => {
+    searchTerm = e.target.value.toLowerCase().trim();
+    filterTopics();
   });
 
-  filterCards();
+  if (initialCat) {
+    filterTopics();
+  }
 </script>

@@ -1,38 +1,61 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import IndianPattern from '../components/ui/IndianPattern.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
-<Layout title="How to Contribute to Knowledge Hub" description="Open-source guide on submitting new topics, fixing typos, and proposing roadmap improvements.">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
-    <div>
-      <span class="text-xs font-bold uppercase tracking-wider text-emerald-500">Open Collaboration</span>
-      <h1 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight mt-1">
+<Layout title="How to Contribute — Knowledge Hub" description="Open-source guide on submitting new topics, fixing typos, and proposing roadmap improvements.">
+  <div class="relative overflow-hidden border-b border-slate-200/80 dark:border-white/10 py-12">
+    <IndianPattern variant="rangoli" opacity={0.03} />
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-peacock-500/10 text-peacock-700 dark:text-peacock-300 border border-peacock-500/20 text-xs font-semibold mb-4">
+        <svg class="w-3.5 h-3.5 text-peacock-600 dark:text-peacock-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+        Open Source & Community Driven
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
         Contribute to Knowledge Hub
       </h1>
-      <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">
-        Knowledge Hub ek open-source community platform hai. Agar aapko koi typo dikhe ya naya topic add karna ho, toh directly GitHub par Pull Request open karein!
+      <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
+        Knowledge Hub ek public good hai. Agar aapko koi factual correction karni ho, typo theek karna ho, ya naya topic propose karna ho, direct GitHub par PR open karein!
       </p>
     </div>
+  </div>
 
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
     <div class="space-y-6 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-      <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder space-y-3">
-        <h3 class="font-bold text-base text-slate-900 dark:text-white">🚀 Step-by-Step Contribution Flow</h3>
-        <ol class="space-y-2 list-decimal pl-5">
-          <li><strong>Fork the Repository:</strong> <a href="https://github.com/givemehat/knowledge-hub" target="_blank" class="text-emerald-500 underline">github.com/givemehat/knowledge-hub</a> par jaakar "Fork" button dabayein.</li>
-          <li><strong>Clone Locally:</strong> <code>git clone https://github.com/YOUR_USERNAME/knowledge-hub.git</code></li>
-          <li><strong>Add or Edit Topic:</strong> <code>src/data/topics.ts</code> file me structured topic object add karein following our schema.</li>
-          <li><strong>Run Build Test:</strong> <code>npm run build</code> chala kar check karein ki build zero error ke sath pass ho rahi hai.</li>
-          <li><strong>Submit Pull Request:</strong> Branch push karein aur GitHub par PR open karein.</li>
+      <!-- Card 1: Flow -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-sm space-y-4">
+        <div class="flex items-center gap-2.5 pb-2 border-b border-slate-100 dark:border-white/10">
+          <div class="w-8 h-8 rounded-xl bg-brand-50 dark:bg-brand-950 flex items-center justify-center text-brand-600 dark:text-brand-400">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+          </div>
+          <h3 class="font-bold text-base text-slate-900 dark:text-white">Step-by-Step Contribution Flow</h3>
+        </div>
+        <ol class="space-y-3 list-decimal pl-5">
+          <li><strong>Fork the Repository:</strong> <a href="https://github.com/givemehat/knowledge-hub" target="_blank" rel="noopener noreferrer" class="text-brand-600 dark:text-brand-400 underline font-medium">github.com/givemehat/knowledge-hub</a> par jaakar "Fork" button dabayein.</li>
+          <li><strong>Clone Locally:</strong> <code class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">git clone https://github.com/YOUR_USERNAME/knowledge-hub.git</code></li>
+          <li><strong>Add or Edit Topic:</strong> <code class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">src/data/topics.ts</code> me structured topic object add karein following our schema.</li>
+          <li><strong>Run Build Test:</strong> <code class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">npm run build</code> chala kar check karein ki build zero error ke sath pass ho rahi hai.</li>
+          <li><strong>Submit Pull Request:</strong> Branch push karein aur GitHub par PR open karein. Automated CI build verify karega!</li>
         </ol>
       </div>
 
-      <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder space-y-3">
-        <h3 class="font-bold text-base text-slate-900 dark:text-white">📋 Quality Checklist for PRs</h3>
-        <ul class="space-y-1.5 list-disc pl-5 text-slate-500">
-          <li>Har claim ke sath kam se kam 1 primary source citation hona chahiye.</li>
-          <li>TL;DR me exactly 3-5 crisp bullet points hone chahiye.</li>
+      <!-- Card 2: Quality Checklist -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-sm space-y-4">
+        <div class="flex items-center gap-2.5 pb-2 border-b border-slate-100 dark:border-white/10">
+          <div class="w-8 h-8 rounded-xl bg-peacock-50 dark:bg-peacock-950 flex items-center justify-center text-peacock-600 dark:text-peacock-400">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          </div>
+          <h3 class="font-bold text-base text-slate-900 dark:text-white">Editorial Quality Checklist for PRs</h3>
+        </div>
+        <ul class="space-y-2 list-disc pl-5 text-slate-600 dark:text-slate-400">
+          <li>Har claim ke sath kam se kam 1 primary source citation (academic paper, official doc, government report) hona chahiye.</li>
+          <li>TL;DR me exactly 3 se 5 crisp bullet points hone chahiye (Miller's Law cognitive chunking).</li>
           <li>Hinglish natural aur approachable honi chahiye, bina artificial heavy translations ke.</li>
-          <li>Code snippets runnable aur minimal hone chahiye.</li>
+          <li>Code snippets runnable aur minimal hone chahiye (no pseudo-code without context).</li>
+          <li>UI emojis use na karein—sirf Lucide SVG vector icons use karein.</li>
         </ul>
       </div>
     </div>

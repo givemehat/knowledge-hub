@@ -30,7 +30,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="generator" content={Astro.generator} />
 
     <!-- SEO Meta Tags -->
-    <title>{title} | Knowledge Hub</title>
+    <title>{title} | Knowledge Hub (ज्ञान केंद्र)</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
 
@@ -46,10 +46,73 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:title" content={`${title} | Knowledge Hub`} />
     <meta name="twitter:description" content={description} />
 
-    <!-- Typography: Inter, Plus Jakarta Sans, JetBrains Mono, Noto Sans Devanagari -->
+    <!-- Typography: Plus Jakarta Sans, Inter, JetBrains Mono, Noto Sans Devanagari -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+    <style is:global>
+      :root {
+        --surface: #FAF8F5;
+        --surface-card: #FFFFFF;
+        --surface-raised: #F3EFEA;
+        --on-surface: #14121A;
+        --on-surface-variant: #595566;
+        --primary: #5B3DF5;
+        --primary-hover: #4829E0;
+        --saffron: #FF851A;
+        --teal: #0E8A8A;
+        --kumkum: #D62F4B;
+        --haldi: #F5B700;
+        --outline: rgba(20, 18, 26, 0.08);
+      }
+
+      .dark {
+        --surface: #121016;
+        --surface-card: #1A1722;
+        --surface-raised: #231F2E;
+        --on-surface: #F5F3FA;
+        --on-surface-variant: #A7A3B8;
+        --primary: #7C63FF;
+        --primary-hover: #927EFF;
+        --saffron: #FFA742;
+        --teal: #1DBBBB;
+        --kumkum: #FF5C77;
+        --haldi: #FFCC33;
+        --outline: rgba(245, 243, 250, 0.10);
+      }
+
+      /* Subtle Indian Rangoli Dot-Grid Pattern */
+      .bg-rangoli-grid {
+        background-image: radial-gradient(circle, rgba(91, 61, 245, 0.06) 1px, transparent 1px);
+        background-size: 24px 24px;
+      }
+      .dark .bg-rangoli-grid {
+        background-image: radial-gradient(circle, rgba(124, 99, 255, 0.08) 1px, transparent 1px);
+        background-size: 24px 24px;
+      }
+
+      /* Rhythmic Typography & Content Limits */
+      article {
+        max-width: 68ch;
+      }
+
+      /* Smooth Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(140, 130, 160, 0.25);
+        border-radius: 9999px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(140, 130, 160, 0.45);
+      }
+    </style>
 
     <!-- Inline Dark Theme Script (Zero-FOUC) -->
     <script is:inline>
@@ -71,11 +134,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       window.localStorage.setItem('theme', theme);
     </script>
   </head>
-  <body class="bg-surface-light dark:bg-darkbg text-slate-800 dark:text-slate-100 min-h-screen flex flex-col font-sans selection:bg-emerald-500 selection:text-white transition-colors duration-150 pb-16 md:pb-0">
+  <body class="bg-surface-light dark:bg-darkbg text-slate-800 dark:text-slate-100 min-h-screen flex flex-col font-sans selection:bg-violet-500 selection:text-white transition-colors duration-150 pb-16 md:pb-0 antialiased">
     <!-- Accessibility Skip Link -->
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 px-4 py-2 bg-emerald-600 text-white font-bold rounded-lg shadow-lg">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 px-4 py-2 bg-violet-600 text-white font-bold rounded-xl shadow-xl">
       Skip to main content
     </a>
+
+    <!-- Top Indian Tricolor Micro-Accent Ribbon -->
+    <div class="h-0.5 w-full bg-gradient-to-r from-saffron-500 via-white dark:via-darkbg to-teal-500 opacity-80"></div>
 
     <Header />
     <SearchModal />
@@ -87,8 +153,38 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <Footer />
     <MobileNav />
 
-    <!-- Global Theme & Language Scripts -->
+    <!-- Global Toast Container -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Global Scripts: Theme, Language & Toast Helper -->
     <script is:inline>
+      // Global Toast Notification Helper
+      window.showToast = function(message, type = 'success') {
+        const container = document.getElementById('toast-container');
+        if (!container) return;
+        const toast = document.createElement('div');
+        toast.className = `px-4 py-2.5 rounded-xl text-xs font-semibold shadow-apple-lg border pointer-events-auto transition-all transform translate-y-2 opacity-0 flex items-center gap-2 ${
+          type === 'success' 
+            ? 'bg-white dark:bg-darkcard text-slate-900 dark:text-white border-teal-500/40 text-teal-600 dark:text-teal-400' 
+            : 'bg-white dark:bg-darkcard text-slate-900 dark:text-white border-slate-200 dark:border-darkborder'
+        }`;
+        toast.innerHTML = `
+          <svg class="w-4 h-4 shrink-0 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+          </svg>
+          <span>${message}</span>
+        `;
+        container.appendChild(toast);
+        requestAnimationFrame(() => {
+          toast.classList.remove('translate-y-2', 'opacity-0');
+        });
+        setTimeout(() => {
+          toast.classList.add('opacity-0', 'translate-y-2');
+          setTimeout(() => toast.remove(), 200);
+        }, 2500);
+      };
+
+      // Theme toggle
       const themeBtn = document.getElementById('theme-toggle-btn');
       themeBtn?.addEventListener('click', () => {
         const isDark = document.documentElement.classList.toggle('dark');
