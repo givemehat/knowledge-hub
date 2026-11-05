@@ -2963,5 +2963,199 @@ export const TOPICS: Topic[] = [
         "accessed": "2026-11-05"
       }
     ]
+  },
+  {
+    "slug": "typography-prompting-font-pairing",
+    "title": "Typography Prompting: Font Pairing Systems, Fluid Scales & Motion Dynamics",
+    "titleHindi": "टाइपोग्राफी प्रॉम्प्टिंग: फॉन्ट पेयरिंग सिस्टम, फ्लूइड स्केल्स और मोशन डायनामिक्स",
+    "shortTitle": "टाइपोग्राफी और फॉन्ट पेयरिंग",
+    "shortTitleEn": "Typography & Font Pairing",
+    "summaryEn": "Master production-grade typography prompting: font classification archetypes, classic font pairing contrast matrices, CSS clamp fluid scaling, and accessible text animation dynamics.",
+    "category": "ai-ml",
+    "categoryLabel": "AI & Machine Learning",
+    "level": "intermediate",
+    "tags": [
+      "typography",
+      "font-pairing",
+      "ai-prompting",
+      "css-clamp",
+      "text-animation",
+      "design-systems"
+    ],
+    "readingMinutes": 15,
+    "lastVerified": "2026-11-05",
+    "confidence": "high",
+    "summary": "AI टूल्स (Claude, GPT, Gemini) के लिए सटीक टाइपोग्राफी प्रॉम्प्ट्स तैयार करने की संपूर्ण गाइड: फॉन्ट क्लासिफिकेशन (Serif, Sans, Mono, Display), कंट्रास्ट रूल्स, CSS clamp() फ्लूइड स्केलिंग, और 6 प्रमुख टेक्स्ट एनिमेशन फ़िज़िक्स।",
+    "tldr": [
+      "**फॉन्ट वर्गीकरण (Classifications):** जेनेरिक विवरण लिखने के बजाय सटीक नाम (Inter, Playfair Display, Bricolage Grotesque, Merriweather, JetBrains Mono) और फॉन्ट-वेट (400, 600, 700) निर्दिष्ट करें।",
+      "**पेयरिंग कंट्रास्ट के 4 नियम:** हेडलाइन के लिए विशिष्ट (distinctive) फॉन्ट और बॉडी के लिए न्यूट्रल रीडेबल फॉन्ट चुनें। क्लासिफिकेशन, वेट, और साइज में स्पष्ट अंतर रखें।",
+      "**फ्लूइड टाइपोग्राफी (Fluid clamp):** अचानक ब्रेकपॉइंट जंप के बजाय `clamp(min, preferred, max)` का उपयोग करें ताकि मोबाइल से 4K स्क्रीन तक टेक्स्ट सुचारू रूप से स्केल हो।",
+      "**मोशन डायनामिक्स और फ़िज़िक्स:** टेक्स्ट एनिमेशन (Character Reveal, Word Fade Up, Gradient Loop) को 300-500ms के भीतर रखें और स्टैगर्ड डिले 50-100ms सेट करें।",
+      "**WCAG AA सुलभता (Accessibility):** एनिमेशन के लिए हमेशा `prefers-reduced-motion` मीडिया क्वेरी शामिल करें और 4.5:1 का न्यूनतम कंट्रास्ट अनुपात बनाए रखें।"
+    ],
+    "tldrEn": [
+      "**Font Classifications:** Replace vague descriptions with precise family names (Inter, Playfair Display, Bricolage Grotesque, Merriweather, JetBrains Mono) and explicit font-weight numbers (400, 600, 700).",
+      "**4 Font Pairing Rules:** Contrast a distinctive headline typeface with a neutral body typeface across classification, weight, and scale ratio.",
+      "**Fluid Typography:** Use mathematical `clamp(min, preferred, max)` formulas rather than abrupt breakpoint jumps to ensure seamless responsiveness across all screen widths.",
+      "**Motion Dynamics:** Restrict entrance animations to 300-500ms durations with 50-100ms staggered delays for crisp keynote-level polish.",
+      "**WCAG AA Accessibility:** Always pair text animations with `@media (prefers-reduced-motion: reduce)` fallbacks and maintain minimum 4.5:1 contrast ratios."
+    ],
+    "whyItMatters": "Typography forms the bedrock of visual interface design. In modern generative AI workflows, unconstrained prompts frequently produce illegible, low-contrast text with erratic line wrapping and mismatched font pairings. By structuring typography prompts with explicit font classifications, mathematical sizing scales, optical letter-spacing, and calibrated animation physics, designers and frontend engineers can reliably produce production-ready, accessible typography hierarchies on the first prompt.",
+    "coreConcepts": [
+      {
+        "heading": "The 6 Font Archetypes in Generative Design",
+        "content": "Digital typography comprises 6 primary categories: 1. Sans-Serif (clean, modern interfaces like Inter and Plus Jakarta Sans), 2. Serif (editorial, classical authority like Merriweather and IBM Plex Serif), 3. Display (high-impact decorative headlines like Playfair Display), 4. Monospace (technical precision and code like JetBrains Mono and Geist Mono), 5. Condensed (space-constrained data tables like IBM Plex Sans Condensed), and 6. Expanded (spacious open titles like Encode Sans Expanded). Always prompt with exact family names and fallbacks rather than subjective adjectives.",
+        "analogy": "Asking an AI for 'a modern font' is like asking an architect for 'a nice wall'. Specifying 'Playfair Display 700 for H1 and Inter 400 for body' is providing structural engineering blueprints.",
+        "codeSnippet": {
+          "language": "css",
+          "code": "/* Production Typeface Stack with Verified Fallbacks */\n:root {\n  --font-display: 'Playfair Display', Georgia, serif;\n  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;\n  --font-mono: 'JetBrains Mono', 'Fira Code', Menlo, monospace;\n}"
+        }
+      },
+      {
+        "heading": "The 4 Rules of Typographic Pairing Contrast",
+        "content": "Effective font pairings create intentional contrast while maintaining visual harmony: 1. Classification Contrast (Serif headline paired with Sans-Serif body), 2. Weight Contrast (Heavy 800-900 headlines with Light/Regular 400 body copy), 3. Scale Ratio Contrast (Dramatic size differences such as 56px H1 vs 16px body), and 4. Stylistic Connections (Pairing typefaces that share complementary geometric proportions or historical design eras).",
+        "codeSnippet": {
+          "language": "html",
+          "code": "<!-- Classic Serif Display + Modern Sans Hierarchy -->\n<div class=\"max-w-2xl mx-auto space-y-4\">\n  <h1 class=\"text-5xl font-bold font-serif tracking-tight text-slate-900 leading-tight\">\n    The Architecture of Type\n  </h1>\n  <p class=\"text-base font-sans font-normal text-slate-600 leading-relaxed\">\n    Systematic font pairings guide reading rhythm and elevate digital interfaces.\n  </p>\n</div>"
+        }
+      },
+      {
+        "heading": "Fluid Typography with CSS clamp() vs Breakpoint Jumps",
+        "content": "Breakpoint-based typography creates abrupt visual shifts when resizing windows. Fluid typography uses CSS clamp(minimum, preferred, maximum) to calculate a smooth mathematical interpolation based on viewport width (vw). For example, clamp(2rem, 1.25rem + 3.75vw, 4rem) smoothly scales an H1 headline from 32px on mobile to 64px on wide displays without requiring multiple media query overrides.",
+        "codeSnippet": {
+          "language": "css",
+          "code": "/* Responsive Fluid Typography Scales */\nh1.fluid-title {\n  font-size: clamp(2rem, 1.25rem + 3.75vw, 4rem); /* 32px to 64px */\n  line-height: 1.15;\n  letter-spacing: -0.025em;\n}\n\np.fluid-body {\n  font-size: clamp(0.9375rem, 0.875rem + 0.3125vw, 1.125rem); /* 15px to 18px */\n  line-height: 1.6;\n}"
+        }
+      },
+      {
+        "heading": "Motion Dynamics: 6 Text Animation Physics & WCAG Compliance",
+        "content": "Text animations should highlight key information without inducing cognitive fatigue. Micro-interactions should follow calibrated timing physics: staggered delays of 50-100ms per character or word, duration ceilings of 400-800ms, and smooth cubic-bezier easing curves. To guarantee WCAG 2.1 compliance, all CSS animations must be wrapped with @media (prefers-reduced-motion: reduce) overrides that eliminate transitions for motion-sensitive users.",
+        "codeSnippet": {
+          "language": "css",
+          "code": "/* Accessible Staggered Text Entrance with Reduced Motion Fallback */\n@keyframes textFadeUp {\n  from { opacity: 0; transform: translateY(12px); }\n  to { opacity: 1; transform: translateY(0); }\n}\n\n.stagger-word {\n  display: inline-block;\n  animation: textFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;\n}\n\n@media (prefers-reduced-motion: reduce) {\n  .stagger-word {\n    animation: none !important;\n    opacity: 1 !important;\n    transform: none !important;\n  }\n}"
+        }
+      }
+    ],
+    "roadmapSteps": [
+      "Step 1: Audit Brand Persona & Content Archetype — Determine whether the site requires high-trust editorial authority (Serif), modern tech utility (Grotesque), or developer data density (Monospace).",
+      "Step 2: Shortlist Core Font Stack — Select 1 distinctive headline typeface and 1 neutral body typeface from Google Fonts or system stacks (e.g. Playfair + Inter, Bricolage + Inter).",
+      "Step 3: Define Mathematical Scale Ratio — Establish a modular scale (Major Third 1.25 or Perfect Fourth 1.333) with exact pixel/rem values from H1 down to 12px captions.",
+      "Step 4: Formulate CSS clamp() Fluid Formulas — Replace rigid media queries with fluid clamp rules for headings, subheadings, and body line-heights.",
+      "Step 5: Choreograph Staggered Text Animations — Apply character reveals, word fade-ups, or clipped curtain masks with 50-100ms delays and cubic-bezier easing.",
+      "Step 6: Accessibility & Contrast Audit — Verify WCAG AA 4.5:1 text-to-background contrast and test prefers-reduced-motion zero-motion fallbacks."
+    ],
+    "handsOn": [
+      {
+        "title": "Build a Fluid Typography System with CSS clamp()",
+        "task": "Use the Font Pairing Matrix to select a dual-typeface pairing and write a responsive CSS stylesheet that implements fluid clamp() scales across H1, H2, body, and button elements with zero breakpoint jumps.",
+        "deliverable": "Valid CSS snippet containing clamp() rules that scale smoothly between 360px mobile and 1440px desktop viewports with WCAG AA compliance."
+      },
+      {
+        "title": "Choreograph a Staggered Word Fade-Up Entrance",
+        "task": "Construct a prompt directing Claude or Cursor to generate an animated hero title with staggered word fade-ups, optical letter-spacing, and an accessible prefers-reduced-motion fallback.",
+        "deliverable": "Self-contained HTML and CSS component demonstrating clean staggered text entrance with verified reduced-motion override."
+      }
+    ],
+    "mistakesAndMyths": [
+      {
+        "myth": "Using multiple decorative fonts makes a website look more creative and professional.",
+        "reality": "More than two typeface families usually creates visual chaos. Pairing one distinctive headline typeface with a neutral workhorse body font produces superior hierarchy and readability."
+      },
+      {
+        "myth": "AI models generate the same typography regardless of whether you specify font weights or rem sizes.",
+        "reality": "Generic prompts cause AI to default to browser defaults or arbitrary utility classes. Explicit tokens (e.g. 'Inter 700 48px -0.02em') force deterministic, production-grade output."
+      },
+      {
+        "myth": "Text animations should be long and theatrical (1000ms+) to impress visitors.",
+        "reality": "Animations exceeding 500ms feel sluggish and frustrate users trying to read. Snappy 250-400ms entrances with subtle easing curves provide polish without friction."
+      }
+    ],
+    "resources": [
+      {
+        "type": "doc",
+        "title": "Aura Build: Prompting for Typography Guide",
+        "url": "https://www.aura.build/learn/prompt-for-typography",
+        "author": "Aura Design",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Master typography prompting techniques, font pairing strategies, fluid clamp scales, and text motion dynamics."
+      },
+      {
+        "type": "tool",
+        "title": "Google Fonts Directory & Specimen Viewer",
+        "url": "https://fonts.google.com/",
+        "author": "Google",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Open-source typography library containing Playfair Display, Inter, Plus Jakarta Sans, Bricolage Grotesque, and Merriweather."
+      },
+      {
+        "type": "doc",
+        "title": "MDN Web Docs: CSS clamp() Function",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/clamp",
+        "author": "MDN",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Official technical documentation on clamping values between an upper and lower bound for fluid responsive typography."
+      },
+      {
+        "type": "doc",
+        "title": "W3C: Understanding Success Criterion 1.4.3 (Contrast Minimum)",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html",
+        "author": "W3C",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Accessibility requirements for visual presentation of text with minimum 4.5:1 contrast ratios."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "What is the best way to prompt AI for font pairings?",
+        "answer": "Specify both the exact typeface names and their role: 'Use Playfair Display (font-weight: 700, 56px) for headings and Inter (font-weight: 400, 16px) for body text. Ensure a clear classification contrast between the serif headlines and clean sans-serif body.'"
+      },
+      {
+        "question": "How do I implement fluid typography in modern CSS?",
+        "answer": "Use the clamp() function: font-size: clamp(min-size, preferred-formula, max-size). For example, clamp(2rem, 1.25rem + 3.75vw, 4rem) allows the headline to smoothly scale from 32px on mobile to 64px on large monitors."
+      },
+      {
+        "question": "Why should text animations always include prefers-reduced-motion?",
+        "answer": "Vestibular disorders and motion sensitivity cause dizziness and nausea for many users when exposed to rapid text movements. Wrapping animations in @media (prefers-reduced-motion: reduce) ensures full WCAG AA accessibility compliance."
+      },
+      {
+        "question": "Which font pairing works best for SaaS and developer tools?",
+        "answer": "Bricolage Grotesque (600-700 weight) for hero headlines paired with Inter or Plus Jakarta Sans for UI text, and JetBrains Mono for code blocks and data badges."
+      }
+    ],
+    "relatedSlugs": [
+      "ai-ui-prompting-engineering",
+      "llms-how-they-work",
+      "prompt-engineering-students"
+    ],
+    "sources": [
+      {
+        "title": "Aura Build: Prompting for Typography",
+        "url": "https://www.aura.build/learn/prompt-for-typography",
+        "publisher": "Aura",
+        "accessed": "2026-11-05"
+      },
+      {
+        "title": "Google Fonts Typography Library",
+        "url": "https://fonts.google.com",
+        "publisher": "Google",
+        "accessed": "2026-11-05"
+      },
+      {
+        "title": "Typewolf: What's Trending in Web Typography",
+        "url": "https://www.typewolf.com",
+        "publisher": "Jeremiah Shoaf",
+        "accessed": "2026-11-05"
+      },
+      {
+        "title": "W3C Web Content Accessibility Guidelines 2.1",
+        "url": "https://www.w3.org/TR/WCAG21/",
+        "publisher": "W3C",
+        "accessed": "2026-11-05"
+      }
+    ]
   }
 ];

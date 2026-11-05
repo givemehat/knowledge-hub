@@ -1,0 +1,500 @@
+---
+import Card from '../ui/Card.astro';
+import Button from '../ui/Button.astro';
+---
+
+<div id="text-animation-studio" class="space-y-6">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-200/80 dark:border-white/10">
+    <div>
+      <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-peach-500/10 text-peach-700 dark:text-peach-300 border border-peach-500/20 text-[11px] font-bold uppercase tracking-wider mb-1">
+        <span>Motion Dynamics & Physics</span>
+      </div>
+      <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+        6 Essential Text Animation Playgrounds
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+        Live interactive CSS keyframe physics with staggered delays, optical easing curves, and WCAG AA accessibility safeguards.
+      </p>
+    </div>
+
+    <!-- Controls Bar: Replay + Reduced Motion Toggle -->
+    <div class="flex items-center gap-2">
+      <button
+        id="toggle-reduced-motion-btn"
+        type="button"
+        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/10 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+        title="Simulate prefers-reduced-motion media query"
+      >
+        <span class="w-2 h-2 rounded-full bg-slate-400" id="reduced-motion-indicator"></span>
+        <span id="reduced-motion-label">Simulate Reduced Motion: OFF</span>
+      </button>
+
+      <button
+        id="replay-all-animations-btn"
+        type="button"
+        class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-slate-900 text-white dark:bg-white dark:text-slate-900 hover:bg-peach-600 dark:hover:bg-peach-400 dark:hover:text-white text-xs font-bold transition-colors shadow-sm"
+      >
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+        <span>Replay All</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 6 Animation Cards Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="animations-grid">
+    
+    <!-- 1. Character Reveal (Typing Effect) -->
+    <div class="animation-card p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-peach-500/10 text-peach-700 dark:text-peach-300">
+            01. Kinetic Typing
+          </span>
+          <span class="text-[10px] font-mono text-slate-400">50ms Stagger</span>
+        </div>
+        <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1">
+          Character Reveal
+        </h4>
+        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+          Reveals letter by letter with a steady 50ms cadence. Ideal for hero taglines and terminal commands.
+        </p>
+
+        <!-- Live Preview Stage -->
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/60 dark:border-white/5 min-h-[90px] flex items-center justify-center">
+          <div id="anim-stage-char" class="font-bold text-lg text-slate-900 dark:text-white font-mono tracking-tight text-center">
+            <!-- Injected via script with staggered spans -->
+            <span>Crafting Future UIs</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+        <button
+          type="button"
+          class="replay-single-btn text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-peach-600 flex items-center gap-1"
+          data-target="char"
+        >
+          <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          <span>Replay</span>
+        </button>
+        <button
+          type="button"
+          class="copy-anim-prompt-btn px-2.5 py-1 rounded-md text-[11px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-peach-500 hover:text-white transition-colors"
+          data-prompt="Create a typing animation that reveals each character with a 50ms delay between characters for the main headline using Inter font."
+        >
+          Copy Prompt
+        </button>
+      </div>
+    </div>
+
+    <!-- 2. Word Fade Up -->
+    <div class="animation-card p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-peach-500/10 text-peach-700 dark:text-peach-300">
+            02. Flowing Entrance
+          </span>
+          <span class="text-[10px] font-mono text-slate-400">100ms Delay</span>
+        </div>
+        <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1">
+          Word Fade Up
+        </h4>
+        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+          Words slide upward while fading in. Creates a smooth, natural flow across editorial quotes and headers.
+        </p>
+
+        <!-- Live Preview Stage -->
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/60 dark:border-white/5 min-h-[90px] flex items-center justify-center">
+          <div id="anim-stage-word" class="font-bold text-lg text-slate-900 dark:text-white tracking-tight text-center flex flex-wrap justify-center gap-1.5">
+            <!-- Injected via script with staggered words -->
+            <span>Design</span> <span>with</span> <span>deliberate</span> <span>intent</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+        <button
+          type="button"
+          class="replay-single-btn text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-peach-600 flex items-center gap-1"
+          data-target="word"
+        >
+          <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          <span>Replay</span>
+        </button>
+        <button
+          type="button"
+          class="copy-anim-prompt-btn px-2.5 py-1 rounded-md text-[11px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-peach-500 hover:text-white transition-colors"
+          data-prompt="Create a staggered fade-up animation for each word in the tagline, with 100ms delay between words, using Inter font and 300ms ease-out curve."
+        >
+          Copy Prompt
+        </button>
+      </div>
+    </div>
+
+    <!-- 3. Letter by Letter (Scale Pop) -->
+    <div class="animation-card p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-peach-500/10 text-peach-700 dark:text-peach-300">
+            03. Playful Spring
+          </span>
+          <span class="text-[10px] font-mono text-slate-400">80ms Spring</span>
+        </div>
+        <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1">
+          Letter by Letter Pop
+        </h4>
+        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+          Each glyph scales from 0.8 to 1.05 with a subtle overshoot. Excellent for high-impact display branding.
+        </p>
+
+        <!-- Live Preview Stage -->
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/60 dark:border-white/5 min-h-[90px] flex items-center justify-center">
+          <div id="anim-stage-letter" class="font-bold text-xl text-slate-900 dark:text-white tracking-tight text-center flex justify-center">
+            <span>PEACH</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+        <button
+          type="button"
+          class="replay-single-btn text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-peach-600 flex items-center gap-1"
+          data-target="letter"
+        >
+          <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          <span>Replay</span>
+        </button>
+        <button
+          type="button"
+          class="copy-anim-prompt-btn px-2.5 py-1 rounded-md text-[11px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-peach-500 hover:text-white transition-colors"
+          data-prompt="Create a letter-by-letter animation that reveals each character with a subtle scale pop effect and 80ms staggered delay, using a bold display font."
+        >
+          Copy Prompt
+        </button>
+      </div>
+    </div>
+
+    <!-- 4. Combined Animation (Blur + Slide + Fade) -->
+    <div class="animation-card p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-peach-500/10 text-peach-700 dark:text-peach-300">
+            04. Keynote Polish
+          </span>
+          <span class="text-[10px] font-mono text-slate-400">Blur Reduction</span>
+        </div>
+        <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1">
+          Combined Blur Entrance
+        </h4>
+        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+          Blends opacity fade, 12px upward slide, and optical de-blurring. Apple and Linear keynote aesthetic.
+        </p>
+
+        <!-- Live Preview Stage -->
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/60 dark:border-white/5 min-h-[90px] flex items-center justify-center">
+          <div id="anim-stage-blur" class="font-bold text-lg text-slate-900 dark:text-white tracking-tight text-center">
+            <span>Pixel-Perfect Refinement</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+        <button
+          type="button"
+          class="replay-single-btn text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-peach-600 flex items-center gap-1"
+          data-target="blur"
+        >
+          <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          <span>Replay</span>
+        </button>
+        <button
+          type="button"
+          class="copy-anim-prompt-btn px-2.5 py-1 rounded-md text-[11px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-peach-500 hover:text-white transition-colors"
+          data-prompt="Create a complex animation that fades in, slides up 12px, and reduces blur from 8px to 0 for each letter with a 60ms staggered delay between characters using Inter at 48-64px."
+        >
+          Copy Prompt
+        </button>
+      </div>
+    </div>
+
+    <!-- 5. Animated Gradient Text -->
+    <div class="animation-card p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-peach-500/10 text-peach-700 dark:text-peach-300">
+            05. Continuous Shimmer
+          </span>
+          <span class="text-[10px] font-mono text-slate-400">3s Horizon Loop</span>
+        </div>
+        <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1">
+          Horizontal Gradient Shimmer
+        </h4>
+        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+          A continuous linear gradient sweep across text characters using background clipping and keyframe shifts.
+        </p>
+
+        <!-- Live Preview Stage -->
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/60 dark:border-white/5 min-h-[90px] flex items-center justify-center">
+          <div id="anim-stage-gradient" class="font-bold text-xl tracking-tight text-center anim-gradient-text">
+            <span>Next-Gen Superintelligence</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+        <button
+          type="button"
+          class="replay-single-btn text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-peach-600 flex items-center gap-1"
+          data-target="gradient"
+        >
+          <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          <span>Restart Loop</span>
+        </button>
+        <button
+          type="button"
+          class="copy-anim-prompt-btn px-2.5 py-1 rounded-md text-[11px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-peach-500 hover:text-white transition-colors"
+          data-prompt="Apply an animated gradient background from orange (#FF7A45) to purple (#9333EA) to the main heading, with the gradient animating horizontally over 3 seconds in an infinite linear loop."
+        >
+          Copy Prompt
+        </button>
+      </div>
+    </div>
+
+    <!-- 6. Clipped Reveal (Curtain Mask) -->
+    <div class="animation-card p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-peach-500/10 text-peach-700 dark:text-peach-300">
+            06. Curtain Mask
+          </span>
+          <span class="text-[10px] font-mono text-slate-400">800ms Clip</span>
+        </div>
+        <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1">
+          Clipped Curtain Reveal
+        </h4>
+        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+          A directional clip-path polygon reveals the typography from left to right as if parting a digital curtain.
+        </p>
+
+        <!-- Live Preview Stage -->
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/60 dark:border-white/5 min-h-[90px] flex items-center justify-center overflow-hidden">
+          <div id="anim-stage-clip" class="font-bold text-lg text-slate-900 dark:text-white tracking-tight text-center anim-clipped-text">
+            <span>Precision Engineering</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+        <button
+          type="button"
+          class="replay-single-btn text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-peach-600 flex items-center gap-1"
+          data-target="clip"
+        >
+          <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          <span>Replay</span>
+        </button>
+        <button
+          type="button"
+          class="copy-anim-prompt-btn px-2.5 py-1 rounded-md text-[11px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-peach-500 hover:text-white transition-colors"
+          data-prompt="Create a text animation that slides in with a clipping mask effect (clip-path) that reveals the title text from left to right over 800ms with an ease-out timing function."
+        >
+          Copy Prompt
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  /* Keyframe Definitions for Animations */
+  @keyframes charFadeIn {
+    0% { opacity: 0; transform: translateY(6px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes wordSlideUp {
+    0% { opacity: 0; transform: translateY(14px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes letterPop {
+    0% { opacity: 0; transform: scale(0.65); }
+    70% { transform: scale(1.08); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes blurReveal {
+    0% { opacity: 0; transform: translateY(12px); filter: blur(8px); }
+    100% { opacity: 1; transform: translateY(0); filter: blur(0px); }
+  }
+
+  @keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes curtainClip {
+    0% { clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%); opacity: 0.3; }
+    100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); opacity: 1; }
+  }
+
+  .anim-gradient-text {
+    background: linear-gradient(90deg, #FF6B4A, #9333EA, #3B82F6, #FF6B4A);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientFlow 4s ease infinite;
+  }
+
+  .anim-clipped-text {
+    animation: curtainClip 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* Reduced Motion Override Simulation */
+  .reduced-motion-active * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    filter: none !important;
+    clip-path: none !important;
+  }
+</style>
+
+<script is:inline>
+  (function initTextAnimationStudio() {
+    let isReducedMotion = false;
+
+    const charStage = document.getElementById('anim-stage-char');
+    const wordStage = document.getElementById('anim-stage-word');
+    const letterStage = document.getElementById('anim-stage-letter');
+    const blurStage = document.getElementById('anim-stage-blur');
+    const clipStage = document.getElementById('anim-stage-clip');
+    const gradientStage = document.getElementById('anim-stage-gradient');
+
+    function renderCharAnimation() {
+      if (!charStage) return;
+      const text = "Crafting Future UIs";
+      charStage.innerHTML = text.split('').map((ch, idx) => {
+        const displayChar = ch === ' ' ? '&nbsp;' : ch;
+        return `<span style="display: inline-block; opacity: 0; animation: charFadeIn 0.35s ease-out ${idx * 0.05}s forwards;">${displayChar}</span>`;
+      }).join('');
+    }
+
+    function renderWordAnimation() {
+      if (!wordStage) return;
+      const words = ["Design", "with", "deliberate", "intent"];
+      wordStage.innerHTML = words.map((w, idx) => {
+        return `<span style="display: inline-block; opacity: 0; animation: wordSlideUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) ${idx * 0.12}s forwards;">${w}</span>`;
+      }).join(' ');
+    }
+
+    function renderLetterPopAnimation() {
+      if (!letterStage) return;
+      const text = "PEACH";
+      letterStage.innerHTML = text.split('').map((ch, idx) => {
+        return `<span style="display: inline-block; opacity: 0; animation: letterPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) ${idx * 0.08}s forwards; margin: 0 1px;">${ch}</span>`;
+      }).join('');
+    }
+
+    function renderBlurAnimation() {
+      if (!blurStage) return;
+      const words = ["Pixel-Perfect", "Refinement"];
+      blurStage.innerHTML = words.map((w, idx) => {
+        return `<span style="display: inline-block; opacity: 0; animation: blurReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${idx * 0.15}s forwards; margin: 0 4px;">${w}</span>`;
+      }).join('');
+    }
+
+    function renderClipAnimation() {
+      if (!clipStage) return;
+      clipStage.classList.remove('anim-clipped-text');
+      void clipStage.offsetWidth; // trigger reflow
+      clipStage.classList.add('anim-clipped-text');
+    }
+
+    function renderGradientAnimation() {
+      if (!gradientStage) return;
+      gradientStage.classList.remove('anim-gradient-text');
+      void gradientStage.offsetWidth; // trigger reflow
+      gradientStage.classList.add('anim-gradient-text');
+    }
+
+    function runAll() {
+      renderCharAnimation();
+      renderWordAnimation();
+      renderLetterPopAnimation();
+      renderBlurAnimation();
+      renderClipAnimation();
+      renderGradientAnimation();
+    }
+
+    // Initial run
+    runAll();
+
+    // Replay single triggers
+    document.querySelectorAll('.replay-single-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.target;
+        if (target === 'char') renderCharAnimation();
+        else if (target === 'word') renderWordAnimation();
+        else if (target === 'letter') renderLetterPopAnimation();
+        else if (target === 'blur') renderBlurAnimation();
+        else if (target === 'clip') renderClipAnimation();
+        else if (target === 'gradient') renderGradientAnimation();
+      });
+    });
+
+    // Replay all button
+    const replayAllBtn = document.getElementById('replay-all-animations-btn');
+    if (replayAllBtn) {
+      replayAllBtn.addEventListener('click', runAll);
+    }
+
+    // Reduced motion simulator toggle
+    const motionBtn = document.getElementById('toggle-reduced-motion-btn');
+    const motionLabel = document.getElementById('reduced-motion-label');
+    const motionIndicator = document.getElementById('reduced-motion-indicator');
+    const container = document.getElementById('text-animation-studio');
+
+    if (motionBtn && container) {
+      motionBtn.addEventListener('click', () => {
+        isReducedMotion = !isReducedMotion;
+        if (isReducedMotion) {
+          container.classList.add('reduced-motion-active');
+          if (motionLabel) motionLabel.textContent = 'Simulate Reduced Motion: ON';
+          if (motionIndicator) {
+            motionIndicator.classList.remove('bg-slate-400');
+            motionIndicator.classList.add('bg-emerald-500');
+          }
+        } else {
+          container.classList.remove('reduced-motion-active');
+          if (motionLabel) motionLabel.textContent = 'Simulate Reduced Motion: OFF';
+          if (motionIndicator) {
+            motionIndicator.classList.remove('bg-emerald-500');
+            motionIndicator.classList.add('bg-slate-400');
+          }
+          runAll();
+        }
+      });
+    }
+
+    // Copy prompt buttons
+    document.querySelectorAll('.copy-anim-prompt-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const prompt = btn.dataset.prompt;
+        if (!prompt) return;
+        try {
+          await navigator.clipboard.writeText(prompt);
+          const originalText = btn.textContent;
+          btn.textContent = 'Copied!';
+          setTimeout(() => {
+            btn.textContent = originalText;
+          }, 2000);
+        } catch (e) {
+          console.error('Copy failed:', e);
+        }
+      });
+    });
+  })();
+</script>

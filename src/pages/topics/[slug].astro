@@ -16,6 +16,9 @@ import SoftCTA from '../../components/creator/SoftCTA.astro';
 import TypographyPromptBuilder from '../../components/interactive/TypographyPromptBuilder.astro';
 import ComponentPromptGallery from '../../components/interactive/ComponentPromptGallery.astro';
 import DeviceFrameShowcase from '../../components/interactive/DeviceFrameShowcase.astro';
+import FontPairingMatrix from '../../components/interactive/FontPairingMatrix.astro';
+import TextAnimationStudio from '../../components/interactive/TextAnimationStudio.astro';
+import ScenarioPromptPresets from '../../components/interactive/ScenarioPromptPresets.astro';
 import { CREATOR } from '../../data/creator';
 
 export function getStaticPaths() {
@@ -81,6 +84,17 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
               </a>
               <a href="#device-mockups-studio" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
                 ★ Device Framing
+              </a>
+            )}
+            {topic.slug === 'typography-prompting-font-pairing' && (
+              <a href="#font-pairing-matrix" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
+                ★ Pairing Matrix
+              </a>
+              <a href="#text-animation-studio" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
+                ★ 6 Text Animations
+              </a>
+              <a href="#scenario-presets" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
+                ★ 4 Scenario Presets
               </a>
             )}
             {topic.roadmapSteps && topic.roadmapSteps.length > 0 && (
@@ -265,6 +279,26 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
             <!-- 3. Device Framing & Mockup Studio -->
             <section id="device-mockups-studio" class="space-y-4">
               <DeviceFrameShowcase />
+            </section>
+          </div>
+        )}
+
+        <!-- Interactive Studios (For Typography Prompting & Font Pairing Systems) -->
+        {topic.slug === 'typography-prompting-font-pairing' && (
+          <div class="space-y-12 pt-4">
+            <!-- 1. Interactive Font Pairing Matrix & Showcase -->
+            <section id="font-pairing-matrix" class="space-y-4">
+              <FontPairingMatrix />
+            </section>
+
+            <!-- 2. 6 Text Animation Playgrounds with reduced-motion toggle -->
+            <section id="text-animation-studio" class="space-y-4">
+              <TextAnimationStudio />
+            </section>
+
+            <!-- 3. Ready-to-Use Scenario Prompt Presets -->
+            <section id="scenario-presets" class="space-y-4">
+              <ScenarioPromptPresets />
             </section>
           </div>
         )}

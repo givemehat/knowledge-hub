@@ -118,7 +118,7 @@ const text = isHindi ? ui.hi : ui.en;
     <!-- Topics Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="topics-grid">
       {TOPICS.map(topic => {
-        const topicTitle = isHindi ? topic.title : (topic.shortTitleEn || topic.title);
+        const topicTitle = isHindi ? (topic.titleHindi || topic.title) : (topic.shortTitleEn || topic.title);
         const topicSummary = isHindi ? topic.summary : (topic.summaryEn || topic.summary);
         const categoryLabel = isHindi ? topic.categoryLabel : (t(locale, `categories.${topic.category}.name`) || topic.categoryLabel);
 

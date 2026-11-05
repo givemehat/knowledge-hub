@@ -1,0 +1,370 @@
+---
+import Card from '../ui/Card.astro';
+import Button from '../ui/Button.astro';
+---
+
+<div id="font-pairing-matrix" class="space-y-6">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-200/80 dark:border-white/10">
+    <div>
+      <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-peach-500/10 text-peach-700 dark:text-peach-300 border border-peach-500/20 text-[11px] font-bold uppercase tracking-wider mb-1">
+        <span>Design Token Matrix</span>
+      </div>
+      <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+        Interactive Font Pairing Matrix
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+        Test classic typographic contrasts (Serif + Sans, Grotesque + Functional, Dual-Serif) and generate production prompt tokens.
+      </p>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <span class="text-xs text-slate-400 font-mono">Google Fonts Ready</span>
+    </div>
+  </div>
+
+  <!-- Pairing Presets Grid (4 Archetypes) -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" id="pairing-presets-list">
+    <!-- Preset 1: Serif + Sans -->
+    <button
+      type="button"
+      data-preset="serif-sans"
+      class="pairing-preset-card active p-3.5 rounded-xl border text-left transition-all bg-peach-500/10 border-peach-500 text-peach-950 dark:text-peach-200 shadow-sm"
+    >
+      <div class="flex items-center justify-between mb-1.5">
+        <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-peach-500/20 text-peach-700 dark:text-peach-300">
+          Editorial Classic
+        </span>
+        <span class="text-[10px] font-mono opacity-60">Serif + Sans</span>
+      </div>
+      <div class="font-bold text-sm text-slate-900 dark:text-white mb-0.5" style="font-family: 'Playfair Display', serif;">
+        Playfair Display
+      </div>
+      <div class="text-xs text-slate-500 dark:text-slate-400 font-sans">
+        paired with <strong class="text-slate-700 dark:text-slate-200">Inter</strong>
+      </div>
+    </button>
+
+    <!-- Preset 2: Grotesque + Sans -->
+    <button
+      type="button"
+      data-preset="grotesque-sans"
+      class="pairing-preset-card p-3.5 rounded-xl border text-left transition-all border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20 bg-white dark:bg-darkcard"
+    >
+      <div class="flex items-center justify-between mb-1.5">
+        <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+          Tech Startup / SaaS
+        </span>
+        <span class="text-[10px] font-mono opacity-60">Sans + Sans</span>
+      </div>
+      <div class="font-bold text-sm text-slate-900 dark:text-white mb-0.5" style="font-family: 'Bricolage Grotesque', sans-serif;">
+        Bricolage Grotesque
+      </div>
+      <div class="text-xs text-slate-500 dark:text-slate-400 font-sans">
+        paired with <strong class="text-slate-700 dark:text-slate-200">Inter</strong>
+      </div>
+    </button>
+
+    <!-- Preset 3: Serif + Serif -->
+    <button
+      type="button"
+      data-preset="serif-serif"
+      class="pairing-preset-card p-3.5 rounded-xl border text-left transition-all border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20 bg-white dark:bg-darkcard"
+    >
+      <div class="flex items-center justify-between mb-1.5">
+        <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+          Academic Essay
+        </span>
+        <span class="text-[10px] font-mono opacity-60">Serif + Serif</span>
+      </div>
+      <div class="font-bold text-sm text-slate-900 dark:text-white mb-0.5" style="font-family: 'Merriweather', serif;">
+        Merriweather
+      </div>
+      <div class="text-xs text-slate-500 dark:text-slate-400 font-sans">
+        paired with <strong class="text-slate-700 dark:text-slate-200">IBM Plex Serif</strong>
+      </div>
+    </button>
+
+    <!-- Preset 4: Modern + Mono -->
+    <button
+      type="button"
+      data-preset="sans-mono"
+      class="pairing-preset-card p-3.5 rounded-xl border text-left transition-all border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20 bg-white dark:bg-darkcard"
+    >
+      <div class="flex items-center justify-between mb-1.5">
+        <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+          Dev Platform
+        </span>
+        <span class="text-[10px] font-mono opacity-60">Sans + Mono</span>
+      </div>
+      <div class="font-bold text-sm text-slate-900 dark:text-white mb-0.5" style="font-family: 'Plus Jakarta Sans', sans-serif;">
+        Plus Jakarta Sans
+      </div>
+      <div class="text-xs text-slate-500 dark:text-slate-400 font-sans">
+        paired with <strong class="text-slate-700 dark:text-slate-200">JetBrains Mono</strong>
+      </div>
+    </button>
+  </div>
+
+  <!-- Interactive Live Canvas & Inspector -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+    <!-- Live Preview Stage (7 Cols) -->
+    <div class="lg:col-span-7 space-y-4">
+      <div class="p-6 sm:p-8 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm space-y-5">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/5">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Live Typography Stage</span>
+          </div>
+          <span id="active-pairing-badge" class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+            Playfair Display + Inter
+          </span>
+        </div>
+
+        <!-- Render Target Box -->
+        <div id="pairing-render-target" class="p-6 sm:p-7 rounded-xl bg-slate-50/70 dark:bg-slate-900/50 border border-slate-200/60 dark:border-white/5 transition-all space-y-4">
+          <div id="pairing-tag" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-peach-500/10 text-peach-700 dark:text-peach-300 text-xs font-bold tracking-wide uppercase">
+            <span>EDITORIAL SPOTLIGHT</span>
+          </div>
+
+          <h2 id="pairing-heading" class="text-slate-900 dark:text-white font-bold leading-tight" style="font-family: 'Playfair Display', serif; font-size: 42px;">
+            Harmonizing Type with Algorithmic Precision
+          </h2>
+
+          <h3 id="pairing-subheading" class="text-slate-600 dark:text-slate-300 font-medium leading-snug" style="font-family: 'Inter', sans-serif; font-size: 20px;">
+            Contrasting classifications transform raw typography into an intentional visual hierarchy.
+          </h3>
+
+          <p id="pairing-body" class="text-slate-700 dark:text-slate-300 leading-relaxed max-w-xl" style="font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6;">
+            When prompts define a distinctive display or serif font for headlines and pair it with a neutral sans-serif for body paragraphs, AI tools avoid visual monotony. The contrast in weight and historical category guides the reader's eye naturally through the content.
+          </p>
+
+          <div class="pt-3 flex flex-wrap items-center gap-3">
+            <button id="pairing-button" class="px-5 py-2.5 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 text-xs font-bold hover:bg-peach-600 dark:hover:bg-peach-400 dark:hover:text-white transition-colors cursor-pointer shadow-sm" style="font-family: 'Inter', sans-serif;">
+              Explore Collection →
+            </button>
+            <span id="pairing-specs" class="text-xs text-slate-500 dark:text-slate-400 font-mono">
+              H1: 42px (700) · Body: 15px (400)
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Token Generator & Prompt Output (5 Cols) -->
+    <div class="lg:col-span-5 space-y-4">
+      <!-- Specifications Breakdown Card -->
+      <div class="p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm space-y-4">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          Typography Pairing Anatomy
+        </h4>
+
+        <div class="space-y-2.5 text-xs font-mono">
+          <div class="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-900/60 border border-slate-100 dark:border-white/5">
+            <span class="text-slate-500">Headline Font</span>
+            <span id="spec-headline-font" class="font-bold text-slate-900 dark:text-white">Playfair Display</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-900/60 border border-slate-100 dark:border-white/5">
+            <span class="text-slate-500">Body Font</span>
+            <span id="spec-body-font" class="font-bold text-slate-900 dark:text-white">Inter</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-900/60 border border-slate-100 dark:border-white/5">
+            <span class="text-slate-500">Contrast Strategy</span>
+            <span id="spec-strategy" class="font-bold text-peach-600 dark:text-peach-400">Serif + Sans Contrast</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-900/60 border border-slate-100 dark:border-white/5">
+            <span class="text-slate-500">Optimal Use Case</span>
+            <span id="spec-usecase" class="text-slate-700 dark:text-slate-300">Editorial, Culture, Essays</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Generated Prompt Box -->
+      <div class="p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <svg class="w-3.5 h-3.5 text-peach-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span>Production Prompt</span>
+          </div>
+          <button
+            id="copy-pairing-prompt-btn"
+            type="button"
+            class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-peach-500 hover:text-white dark:hover:bg-peach-500 dark:hover:text-white text-xs font-bold text-slate-700 dark:text-slate-300 transition-colors"
+          >
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            <span id="copy-pairing-prompt-label">Copy Prompt</span>
+          </button>
+        </div>
+
+        <pre id="pairing-prompt-text" class="p-3.5 rounded-xl bg-slate-900 text-slate-200 text-xs font-mono leading-relaxed whitespace-pre-wrap break-words border border-slate-800 max-h-48 overflow-y-auto">Create a web landing page using Playfair Display for headings and Inter for body text with the following typographic scale:
+• Headings: Playfair Display, 42-64px, font-weight: 700, line-height: 1.15
+• Subheadings: Inter, 20-24px, font-weight: 500, line-height: 1.4
+• Body text: Inter, 15-16px, font-weight: 400, line-height: 1.6
+• Buttons: Inter, 14px, font-weight: 600, letter-spacing: 0.01em
+Ensure sharp contrast between the elegant serif display titles and the legible sans-serif body.</pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function initFontPairingMatrix() {
+    const presets = {
+      'serif-sans': {
+        name: 'Playfair Display + Inter',
+        headlineFont: "'Playfair Display', serif",
+        headlineName: 'Playfair Display',
+        bodyFont: "'Inter', sans-serif",
+        bodyName: 'Inter',
+        strategy: 'Serif + Sans Contrast',
+        useCase: 'Editorial, Culture, Essays',
+        tagText: 'EDITORIAL SPOTLIGHT',
+        headingText: 'Harmonizing Type with Algorithmic Precision',
+        subheadingText: 'Contrasting classifications transform raw typography into an intentional visual hierarchy.',
+        prompt: `Create a web landing page using Playfair Display for headings and Inter for body text with the following typographic scale:
+• Headings: Playfair Display, 42-64px, font-weight: 700, line-height: 1.15
+• Subheadings: Inter, 20-24px, font-weight: 500, line-height: 1.4
+• Body text: Inter, 15-16px, font-weight: 400, line-height: 1.6
+• Buttons: Inter, 14px, font-weight: 600, letter-spacing: 0.01em
+Ensure sharp contrast between the elegant serif display titles and the legible sans-serif body.`
+      },
+      'grotesque-sans': {
+        name: 'Bricolage Grotesque + Inter',
+        headlineFont: "'Bricolage Grotesque', sans-serif",
+        headlineName: 'Bricolage Grotesque',
+        bodyFont: "'Inter', sans-serif",
+        bodyName: 'Inter',
+        strategy: 'Weight & Style Contrast',
+        useCase: 'High-Growth SaaS & Developer Tools',
+        tagText: 'SAAS ENGINE',
+        headingText: 'Build High-Velocity Interfaces at Lightning Speed',
+        subheadingText: 'Quirky grotesque details pair seamlessly with clean modern UI sans.',
+        prompt: `Design a high-converting SaaS landing page using Bricolage Grotesque for headings and Inter for body text:
+• Hero heading: Bricolage Grotesque, 48-64px, font-weight: 700, letter-spacing: -0.03em
+• Section titles: Bricolage Grotesque, 28px, font-weight: 600, letter-spacing: -0.01em
+• UI text: Inter, 15-16px, font-weight: 400, line-height: 1.5
+• Button text: Inter, 14px, font-weight: 600, letter-spacing: 0.01em
+Combine expressive geometric character with maximum screen legibility.`
+      },
+      'serif-serif': {
+        name: 'Merriweather + IBM Plex Serif',
+        headlineFont: "'Merriweather', serif",
+        headlineName: 'Merriweather',
+        bodyFont: "'IBM Plex Serif', serif",
+        bodyName: 'IBM Plex Serif',
+        strategy: 'Refined Dual-Serif',
+        useCase: 'Academic Research & Investigative Longform',
+        tagText: 'SCHOLARLY DISPATCH',
+        headingText: 'Empirical Rigor in Longform Scientific Inquiries',
+        subheadingText: 'A balanced serif hierarchy crafted for hours of uninterrupted sustained reading.',
+        prompt: `Generate an academic longform article layout using Merriweather Bold for headings and IBM Plex Serif for body copy:
+• Article titles: Merriweather, 40-52px, font-weight: 700, line-height: 1.2
+• Section headings: Merriweather, 24-28px, font-weight: 700, line-height: 1.3
+• Body text: IBM Plex Serif, 17-18px, font-weight: 400, line-height: 1.7, max-width: 680px
+• Pull quotes: Merriweather Italic, 22px, line-height: 1.45
+Maintain a disciplined, scholarly reading rhythm with warm paper tones.`
+      },
+      'sans-mono': {
+        name: 'Plus Jakarta Sans + JetBrains Mono',
+        headlineFont: "'Plus Jakarta Sans', sans-serif",
+        headlineName: 'Plus Jakarta Sans',
+        bodyFont: "'JetBrains Mono', monospace",
+        bodyName: 'JetBrains Mono',
+        strategy: 'Geometric + Technical Monospace',
+        useCase: 'Developer APIs, Cloud Consoles & Web3',
+        tagText: 'DEVELOPER RUNTIME',
+        headingText: 'Next-Generation Distributed Cloud Infrastructure',
+        subheadingText: 'Friendly geometric headings matched with precision monospaced data density.',
+        prompt: `Create a technical developer console interface using Plus Jakarta Sans for UI chrome and JetBrains Mono for technical copy:
+• Page titles: Plus Jakarta Sans, 36-48px, font-weight: 800, letter-spacing: -0.02em
+• Section labels: Plus Jakarta Sans, 14px, font-weight: 600, uppercase, letter-spacing: 0.05em
+• Code & Data: JetBrains Mono, 13-14px, font-weight: 400, line-height: 1.55
+• Status badges: JetBrains Mono, 11px, font-weight: 600
+Optimize for rapid visual scanning across dense dashboards and logs.`
+      }
+    };
+
+    const presetButtons = document.querySelectorAll('.pairing-preset-card');
+    const headingEl = document.getElementById('pairing-heading');
+    const subheadingEl = document.getElementById('pairing-subheading');
+    const bodyEl = document.getElementById('pairing-body');
+    const buttonEl = document.getElementById('pairing-button');
+    const tagEl = document.getElementById('pairing-tag');
+    const badgeEl = document.getElementById('active-pairing-badge');
+    const promptTextEl = document.getElementById('pairing-prompt-text');
+    const specHeadlineFont = document.getElementById('spec-headline-font');
+    const specBodyFont = document.getElementById('spec-body-font');
+    const specStrategy = document.getElementById('spec-strategy');
+    const specUseCase = document.getElementById('spec-usecase');
+    const copyBtn = document.getElementById('copy-pairing-prompt-btn');
+    const copyLabel = document.getElementById('copy-pairing-prompt-label');
+
+    function applyPreset(key) {
+      const data = presets[key];
+      if (!data) return;
+
+      // Update active button state
+      presetButtons.forEach(btn => {
+        if (btn.dataset.preset === key) {
+          btn.classList.add('active', 'bg-peach-500/10', 'border-peach-500', 'text-peach-950', 'dark:text-peach-200');
+          btn.classList.remove('border-slate-200/80', 'dark:border-white/10', 'bg-white', 'dark:bg-darkcard');
+        } else {
+          btn.classList.remove('active', 'bg-peach-500/10', 'border-peach-500', 'text-peach-950', 'dark:text-peach-200');
+          btn.classList.add('border-slate-200/80', 'dark:border-white/10', 'bg-white', 'dark:bg-darkcard');
+        }
+      });
+
+      // Update preview elements
+      if (headingEl) {
+        headingEl.style.fontFamily = data.headlineFont;
+        headingEl.textContent = data.headingText;
+      }
+      if (subheadingEl) {
+        subheadingEl.style.fontFamily = data.bodyFont;
+        subheadingEl.textContent = data.subheadingText;
+      }
+      if (bodyEl) {
+        bodyEl.style.fontFamily = data.bodyFont;
+      }
+      if (buttonEl) {
+        buttonEl.style.fontFamily = data.bodyFont;
+      }
+      if (tagEl) {
+        tagEl.textContent = data.tagText;
+      }
+      if (badgeEl) {
+        badgeEl.textContent = data.name;
+      }
+
+      // Update specs breakdown
+      if (specHeadlineFont) specHeadlineFont.textContent = data.headlineName;
+      if (specBodyFont) specBodyFont.textContent = data.bodyName;
+      if (specStrategy) specStrategy.textContent = data.strategy;
+      if (specUseCase) specUseCase.textContent = data.useCase;
+
+      // Update prompt
+      if (promptTextEl) {
+        promptTextEl.textContent = data.prompt;
+      }
+    }
+
+    presetButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        applyPreset(btn.dataset.preset);
+      });
+    });
+
+    if (copyBtn && promptTextEl) {
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(promptTextEl.textContent.trim());
+          if (copyLabel) copyLabel.textContent = 'Copied!';
+          setTimeout(() => {
+            if (copyLabel) copyLabel.textContent = 'Copy Prompt';
+          }, 2000);
+        } catch (e) {
+          console.error('Clipboard copy failed:', e);
+        }
+      });
+    }
+  })();
+</script>
