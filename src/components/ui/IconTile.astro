@@ -1,0 +1,120 @@
+---
+interface Props {
+  category: 'ai-ml' | 'quantum' | 'career' | 'projects' | 'tech-fundamentals' | 'gov-policy' | string;
+  className?: string;
+}
+
+const { category, className = '' } = Astro.props;
+
+// Category visual design tokens: Soft-tinted surface (10-12% opacity) + 1px border + 28px duotone icon
+const tileStyles: Record<string, { bg: string; border: string; text: string; fill: string }> = {
+  'ai-ml': {
+    bg: 'bg-indigo-500/10 dark:bg-indigo-500/15',
+    border: 'border-indigo-500/25 dark:border-indigo-400/30',
+    text: 'text-indigo-600 dark:text-indigo-400',
+    fill: 'fill-indigo-500/20 dark:fill-indigo-400/20'
+  },
+  'quantum': {
+    bg: 'bg-sky-500/10 dark:bg-sky-500/15',
+    border: 'border-sky-500/25 dark:border-sky-400/30',
+    text: 'text-sky-600 dark:text-sky-400',
+    fill: 'fill-sky-500/20 dark:fill-sky-400/20'
+  },
+  'career': {
+    bg: 'bg-emerald-500/10 dark:bg-emerald-500/15',
+    border: 'border-emerald-500/25 dark:border-emerald-400/30',
+    text: 'text-emerald-600 dark:text-emerald-400',
+    fill: 'fill-emerald-500/20 dark:fill-emerald-400/20'
+  },
+  'projects': {
+    bg: 'bg-amber-500/10 dark:bg-amber-500/15',
+    border: 'border-amber-500/25 dark:border-amber-400/30',
+    text: 'text-amber-600 dark:text-amber-400',
+    fill: 'fill-amber-500/20 dark:fill-amber-400/20'
+  },
+  'tech-fundamentals': {
+    bg: 'bg-violet-500/10 dark:bg-violet-500/15',
+    border: 'border-violet-500/25 dark:border-violet-400/30',
+    text: 'text-violet-600 dark:text-violet-400',
+    fill: 'fill-violet-500/20 dark:fill-violet-400/20'
+  },
+  'gov-policy': {
+    bg: 'bg-rose-500/10 dark:bg-rose-500/15',
+    border: 'border-rose-500/25 dark:border-rose-400/30',
+    text: 'text-rose-600 dark:text-rose-400',
+    fill: 'fill-rose-500/20 dark:fill-rose-400/20'
+  }
+};
+
+const style = tileStyles[category] || tileStyles['ai-ml'];
+---
+
+<div
+  class={`w-14 h-14 rounded-2xl ${style.bg} ${style.border} border flex items-center justify-center shrink-0 transition-transform group-hover:scale-105 duration-200 ${className}`}
+  data-icon-set="bodh-duotone"
+  data-category={category}
+>
+  <!-- 1. AI & Machine Learning: Synaptic Neural Brain (NOT mic!) -->
+  {category === 'ai-ml' && (
+    <svg class={`w-7 h-7 ${style.text}`} viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M14 4C9.5 4 6 7.5 6 12C6 14.5 7.2 16.7 9 18V21C9 21.6 9.4 22 10 22H18C18.6 22 19 21.6 19 21V18C20.8 16.7 22 14.5 22 12C22 7.5 18.5 4 14 4Z" class={style.fill} stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M11 25H17M14 4V13M14 13L10 9M14 13L18 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="10" cy="9" r="1.5" fill="currentColor"/>
+      <circle cx="18" cy="9" r="1.5" fill="currentColor"/>
+      <circle cx="14" cy="13" r="1.5" fill="currentColor"/>
+    </svg>
+  )}
+
+  <!-- 2. Quantum Computing: Atomic Orbit & Central Nucleus -->
+  {category === 'quantum' && (
+    <svg class={`w-7 h-7 ${style.text}`} viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <ellipse cx="14" cy="14" rx="11" ry="4.5" transform="rotate(30 14 14)" class={style.fill} stroke="currentColor" stroke-width="1.8"/>
+      <ellipse cx="14" cy="14" rx="11" ry="4.5" transform="rotate(-30 14 14)" class={style.fill} stroke="currentColor" stroke-width="1.8"/>
+      <circle cx="14" cy="14" r="2.8" fill="currentColor"/>
+      <circle cx="21" cy="10" r="1.4" fill="currentColor"/>
+      <circle cx="7" cy="18" r="1.4" fill="currentColor"/>
+    </svg>
+  )}
+
+  <!-- 3. Career & Placement: Briefcase & Upward Growth Path -->
+  {category === 'career' && (
+    <svg class={`w-7 h-7 ${style.text}`} viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="4" y="9" width="20" height="15" rx="3" class={style.fill} stroke="currentColor" stroke-width="1.8"/>
+      <path d="M10 9V6C10 4.9 10.9 4 12 4H16C17.1 4 18 4.9 18 6V9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M4 14C8 16 12 16.5 14 16.5C16 16.5 20 16 24 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M12 14V17M16 14V17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M19 7L24 2M24 2H20.5M24 2V5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  )}
+
+  <!-- 4. Projects Hub: Rocket Ship Launch & Propulsion (NOT star!) -->
+  {category === 'projects' && (
+    <svg class={`w-7 h-7 ${style.text}`} viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M14 3C17.5 4.5 21 8.5 21 15L17.5 17.5L14 15.5L10.5 17.5L7 15C7 8.5 10.5 4.5 14 3Z" class={style.fill} stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <circle cx="14" cy="10" r="2" fill="currentColor"/>
+      <path d="M7 15L3 17.5V21L7.5 19.5" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M21 15L25 17.5V21L20.5 19.5" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M11.5 19.5L14 25L16.5 19.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  )}
+
+  <!-- 5. Tech Fundamentals: Layered Isometric System Architecture (NOT orange!) -->
+  {category === 'tech-fundamentals' && (
+    <svg class={`w-7 h-7 ${style.text}`} viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M14 3L24 8L14 13L4 8L14 3Z" class={style.fill} stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M4 13L14 18L24 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M4 18L14 23L24 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="14" cy="8" r="1.5" fill="currentColor"/>
+    </svg>
+  )}
+
+  <!-- 6. Politics & Governance: Constitutional Landmark & Pillars of Law (NOT home!) -->
+  {category === 'gov-policy' && (
+    <svg class={`w-7 h-7 ${style.text}`} viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M3 10L14 4L25 10V12H3V10Z" class={style.fill} stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M6 12V21M11 12V21M17 12V21M22 12V21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M2 24H26" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="14" cy="8" r="1.2" fill="currentColor"/>
+    </svg>
+  )}
+</div>

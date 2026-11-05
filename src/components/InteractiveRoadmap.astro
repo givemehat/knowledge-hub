@@ -1,5 +1,10 @@
 ---
 import type { Roadmap } from '../data/roadmaps';
+import Card from './ui/Card.astro';
+import Chip from './ui/Chip.astro';
+import InsetPanel from './ui/InsetPanel.astro';
+import CardFooter from './ui/CardFooter.astro';
+import Button from './ui/Button.astro';
 
 interface Props {
   roadmap: Roadmap;
@@ -79,63 +84,75 @@ const { roadmap } = Astro.props;
   </div>
 
   <!-- VIEW 1: PATH VIEW (Default Timeline) -->
-  <div id="path-view-container" class="relative pl-6 sm:pl-8 border-l-2 border-slate-200 dark:border-slate-800 space-y-8 my-8">
+  <div id="path-view-container" class="relative pl-6 sm:pl-8 border-l-2 border-brand-500/30 dark:border-brand-500/20 space-y-8 my-8">
     {roadmap.nodes.map((node, index) => (
-      <div 
-        class="roadmap-node group relative bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 rounded-2xl p-5 sm:p-6 transition-all hover:border-brand-500/50 hover:shadow-card cursor-pointer"
-        data-id={node.id}
-        data-level={node.level}
-      >
+      <div class="relative">
         <!-- Timeline Step Marker Dot -->
-        <div class="absolute -left-[35px] sm:-left-[43px] top-6 w-6 h-6 rounded-full bg-white dark:bg-darkbg border-2 border-slate-300 dark:border-slate-700 flex items-center justify-center node-dot transition-colors shadow-sm">
+        <div class="absolute -left-[35px] sm:-left-[43px] top-6 w-6 h-6 rounded-full bg-white dark:bg-darkbg border-2 border-slate-300 dark:border-slate-700 flex items-center justify-center node-dot transition-colors shadow-sm z-10">
           <span class="text-[10px] font-bold text-slate-500">{index + 1}</span>
         </div>
 
-        <div class="flex items-start justify-between gap-4">
-          <div class="flex-grow">
-            <div class="flex items-center gap-2 mb-2 flex-wrap">
-              <span class={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
-                node.level === 'beginner' ? 'bg-peacock-500/10 text-peacock-600 dark:text-peacock-400 border border-peacock-500/20' :
-                node.level === 'intermediate' ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20' :
-                'bg-brand-500/10 text-brand-600 dark:text-brand-400 border border-brand-500/20'
-              }`}>
-                {node.level}
-              </span>
-              <span class="inline-flex items-center gap-1 text-xs text-slate-400 font-medium">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        <Card 
+          class="roadmap-node cursor-pointer"
+          data-id={node.id}
+          data-level={node.level}
+        >
+          <div>
+            <!-- Chip row: Phase / Level on left, time estimate on right -->
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <div class="flex items-center gap-2">
+                <Chip variant="level" level={node.level}>
+                  {node.level}
+                </Chip>
+                <Chip variant="neutral" size="sm">
+                  {node.category}
+                </Chip>
+              </div>
+              <Chip variant="phase" size="sm">
                 ~{node.estimatedHours} Hours
-              </span>
-              <span class="text-xs text-slate-400 font-medium">• {node.category}</span>
+              </Chip>
             </div>
 
+            <!-- Title & Description -->
             <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
               {node.title}
             </h3>
-            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 line-clamp-2 leading-relaxed">
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
               {node.description}
             </p>
 
-            <!-- Key topics tags -->
-            <div class="flex flex-wrap gap-1.5 mt-3">
-              {node.keyTopics.map(topic => (
-                <span class="text-[11px] px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium">
-                  {topic}
-                </span>
-              ))}
-            </div>
+            <!-- InsetPanel "What You'll Learn" -->
+            <InsetPanel variant="recommend" label="What You'll Learn & Key Topics" class="mt-4">
+              <div class="flex flex-wrap gap-1.5 mt-1">
+                {node.keyTopics.map(topic => (
+                  <span class="text-[11px] px-2 py-0.5 rounded-md bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-white/5 font-medium">
+                    {topic}
+                  </span>
+                ))}
+              </div>
+            </InsetPanel>
           </div>
 
-          <!-- Mark As Done Toggle Checkbox -->
-          <div class="shrink-0 pt-1">
-            <label class="flex items-center gap-2 cursor-pointer select-none" onclick="event.stopPropagation()">
-              <input 
-                type="checkbox" 
-                class="node-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 cursor-pointer transition-colors"
-                data-node-id={node.id}
-              />
-            </label>
-          </div>
-        </div>
+          <!-- Footer with Checkbox on Left and Dark Pill Action on Right -->
+          <CardFooter>
+            <div slot="meta" class="flex items-center gap-2" onclick="event.stopPropagation()">
+              <label class="flex items-center gap-2 cursor-pointer select-none text-xs text-slate-600 dark:text-slate-300 font-semibold">
+                <input 
+                  type="checkbox" 
+                  class="node-checkbox w-4 h-4 rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 cursor-pointer transition-colors"
+                  data-node-id={node.id}
+                />
+                <span>Mark done</span>
+              </label>
+            </div>
+
+            <div slot="action">
+              <Button variant="primary" size="sm" icon="arrow">
+                <span>Open Resources</span>
+              </Button>
+            </div>
+          </CardFooter>
+        </Card>
       </div>
     ))}
   </div>
@@ -266,7 +283,8 @@ const { roadmap } = Astro.props;
 
     function createMiniCard(n, status) {
       const card = document.createElement('div');
-      card.className = 'p-3.5 rounded-xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-sm hover:shadow transition-all text-xs';
+      card.setAttribute('data-component', 'card');
+      card.className = 'group relative p-3.5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/90 dark:border-white/10 shadow-2xs hover:border-brand-500/50 hover:shadow-apple-sm transition-all text-xs';
       card.innerHTML = `
         <div class="flex items-center justify-between gap-2 mb-1.5">
           <span class="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${

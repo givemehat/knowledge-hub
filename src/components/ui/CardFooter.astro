@@ -1,0 +1,23 @@
+---
+interface Props {
+  class?: string;
+  [key: string]: any;
+}
+
+const { class: className = '', ...rest } = Astro.props;
+---
+
+<div
+  class={`card-footer mt-auto pt-3.5 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs gap-2 ${className}`}
+  data-component="card-footer"
+  {...rest}
+>
+  <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 font-medium truncate min-w-0">
+    <slot name="meta" />
+  </div>
+
+  <div class="shrink-0 flex items-center gap-2">
+    <slot name="action" />
+    <slot />
+  </div>
+</div>

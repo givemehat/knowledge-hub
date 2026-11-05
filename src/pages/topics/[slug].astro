@@ -1,7 +1,12 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { TOPICS, type Topic } from '../../data/topics';
-import MetaChip from '../../components/ui/MetaChip.astro';
+import Card from '../../components/ui/Card.astro';
+import Chip from '../../components/ui/Chip.astro';
+import InsetPanel from '../../components/ui/InsetPanel.astro';
+import CardFooter from '../../components/ui/CardFooter.astro';
+import Button from '../../components/ui/Button.astro';
+import MetaRow from '../../components/ui/MetaRow.astro';
 import CodeBlock from '../../components/ui/CodeBlock.astro';
 import MythReality from '../../components/ui/MythReality.astro';
 import ResourceCard from '../../components/ui/ResourceCard.astro';
@@ -31,14 +36,14 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
 
 <Layout title={topic.title} description={topic.summary} category={topic.categoryLabel}>
   <!-- Sticky Reading Progress Bar -->
-  <div id="reading-progress" class="fixed top-16 left-0 right-0 h-1 bg-violet-600 dark:bg-violet-500 z-30 transition-all duration-75 w-0"></div>
+  <div id="reading-progress" class="fixed top-16 left-0 right-0 h-1 bg-brand-600 dark:bg-brand-500 z-30 transition-all duration-75 w-0"></div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
     <!-- Breadcrumbs -->
     <nav class="flex items-center gap-2 text-xs text-slate-500 mb-6 font-medium">
-      <a href={`${base}/`} class="hover:text-violet-600 dark:hover:text-violet-400">Home</a>
+      <a href={`${base}/`} class="hover:text-brand-600 dark:hover:text-brand-400">Home</a>
       <span>/</span>
-      <a href={`${base}/topics/`} class="hover:text-violet-600 dark:hover:text-violet-400">Topics</a>
+      <a href={`${base}/topics/`} class="hover:text-brand-600 dark:hover:text-brand-400">Topics</a>
       <span>/</span>
       <span class="text-slate-900 dark:text-white font-semibold truncate max-w-xs">{topic.title}</span>
     </nav>
@@ -48,49 +53,48 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
       <aside class="hidden lg:block lg:col-span-1">
         <div class="sticky top-24 p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-darkborder shadow-apple-sm space-y-4">
           <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-400">
-            <!-- Lucide ListOrdered -->
-            <svg class="w-4 h-4 text-violet-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="w-4 h-4 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
             </svg>
             <span>On This Page</span>
           </div>
 
           <nav class="space-y-1 text-xs">
-            <a href="#tldr" class="block py-1.5 px-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-violet-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+            <a href="#tldr" class="block py-1.5 px-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
               1. TL;DR Summary
             </a>
-            <a href="#why-it-matters" class="block py-1.5 px-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-violet-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+            <a href="#why-it-matters" class="block py-1.5 px-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
               2. Why It Matters
             </a>
-            <a href="#core-concepts" class="block py-1.5 px-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-violet-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+            <a href="#core-concepts" class="block py-1.5 px-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
               3. Core Concepts & Code
             </a>
             {topic.roadmapSteps && topic.roadmapSteps.length > 0 && (
-              <a href="#roadmap" class="block py-1.5 px-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-violet-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+              <a href="#roadmap" class="block py-1.5 px-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
                 4. Step-by-Step Path
               </a>
             )}
             {topic.handsOn && topic.handsOn.length > 0 && (
-              <a href="#hands-on" class="block py-1.5 px-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-violet-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+              <a href="#hands-on" class="block py-1.5 px-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
                 5. Hands-on Practice
               </a>
             )}
             {topic.resources && topic.resources.length > 0 && (
-              <a href="#curated-resources" class="block py-1.5 px-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-violet-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+              <a href="#curated-resources" class="block py-1.5 px-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
                 6. Curated Resources
               </a>
             )}
             {topic.mistakesAndMyths && topic.mistakesAndMyths.length > 0 && (
-              <a href="#myths" class="block py-1.5 px-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-violet-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+              <a href="#myths" class="block py-1.5 px-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
                 7. Myths vs Reality
               </a>
             )}
             {topic.faqs && topic.faqs.length > 0 && (
-              <a href="#faq" class="block py-1.5 px-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-violet-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+              <a href="#faq" class="block py-1.5 px-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
                 8. FAQs
               </a>
             )}
-            <a href="#sources" class="block py-1.5 px-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-violet-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+            <a href="#sources" class="block py-1.5 px-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
               9. Sources & Citations
             </a>
           </nav>
@@ -103,7 +107,6 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
               rel="noopener noreferrer"
               class="w-full flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs transition-colors"
             >
-              <!-- Lucide Edit3 -->
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
               </svg>
@@ -118,9 +121,9 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
         <!-- Title & Subtitle Header -->
         <div class="space-y-3">
           <div class="flex items-center gap-2">
-            <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-violet-100 dark:bg-violet-950/80 text-violet-800 dark:text-violet-300 border border-violet-200/50">
+            <Chip variant="neutral" size="sm">
               {topic.categoryLabel}
-            </span>
+            </Chip>
           </div>
 
           <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
@@ -144,62 +147,50 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
             </div>
             <span>Curated by <a href={`${base}/about/`} class="font-bold text-slate-800 dark:text-slate-200 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">{CREATOR.name}</a></span>
             <span>•</span>
-            <span>Last Fact-Checked: {topic.lastVerified}</span>
+            <span>Last Verified: {topic.lastVerified}</span>
           </div>
         </div>
 
-        <!-- 2. Meta Strip (Redesigned with MetaChips) -->
+        <!-- 2. Meta Strip (Separated MetaRow Chips - Zero Glued Text) -->
         <div id="meta-strip" class="p-4 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-darkborder shadow-apple-sm flex flex-wrap items-center justify-between gap-3">
           <div class="flex flex-wrap items-center gap-2 sm:gap-3">
-            <MetaChip label="Level" value={topic.level.toUpperCase()} icon="signal" variant="info" />
-            <MetaChip label="Read Time" value={`${topic.readingMinutes} Mins`} icon="clock" variant="default" />
-            <MetaChip label="Verified" value={topic.lastVerified} icon="shield" variant="default" />
-            <MetaChip 
-              label="Confidence" 
-              value={topic.confidence.toUpperCase()} 
-              icon="sparkles" 
-              variant={topic.confidence === 'high' ? 'success' : topic.confidence === 'evolving' ? 'evolving' : 'warning'} 
-            />
+            <MetaRow label="Difficulty" value={topic.level} />
+            <MetaRow label="Reading Time" value={`${topic.readingMinutes} Mins`} />
+            <MetaRow label="Last Fact-Checked" value={topic.lastVerified} />
+            <MetaRow label="Confidence" value={topic.confidence} />
           </div>
 
           <a 
             href={editUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="text-xs font-bold text-violet-600 dark:text-violet-400 hover:underline inline-flex items-center gap-1"
+            class="text-xs font-bold text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
           >
             Suggest edit ↗
           </a>
         </div>
 
-        <!-- 1. TL;DR Box -->
-        <section id="tldr" class="rounded-3xl p-6 sm:p-7 bg-gradient-to-br from-violet-50/70 via-indigo-50/40 to-teal-50/30 dark:from-violet-950/20 dark:via-darkcard dark:to-teal-950/20 border-2 border-violet-500/30 shadow-apple-sm space-y-4">
-          <div class="flex items-center gap-2 font-black text-xs text-violet-900 dark:text-violet-300 uppercase tracking-wider">
-            <!-- Lucide Zap -->
-            <svg class="w-4 h-4 text-violet-600 dark:text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-            <span>TL;DR (Quick Summary)</span>
-          </div>
-
-          <ul class="space-y-2.5">
-            {topic.tldr.map(item => (
-              <li class="flex items-start gap-3 text-xs sm:text-sm text-slate-800 dark:text-slate-200">
-                <!-- Lucide CheckCircle -->
-                <svg class="w-4 h-4 text-teal-600 dark:text-teal-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <circle cx="12" cy="12" r="10" stroke-width="2"/>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4"/>
-                </svg>
-                <span class="leading-relaxed">{item}</span>
-              </li>
-            ))}
-          </ul>
+        <!-- 1. TL;DR InsetPanel Box -->
+        <section id="tldr">
+          <InsetPanel variant="tldr" label="TL;DR (Quick Summary)" class="p-5 sm:p-6 rounded-2xl border-2">
+            <ul class="space-y-2.5 mt-2">
+              {topic.tldr.map(item => (
+                <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-800 dark:text-slate-200">
+                  <svg class="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4"/>
+                  </svg>
+                  <span class="leading-relaxed" set:html={item.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}></span>
+                </li>
+              ))}
+            </ul>
+          </InsetPanel>
         </section>
 
         <!-- 3. Why It Matters -->
         <section id="why-it-matters" class="space-y-3">
           <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-            <span class="text-violet-600 dark:text-violet-400 font-mono text-base">01.</span>
+            <span class="text-brand-600 dark:text-brand-400 font-mono text-base">01.</span>
             <span>Why It Matters</span>
           </h2>
           <div class="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed bg-white dark:bg-darkcard p-6 rounded-2xl border border-slate-200/80 dark:border-darkborder shadow-apple-sm">
@@ -210,7 +201,7 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
         <!-- 4. Theory & Core Concepts -->
         <section id="core-concepts" class="space-y-6">
           <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-            <span class="text-violet-600 dark:text-violet-400 font-mono text-base">02.</span>
+            <span class="text-brand-600 dark:text-brand-400 font-mono text-base">02.</span>
             <span>Theory & Core Concepts</span>
           </h2>
 
@@ -226,13 +217,11 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
                 </p>
 
                 {concept.analogy && (
-                  <div class="p-4 rounded-xl bg-saffron-50/70 dark:bg-saffron-950/20 border border-saffron-200/60 dark:border-saffron-800/40 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
-                    <div class="flex items-center gap-1.5 text-saffron-700 dark:text-saffron-400 font-bold mb-1">
-                      <svg class="w-3.5 h-3.5 text-saffron-600 dark:text-saffron-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
-                      <span>Real-World Analogy</span>
-                    </div>
-                    {concept.analogy}
-                  </div>
+                  <InsetPanel variant="recommend" label="Real-World Analogy">
+                    <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300">
+                      {concept.analogy}
+                    </p>
+                  </InsetPanel>
                 )}
 
                 {concept.codeSnippet && (
@@ -250,14 +239,14 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
         {topic.roadmapSteps && topic.roadmapSteps.length > 0 && (
           <section id="roadmap" class="space-y-4">
             <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-              <span class="text-violet-600 dark:text-violet-400 font-mono text-base">03.</span>
+              <span class="text-brand-600 dark:text-brand-400 font-mono text-base">03.</span>
               <span>Step-by-Step Learning Path</span>
             </h2>
             <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-darkborder shadow-apple-sm">
               <ol class="space-y-3">
                 {topic.roadmapSteps.map((step, idx) => (
                   <li class="flex items-start gap-3.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
-                    <span class="w-6 h-6 rounded-full bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-300 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 font-mono">
+                    <span class="w-6 h-6 rounded-full bg-brand-50 dark:bg-brand-950 text-brand-700 dark:text-brand-300 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 font-mono">
                       {idx + 1}
                     </span>
                     <span class="leading-relaxed">{step}</span>
@@ -268,38 +257,49 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
           </section>
         )}
 
-        <!-- 6. Hands-On Practice (Mini-Projects) -->
+        <!-- 6. Hands-On Practice (Mini-Projects as Shared Cards) -->
         {topic.handsOn && topic.handsOn.length > 0 && (
           <section id="hands-on" class="space-y-4">
             <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-              <span class="text-violet-600 dark:text-violet-400 font-mono text-base">04.</span>
+              <span class="text-brand-600 dark:text-brand-400 font-mono text-base">04.</span>
               <span>Hands-On Practice (Mini-Projects)</span>
             </h2>
             <div class="grid grid-cols-1 gap-4">
               {topic.handsOn.map(ex => (
-                <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-darkborder shadow-apple-sm space-y-2">
-                  <span class="text-[10px] font-bold uppercase tracking-wider text-violet-600 dark:text-violet-400">Exercise Challenge</span>
-                  <h3 class="font-bold text-base text-slate-900 dark:text-white">{ex.title}</h3>
-                  <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{ex.task}</p>
-                  <div class="pt-2 text-xs font-semibold text-slate-500 flex items-center gap-1.5">
-                    <svg class="w-3.5 h-3.5 text-peacock-600 dark:text-peacock-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    <span>Target Deliverable:</span>
-                    <span class="text-peacock-600 dark:text-peacock-400 font-medium">{ex.deliverable}</span>
+                <Card class="exercise-card">
+                  <div>
+                    <div class="flex items-center justify-between gap-2 mb-3">
+                      <Chip variant="neutral">Exercise Challenge</Chip>
+                      <Chip variant="level" level={topic.level}>{topic.level}</Chip>
+                    </div>
+                    <h3 class="font-bold text-base text-slate-900 dark:text-white mb-2">{ex.title}</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">{ex.task}</p>
+                    <InsetPanel variant="deliverable" label="Target Deliverable">
+                      <p class="text-xs text-slate-700 dark:text-slate-200 font-medium">{ex.deliverable}</p>
+                    </InsetPanel>
                   </div>
-                </div>
+                  <CardFooter>
+                    <span slot="meta" class="text-xs text-slate-400 font-mono">~30 Mins Practice</span>
+                    <div slot="action">
+                      <Button variant="primary" size="sm" icon="check">
+                        <span>Practice Task</span>
+                      </Button>
+                    </div>
+                  </CardFooter>
+                </Card>
               ))}
             </div>
           </section>
         )}
 
-        <!-- 7. Curated Resources (Videos, Docs, Books) -->
+        <!-- 7. Curated Resources (Using Upgraded ResourceCard) -->
         {topic.resources && topic.resources.length > 0 && (
           <section id="curated-resources" class="space-y-4">
             <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-              <span class="text-violet-600 dark:text-violet-400 font-mono text-base">05.</span>
+              <span class="text-brand-600 dark:text-brand-400 font-mono text-base">05.</span>
               <span>Curated Verified Resources</span>
             </h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 auto-rows-fr">
               {topic.resources.map(res => (
                 <ResourceCard 
                   type={res.type}
@@ -310,6 +310,7 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
                   duration={res.duration}
                   free={res.free}
                   whyWatch={res.whyWatch}
+                  locale="en"
                 />
               ))}
             </div>
@@ -320,7 +321,7 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
         {topic.mistakesAndMyths && topic.mistakesAndMyths.length > 0 && (
           <section id="myths" class="space-y-4">
             <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-              <span class="text-violet-600 dark:text-violet-400 font-mono text-base">06.</span>
+              <span class="text-brand-600 dark:text-brand-400 font-mono text-base">06.</span>
               <span>Common Mistakes & Myths</span>
             </h2>
             <div class="space-y-3">
@@ -335,52 +336,69 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
         {topic.faqs && topic.faqs.length > 0 && (
           <section id="faq" class="space-y-4">
             <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-              <span class="text-violet-600 dark:text-violet-400 font-mono text-base">07.</span>
+              <span class="text-brand-600 dark:text-brand-400 font-mono text-base">07.</span>
               <span>Frequently Asked Questions</span>
             </h2>
             <Accordion items={topic.faqs} />
           </section>
         )}
 
-        <!-- 10. Related Topics -->
+        <!-- 10. Related Topics (Unified Card Anatomy) -->
         {relatedTopics && relatedTopics.length > 0 && (
           <section id="related" class="space-y-4">
             <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-              <span class="text-violet-600 dark:text-violet-400 font-mono text-base">08.</span>
+              <span class="text-brand-600 dark:text-brand-400 font-mono text-base">08.</span>
               <span>Related Knowledge Tracks</span>
             </h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 auto-rows-fr">
               {relatedTopics.map(rel => (
-                <a href={`${base}/topics/${rel.slug}/`} class="p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-darkborder hover:border-violet-500/60 transition-all flex items-center justify-between group shadow-apple-sm">
+                <Card class="related-topic-card">
                   <div>
-                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">{rel.categoryLabel}</span>
-                    <h4 class="font-bold text-sm text-slate-900 dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">{rel.title}</h4>
+                    <div class="flex items-center justify-between mb-2">
+                      <Chip variant="neutral">{rel.categoryLabel}</Chip>
+                      <span class="text-xs font-mono text-slate-400">{rel.readingMinutes}m</span>
+                    </div>
+                    <h4 class="font-bold text-sm text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors mb-2">
+                      {rel.title}
+                    </h4>
+                    <p class="text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                      {rel.summary}
+                    </p>
                   </div>
-                  <span class="text-slate-400 group-hover:translate-x-1 transition-transform">→</span>
-                </a>
+                  <CardFooter>
+                    <span slot="meta" class="text-[11px] text-slate-400 font-mono">Verified {rel.lastVerified}</span>
+                    <div slot="action">
+                      <Button href={`${base}/topics/${rel.slug}/`} variant="primary" size="sm" icon="arrow">
+                        <span>Read</span>
+                      </Button>
+                    </div>
+                  </CardFooter>
+                </Card>
               ))}
             </div>
           </section>
         )}
 
-        <!-- 11. Primary Sources & Citations -->
+        <!-- 11. Primary Sources & Citations (Inside Sourced InsetPanel) -->
         <section id="sources" class="space-y-4 pt-6 border-t border-slate-200 dark:border-darkborder">
-          <h2 class="text-lg font-black text-slate-900 dark:text-white tracking-tight">
-            Primary Sources & Fact-Check Citations
-          </h2>
-          <ol class="space-y-2 text-xs text-slate-500">
-            {topic.sources.map((src, idx) => (
-              <li class="flex items-baseline gap-2">
-                <span class="font-mono text-slate-400">[{idx + 1}]</span>
-                <div>
-                  <a href={src.url} target="_blank" rel="noopener noreferrer" class="font-semibold text-violet-600 dark:text-violet-400 hover:underline">
-                    {src.title}
-                  </a>
-                  <span class="text-slate-400"> — {src.publisher} (Accessed: {src.accessed})</span>
-                </div>
-              </li>
-            ))}
-          </ol>
+          <InsetPanel variant="source" label="Primary Sources & Fact-Check Citations" class="p-5 rounded-2xl">
+            <ol class="space-y-3 mt-2 text-xs">
+              {topic.sources.map((src, idx) => (
+                <li class="flex items-start gap-2.5">
+                  <span class="font-mono text-slate-400 font-bold">[{idx + 1}]</span>
+                  <div class="flex-1">
+                    <a href={src.url} target="_blank" rel="noopener noreferrer" class="font-semibold text-brand-600 dark:text-brand-400 hover:underline">
+                      {src.title} ↗
+                    </a>
+                    <div class="flex items-center gap-2 mt-0.5 text-[11px] text-slate-400">
+                      <Chip variant="neutral" size="sm">{src.publisher}</Chip>
+                      <span>Accessed: {src.accessed}</span>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </InsetPanel>
         </section>
 
         <!-- 12. Author & Curator Signature Card -->

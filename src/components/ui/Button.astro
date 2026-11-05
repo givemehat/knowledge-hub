@@ -1,0 +1,79 @@
+---
+interface Props {
+  variant?: 'primary' | 'tonal' | 'outline' | 'ghost' | 'icon-only';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  target?: string;
+  rel?: string;
+  icon?: 'arrow' | 'external' | 'check' | 'copy' | 'github';
+  class?: string;
+  id?: string;
+  disabled?: boolean;
+  type?: 'button' | 'submit' | 'reset';
+  [key: string]: any;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  target,
+  rel,
+  icon,
+  class: className = '',
+  id,
+  disabled = false,
+  type = 'button',
+  ...rest
+} = Astro.props;
+
+const isLink = !!href;
+const Tag = isLink ? 'a' : 'button';
+
+const sizeStyles = {
+  sm: 'text-xs px-3 py-1.5 min-h-[36px]',
+  md: 'text-xs sm:text-sm px-4 py-2 min-h-[40px]',
+  lg: 'text-sm sm:text-base px-5 py-2.5 min-h-[44px]'
+};
+
+const variantStyles = {
+  primary: 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-bold hover:bg-brand-600 dark:hover:bg-brand-400 dark:hover:text-white rounded-full shadow-xs active:scale-95 transition-all duration-150',
+  tonal: 'bg-brand-50 hover:bg-brand-100 text-brand-700 dark:bg-brand-950/70 dark:text-brand-300 dark:hover:bg-brand-900/80 rounded-full font-bold transition-all duration-150',
+  outline: 'border border-slate-200 dark:border-white/15 hover:border-slate-300 dark:hover:border-white/30 text-slate-700 dark:text-slate-200 rounded-full font-semibold transition-all duration-150',
+  ghost: 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-white/5 rounded-xl font-semibold transition-all duration-150',
+  'icon-only': 'p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-all active:scale-95'
+};
+---
+
+<Tag
+  href={href}
+  target={target}
+  rel={rel || (target === '_blank' ? 'noopener noreferrer' : undefined)}
+  id={id}
+  disabled={!isLink && disabled}
+  type={!isLink ? type : undefined}
+  class={`inline-flex items-center justify-center gap-1.5 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/50 ${sizeStyles[size]} ${variantStyles[variant]} ${className}`}
+  data-component="button"
+  data-variant={variant}
+  {...rest}
+>
+  <slot />
+
+  {icon === 'arrow' && (
+    <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+    </svg>
+  )}
+
+  {icon === 'external' && (
+    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+    </svg>
+  )}
+
+  {icon === 'check' && (
+    <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+  )}
+</Tag>

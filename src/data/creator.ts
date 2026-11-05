@@ -59,9 +59,14 @@ export const CREATOR: CreatorConfig = {
   availabilityStatus: 'Open to Software Engineering Roles, Internships & Open-Source Collaborations',
   
   bioParagraphs: [
-    'Main ek builder aur developer hoon jise fast, clean aur zero-fluff software banana pasand hai. Internet par technical knowledge bohot fragmented hai—ya toh 3 ghante ke redundant video tutorials milte hain, ya fir abstract research papers jo practical engineering se disconnected hote hain.',
-    'Isliye maine Bodh (knowledge-hub) ko zero-backend, 100% static architecture par banaya: taaki koi bhi college student ya engineer bina kisi ad, popup ya login ke 30 second me accurate roadmap aur runnable code paa sake.',
-    'Mera focus systems programming, modern web frameworks (Astro, React, Tailwind), automated developer tools, aur data-driven studies par rehta hai.'
+    'I am a developer and systems builder dedicated to fast, distraction-free open-source software. Technical education on the web has become deeply fragmented—either buried in hours-long video tutorials or obscured in academic papers detached from production engineering.',
+    'I built Bodh (Knowledge Hub) on a 100% static, zero-backend architecture so students and engineers can access verified learning roadmaps, factual analyses, and runnable code in under 30 seconds without ads, popups, or accounts.',
+    'My core engineering focus spans systems programming, modern static web architecture (Astro, React, Tailwind), automated developer testing pipelines, and empirical data research.'
+  ],
+  hindiBioParagraphs: [
+    'मैं एक सॉफ़्टवेयर डेवलपर और सिस्टम्स बिल्डर हूँ। मुझे तेज़, स्पष्ट और बिना किसी विज्ञापन या भटकाव वाला सॉफ़्टवेयर बनाना पसंद है। इंटरनेट पर तकनीकी ज्ञान काफी बिखरा हुआ है—या तो अनावश्यक रूप से लंबे वीडियो ट्यूटोरियल्स मिलते हैं या फिर भारी-भरकम शोध पत्र।',
+    'इसीलिए मैंने बोध (Bodh) को पूरी तरह स्टैटिक आर्किटेक्चर पर बनाया है, ताकि कोई भी विद्यार्थी या इंजीनियर 30 सेकंड के भीतर जाँचे-परखे रोडमैप और रन-होने-योग्य कोड पा सके।',
+    'मेरा मुख्य ध्यान सिस्टम्स प्रोग्रामिंग, आधुनिक वेब आर्किटेक्चर (Astro, React, Tailwind), ऑटोमेटेड टेस्टिंग टूल्स और डेटा-संचालित अध्ययनों पर रहता है।'
   ],
 
   links: {

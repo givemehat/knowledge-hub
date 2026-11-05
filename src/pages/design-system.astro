@@ -1,30 +1,39 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import IndianPattern from '../components/ui/IndianPattern.astro';
-import MetaChip from '../components/ui/MetaChip.astro';
-import CodeBlock from '../components/ui/CodeBlock.astro';
-import MythReality from '../components/ui/MythReality.astro';
+import Card from '../components/ui/Card.astro';
+import Chip from '../components/ui/Chip.astro';
+import InsetPanel from '../components/ui/InsetPanel.astro';
+import CardFooter from '../components/ui/CardFooter.astro';
+import Button from '../components/ui/Button.astro';
+import MetaRow from '../components/ui/MetaRow.astro';
+import IconTile from '../components/ui/IconTile.astro';
 import ResourceCard from '../components/ui/ResourceCard.astro';
+import CodeBlock from '../components/ui/CodeBlock.astro';
 import Accordion from '../components/ui/Accordion.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const sampleFaqs = [
   {
-    question: 'How do design tokens map across Light and Dark themes?',
-    answer: 'Every semantic token (like `surface-light` and `surface-dark`) is defined as CSS custom properties with automatic system and user-toggle dark mode switching without flash.'
+    question: 'How does Card DNA maintain consistency across different content types?',
+    answer: 'All cards share the same 24px border radius, hairline borders, neutral surface tones, micro-elevation hover, and a structured vertical anatomy: Chip row -> Heading -> Body -> InsetPanel -> Pinned CardFooter.'
   },
   {
-    question: 'Why avoid casual UI emojis in production?',
-    answer: 'Standardizing on Lucide vector SVG icons ensures pixel-perfect rendering across iOS, Android, macOS, and Linux without platform-dependent rendering glitches or misaligned baselines.'
+    question: 'Why is there strictly at most ONE dark primary pill button per card?',
+    answer: 'Multiple heavy dark buttons create visual competition and cognitive overload. Every card has a single clear call-to-action (the ink pill), while secondary actions use outline or ghost buttons.'
+  },
+  {
+    question: 'How does Bodh eliminate glued text like "Difficultyintermediate"?',
+    answer: 'By strictly using MetaRow.astro or separate semantic spans with explicit spacing, ensuring labels and values never collapse into stuck strings.'
   }
 ];
 
-const sampleCode = `// Python 3.12 Example: Calculating Self-Attention
+const sampleCode = `// Python 3.12: Self-Attention from First Principles
 import torch
 import torch.nn.functional as F
 
-def self_attention(Q, K, V):
+def scaled_dot_product_attention(Q, K, V):
     d_k = Q.size(-1)
     scores = torch.matmul(Q, K.transpose(-2, -1)) / (d_k ** 0.5)
     weights = F.softmax(scores, dim=-1)
@@ -32,212 +41,309 @@ def self_attention(Q, K, V):
 `;
 ---
 
-<Layout title="Modern Bharat Design System — Knowledge Hub" description="Complete design token specifications, typography, surfaces, and interactive component library.">
-  <div class="relative overflow-hidden border-b border-slate-200/80 dark:border-white/10 py-12">
+<Layout title="Bodh Design System — Card DNA & Component Library" description="Living component library, Card DNA design tokens, and side-by-side sibling comparisons for Bodh (Knowledge Hub).">
+  <!-- Hero Section -->
+  <div class="relative overflow-hidden border-b border-slate-200/80 dark:border-white/10 py-14">
     <IndianPattern variant="rangoli" opacity={0.035} />
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="max-w-3xl">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/20 text-xs font-semibold mb-4">
+      <div class="max-w-3xl space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/20 text-xs font-semibold">
           <svg class="w-3.5 h-3.5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" /></svg>
-          Design Tokens & Component Library
+          Card DNA Design System v1.2
         </div>
         <h1 class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
-          Modern Bharat, Gen-Z Clean
+          One Cohesive Product Experience
         </h1>
-        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
-          Apple HIG clarity + Google Material 3 consistency + Microsoft Fluent depth, blended seamlessly with subtle Indian cultural geometry and electric accents.
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+          The verified Resource Card is Bodh's design north star. This page showcases the shared component library and visual proof that every card on the platform shares the exact same DNA.
         </p>
       </div>
     </div>
   </div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
-    <!-- SECTION 1: COLOR TOKENS -->
-    <section>
-      <div class="mb-6">
-        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">01. Color Palette Tokens</h2>
-        <p class="text-xs text-slate-500 mt-1">High-contrast, accessible semantic tokens with WCAG AA/AAA compliance.</p>
+
+    <!-- ========================================== -->
+    <!-- SECTION 1: SIBLING COMPARISON (THE PROOF) -->
+    <!-- ========================================== -->
+    <section class="space-y-6">
+      <div class="border-b border-slate-200/80 dark:border-white/10 pb-4">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400">Section 01 • Visual Proof</span>
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1">
+              The Sibling Comparison
+            </h2>
+          </div>
+          <span class="text-xs font-mono text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full">
+            All 4 cards share identical 24px radius, hairline borders & anatomy
+          </span>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2">
+          Side-by-side rendering of different card types across Bodh. Notice the unified chip row, surface elevation, signature inset panel, and pinned card footer with a single ink pill button.
+        </p>
       </div>
 
-      <!-- Desi Accents Grid -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+        
+        <!-- SIBLING 1: RESOURCE CARD (REFERENCE) -->
+        <div class="flex flex-col">
+          <div class="text-[11px] font-mono font-bold uppercase text-brand-600 dark:text-brand-400 mb-2 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-brand-500"></span>
+            1. Resource Card (Reference)
+          </div>
+          <ResourceCard
+            title="Let's build GPT from scratch"
+            url="https://www.youtube.com/watch?v=kCc8FmEb1nY"
+            type="video"
+            author="Andrej Karpathy"
+            language="en"
+            duration="2h 15m"
+            videoId="kCc8FmEb1nY"
+            free={true}
+            whyWatch="Walks through tokenization, multi-head self-attention, and training a 124M GPT model in PyTorch. Verified 2026-11-05."
+            lastVerified="2026-11-05"
+          />
+        </div>
+
+        <!-- SIBLING 2: DOMAIN CARD -->
+        <div class="flex flex-col">
+          <div class="text-[11px] font-mono font-bold uppercase text-peacock-600 dark:text-peacock-400 mb-2 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-peacock-500"></span>
+            2. Domain Card (Sibling)
+          </div>
+          <Card class="p-6 flex flex-col h-full">
+            <div class="flex items-center justify-between mb-4">
+              <IconTile icon="brain" size="md" />
+              <Chip variant="neutral" size="sm">6 Guides</Chip>
+            </div>
+
+            <div class="space-y-1 mb-3">
+              <h3 class="font-bold text-slate-900 dark:text-white text-base">Artificial Intelligence</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">
+                Transformers, diffusion models, fine-tuning, and retrieval architectures from first principles.
+              </p>
+            </div>
+
+            <InsetPanel variant="top-topics" label="Key Highlights" class="mb-4">
+              <ul class="space-y-1 text-xs text-slate-700 dark:text-slate-300">
+                <li>• Self-Attention & Transformers</li>
+                <li>• Retrieval-Augmented Gen (RAG)</li>
+                <li>• PyTorch First Principles</li>
+              </ul>
+            </InsetPanel>
+
+            <CardFooter class="mt-auto">
+              <span slot="left">Domain Track</span>
+              <Button slot="action" href={`${base}/topics/`} variant="primary" size="sm">
+                Explore Track →
+              </Button>
+            </CardFooter>
+          </Card>
+        </div>
+
+        <!-- SIBLING 3: ROADMAP NODE CARD -->
+        <div class="flex flex-col">
+          <div class="text-[11px] font-mono font-bold uppercase text-saffron-600 dark:text-saffron-400 mb-2 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-saffron-500"></span>
+            3. Roadmap Milestone (Sibling)
+          </div>
+          <Card class="p-6 flex flex-col h-full">
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <Chip variant="phase" size="sm">Phase 01</Chip>
+              <Chip variant="status" size="sm">Foundation</Chip>
+            </div>
+
+            <div class="space-y-1 mb-3">
+              <h3 class="font-bold text-slate-900 dark:text-white text-base">Python & Math for ML</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">
+                Linear algebra, multivariate calculus, matrix gradients, and NumPy vectorization.
+              </p>
+            </div>
+
+            <InsetPanel variant="deliverable" label="Phase Deliverable" class="mb-4">
+              Build a vectorized neural network with backward pass from scratch in pure NumPy.
+            </InsetPanel>
+
+            <CardFooter class="mt-auto">
+              <span slot="left">3-4 Weeks</span>
+              <Button slot="action" href={`${base}/roadmaps/ai-engineer/`} variant="primary" size="sm">
+                Start Phase →
+              </Button>
+            </CardFooter>
+          </Card>
+        </div>
+
+        <!-- SIBLING 4: EXERCISE CARD -->
+        <div class="flex flex-col">
+          <div class="text-[11px] font-mono font-bold uppercase text-brand-600 dark:text-brand-400 mb-2 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+            4. Hands-On Exercise (Sibling)
+          </div>
+          <Card class="p-6 flex flex-col h-full">
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <Chip variant="level" size="sm">Intermediate</Chip>
+              <Chip variant="free" size="sm">Runnable</Chip>
+            </div>
+
+            <div class="space-y-1 mb-3">
+              <h3 class="font-bold text-slate-900 dark:text-white text-base">Write Self-Attention</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">
+                Calculate query-key dot product, scale by sqrt(d_k), apply softmax, and multiply value vectors.
+              </p>
+            </div>
+
+            <InsetPanel variant="tldr" label="Exercise Objective" class="mb-4">
+              Verify tensor shapes (B, T, C) and assert that softmax rows sum up to 1.0 within epsilon.
+            </InsetPanel>
+
+            <CardFooter class="mt-auto">
+              <span slot="left">~30 Mins</span>
+              <Button slot="action" href={`${base}/topics/llm-fundamentals/`} variant="primary" size="sm">
+                Solve Task →
+              </Button>
+            </CardFooter>
+          </Card>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 2: ATOMIC COMPONENT LIBRARY -->
+    <!-- ========================================== -->
+    <section class="space-y-8">
+      <div class="border-b border-slate-200/80 dark:border-white/10 pb-4">
+        <span class="text-xs font-bold uppercase tracking-wider text-peacock-600 dark:text-peacock-400">Section 02 • Core Library</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1">
+          Shared Atomic Components
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2">
+          Modular building blocks located in <code>src/components/ui/</code>. Every component is accessible, responsive, and theme-adaptive.
+        </p>
+      </div>
+
+      <!-- COMPONENT A: CHIPS & BADGES -->
+      <div class="space-y-3">
+        <h3 class="text-lg font-bold text-slate-900 dark:text-white">01. Chip.astro Variants</h3>
+        <p class="text-xs text-slate-500">Semantic badges for status, language, difficulty level, and content types.</p>
+        <div class="flex flex-wrap items-center gap-3 p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10">
+          <Chip variant="neutral">Neutral Type</Chip>
+          <Chip variant="language">हिन्दी (Devanagari)</Chip>
+          <Chip variant="language">English (EN)</Chip>
+          <Chip variant="free">Free Resource</Chip>
+          <Chip variant="status">Verified Fact</Chip>
+          <Chip variant="level">Advanced Level</Chip>
+          <Chip variant="phase">Phase 02</Chip>
+          <Chip variant="category">Deep Learning</Chip>
+        </div>
+      </div>
+
+      <!-- COMPONENT B: INSET PANELS -->
+      <div class="space-y-3">
+        <h3 class="text-lg font-bold text-slate-900 dark:text-white">02. InsetPanel.astro Variants</h3>
+        <p class="text-xs text-slate-500">The signature indented container providing clean contrast depth without heavy drop-shadows.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <InsetPanel variant="recommend" label="Recommendation">
+            "Gold-standard walkthrough of building transformers from scratch with zero boilerplate."
+          </InsetPanel>
+          <InsetPanel variant="deliverable" label="Expected Deliverable">
+            Working semantic search application evaluated using RAGAS faithfulness metrics.
+          </InsetPanel>
+          <InsetPanel variant="warning" label="Hypothetical Notice">
+            This page models an analytical simulation; not an established historical event.
+          </InsetPanel>
+        </div>
+      </div>
+
+      <!-- COMPONENT C: META ROW CHIPS (NO GLUED TEXT) -->
+      <div class="space-y-3">
+        <h3 class="text-lg font-bold text-slate-900 dark:text-white">03. MetaRow.astro (Anti-Glued Text)</h3>
+        <p class="text-xs text-slate-500">Guarantees clean separation of labels and values, completely preventing strings like "Difficultyintermediate".</p>
+        <div class="flex flex-wrap gap-4 p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10">
+          <MetaRow label="Difficulty" value="Intermediate" icon="signal" variant="intermediate" />
+          <MetaRow label="Reading Time" value="12 Mins" icon="clock" variant="neutral" />
+          <MetaRow label="Last Verified" value="2026-11-05" icon="shield" variant="success" />
+          <MetaRow label="Confidence" value="High (Empirical)" icon="shield" variant="success" />
+        </div>
+      </div>
+
+      <!-- COMPONENT D: INK PILL BUTTONS -->
+      <div class="space-y-3">
+        <h3 class="text-lg font-bold text-slate-900 dark:text-white">04. Button.astro Variants</h3>
+        <p class="text-xs text-slate-500">Pill buttons with at least 44px touch targets. Dark ink primary button is strictly used at most ONCE per card.</p>
+        <div class="flex flex-wrap items-center gap-4 p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10">
+          <Button variant="primary" size="md">Primary Ink Pill</Button>
+          <Button variant="tonal" size="md">Tonal Action</Button>
+          <Button variant="outline" size="md">Outline Action</Button>
+          <Button variant="ghost" size="md">Ghost Action</Button>
+          <Button variant="primary" size="sm">Compact Sm Pill</Button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 3: COLOR PALETTE & SURFACES -->
+    <!-- ========================================== -->
+    <section class="space-y-6">
+      <div class="border-b border-slate-200/80 dark:border-white/10 pb-4">
+        <span class="text-xs font-bold uppercase tracking-wider text-saffron-600 dark:text-saffron-400">Section 03 • Color Tokens</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1">
+          Color Discipline & High-Contrast Tokens
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div class="p-4 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-sm">
-          <div class="h-16 rounded-xl bg-saffron-500 shadow-sm mb-3"></div>
-          <div class="font-bold text-xs text-slate-900 dark:text-white">Surya Saffron</div>
-          <div class="font-mono text-[11px] text-slate-400">#FF851A • Accent Warning</div>
+          <div class="h-16 rounded-xl bg-brand-500 shadow-sm mb-3"></div>
+          <div class="font-bold text-xs text-slate-900 dark:text-white">Electric Violet / Indigo</div>
+          <div class="font-mono text-[11px] text-slate-400">#5B3DF5 • Primary Accent</div>
         </div>
 
         <div class="p-4 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-sm">
           <div class="h-16 rounded-xl bg-peacock-500 shadow-sm mb-3"></div>
           <div class="font-bold text-xs text-slate-900 dark:text-white">Peacock Teal</div>
-          <div class="font-mono text-[11px] text-slate-400">#0E8A8A • Accent Success</div>
+          <div class="font-mono text-[11px] text-slate-400">#0E8A8A • Success & Grounded</div>
         </div>
 
         <div class="p-4 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-sm">
-          <div class="h-16 rounded-xl bg-brand-500 shadow-sm mb-3"></div>
-          <div class="font-bold text-xs text-slate-900 dark:text-white">Electric Violet</div>
-          <div class="font-mono text-[11px] text-slate-400">#5B3DF5 • Primary Brand</div>
+          <div class="h-16 rounded-xl bg-saffron-500 shadow-sm mb-3"></div>
+          <div class="font-bold text-xs text-slate-900 dark:text-white">Surya Saffron</div>
+          <div class="font-mono text-[11px] text-slate-400">#FF851A • Caution & Warning</div>
         </div>
 
         <div class="p-4 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-sm">
           <div class="h-16 rounded-xl bg-kumkum-500 shadow-sm mb-3"></div>
           <div class="font-bold text-xs text-slate-900 dark:text-white">Kumkum Red</div>
-          <div class="font-mono text-[11px] text-slate-400">#D62F4B • Myth / Destructive</div>
-        </div>
-      </div>
-
-      <!-- Surface Tokens -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div class="p-4 rounded-2xl bg-surface-light border border-slate-300 text-slate-800 shadow-sm">
-          <div class="font-bold text-xs">Warm Base Canvas</div>
-          <div class="font-mono text-[11px] text-slate-500 mt-1">#FAF8F5 (Light Mode Base)</div>
-        </div>
-        <div class="p-4 rounded-2xl bg-surface-dark border border-white/20 text-white shadow-sm">
-          <div class="font-bold text-xs">Soft Charcoal Canvas</div>
-          <div class="font-mono text-[11px] text-slate-400 mt-1">#121016 (Dark Mode Base)</div>
-        </div>
-        <div class="p-4 rounded-2xl bg-surface-raised dark:bg-darkraised border border-slate-200 dark:border-white/10 shadow-sm">
-          <div class="font-bold text-xs text-slate-900 dark:text-white">Raised Floating Surface</div>
-          <div class="font-mono text-[11px] text-slate-400 mt-1">#FFFFFF / #1F1B29 (Modal / Tooltips)</div>
+          <div class="font-mono text-[11px] text-slate-400">#D62F4B • Destructive & Myth</div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 2: TYPOGRAPHY SCALE -->
-    <section class="pt-8 border-t border-slate-200/80 dark:border-white/10">
-      <div class="mb-6">
-        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">02. Typography System</h2>
-        <p class="text-xs text-slate-500 mt-1">Plus Jakarta Sans & Inter for display, Noto Sans Devanagari for Hindi, and JetBrains Mono for code.</p>
+    <!-- ========================================== -->
+    <!-- SECTION 4: CODE & INTERACTIVE ACCORDION -->
+    <!-- ========================================== -->
+    <section class="space-y-6">
+      <div class="border-b border-slate-200/80 dark:border-white/10 pb-4">
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400">Section 04 • Interactive Components</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1">
+          Code Block & Disclosure Accordion
+        </h2>
       </div>
 
-      <div class="space-y-6 bg-white dark:bg-darkcard p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-white/10 shadow-sm">
-        <div>
-          <span class="text-[10px] font-mono uppercase text-slate-400">Display 4XL • 48px / 1.1 Leading</span>
-          <div class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight mt-1">
-            Knowledge Hub: भारत का आधुनिक ज्ञान केंद्र
-          </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        <div class="space-y-3">
+          <div class="text-xs font-bold text-slate-700 dark:text-slate-300">IDE Code Block with One-Click Copy</div>
+          <CodeBlock code={sampleCode} language="python" filename="attention.py" />
         </div>
 
-        <div>
-          <span class="text-[10px] font-mono uppercase text-slate-400">Heading 2XL • 24px / 1.2 Leading</span>
-          <div class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
-            LLMs कैसे काम करते हैं: Self-Attention और Transformers
-          </div>
-        </div>
-
-        <div>
-          <span class="text-[10px] font-mono uppercase text-slate-400">Body Standard • 14px / 1.6 Leading (Bilingual)</span>
-          <div class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mt-1">
-            Large Language Models (LLMs) ek statistical probability engine hote hain jo next-token predict karte hain. Har token numeric vectors me convert hokar attention layers ke through cross-reference hota hai.
-          </div>
-        </div>
-
-        <div>
-          <span class="text-[10px] font-mono uppercase text-slate-400">Monospace JetBrains Mono • 12px</span>
-          <div class="font-mono text-xs text-brand-600 dark:text-brand-400 mt-1">
-            const attention = torch.matmul(Q, K.transpose(-2, -1)) / math.sqrt(d_k);
-          </div>
+        <div class="space-y-3">
+          <div class="text-xs font-bold text-slate-700 dark:text-slate-300">Accessible WAI-ARIA Accordion</div>
+          <Accordion items={sampleFaqs} />
         </div>
       </div>
     </section>
 
-    <!-- SECTION 3: META CHIPS & BADGES -->
-    <section class="pt-8 border-t border-slate-200/80 dark:border-white/10">
-      <div class="mb-6">
-        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">03. Meta Chips & Badges</h2>
-        <p class="text-xs text-slate-500 mt-1">High-contrast, separated key-value rows replacing stuck-together text labels.</p>
-      </div>
-
-      <div class="flex flex-wrap gap-4 p-6 bg-white dark:bg-darkcard rounded-3xl border border-slate-200 dark:border-white/10 shadow-sm">
-        <MetaChip label="Difficulty" value="Intermediate" icon="signal" variant="intermediate" />
-        <MetaChip label="Reading Time" value="8 Min Read" icon="clock" variant="neutral" />
-        <MetaChip label="Fact-Checked" value="2026-11-04" icon="shield" variant="success" />
-        <MetaChip label="Confidence" value="High (Empirical)" icon="shield" variant="success" />
-        <MetaChip label="Hypothesis" value="Simulated Scenario" icon="warning" variant="warning" />
-      </div>
-    </section>
-
-    <!-- SECTION 4: CODE BLOCK COMPONENT -->
-    <section class="pt-8 border-t border-slate-200/80 dark:border-white/10">
-      <div class="mb-6">
-        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">04. IDE Code Block with Copy Notification</h2>
-        <p class="text-xs text-slate-500 mt-1">Header language pill, Lucide copy button, toast callback, and JetBrains Mono rendering.</p>
-      </div>
-
-      <div class="max-w-3xl">
-        <CodeBlock code={sampleCode} language="python" filename="attention_mechanism.py" />
-      </div>
-    </section>
-
-    <!-- SECTION 5: MYTH VS REALITY COMPARISON -->
-    <section class="pt-8 border-t border-slate-200/80 dark:border-white/10">
-      <div class="mb-6">
-        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">05. Myth vs Reality Cards</h2>
-        <p class="text-xs text-slate-500 mt-1">Kumkum Red cross-mark for myths, Peacock Teal check-mark for grounded reality.</p>
-      </div>
-
-      <div class="max-w-3xl">
-        <MythReality 
-          myth="Quantum computers classical supercomputers se har kaam me fast hote hain aur laptop replace kar denge."
-          reality="Quantum computers sirf specific mathematical structures (like Shor's factoring ya quantum chemistry) me speedup dete hain. Sequential compute aur everyday tasks me classical chips hamesha superior rahenge."
-        />
-      </div>
-    </section>
-
-    <!-- SECTION 6: CURATED RESOURCE CARD -->
-    <section class="pt-8 border-t border-slate-200/80 dark:border-white/10">
-      <div class="mb-6">
-        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">06. Curated Resource Card</h2>
-        <p class="text-xs text-slate-500 mt-1">Clean editorial layout with single CTA, author pill, duration, and verified free badge.</p>
-      </div>
-
-      <div class="max-w-md">
-        <ResourceCard 
-          title="Let's build GPT: from scratch, in code, spelled out"
-          url="https://www.youtube.com/watch?v=kCc8FmEb1nY"
-          type="video"
-          author="Andrej Karpathy"
-          language="en"
-          duration="2h 15m"
-          free={true}
-          whyWatch="Gold standard video for understanding transformers, self-attention, and PyTorch training from first principles."
-        />
-      </div>
-    </section>
-
-    <!-- SECTION 7: ACCESSIBLE ACCORDION -->
-    <section class="pt-8 border-t border-slate-200/80 dark:border-white/10">
-      <div class="mb-6">
-        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">07. Interactive WAI-ARIA Accordion</h2>
-        <p class="text-xs text-slate-500 mt-1">Accessible FAQ disclosures with smooth rotating chevron indicator.</p>
-      </div>
-
-      <div class="max-w-3xl">
-        <Accordion items={sampleFaqs} />
-      </div>
-    </section>
-
-    <!-- SECTION 8: INDIAN GEOMETRIC PATTERNS -->
-    <section class="pt-8 border-t border-slate-200/80 dark:border-white/10">
-      <div class="mb-6">
-        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">08. Cultural Geometric Textures</h2>
-        <p class="text-xs text-slate-500 mt-1">Subtle Rangoli dot-grid and Jaali architectural lattice SVG generators with low opacity.</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="relative h-48 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 overflow-hidden p-6 flex flex-col justify-end">
-          <IndianPattern variant="rangoli" opacity={0.12} />
-          <div class="relative z-10 font-bold text-sm text-slate-900 dark:text-white">Rangoli Dot-Grid Lattice</div>
-          <div class="relative z-10 text-xs text-slate-400">Used across hero backgrounds and feature banners</div>
-        </div>
-
-        <div class="relative h-48 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 overflow-hidden p-6 flex flex-col justify-end">
-          <IndianPattern variant="jaali" opacity={0.12} />
-          <div class="relative z-10 font-bold text-sm text-slate-900 dark:text-white">Jaali Architectural Pattern</div>
-          <div class="relative z-10 text-xs text-slate-400">Used for technical and callout containers</div>
-        </div>
-      </div>
-    </section>
   </div>
 </Layout>

@@ -1,0 +1,137 @@
+---
+interface Props {
+  variant?: 'recommend' | 'tldr' | 'deliverable' | 'top-topics' | 'note' | 'warning' | 'myth' | 'factcheck' | 'source';
+  label?: string;
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  variant = 'recommend',
+  label,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+// Specific accent colors & icons per variant
+const variantConfigs: Record<string, { label: string; textClass: string; borderClass: string; bgClass: string }> = {
+  recommend: {
+    label: 'Why We Recommend',
+    textClass: 'text-brand-600 dark:text-brand-400',
+    borderClass: 'border-slate-100 dark:border-white/5',
+    bgClass: 'bg-slate-50 dark:bg-slate-900/60'
+  },
+  tldr: {
+    label: 'TL;DR (संक्षेप)',
+    textClass: 'text-brand-600 dark:text-brand-400',
+    borderClass: 'border-brand-500/15 dark:border-brand-400/15',
+    bgClass: 'bg-brand-50/50 dark:bg-brand-950/30'
+  },
+  deliverable: {
+    label: 'Deliverable',
+    textClass: 'text-peacock-600 dark:text-peacock-400',
+    borderClass: 'border-peacock-500/15 dark:border-peacock-400/15',
+    bgClass: 'bg-peacock-50/40 dark:bg-peacock-950/20'
+  },
+  'top-topics': {
+    label: 'Top Topics',
+    textClass: 'text-slate-500 dark:text-slate-400',
+    borderClass: 'border-slate-100 dark:border-white/5',
+    bgClass: 'bg-slate-50/80 dark:bg-slate-900/40'
+  },
+  note: {
+    label: 'Note',
+    textClass: 'text-slate-700 dark:text-slate-300',
+    borderClass: 'border-slate-200/60 dark:border-white/10',
+    bgClass: 'bg-slate-50 dark:bg-slate-900/60'
+  },
+  warning: {
+    label: 'Important Notice',
+    textClass: 'text-amber-600 dark:text-amber-400',
+    borderClass: 'border-amber-500/20 dark:border-amber-400/20',
+    bgClass: 'bg-amber-50/50 dark:bg-amber-950/30'
+  },
+  myth: {
+    label: 'Myth vs Reality',
+    textClass: 'text-rose-600 dark:text-rose-400',
+    borderClass: 'border-rose-500/20 dark:border-rose-400/20',
+    bgClass: 'bg-rose-50/40 dark:bg-rose-950/20'
+  },
+  factcheck: {
+    label: 'Verified Claim',
+    textClass: 'text-peacock-600 dark:text-peacock-400',
+    borderClass: 'border-peacock-500/20 dark:border-peacock-400/20',
+    bgClass: 'bg-peacock-50/40 dark:bg-peacock-950/20'
+  },
+  source: {
+    label: 'Primary Sourced Citations',
+    textClass: 'text-brand-600 dark:text-brand-400',
+    borderClass: 'border-slate-100 dark:border-white/5',
+    bgClass: 'bg-slate-50 dark:bg-slate-900/60'
+  }
+};
+
+const config = variantConfigs[variant] || variantConfigs.recommend;
+const displayLabel = label || config.label;
+---
+
+<div
+  class={`inset-panel rounded-xl p-3.5 ${config.bgClass} ${config.borderClass} border transition-all ${className}`}
+  data-component="inset-panel"
+  data-variant={variant}
+  {...rest}
+>
+  <div class={`flex items-center gap-1.5 text-[11px] font-bold ${config.textClass} mb-1.5 uppercase tracking-wider`}>
+    <!-- Contextual SVG Icons -->
+    {variant === 'recommend' && (
+      <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    )}
+    {variant === 'tldr' && (
+      <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+      </svg>
+    )}
+    {variant === 'deliverable' && (
+      <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+      </svg>
+    )}
+    {variant === 'top-topics' && (
+      <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7" />
+      </svg>
+    )}
+    {variant === 'warning' && (
+      <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      </svg>
+    )}
+    {variant === 'myth' && (
+      <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+      </svg>
+    )}
+    {variant === 'factcheck' && (
+      <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+      </svg>
+    )}
+    {variant === 'source' && (
+      <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+      </svg>
+    )}
+    {variant === 'note' && (
+      <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+      </svg>
+    )}
+    <span>{displayLabel}</span>
+  </div>
+
+  <div class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+    <slot />
+  </div>
+</div>

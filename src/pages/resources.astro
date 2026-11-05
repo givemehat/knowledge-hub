@@ -1,34 +1,33 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import IndianPattern from '../components/ui/IndianPattern.astro';
+import ResourceCard from '../components/ui/ResourceCard.astro';
 import { CURATED_RESOURCES } from '../data/resources';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-
-const typeLabels: Record<string, string> = {
-  video: 'Video Tutorial',
-  doc: 'Official Documentation',
-  book: 'Textbook / Reader',
-  tool: 'Free Tool',
-  course: 'Structured Course',
-};
 ---
 
-<Layout title="Curated Resources Library — Knowledge Hub" description="Handpicked, verified YouTube videos, official docs, books, and free tools evaluated by engineers.">
+<Layout
+  title="Curated Free Resources — Bodh (बोध)"
+  description="इंजीनियर्स द्वारा जाँचे और परखे गए शीर्ष तकनीकी वीडियो, आधिकारिक दस्तावेज़ और मुफ़्त टूल्स।"
+  lang="hi"
+>
   <div class="relative overflow-hidden border-b border-slate-200/80 dark:border-white/10 py-12">
     <IndianPattern variant="rangoli" opacity={0.03} />
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="max-w-3xl">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-peacock-500/10 text-peacock-700 dark:text-peacock-300 border border-peacock-500/20 text-xs font-semibold mb-4">
-          <svg class="w-3.5 h-3.5 text-peacock-600 dark:text-peacock-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
-          100% Free & Fact-Checked
+          <svg class="w-3.5 h-3.5 text-peacock-600 dark:text-peacock-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+          <span id="page-eyebrow">100% मुफ़्त एवं जाँचे-परखे स्रोत</span>
         </div>
-        <h1 class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
-          Curated Learning Resources
+        <h1 id="page-heading" class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
+          चुनिंदा शिक्षण संसाधन
         </h1>
-        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
-          Random YouTube algorithm rabbit holes se bachiye. Har resource ko engineers ne inspect, evaluate, aur test kiya hai taaki aapka time waste na ho.
+        <p id="page-subtext" class="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
+          अनावश्यक खोजों से बचें। हर संसाधन को इंजीनियर्स ने स्वयं परखा और मूल्यांकित किया है ताकि आपका समय व्यर्थ न हो।
         </p>
       </div>
     </div>
@@ -42,22 +41,22 @@ const typeLabels: Record<string, string> = {
         <!-- Type Tabs -->
         <div class="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none" id="type-tabs">
           <button class="type-filter-btn active px-3 py-1.5 rounded-xl text-xs font-semibold bg-brand-500 text-white shadow-sm cursor-pointer" data-type="all">
-            All Types ({CURATED_RESOURCES.length})
+            सभी ({CURATED_RESOURCES.length})
           </button>
           <button class="type-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer" data-type="video">
-            Videos
+            वीडियो
           </button>
           <button class="type-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer" data-type="doc">
-            Docs
+            दस्तावेज़
           </button>
           <button class="type-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer" data-type="course">
-            Courses
+            कोर्स
           </button>
           <button class="type-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer" data-type="tool">
-            Tools
+            टूल्स
           </button>
           <button class="type-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer" data-type="book">
-            Books
+            पुस्तकें
           </button>
         </div>
 
@@ -66,7 +65,7 @@ const typeLabels: Record<string, string> = {
           <input 
             type="text" 
             id="resource-search"
-            placeholder="Search author, topic, or title..."
+            placeholder="शीर्षक, लेखक या विषय खोजें..."
             class="w-full text-xs px-3.5 py-2 pl-9 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-brand-500"
           />
           <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -75,93 +74,63 @@ const typeLabels: Record<string, string> = {
         </div>
       </div>
 
-      <!-- Row 2: Category & Language Sub-filters -->
+      <!-- Row 2: Category, Language Sub-filters & Active Count -->
       <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-white/10 text-xs">
-        <div class="flex items-center gap-2">
-          <span class="text-slate-400 font-medium text-[11px]">Category:</span>
-          <select id="cat-select" class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 focus:outline-none focus:border-brand-500 cursor-pointer">
-            <option value="all">All Domains</option>
-            <option value="ai">AI & ML</option>
-            <option value="dsa">DSA & Placement</option>
-            <option value="quantum">Quantum Computing</option>
-            <option value="systems">Tech Fundamentals</option>
-            <option value="policy">Policy & Governance</option>
-          </select>
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="flex items-center gap-1.5">
+            <span class="text-slate-400 font-medium text-[11px]">Domain:</span>
+            <select id="cat-select" class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 focus:outline-none focus:border-brand-500 cursor-pointer">
+              <option value="all">सभी विषय</option>
+              <option value="ai">AI & ML</option>
+              <option value="dsa">DSA & Career</option>
+              <option value="quantum">Quantum Computing</option>
+              <option value="systems">Tech Fundamentals</option>
+              <option value="policy">Politics & Governance</option>
+            </select>
+          </div>
+
+          <div class="flex items-center gap-1.5" id="lang-filters">
+            <span class="text-slate-400 font-medium text-[11px]">भाषा:</span>
+            <button class="lang-filter-btn active px-2.5 py-1 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold" data-lang="all">सभी</button>
+            <button class="lang-filter-btn px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400" data-lang="hi">हिन्दी</button>
+            <button class="lang-filter-btn px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400" data-lang="en">English</button>
+          </div>
         </div>
 
-        <div class="flex items-center gap-1.5" id="lang-filters">
-          <span class="text-slate-400 font-medium text-[11px]">Language:</span>
-          <button class="lang-filter-btn active px-2.5 py-1 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold" data-lang="all">All</button>
-          <button class="lang-filter-btn px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400" data-lang="hi">Hindi</button>
-          <button class="lang-filter-btn px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400" data-lang="en">English</button>
+        <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 font-mono text-xs">
+          <span>उपलब्ध:</span>
+          <span id="results-count" class="font-bold text-slate-900 dark:text-white px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-white/10">
+            {CURATED_RESOURCES.length}
+          </span>
         </div>
       </div>
     </div>
 
-    <!-- Resources Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="resources-grid">
+    <!-- Unified Resources Grid (Equal Height per Row via auto-rows-fr) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr" id="resources-grid">
       {CURATED_RESOURCES.map(res => (
-        <div 
-          class="resource-item group bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 rounded-2xl p-6 hover:border-brand-500/60 hover:shadow-card hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between"
+        <div
+          class="resource-filter-wrapper h-full"
           data-type={res.type}
           data-category={res.category}
           data-lang={res.language}
-          data-search={`${res.title} ${res.author} ${res.whyWatch}`.toLowerCase()}
+          data-search={`${res.title} ${res.author} ${res.whyWatch} ${res.whyWatchHi || ''}`.toLowerCase()}
         >
-          <div>
-            <div class="flex items-center justify-between gap-2 mb-3">
-              <span class="text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-white/5">
-                {typeLabels[res.type] || res.type}
-              </span>
-              <div class="flex items-center gap-1.5">
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-peacock-500/10 text-peacock-600 dark:text-peacock-400 border border-peacock-500/20">
-                  {res.language === 'hi' ? 'Hindi' : 'English'}
-                </span>
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-400 border border-brand-500/20">
-                  Free
-                </span>
-              </div>
-            </div>
-
-            <h3 class="font-bold text-base text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors leading-snug">
-              {res.title}
-            </h3>
-
-            <!-- Editorial Reason Card (No emoji) -->
-            <div class="mt-3.5 p-3 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-100 dark:border-white/5">
-              <div class="flex items-center gap-1.5 text-[11px] font-bold text-brand-600 dark:text-brand-400 mb-1">
-                <svg class="w-3.5 h-3.5 text-brand-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                <span>Why We Recommend</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                {res.whyWatch}
-              </p>
-            </div>
-          </div>
-
-          <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
-            <span class="text-slate-500 dark:text-slate-400 font-medium">By {res.author}</span>
-            <a 
-              href={res.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold hover:bg-brand-600 dark:hover:bg-brand-400 dark:hover:text-white transition-colors shadow-sm"
-            >
-              <span>Open</span>
-              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-            </a>
-          </div>
+          <ResourceCard {...res} locale="hi" />
         </div>
       ))}
     </div>
 
-    <!-- Empty State -->
-    <div id="no-results-msg" class="hidden text-center py-16">
+    <!-- Empty State Variant -->
+    <div id="no-results-msg" class="hidden text-center py-16 bg-slate-50/50 dark:bg-slate-900/20 rounded-3xl border border-dashed border-slate-300 dark:border-slate-700 p-8 my-8">
       <div class="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mx-auto text-slate-400 mb-3">
-        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
       </div>
-      <h3 class="text-sm font-bold text-slate-900 dark:text-white">Koi resource nahi mila</h3>
-      <p class="text-xs text-slate-500 mt-1">Filters clear karein ya dusra keyword search karein.</p>
+      <h3 id="empty-heading" class="text-sm font-bold text-slate-900 dark:text-white">कोई संसाधन नहीं मिला</h3>
+      <p id="empty-subtext" class="text-xs text-slate-500 mt-1">सक्रिय फ़िल्टर साफ़ करें या दूसरा कीवर्ड खोजें।</p>
     </div>
   </div>
 </Layout>
@@ -172,16 +141,17 @@ const typeLabels: Record<string, string> = {
   let activeLang = 'all';
   let searchQuery = '';
 
-  const cards = document.querySelectorAll('.resource-item');
+  const wrappers = document.querySelectorAll('.resource-filter-wrapper');
   const emptyState = document.getElementById('no-results-msg');
+  const resultsCountEl = document.getElementById('results-count');
 
   function applyFilters() {
     let visibleCount = 0;
-    cards.forEach(card => {
-      const type = card.getAttribute('data-type');
-      const cat = card.getAttribute('data-category');
-      const lang = card.getAttribute('data-lang');
-      const searchData = card.getAttribute('data-search') || '';
+    wrappers.forEach(el => {
+      const type = el.getAttribute('data-type');
+      const cat = el.getAttribute('data-category');
+      const lang = el.getAttribute('data-lang');
+      const searchData = el.getAttribute('data-search') || '';
 
       const matchType = activeType === 'all' || type === activeType;
       const matchCat = activeCat === 'all' || cat === activeCat;
@@ -189,15 +159,18 @@ const typeLabels: Record<string, string> = {
       const matchSearch = searchQuery === '' || searchData.includes(searchQuery);
 
       if (matchType && matchCat && matchLang && matchSearch) {
-        card.style.display = 'flex';
+        el.style.display = 'block';
         visibleCount++;
       } else {
-        card.style.display = 'none';
+        el.style.display = 'none';
       }
     });
 
     if (emptyState) {
       emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+    if (resultsCountEl) {
+      resultsCountEl.textContent = String(visibleCount);
     }
   }
 
@@ -239,5 +212,23 @@ const typeLabels: Record<string, string> = {
   document.getElementById('resource-search')?.addEventListener('input', (e) => {
     searchQuery = e.target.value.toLowerCase().trim();
     applyFilters();
+  });
+
+  // Language change reactivity
+  window.addEventListener('bodh:lang-change', (event) => {
+    const lang = event.detail.lang || 'hi';
+    const isEn = lang === 'en';
+
+    const eyebrow = document.getElementById('page-eyebrow');
+    const heading = document.getElementById('page-heading');
+    const subtext = document.getElementById('page-subtext');
+    const emptyHead = document.getElementById('empty-heading');
+    const emptySub = document.getElementById('empty-subtext');
+
+    if (eyebrow) eyebrow.textContent = isEn ? '100% Free & Verified Sources' : '100% मुफ़्त एवं जाँचे-परखे स्रोत';
+    if (heading) heading.textContent = isEn ? 'Curated Learning Resources' : 'चुनिंदा शिक्षण संसाधन';
+    if (subtext) subtext.textContent = isEn ? 'Skip algorithmic rabbit holes. Every resource is evaluated and tested by engineers.' : 'अनावश्यक खोजों से बचें। हर संसाधन को इंजीनियर्स ने स्वयं परखा और मूल्यांकित किया है ताकि आपका समय व्यर्थ न हो।';
+    if (emptyHead) emptyHead.textContent = isEn ? 'No resources found' : 'कोई संसाधन नहीं मिला';
+    if (emptySub) emptySub.textContent = isEn ? 'Clear active filters or try a different keyword.' : 'सक्रिय फ़िल्टर साफ़ करें या दूसरा कीवर्ड खोजें।';
   });
 </script>

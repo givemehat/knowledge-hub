@@ -1,0 +1,25 @@
+---
+interface Props {
+  icon?: string;
+  label: string;
+  value: string;
+  variant?: 'neutral' | 'peacock' | 'brand' | 'saffron';
+  class?: string;
+}
+
+const {
+  icon,
+  label,
+  value,
+  variant = 'neutral',
+  class: className = ''
+} = Astro.props;
+---
+
+<div
+  class={`meta-chip inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-100/90 dark:bg-slate-800/80 border border-slate-200/80 dark:border-white/10 text-xs shadow-2xs ${className}`}
+  data-component="meta-row"
+>
+  <span class="text-slate-400 dark:text-slate-400 text-[11px] font-medium">{label}:</span>
+  <span class="font-bold text-slate-800 dark:text-slate-200">{value}</span>
+</div>

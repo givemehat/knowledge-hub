@@ -1,52 +1,62 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import IndianPattern from '../../components/ui/IndianPattern.astro';
+import Card from '../../components/ui/Card.astro';
+import Chip from '../../components/ui/Chip.astro';
+import InsetPanel from '../../components/ui/InsetPanel.astro';
+import CardFooter from '../../components/ui/CardFooter.astro';
+import Button from '../../components/ui/Button.astro';
 import { ROADMAPS } from '../../data/roadmaps';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
-<Layout title="Interactive Engineering Roadmaps — Knowledge Hub" description="Step-by-step career and engineering roadmaps with local progress tracking and free curated resources.">
+<Layout
+  title="Visual Interactive Roadmaps — Bodh (बोध)"
+  description="करियर और तकनीकी अध्ययन के लिए चरणबद्ध रोडमैप, घंटे के अनुमान और मुफ़्त संसाधन।"
+  lang="hi"
+>
   <div class="relative overflow-hidden border-b border-slate-200/80 dark:border-white/10 py-12">
     <IndianPattern variant="rangoli" opacity={0.03} />
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="max-w-3xl">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/20 text-xs font-semibold mb-4">
-          <svg class="w-3.5 h-3.5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-          Structured Career Roadmaps
+          <svg class="w-3.5 h-3.5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>संरचित करियर रोडमैप्स</span>
         </div>
         <h1 class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
-          Visual Interactive Roadmaps
+          इंटरएक्टिव इंजीनियरिंग रोडमैप्स
         </h1>
         <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
-          Har roadmap me phase-by-phase milestones, hour estimates, localStorage progress tracking (Path View & Board View), aur verified curated resources included hain.
+          प्रत्येक रोडमैप में चरणबद्ध मील के पत्थर, समय अनुमान, स्थानीय प्रगति ट्रैकिंग (Path View और Board View), और सत्यापित मुफ़्त संसाधन शामिल हैं।
         </p>
       </div>
     </div>
   </div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 auto-rows-fr">
       {ROADMAPS.map(roadmap => (
-        <a 
-          href={`${base}/roadmaps/${roadmap.slug}/`}
-          class="group bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 rounded-3xl p-8 hover:border-brand-500/60 hover:shadow-card hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between"
-        >
+        <Card class="roadmap-card">
           <div>
+            <!-- Top Chip Row -->
             <div class="flex items-center justify-between gap-2 mb-4">
-              <span class="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-brand-50 dark:bg-brand-950 text-brand-700 dark:text-brand-300 border border-brand-500/20">
-                <svg class="w-3 h-3 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+              <Chip variant="neutral" size="sm">
                 {roadmap.difficulty}
-              </span>
-              <span class="inline-flex items-center gap-1 text-xs text-slate-400 font-medium">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              </Chip>
+              <Chip variant="phase" size="sm">
                 ~{roadmap.estimatedWeeks} Weeks
-              </span>
+              </Chip>
             </div>
 
+            <!-- Title & Subtitle -->
             <h2 class="text-2xl font-black text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
-              {roadmap.title}
+              <a href={`${base}/roadmaps/${roadmap.slug}/`} class="hover:underline">
+                {roadmap.title}
+              </a>
             </h2>
 
             {roadmap.titleHindi && (
@@ -59,35 +69,43 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
               {roadmap.subtitle}
             </p>
 
-            <!-- Milestones preview -->
-            <div class="mt-6 pt-5 border-t border-slate-100 dark:border-white/5 space-y-2.5">
-              <h4 class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Milestone Checkpoints</h4>
-              <div class="space-y-2">
+            <!-- InsetPanel "Milestone Checkpoints" -->
+            <InsetPanel variant="top-topics" label="Milestone Checkpoints" class="mt-6">
+              <div class="space-y-2 mt-1">
                 {roadmap.nodes.slice(0, 4).map((node, i) => (
                   <div class="flex items-center gap-2.5 text-xs text-slate-700 dark:text-slate-300">
-                    <span class="w-5 h-5 rounded-lg bg-slate-100 dark:bg-slate-800 text-[10px] flex items-center justify-center font-bold text-slate-500 shrink-0 font-mono">
+                    <span class="w-5 h-5 rounded-lg bg-white dark:bg-slate-800 text-[10px] flex items-center justify-center font-bold text-slate-500 shrink-0 font-mono border border-slate-200/50 dark:border-white/5">
                       {i + 1}
                     </span>
                     <span class="truncate font-medium">{node.title}</span>
                   </div>
                 ))}
                 {roadmap.nodes.length > 4 && (
-                  <div class="text-[11px] text-slate-400 pl-7">
+                  <div class="text-[11px] text-slate-400 pl-7 font-mono">
                     + {roadmap.nodes.length - 4} more milestones in roadmap
                   </div>
                 )}
               </div>
-            </div>
+            </InsetPanel>
           </div>
 
-          <div class="mt-8 pt-4 border-t border-slate-100 dark:border-white/10 flex items-center justify-between text-xs font-bold text-brand-600 dark:text-brand-400">
-            <span>{roadmap.nodes.length} Milestones with Dual View</span>
-            <span class="inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-              <span>Launch Roadmap</span>
-              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+          <!-- Pinned Footer -->
+          <CardFooter>
+            <span slot="meta" class="text-xs text-slate-400 font-mono">
+              {roadmap.nodes.length} Milestones
             </span>
-          </div>
-        </a>
+            <div slot="action">
+              <Button
+                href={`${base}/roadmaps/${roadmap.slug}/`}
+                variant="primary"
+                size="sm"
+                icon="arrow"
+              >
+                <span>Launch Roadmap</span>
+              </Button>
+            </div>
+          </CardFooter>
+        </Card>
       ))}
     </div>
   </div>

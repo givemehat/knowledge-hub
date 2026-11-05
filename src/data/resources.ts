@@ -8,6 +8,10 @@ export interface ResourceItem {
   language: 'hi' | 'en';
   free: boolean;
   whyWatch: string;
+  whyWatchHi?: string;
+  videoId?: string;
+  duration?: string;
+  lastVerified: string;
 }
 
 export const CURATED_RESOURCES: ResourceItem[] = [
@@ -15,12 +19,16 @@ export const CURATED_RESOURCES: ResourceItem[] = [
     id: 'res-karpathy-gpt',
     category: 'ai',
     type: 'video',
-    title: 'Let\'s build GPT: from scratch, in code, spelled out',
+    title: "Let's build GPT: from scratch, in code, spelled out",
     url: 'https://www.youtube.com/watch?v=kCc8FmEb1nY',
     author: 'Andrej Karpathy',
     language: 'en',
     free: true,
-    whyWatch: 'Gold standard video for understanding transformers, self-attention, and PyTorch training from first principles.'
+    videoId: 'kCc8FmEb1nY',
+    duration: '1h 56m',
+    lastVerified: '2026-11-05',
+    whyWatch: 'Builds a working GPT in PyTorch from scratch; widely referenced for understanding transformer self-attention and backpropagation.',
+    whyWatchHi: 'PyTorch में शुरुआत से कार्यशील GPT मॉडल का निर्माण; ट्रांसफ़ॉर्मर सेल्फ़-अटेंशन को बुनियादी सिद्धांतों से समझने के लिए अत्यधिक उपयोगी।'
   },
   {
     id: 'res-striver-dsa',
@@ -31,7 +39,10 @@ export const CURATED_RESOURCES: ResourceItem[] = [
     author: 'takeUforward (Raj Vikramaditya)',
     language: 'hi',
     free: true,
-    whyWatch: 'India ka sabse comprehensive free DSA placement roadmap with Hinglish video explanations for 400+ problems.'
+    duration: '400+ Problems',
+    lastVerified: '2026-11-05',
+    whyWatch: 'Covers 400+ problems, as listed on the sheet (verified 2026-11-05), with topic-wise video explanations from arrays to dynamic programming.',
+    whyWatchHi: 'शीट पर सूचीबद्ध 400+ प्रश्नों का व्यवस्थित संकलन (जाँचा गया: 2026-11-05), जिसमें बेसिक एरे से लेकर डायनामिक प्रोग्रामिंग तक चरणबद्ध वीडियो समाधान शामिल हैं।'
   },
   {
     id: 'res-qiskit-textbook',
@@ -42,7 +53,9 @@ export const CURATED_RESOURCES: ResourceItem[] = [
     author: 'IBM Quantum',
     language: 'en',
     free: true,
-    whyWatch: 'Free cloud quantum execution, hands-on circuit composer, and university-grade quantum textbook.'
+    lastVerified: '2026-11-05',
+    whyWatch: 'Official interactive documentation for Qiskit SDK, quantum circuit simulators, and execution on real IBM quantum hardware.',
+    whyWatchHi: 'Qiskit SDK के लिए आधिकारिक इंटरएक्टिव दस्तावेज़, क्वांटम सर्किट सिमुलेटर और वास्तविक IBM क्वांटम हार्डवेयर पर निष्पादन मार्गदर्शिका।'
   },
   {
     id: 'res-overleaf-resume',
@@ -53,7 +66,9 @@ export const CURATED_RESOURCES: ResourceItem[] = [
     author: 'Jake Gutierrez',
     language: 'en',
     free: true,
-    whyWatch: 'Cleanest 1-page single column LaTeX resume template used by engineers at FAANG and top startups.'
+    lastVerified: '2026-11-05',
+    whyWatch: 'One-page, single-column LaTeX resume template engineered for ATS parser compatibility and clean typographic hierarchy.',
+    whyWatchHi: 'एक-पृष्ठीय, एकल-कॉलम LaTeX रिज़्यूमे टेम्पलेट जिसे ATS पार्सर अनुकूलता और स्पष्ट टाइपोग्राफिक पदानुक्रम के लिए डिज़ाइन किया गया है।'
   },
   {
     id: 'res-docker-handbook',
@@ -64,7 +79,11 @@ export const CURATED_RESOURCES: ResourceItem[] = [
     author: 'TechWorld with Nana',
     language: 'en',
     free: true,
-    whyWatch: 'Visual, high-clarity explanation of containers, images, volumes, and docker-compose.'
+    videoId: '3c-iBn73dDE',
+    duration: '2h 45m',
+    lastVerified: '2026-11-05',
+    whyWatch: 'Step-by-step walkthrough covering container architecture, Dockerfiles, volume persistence, and multi-container Docker Compose.',
+    whyWatchHi: 'कंटेनर आर्किटेक्चर, डॉकरफ़ाइल, वॉल्यूम परसिस्टेंस और मल्टी-कंटेनर डॉकर कंपोज़ पर व्यावहारिक चरण-दर-चरण ट्यूटोरियल।'
   },
   {
     id: 'res-constitution-portal',
@@ -75,6 +94,8 @@ export const CURATED_RESOURCES: ResourceItem[] = [
     author: 'Ministry of Law and Justice, Govt of India',
     language: 'hi',
     free: true,
-    whyWatch: 'Primary, authoritative, unadulterated source of Indian constitutional articles, amendments, and schedules.'
+    lastVerified: '2026-11-05',
+    whyWatch: 'Primary, authoritative digital source of Indian constitutional articles, amendments, schedules, and official bilingual texts.',
+    whyWatchHi: 'भारतीय संविधान के अनुच्छेदों, संशोधनों, अनुसूचियों और आधिकारिक द्विभाषी पाठों का प्राथमिक एवं प्रामाणिक सरकारी स्रोत।'
   }
 ];
