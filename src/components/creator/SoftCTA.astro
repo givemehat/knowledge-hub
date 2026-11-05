@@ -1,0 +1,86 @@
+---
+import { CREATOR } from '../../data/creator';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<div
+  id="soft-creator-cta"
+  class="fixed bottom-6 right-6 z-40 max-w-sm w-full transition-all duration-300 transform translate-y-24 opacity-0 pointer-events-none"
+  aria-live="polite"
+>
+  <div class="p-4 rounded-2xl bg-white/95 dark:bg-darkcard/95 backdrop-blur-md border border-slate-200 dark:border-white/10 shadow-elevation relative overflow-hidden">
+    <!-- Dismiss Button -->
+    <button
+      id="dismiss-soft-cta"
+      class="absolute top-2.5 right-2.5 p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+      title="Dismiss"
+      aria-label="Dismiss feedback card"
+    >
+      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+    </button>
+
+    <div class="flex items-start gap-3 pr-4">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white text-xs font-bold shrink-0 shadow-xs">
+        {CREATOR.name.split(' ').map(n => n[0]).join('')}
+      </div>
+
+      <div class="space-y-1">
+        <div class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+          <span>Kuch naya seekha?</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-peacock-500"></span>
+        </div>
+        <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-snug">
+          Yeh guide <strong>{CREATOR.name}</strong> ne build ki hai. Agar pasand aayi toh feedback dein ya connect karein!
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-3 pt-2.5 border-t border-slate-100 dark:border-white/10 flex items-center justify-between text-xs">
+      <a
+        href={`${base}/contact/`}
+        class="inline-flex items-center gap-1 font-bold text-brand-600 dark:text-brand-400 hover:underline text-[11px]"
+      >
+        <span>Send Quick Feedback</span>
+        <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+      </a>
+
+      <a
+        href="https://github.com/givemehat/knowledge-hub"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-[11px] font-medium"
+      >
+        Star on GitHub ★
+      </a>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  const cta = document.getElementById('soft-creator-cta');
+  const dismissBtn = document.getElementById('dismiss-soft-cta');
+  const storageKey = 'bodh_soft_cta_dismissed';
+
+  if (!sessionStorage.getItem(storageKey)) {
+    let shown = false;
+    window.addEventListener('scroll', () => {
+      if (shown) return;
+      const scrollPos = window.scrollY + window.innerHeight;
+      const totalHeight = document.documentElement.scrollHeight;
+      
+      // Trigger at 75% scroll depth
+      if (scrollPos > totalHeight * 0.75) {
+        shown = true;
+        cta?.classList.remove('translate-y-24', 'opacity-0', 'pointer-events-none');
+        cta?.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+      }
+    }, { passive: true });
+  }
+
+  dismissBtn?.addEventListener('click', () => {
+    sessionStorage.setItem(storageKey, 'true');
+    cta?.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+    cta?.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
+  });
+</script>

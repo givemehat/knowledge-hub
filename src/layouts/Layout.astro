@@ -3,6 +3,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import SearchModal from '../components/SearchModal.astro';
 import MobileNav from '../components/MobileNav.astro';
+import { CREATOR } from '../data/creator';
 
 interface Props {
   title: string;
@@ -13,12 +14,29 @@ interface Props {
 
 const {
   title,
-  description = "Knowledge Hub - Modern, fast, and verified knowledge portal for students, developers, and tech learners.",
+  description = "Bodh (Knowledge Hub) - Modern, fast, and verified knowledge portal for students, developers, and tech learners.",
   category = "Technology",
   ogType = "website"
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(`${import.meta.env.BASE_URL.replace(/\/$/, '')}/brand/og-image.svg`, Astro.site);
+const jsonLdWebsite = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Bodh",
+  "alternateName": ["Knowledge Hub", "ज्ञान केंद्र"],
+  "url": "https://givemehat.github.io/knowledge-hub/",
+  "author": {
+    "@type": "Person",
+    "name": CREATOR.name,
+    "url": "https://givemehat.github.io/knowledge-hub/about/",
+    "sameAs": [
+      CREATOR.links.github,
+      CREATOR.links.linkedin
+    ].filter(Boolean)
+  }
+};
 ---
 
 <!doctype html>
@@ -27,24 +45,32 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="author" href="https://givemehat.github.io/knowledge-hub/humans.txt" />
+    <link rel="me" href={CREATOR.links.github} />
     <meta name="generator" content={Astro.generator} />
 
     <!-- SEO Meta Tags -->
-    <title>{title} | Knowledge Hub (ज्ञान केंद्र)</title>
+    <title>{title} | Bodh (बोध)</title>
     <meta name="description" content={description} />
+    <meta name="author" content={CREATOR.name} />
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Open Graph -->
     <meta property="og:type" content={ogType} />
-    <meta property="og:title" content={`${title} | Knowledge Hub`} />
+    <meta property="og:title" content={`${title} | Bodh`} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:site_name" content="Knowledge Hub" />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:site_name" content="Bodh" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={`${title} | Knowledge Hub`} />
+    <meta name="twitter:title" content={`${title} | Bodh`} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
+    <!-- Structured Data JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLdWebsite)} />
 
     <!-- Typography: Plus Jakarta Sans, Inter, JetBrains Mono, Noto Sans Devanagari -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

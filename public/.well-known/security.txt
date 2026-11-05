@@ -1,0 +1,5 @@
+Contact: mailto:rajnisihsingh@gmail.com
+Expires: 2027-12-31T23:59:59.000Z
+Preferred-Languages: en, hi
+Canonical: https://givemehat.github.io/knowledge-hub/.well-known/security.txt
+Policy: https://givemehat.github.io/knowledge-hub/sources-policy/

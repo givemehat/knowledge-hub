@@ -18,7 +18,7 @@
 
 | Icon Set / Asset | Maintainer | License | Application | Link |
 |---|---|---|---|---|
-| **Lucide Icons** | Lucide Open Source Community | MIT License | 100% of System UI Icons (replaced informal emojis) | [Lucide](https://lucide.dev/) |
+| **Lucide Icons** | Lucide Open Source Community | ISC License (Permissive) | 100% of System UI Icons (replacing informal emojis) | [Lucide](https://lucide.dev/) |
 | **Simple Icons** | Simple Icons Community | CC0 1.0 Universal (Public Domain) | Brand & Tech Stack Icons (Python, Docker, GitHub, etc.) | [Simple Icons](https://simpleicons.org/) |
 | **Geometric Jaali & Rangoli SVGs** | Knowledge Hub Design System | MIT / CC BY-SA 4.0 | Subtle Indian Heritage Background Textures (SVG) | Hand-crafted in codebase |
 

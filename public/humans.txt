@@ -1,0 +1,14 @@
+/* TEAM */
+Creator & Lead Developer: Rajnish Singh
+GitHub: https://github.com/givemehat
+Email: rajnisihsingh@gmail.com
+Location: India
+
+/* SITE */
+Project: Bodh (Knowledge Hub)
+URL: https://givemehat.github.io/knowledge-hub/
+Architecture: 100% Static HTML / CSS / Client JS
+Framework: Astro + Tailwind CSS + TypeScript
+Philosophy: Ad-Free, Tracker-Free, Open-Source Public Good
+License: Content under CC BY-SA 4.0; Code under MIT License
+Standards: W3C Valid, WCAG AA Compliant, Fitts & Hick's Law UX

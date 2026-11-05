@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <!-- Deep Modern Base Canvas -->
+  <rect width="1200" height="630" fill="#121016" />
+
+  <!-- Ambient Duotone Mesh Glows -->
+  <circle cx="200" cy="150" r="300" fill="#5B3DF5" fill-opacity="0.18" filter="blur(120px)" />
+  <circle cx="1050" cy="450" r="320" fill="#0E8A8A" fill-opacity="0.15" filter="blur(140px)" />
+  <circle cx="600" cy="550" r="250" fill="#FF851A" fill-opacity="0.08" filter="blur(100px)" />
+
+  <!-- Tricolor Accent Ribbon at Top -->
+  <rect x="0" y="0" width="400" height="6" fill="#FF851A" />
+  <rect x="400" y="0" width="400" height="6" fill="#0E8A8A" />
+  <rect x="800" y="0" width="400" height="6" fill="#5B3DF5" />
+
+  <!-- Header Brand Pill -->
+  <g transform="translate(100, 90)">
+    <rect width="200" height="42" rx="21" fill="white" fill-opacity="0.08" stroke="white" stroke-opacity="0.15" stroke-width="1.5" />
+    <circle cx="24" cy="21" r="5" fill="#0E8A8A" />
+    <text x="38" y="26" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="800" fill="#E2E8F0" letter-spacing="0.5">
+      BODH • बोध v2.0
+    </text>
+  </g>
+
+  <!-- Main Headline Title -->
+  <g transform="translate(100, 240)">
+    <text x="0" y="0" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="64" font-weight="900" fill="#FFFFFF" letter-spacing="-1.5">
+      Accurate Tech Answers in
+    </text>
+    <text x="0" y="76" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="64" font-weight="900" fill="url(#title-grad)" letter-spacing="-1.5">
+      30 Seconds.
+    </text>
+  </g>
+
+  <!-- Subtitle -->
+  <g transform="translate(100, 390)">
+    <text x="0" y="0" font-family="'Inter', system-ui, sans-serif" font-size="22" font-weight="500" fill="#94A3B8" letter-spacing="-0.2">
+      100% Static & Free Knowledge Engine for Builders, Engineers & Curious Minds.
+    </text>
+    <text x="0" y="34" font-family="'Noto Sans Devanagari', 'Inter', system-ui, sans-serif" font-size="20" font-weight="400" fill="#64748B">
+      Verified Roadmaps • AI & Quantum Deep-Dives • 0 Ads • 0 Tracking
+    </text>
+  </g>
+
+  <!-- Bottom Strip: Creator Badge & Metrics -->
+  <g transform="translate(100, 520)">
+    <!-- Creator Pill -->
+    <rect width="280" height="44" rx="14" fill="white" fill-opacity="0.06" stroke="white" stroke-opacity="0.1" />
+    <circle cx="24" cy="22" r="11" fill="#5B3DF5" />
+    <text x="24" y="26" font-family="'Inter', sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">R</text>
+    <text x="46" y="27" font-family="'Inter', sans-serif" font-size="13" font-weight="600" fill="#F1F5F9">
+      Built by Rajnish Singh
+    </text>
+
+    <!-- Open Source Tag -->
+    <text x="800" y="28" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="600" fill="#64748B">
+      github.com/givemehat/knowledge-hub
+    </text>
+  </g>
+
+  <defs>
+    <linearGradient id="title-grad" x1="0" y1="0" x2="400" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#5B3DF5" />
+      <stop offset="50%" stop-color="#0E8A8A" />
+      <stop offset="100%" stop-color="#FF851A" />
+    </linearGradient>
+  </defs>
+</svg>

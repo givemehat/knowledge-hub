@@ -6,6 +6,9 @@ import CodeBlock from '../../components/ui/CodeBlock.astro';
 import MythReality from '../../components/ui/MythReality.astro';
 import ResourceCard from '../../components/ui/ResourceCard.astro';
 import Accordion from '../../components/ui/Accordion.astro';
+import AuthorCard from '../../components/creator/AuthorCard.astro';
+import SoftCTA from '../../components/creator/SoftCTA.astro';
+import { CREATOR } from '../../data/creator';
 
 export function getStaticPaths() {
   return TOPICS.map(topic => ({
@@ -133,6 +136,16 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
           <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed pt-1">
             {topic.summary}
           </p>
+
+          <!-- Author Byline -->
+          <div class="flex items-center gap-2 pt-2 text-xs text-slate-500">
+            <div class="w-5 h-5 rounded-full bg-brand-600 text-white font-bold text-[9px] flex items-center justify-center">
+              {CREATOR.name.split(' ').map(n => n[0]).join('')}
+            </div>
+            <span>Curated by <a href={`${base}/about/`} class="font-bold text-slate-800 dark:text-slate-200 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">{CREATOR.name}</a></span>
+            <span>•</span>
+            <span>Last Fact-Checked: {topic.lastVerified}</span>
+          </div>
         </div>
 
         <!-- 2. Meta Strip (Redesigned with MetaChips) -->
@@ -369,9 +382,15 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
             ))}
           </ol>
         </section>
+
+        <!-- 12. Author & Curator Signature Card -->
+        <AuthorCard topicTitle={topic.title} topicSlug={topic.slug} lastVerified={topic.lastVerified} />
       </article>
     </div>
   </div>
+
+  <!-- Soft Non-Intrusive Feedback CTA (Triggers after 75% scroll) -->
+  <SoftCTA />
 
   <!-- Reading Progress Script -->
   <script is:inline>

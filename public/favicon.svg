@@ -1,4 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <rect width="100" height="100" rx="24" fill="#10b981"/>
-  <path d="M50 28v44M50 28C45 24 35 22 25 22s-15 2-15 6v44c0-4 10-6 25-6s15 2 15 6m0-44c5-4 15-6 25-6s15 2 15 6v44c0-4-10-6-25-6s-15 2-15 6" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Rounded Base Canvas with Duotone Gradient -->
+  <rect width="64" height="64" rx="18" fill="url(#bg-grad)" />
+  
+  <!-- Subtle Internal Border -->
+  <rect x="1" y="1" width="62" height="62" rx="17" stroke="white" stroke-opacity="0.2" stroke-width="2" />
+
+  <!-- Geometric "B" Emblem -->
+  <path d="M22 17H33C38.5 17 42 20.2 42 24.5C42 28 39.2 30.5 35 31C40 31.5 43.5 34.5 43.5 39.5C43.5 44.5 39.5 48 33.5 48H22V17Z" fill="white" fill-opacity="0.95" />
+  <path d="M27 22.5V28.5H32.5C35 28.5 36.5 27.2 36.5 25.5C36.5 23.8 35 22.5 32.5 22.5H27Z" fill="#5B3DF5" />
+  <path d="M27 34V42.5H33C35.5 42.5 37.5 41 37.5 38.2C37.5 35.5 35.5 34 33 34H27Z" fill="#5B3DF5" />
+
+  <!-- Saffron Accent Dot (Knowledge Beacon) -->
+  <circle cx="45" cy="18" r="4" fill="#FF851A" stroke="white" stroke-width="1.5" />
+
+  <defs>
+    <linearGradient id="bg-grad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#5B3DF5" />
+      <stop offset="100%" stop-color="#0E8A8A" />
+    </linearGradient>
+  </defs>
 </svg>
