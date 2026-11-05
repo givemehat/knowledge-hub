@@ -1,0 +1,85 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const verifySteps = [
+  {
+    step: '01',
+    title: 'Primary Source Dhundo',
+    desc: 'Secondary blogs ya AI summaries ki jagah official documentation, peer-reviewed research papers aur direct code repositories se facts extract karte hain.',
+    iconSvg: `<svg class="w-6 h-6 text-brand-600 dark:text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`
+  },
+  {
+    step: '02',
+    title: 'Cross-Checking Protocol',
+    desc: 'Har technical ya constitutional claim ko kam se kam 3 swatantra sources (official gazette, standards doc, benchmark suites) se verify kiya jaata hai.',
+    iconSvg: `<svg class="w-6 h-6 text-peacock-600 dark:text-peacock-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`
+  },
+  {
+    step: '03',
+    title: 'Date + Confidence Stamp',
+    desc: 'Har guide par verification date aur confidence level (HIGH / MEDIUM / EVOLVING) saaf dikhaya jaata hai taaki out-of-date info na mile.',
+    iconSvg: `<svg class="w-6 h-6 text-emerald-600 dark:text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`
+  }
+];
+---
+
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 border-t border-slate-200/80 dark:border-white/10">
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+    <div>
+      <div class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-1">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+        <span>Integrity & Fact-Checking</span>
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+        Hum information verify kaise karte hain?
+      </h2>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
+        3-step rigorous protocol jo Wikipedia aur research journals ke standards ko follow karta hai.
+      </p>
+    </div>
+
+    <a
+      href={`${base}/sources-policy/`}
+      class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors group"
+    >
+      <span>Fact-Checking Policy padhein</span>
+      <svg class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+      </svg>
+    </a>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {verifySteps.map(step => (
+      <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/90 dark:border-white/10 shadow-sm relative overflow-hidden flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800/80 flex items-center justify-center shadow-xs" set:html={step.iconSvg}>
+            </div>
+            <span class="text-xs font-mono font-bold text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md">
+              Step {step.step}
+            </span>
+          </div>
+
+          <h3 class="font-bold text-base text-slate-900 dark:text-white mb-2">
+            {step.title}
+          </h3>
+
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            {step.desc}
+          </p>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center gap-1.5 text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+          <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span>Primary-sourced guarantee</span>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

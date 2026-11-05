@@ -1,0 +1,136 @@
+---
+import { TOPICS } from '../../data/topics';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Select 6 high-impact topics across multiple categories for the trending scroller
+const trendingTopics = TOPICS.slice(0, 6);
+---
+
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-slate-200/80 dark:border-white/10 overflow-hidden">
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-4">
+    <div>
+      <div class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-peacock-600 dark:text-peacock-400 mb-1">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+          <polyline points="17 6 23 6 23 12"/>
+        </svg>
+        <span>High-Velocity Guides</span>
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+        Trending & Naye Topics
+      </h2>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
+        3-minute summaries with verified sources and actionable hands-on takeaways.
+      </p>
+    </div>
+
+    <!-- Navigation arrow controls -->
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        id="scroller-left-btn"
+        class="p-2 rounded-xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shadow-2xs active:scale-95"
+        aria-label="Scroll left"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6"/>
+        </svg>
+      </button>
+      <button
+        type="button"
+        id="scroller-right-btn"
+        class="p-2 rounded-xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shadow-2xs active:scale-95"
+        aria-label="Scroll right"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m9 18 6-6-6-6"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Horizontal Snap Scroller Container -->
+  <div
+    id="topic-snap-container"
+    class="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 pt-1 no-scrollbar scroll-smooth"
+    style="scrollbar-width: none; -ms-overflow-style: none;"
+  >
+    {trendingTopics.map(topic => (
+      <div
+        class="snap-start shrink-0 w-[300px] sm:w-[340px] p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/90 dark:border-white/10 hover:border-brand-500/50 dark:hover:border-brand-400/50 shadow-sm hover:shadow-card hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between"
+      >
+        <div>
+          <!-- Header: Category + Reading Time + Verified Dot -->
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-brand-50 dark:bg-brand-950/70 text-brand-700 dark:text-brand-300 border border-brand-500/20">
+              {topic.categoryLabel}
+            </span>
+            <div class="flex items-center gap-1.5 text-[11px] text-slate-500 dark:text-slate-400">
+              <svg class="w-3 h-3 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+              <span>{topic.readingMinutes}m read</span>
+            </div>
+          </div>
+
+          <!-- Title -->
+          <h3 class="font-bold text-base text-slate-900 dark:text-white line-clamp-2 leading-snug mb-2 group-hover:text-brand-600 transition-colors">
+            <a href={`${base}/topics/${topic.slug}/`} class="hover:underline">
+              {topic.title}
+            </a>
+          </h3>
+
+          <!-- Summary -->
+          <p class="text-xs text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed mb-3">
+            {topic.summary}
+          </p>
+
+          <!-- TL;DR Mini Callout -->
+          <div class="p-3 rounded-xl bg-peacock-500/5 dark:bg-peacock-950/20 border border-peacock-500/15 mb-3">
+            <span class="text-[10px] font-bold text-peacock-700 dark:text-peacock-300 uppercase tracking-wider block mb-1">
+              TL;DR
+            </span>
+            <p class="text-xs text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed">
+              {topic.tldr[0]}
+            </p>
+          </div>
+        </div>
+
+        <!-- Footer: Tags & Direct CTA -->
+        <div class="pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs">
+          <span class="text-[10px] text-slate-400">
+            Fact-checked: {topic.lastVerified}
+          </span>
+          <a
+            href={`${base}/topics/${topic.slug}/`}
+            class="font-bold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 flex items-center gap-1 group/btn"
+          >
+            <span>Padho</span>
+            <svg class="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script is:inline>
+  (function initTopicScroller() {
+    const container = document.getElementById('topic-snap-container');
+    const leftBtn = document.getElementById('scroller-left-btn');
+    const rightBtn = document.getElementById('scroller-right-btn');
+
+    if (!container || !leftBtn || !rightBtn) return;
+
+    leftBtn.addEventListener('click', () => {
+      container.scrollBy({ left: -340, behavior: 'smooth' });
+    });
+
+    rightBtn.addEventListener('click', () => {
+      container.scrollBy({ left: 340, behavior: 'smooth' });
+    });
+  })();
+</script>

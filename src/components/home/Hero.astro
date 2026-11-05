@@ -1,0 +1,215 @@
+---
+import CreatorChip from '../creator/CreatorChip.astro';
+import IndianPattern from '../ui/IndianPattern.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const quickTopics = [
+  { label: 'RAG Architecture', href: `${base}/topics/ai-agents-and-rag/`, accent: 'hover:border-brand-500' },
+  { label: 'DSA 6-Month Plan', href: `${base}/roadmaps/dsa-placement/`, accent: 'hover:border-peacock-500' },
+  { label: 'Quantum Qubits', href: `${base}/topics/qubits-superposition-entanglement/`, accent: 'hover:border-cyan-500' },
+  { label: 'Samvidhan Basics', href: `${base}/topics/indian-constitution-structure/`, accent: 'hover:border-saffron-500' },
+];
+---
+
+<section class="relative pt-6 pb-8 sm:pt-10 sm:pb-12 lg:pt-12 lg:pb-12 overflow-hidden border-b border-slate-200/80 dark:border-white/10">
+  <!-- Soft Ambient Background Mesh & Indian Geometric Jaali Texture -->
+  <div class="absolute inset-0 bg-gradient-to-b from-brand-50/40 via-surface/30 to-surface dark:from-brand-950/20 dark:via-darkbg/40 dark:to-darkbg pointer-events-none"></div>
+  <IndianPattern variant="jaali" opacity={0.03} />
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+      
+      <!-- Left Column (55%): Headings, Search, Quick Chips, Creator -->
+      <div class="lg:col-span-7 flex flex-col items-start text-left">
+        
+        <!-- Trust Eyebrow Pill -->
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-darkcard border border-brand-500/25 text-brand-700 dark:text-brand-300 text-xs font-semibold shadow-xs mb-4">
+          <svg class="w-3.5 h-3.5 text-peacock-500 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          <span>Verified · Sourced · 100% Free</span>
+          <span class="text-slate-300 dark:text-slate-600">•</span>
+          <span class="text-slate-500 dark:text-slate-400 font-medium">No Login Needed</span>
+        </div>
+
+        <!-- H1 Headline (100% Server Rendered, Never Broken, Zero JS Dependency) -->
+        <h1 class="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-black text-slate-900 dark:text-white tracking-[-0.02em] leading-[1.1] mb-4 [text-wrap:balance]">
+          Seekho wahi jo <span class="bg-gradient-to-r from-brand-600 via-peacock-500 to-indigo-600 dark:from-brand-400 dark:via-peacock-400 dark:to-indigo-300 bg-clip-text text-transparent">sach mein kaam aaye</span>.
+        </h1>
+
+        <!-- Human Subtext -->
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-6 max-w-xl">
+          College students aur curious readers ke liye sourced roadmaps, deep-dive topics aur chune hue resources. Na koi login, na koi ads.
+        </p>
+
+        <!-- Primary Bada Search Bar (58px height, Glass, OS-aware) -->
+        <div class="w-full max-w-xl mb-4">
+          <button
+            type="button"
+            onclick="document.getElementById('open-search-btn')?.click()"
+            class="w-full flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 rounded-2xl bg-white/95 dark:bg-darkcard/95 backdrop-blur-md border border-slate-200/90 dark:border-white/15 shadow-sm hover:shadow-md hover:border-brand-500/60 dark:hover:border-brand-400/60 transition-all text-slate-400 cursor-pointer text-left group active:scale-[0.99]"
+            aria-label="Open search dialog"
+          >
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-xl bg-brand-50 dark:bg-brand-950/60 flex items-center justify-center text-brand-600 dark:text-brand-400 group-hover:scale-110 transition-transform">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"/>
+                  <path d="m21 21-4.35-4.35"/>
+                </svg>
+              </div>
+              <span class="text-slate-500 dark:text-slate-400 font-medium text-xs sm:text-sm line-clamp-1">
+                Search topics, career roadmaps, or verified cheatsheets...
+              </span>
+            </div>
+            <kbd class="os-shortcut-hint hidden sm:inline-flex items-center gap-1 font-mono text-[11px] font-bold px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 shadow-xs">
+              ⌘K
+            </kbd>
+          </button>
+        </div>
+
+        <!-- Quick Topics Row -->
+        <div class="flex flex-wrap items-center gap-2 mb-5 text-xs text-slate-500 dark:text-slate-400">
+          <span class="font-semibold text-slate-600 dark:text-slate-300">Quick Topics:</span>
+          {quickTopics.map(topic => (
+            <a
+              href={topic.href}
+              class={`px-2.5 py-1 rounded-lg bg-white/90 dark:bg-darkcard/90 border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 font-medium ${topic.accent} transition-colors shadow-2xs hover:shadow-xs`}
+            >
+              {topic.label}
+            </a>
+          ))}
+        </div>
+
+        <!-- Creator Profile Chip -->
+        <div class="pt-1">
+          <CreatorChip variant="minimal" />
+        </div>
+      </div>
+
+      <!-- Right Column (45%): Interactive Live Product Collage -->
+      <div class="lg:col-span-5 relative mt-4 lg:mt-0">
+        <!-- Ambient Decorative Glow -->
+        <div class="absolute -inset-4 bg-gradient-to-tr from-brand-500/15 via-peacock-500/10 to-saffron-500/15 rounded-3xl blur-2xl pointer-events-none"></div>
+
+        <div class="relative space-y-3.5 max-w-md mx-auto lg:max-w-none">
+          
+          <!-- Card 1: Mini Roadmap Progress Card -->
+          <div class="p-4 sm:p-5 rounded-2xl bg-white/95 dark:bg-darkcard/95 backdrop-blur-md border border-slate-200/90 dark:border-white/10 shadow-sm hover:shadow-md transition-all hero-float-1">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-lg bg-peacock-50 dark:bg-peacock-950/60 flex items-center justify-center text-peacock-600 dark:text-peacock-400">
+                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-xs font-bold text-slate-900 dark:text-white leading-tight">DSA to Tech Placement</h4>
+                  <span class="text-[10px] text-slate-500 dark:text-slate-400">Phase 2 of 4 In Progress</span>
+                </div>
+              </div>
+              
+              <!-- Mini Progress Ring (68%) -->
+              <div class="relative w-8 h-8 flex items-center justify-center">
+                <svg class="w-8 h-8 transform -rotate-90" viewBox="0 0 36 36">
+                  <path class="text-slate-100 dark:text-slate-800" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                  <path class="text-peacock-500" stroke-dasharray="68, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                </svg>
+                <span class="absolute text-[9px] font-bold text-slate-700 dark:text-slate-200">68%</span>
+              </div>
+            </div>
+
+            <!-- Mini 3-Node Timeline -->
+            <div class="grid grid-cols-3 gap-2 text-[10px]">
+              <div class="p-2 rounded-lg bg-peacock-50/70 dark:bg-peacock-950/40 border border-peacock-500/20 text-slate-700 dark:text-slate-300">
+                <span class="text-[9px] font-bold text-peacock-600 dark:text-peacock-400 block mb-0.5">✓ Done</span>
+                <span class="font-medium truncate block">Arrays & Strings</span>
+              </div>
+              <div class="p-2 rounded-lg bg-brand-50/70 dark:bg-brand-950/40 border border-brand-500/30 text-slate-900 dark:text-white">
+                <span class="text-[9px] font-bold text-brand-600 dark:text-brand-400 block mb-0.5">● Active</span>
+                <span class="font-medium truncate block">Trees & Graphs</span>
+              </div>
+              <div class="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-white/5 text-slate-500 dark:text-slate-400">
+                <span class="text-[9px] font-medium block mb-0.5">Next</span>
+                <span class="font-medium truncate block">System Design</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Mini Topic Preview with Verified High Badge -->
+          <div class="p-4 sm:p-5 rounded-2xl bg-white/95 dark:bg-darkcard/95 backdrop-blur-md border border-slate-200/90 dark:border-white/10 shadow-sm hover:shadow-md transition-all hero-float-2">
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-brand-50 dark:bg-brand-950/70 text-brand-600 dark:text-brand-300 border border-brand-500/20">
+                AI & Systems
+              </span>
+              <span class="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 px-2 py-0.5 rounded-md border border-emerald-500/20">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                Verified · HIGH
+              </span>
+            </div>
+            
+            <h4 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white mb-1.5">
+              AI Agents & RAG Architecture
+            </h4>
+            
+            <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-2">
+              TL;DR: LLMs private documents par bina model re-train kiye exact answers nikaalte hain via vector similarity.
+            </p>
+          </div>
+
+          <!-- Card 3: Mini Code / Pipeline Snippet -->
+          <div class="p-3.5 sm:p-4 rounded-2xl bg-slate-900 text-slate-200 border border-slate-800 shadow-sm font-mono text-[11px] hero-float-3">
+            <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-800 text-[10px] text-slate-400">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+                <span class="ml-2 font-mono text-slate-300">rag_pipeline.py</span>
+              </div>
+              <span class="text-[9px] text-slate-500">Python 3.11</span>
+            </div>
+            <div class="space-y-1 text-slate-300">
+              <div><span class="text-purple-400">chunks</span> = retriever.get_relevant_documents(query)</div>
+              <div><span class="text-purple-400">answer</span> = llm.invoke(prompt=query, context=chunks)</div>
+              <div class="text-emerald-400 text-[10px] pt-0.5"># Verified against LangChain v0.3 & LlamaIndex</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes floatSlow {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-4px); }
+  }
+
+  @keyframes floatDelayed {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(4px); }
+  }
+
+  .hero-float-1 {
+    animation: floatSlow 6s ease-in-out infinite;
+  }
+
+  .hero-float-2 {
+    animation: floatDelayed 7s ease-in-out infinite;
+  }
+
+  .hero-float-3 {
+    animation: floatSlow 8s ease-in-out 1s infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-float-1,
+    .hero-float-2,
+    .hero-float-3 {
+      animation: none !important;
+    }
+  }
+</style>

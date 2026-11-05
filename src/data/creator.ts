@@ -100,7 +100,7 @@ export const CREATOR: CreatorConfig = {
     {
       category: 'Engineering Principles',
       skills: [
-        { name: 'Hick\'s & Fitts\'s Cognitive UX' },
+        { name: 'Cognitive UX & Information Architecture' },
         { name: 'Zero-Distraction / Ad-Free Design' },
         { name: 'Data Transparency & Methodology' },
         { name: 'First-Principles Technical Writing' }
