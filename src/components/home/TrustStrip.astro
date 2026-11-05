@@ -11,74 +11,114 @@ const { topicCount, roadmapCount, resourceCount, sourceCount } = Astro.props;
 const trustPoints = [
   {
     title: 'Har claim ka verified source',
-    desc: 'Primary docs, papers, and GitHub code',
+    desc: 'Official documentation, research papers aur direct code repositories',
     iconSvg: `<svg class="w-4 h-4 text-brand-600 dark:text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`
   },
   {
-    title: 'Last verified date on every guide',
-    desc: 'Freshly audited, no stale information',
-    iconSvg: `<svg class="w-4 h-4 text-peacock-600 dark:text-peacock-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`
+    title: 'Audited last fact-checked date',
+    desc: 'Har guide par verification timestamp taaki stale ya out-of-date content na mile',
+    iconSvg: `<svg class="w-4 h-4 text-brand-600 dark:text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`
   },
   {
-    title: '100% Free, No Ads, No Login',
-    desc: 'Open web architecture for fast learning',
-    iconSvg: `<svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`
+    title: '100% Free & Ad-Free Forever',
+    desc: 'Zero creepy trackers, zero paywalls, koi account ya sign-in zaroori nahi',
+    iconSvg: `<svg class="w-4 h-4 text-brand-600 dark:text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`
   },
   {
-    title: 'Open to community corrections',
-    desc: 'Suggest fixes directly via GitHub',
-    iconSvg: `<svg class="w-4 h-4 text-saffron-600 dark:text-saffron-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" y1="9" x2="6" y2="21"/></svg>`
+    title: 'Community-driven corrections',
+    desc: 'Kisi bhi technical fact ya code par mistake mile to direct GitHub PR bhej sakte ho',
+    iconSvg: `<svg class="w-4 h-4 text-brand-600 dark:text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" y1="9" x2="6" y2="21"/></svg>`
   }
 ];
 ---
 
-<section class="py-5 sm:py-6 bg-slate-50/70 dark:bg-darkcard/40 border-b border-slate-200/80 dark:border-white/10">
+<section class="py-6 sm:py-7 bg-slate-50/80 dark:bg-darkcard/50 border-b border-slate-200/80 dark:border-white/10">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
-    <!-- Real Numbers Strip (Zero Fake Numbers) -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 pb-4 mb-4 sm:pb-5 sm:mb-5 border-b border-slate-200/70 dark:border-white/10">
-      <div class="text-center sm:text-left">
-        <div class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-          {topicCount}
+    <!-- Real Numbers Strip (Exact Build-Time Numbers, Zero Guesswork) -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 pb-5 mb-5 border-b border-slate-200/80 dark:border-white/10">
+      
+      <!-- Stat 1: Topics -->
+      <div class="flex items-center gap-3 p-2.5 rounded-xl bg-white dark:bg-darkcard border border-slate-200/70 dark:border-white/5 shadow-2xs">
+        <div class="w-10 h-10 rounded-xl bg-brand-50 dark:bg-brand-950/70 flex items-center justify-center text-brand-600 dark:text-brand-400 shrink-0">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+            <path d="M6 6h10"/><path d="M6 10h10"/>
+          </svg>
         </div>
-        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
-          Curated Topic Guides
-        </div>
-      </div>
-
-      <div class="text-center sm:text-left">
-        <div class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-          {roadmapCount}
-        </div>
-        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
-          Interactive Career Roadmaps
-        </div>
-      </div>
-
-      <div class="text-center sm:text-left">
-        <div class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-          {resourceCount}+
-        </div>
-        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
-          Curated Free Resources
+        <div>
+          <div class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-none">
+            {topicCount}
+          </div>
+          <div class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-1">
+            Curated Topic Guides
+          </div>
         </div>
       </div>
 
-      <div class="text-center sm:text-left">
-        <div class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-          {sourceCount}+
+      <!-- Stat 2: Roadmaps -->
+      <div class="flex items-center gap-3 p-2.5 rounded-xl bg-white dark:bg-darkcard border border-slate-200/70 dark:border-white/5 shadow-2xs">
+        <div class="w-10 h-10 rounded-xl bg-peacock-50 dark:bg-peacock-950/70 flex items-center justify-center text-peacock-600 dark:text-peacock-400 shrink-0">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/>
+          </svg>
         </div>
-        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
-          Verified Primary Citations
+        <div>
+          <div class="flex items-baseline gap-1.5 leading-none">
+            <span class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+              {roadmapCount}
+            </span>
+            <span class="text-[9px] font-bold text-peacock-600 dark:text-peacock-400 bg-peacock-50 dark:bg-peacock-950/60 px-1 py-0.2 rounded">
+              aur aa rahe hain
+            </span>
+          </div>
+          <div class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-1">
+            Interactive Roadmaps
+          </div>
         </div>
       </div>
+
+      <!-- Stat 3: Free Resources -->
+      <div class="flex items-center gap-3 p-2.5 rounded-xl bg-white dark:bg-darkcard border border-slate-200/70 dark:border-white/5 shadow-2xs">
+        <div class="w-10 h-10 rounded-xl bg-saffron-50 dark:bg-saffron-950/70 flex items-center justify-center text-saffron-600 dark:text-saffron-400 shrink-0">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-none">
+            {resourceCount}
+          </div>
+          <div class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-1">
+            Curated Free Resources
+          </div>
+        </div>
+      </div>
+
+      <!-- Stat 4: Citations -->
+      <div class="flex items-center gap-3 p-2.5 rounded-xl bg-white dark:bg-darkcard border border-slate-200/70 dark:border-white/5 shadow-2xs">
+        <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/70 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>
+          </svg>
+        </div>
+        <div>
+          <div class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-none">
+            {sourceCount}
+          </div>
+          <div class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-1">
+            Verified Citations
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <!-- 4 Honest Trust Badges -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <!-- 4 Consistent Trust Badges -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
       {trustPoints.map(point => (
-        <div class="flex items-start gap-3 p-3 rounded-xl bg-white/70 dark:bg-white/5 border border-slate-200/60 dark:border-white/5 shadow-2xs">
-          <div class="p-2 rounded-lg bg-slate-100/90 dark:bg-white/10 shrink-0" set:html={point.iconSvg} />
+        <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white/70 dark:bg-white/5 border border-slate-200/70 dark:border-white/5 shadow-2xs">
+          <div class="p-1.5 rounded-lg bg-brand-50/80 dark:bg-brand-950/60 shrink-0" set:html={point.iconSvg} />
           <div>
             <h4 class="text-xs font-bold text-slate-900 dark:text-white leading-snug">
               {point.title}

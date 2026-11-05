@@ -1,37 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100" fill="none">
-  <!-- Monogram Icon (48x48 centered at x=10, y=10) -->
-  <g transform="translate(16, 14)">
-    <!-- Gradient Background Squircle -->
-    <rect width="72" height="72" rx="20" fill="url(#brand-grad)" />
-    
-    <!-- Geometric "B" + Roadmap Pathway Emblem -->
-    <path d="M26 22H38C43.5 22 47 25.5 47 30C47 34 43.8 37 39 37.5C44.5 38 48 41.5 48 46.5C48 51.5 43.5 55 37.5 55H26V22Z" fill="white" fill-opacity="0.95" />
-    <path d="M32 28V35H37C39.5 35 41 33.5 41 31.5C41 29.5 39.5 28 37 28H32Z" fill="#5B3DF5" />
-    <path d="M32 41V49H37.5C40.5 49 42 47.5 42 45C42 42.5 40.5 41 37.5 41H32Z" fill="#5B3DF5" />
-    
-    <!-- Micro Saffron Accent Dot (Enlightenment / Tilak) -->
-    <circle cx="50" cy="22" r="4.5" fill="#FF851A" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 40" fill="none">
+  <!-- Monogram Mark -->
+  <g transform="translate(2, 2)">
+    <rect width="36" height="36" rx="10" fill="url(#bodh-logo-mark-grad)"/>
+    <path d="M10 24.5C13 23 16 23.5 18 25C20 23.5 23 23 26 24.5V13C23 11.5 20 12 18 13.5C16 12 13 11.5 10 13V24.5Z" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M18 13.5V25" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="18" cy="8.5" r="2.5" fill="#FF851A" stroke="white" stroke-width="1.2"/>
   </g>
-
-  <!-- Wordmark: Latin "Bodh" -->
-  <text x="108" y="58" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="40" font-weight="900" fill="#0F172A" letter-spacing="-1">
-    Bodh
-  </text>
-
-  <!-- Wordmark: Devanagari Sub-mark "बोध" -->
-  <text x="218" y="56" font-family="'Noto Sans Devanagari', system-ui, sans-serif" font-size="26" font-weight="700" fill="#5B3DF5" letter-spacing="0.5">
-    बोध
-  </text>
-
-  <!-- Descriptor Subtitle -->
-  <text x="110" y="76" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#64748B" letter-spacing="0.8">
-    MODERN STATIC KNOWLEDGE ENGINE
-  </text>
-
+  <!-- Wordmark -->
+  <text x="48" y="27" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="900" font-size="22" fill="#14121A" letter-spacing="-0.03em">Bodh</text>
+  <!-- Devanagari Accent -->
+  <text x="110" y="27" font-family="'Noto Sans Devanagari', sans-serif" font-weight="700" font-size="14" fill="#5B3DF5">बोध</text>
   <defs>
-    <linearGradient id="brand-grad" x1="0" y1="0" x2="72" y2="72" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#5B3DF5" />
-      <stop offset="100%" stop-color="#0E8A8A" />
+    <linearGradient id="bodh-logo-mark-grad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4829E0"/>
+      <stop offset="0.65" stop-color="#5B3DF5"/>
+      <stop offset="1" stop-color="#FF851A"/>
     </linearGradient>
   </defs>
 </svg>

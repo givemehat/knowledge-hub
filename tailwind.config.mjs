@@ -7,46 +7,68 @@ export default {
       colors: {
         // Semantic surface tokens
         surface: {
-          light: '#FAF8F5',       // Warm off-white (Apple-inspired warm neutral)
-          dark: '#121016',        // Soft deep charcoal
+          light: '#FAF8F5',       // Warm off-white
+          dark: '#121016',        // Deep obsidian charcoal
           cardLight: '#FFFFFF',
           cardDark: '#1A1722',
           raisedLight: '#F3EFEA',
           raisedDark: '#231F2E',
         },
-        // Primary electric violet (Gen-Z Tech)
-        violet: {
+        // Brand Primary Electric Violet / Indigo
+        brand: {
           50: '#F5F3FF',
           100: '#EDE9FE',
-          500: '#5B3DF5',
+          200: '#DDD6FE',
+          300: '#C4B5FD',
+          400: '#A78BFA',
+          500: '#5B3DF5',        // Bodh Electric Indigo
           600: '#4829E0',
           700: '#3A1EC4',
+          800: '#2E15A3',
           900: '#200D7A',
+          950: '#13064F',
         },
-        // Indian Heritage Cultural Accents (used tastefully and sparingly)
+        // Indian Heritage Cultural Accents
         saffron: {
           50: '#FFF7ED',
           100: '#FFEDD5',
+          200: '#FED7AA',
+          300: '#FDBA74',
+          400: '#FB923C',
           500: '#FF851A',        // Kesariya / Saffron
           600: '#EA580C',
+          700: '#C2410C',
+          900: '#7C2D12',
+          950: '#431407',
         },
-        teal: {
+        peacock: {
           50: '#F0FDFA',
           100: '#CCFBF1',
+          200: '#99F6E4',
+          300: '#5EEAD4',
+          400: '#2DD4BF',
           500: '#0E8A8A',        // Peacock Teal
           600: '#0D7474',
+          700: '#0A5C5C',
+          800: '#084848',
+          900: '#042F2E',
+          950: '#021C1C',
         },
         kumkum: {
           50: '#FFF1F2',
-          500: '#D62F4B',        // Kumkum Red
+          100: '#FFE4E6',
+          500: '#D62F4B',        // Kumkum Crimson
           600: '#BE123C',
+          700: '#9F1239',
         },
         haldi: {
           50: '#FEFCE8',
+          100: '#FEF9C3',
           500: '#F5B700',        // Haldi Gold / Amber
           600: '#D97706',
+          700: '#B45309',
         },
-        // Legacy compatibility
+        // Base compatibility aliases
         darkbg: '#121016',
         darkcard: '#1A1722',
         darkborder: '#2A2536'
