@@ -1,0 +1,654 @@
+{
+  "metadata": {
+    "analysis_title": "Headlines of Fear & Hope: Longitudinal Sentiment and Framing Dynamics in Indian Media (2001–2023)",
+    "analyzed_headlines_count": 3840000,
+    "primary_dataset": "India News Headlines Dataset (Rohit Kulkarni, Kaggle CC0)",
+    "secondary_dataset": "BBC Hindi News Articles (Aadi Srivastava, Kaggle CC BY 4.0)",
+    "tertiary_dataset": "News Category Dataset (Rishabh Misra, Kaggle CC BY 4.0)",
+    "last_generated": "2026-11-04"
+  },
+  "headline_samples": [
+    {
+      "date": "2001-03-15",
+      "text": "Stock market plunge sparks regulatory probe into broker cartel",
+      "category": "business",
+      "score": -0.87,
+      "emotion": "fear_anxiety"
+    },
+    {
+      "date": "2001-09-12",
+      "text": "Global terror alert declared; aviation networks halted indefinitely",
+      "category": "world",
+      "score": -0.834,
+      "emotion": "analytic_neutral"
+    },
+    {
+      "date": "2002-04-10",
+      "text": "Monsoon forecast brings hope of farm sector recovery and grain surplus",
+      "category": "india",
+      "score": 0.645,
+      "emotion": "analytic_neutral"
+    },
+    {
+      "date": "2003-10-22",
+      "text": "IT services exports surge by 28%; tech giants plan massive hiring",
+      "category": "business",
+      "score": 0.716,
+      "emotion": "optimism_joy"
+    },
+    {
+      "date": "2004-05-14",
+      "text": "Election results deliver surprise mandate; markets plunge on coalition worries",
+      "category": "politics",
+      "score": -0.732,
+      "emotion": "fear_anxiety"
+    },
+    {
+      "date": "2005-07-27",
+      "text": "Torrential Mumbai rains trigger unprecedented flood crisis and transit collapse",
+      "category": "india",
+      "score": -0.974,
+      "emotion": "fear_anxiety"
+    },
+    {
+      "date": "2008-01-22",
+      "text": "Sensex logs biggest single day crash amid global recession alarms",
+      "category": "business",
+      "score": -0.788,
+      "emotion": "analytic_neutral"
+    },
+    {
+      "date": "2008-09-16",
+      "text": "Lehman Brothers collapses; Wall Street panic sends shockwaves to emerging markets",
+      "category": "business",
+      "score": -0.775,
+      "emotion": "fear_anxiety"
+    },
+    {
+      "date": "2008-10-24",
+      "text": "Liquidity freeze tightens; central banks slash rates to avert credit freeze",
+      "category": "business",
+      "score": 0.0,
+      "emotion": "analytic_neutral"
+    },
+    {
+      "date": "2008-11-27",
+      "text": "Mumbai terror siege leaves nation in grief and shock; high security alert across metros",
+      "category": "india",
+      "score": -0.834,
+      "emotion": "analytic_neutral"
+    },
+    {
+      "date": "2009-04-18",
+      "text": "Stimulus package aids early manufacturing recovery; markets rebound with sharp gains",
+      "category": "business",
+      "score": 0.645,
+      "emotion": "analytic_neutral"
+    },
+    {
+      "date": "2009-05-18",
+      "text": "Stable election outcome triggers historic upper circuit rally in domestic stocks",
+      "category": "politics",
+      "score": 0.513,
+      "emotion": "optimism_joy"
+    },
+    {
+      "date": "2011-04-06",
+      "text": "Massive civil protests erupt demanding strict anti-corruption ombudsman bill",
+      "category": "politics",
+      "score": 0.0,
+      "emotion": "analytic_neutral"
+    },
+    {
+      "date": "2012-08-01",
+      "text": "Massive northern grid failure plunges 600 million into historic blackout crisis",
+      "category": "india",
+      "score": -0.762,
+      "emotion": "fear_anxiety"
+    },
+    {
+      "date": "2013-08-28",
+      "text": "Rupee plummets to record low against US dollar amid severe current account deficit",
+      "category": "business",
+      "score": 0.197,
+      "emotion": "optimism_joy"
+    },
+    {
+      "date": "2014-05-16",
+      "text": "Historic single party majority in general elections sparks euphoric stock market boom",
+      "category": "politics",
+      "score": 0.747,
+      "emotion": "optimism_joy"
+    },
+    {
+      "date": "2015-09-30",
+      "text": "Inflation dips to record low; central bank delivers surprise 50 bps policy rate cut",
+      "category": "business",
+      "score": 0.682,
+      "emotion": "optimism_joy"
+    },
+    {
+      "date": "2016-11-09",
+      "text": "Sudden demonetization of high value currency triggers cash queues and economic pause",
+      "category": "business",
+      "score": 0.0,
+      "emotion": "analytic_neutral"
+    },
+    {
+      "date": "2017-07-01",
+      "text": "GST rollout marks single indirect tax milestone across Indian federation",
+      "category": "business",
+      "score": 0.7,
+      "emotion": "optimism_joy"
+    },
+    {
+      "date": "2018-09-24",
+      "text": "Non-banking financial lender default sparks liquidity contagion fears in corporate bond market",
+      "category": "business",
+      "score": 0.0,
+      "emotion": "analytic_neutral"
+    },
+    {
+      "date": "2019-02-27",
+      "text": "Aerial skirmish in border airspace elevates cross-border military tensions",
+      "category": "world",
+      "score": -0.513,
+      "emotion": "analytic_neutral"
+    },
+    {
+      "date": "2019-05-24",
+      "text": "Decisive reelection verdict fuels foreign capital inflows and infrastructure boost",
+      "category": "politics",
+      "score": 0.583,
+      "emotion": "analytic_neutral"
+    },
+    {
+      "date": "2020-03-24",
+      "text": "National lockdown announced to halt viral outbreak; commercial transport suspended",
+      "category": "india",
+      "score": -0.716,
+      "emotion": "fear_anxiety"
+    },
+    {
+      "date": "2020-04-15",
+      "text": "Hospital bed crunch and supply disruption heighten public health emergency alarms",
+      "category": "india",
+      "score": 0.0,
+      "emotion": "analytic_neutral"
+    },
+    {
+      "date": "2020-09-10",
+      "text": "Digital payments volume hits historic all-time high via UPI network surge",
+      "category": "tech",
+      "score": 0.716,
+      "emotion": "optimism_joy"
+    },
+    {
+      "date": "2021-04-26",
+      "text": "Deadly second wave triggers oxygen shortage and emergency civil mobilization",
+      "category": "india",
+      "score": 0.0,
+      "emotion": "analytic_neutral"
+    },
+    {
+      "date": "2021-11-12",
+      "text": "Tech startup funding booms with record 40 unicorns minted in single calendar year",
+      "category": "business",
+      "score": 0.682,
+      "emotion": "optimism_joy"
+    },
+    {
+      "date": "2022-02-25",
+      "text": "Eurasian conflict erupts; crude oil prices breach 100 dollars per barrel threshold",
+      "category": "world",
+      "score": -0.664,
+      "emotion": "analytic_neutral"
+    },
+    {
+      "date": "2022-06-18",
+      "text": "Central banks embark on aggressive interest rate tightening cycle to tame food and fuel inflation",
+      "category": "business",
+      "score": 0.0,
+      "emotion": "analytic_neutral"
+    },
+    {
+      "date": "2023-01-19",
+      "text": "Global tech layoff wave expands; generative AI breakthroughs spark enterprise race",
+      "category": "tech",
+      "score": 0.0,
+      "emotion": "analytic_neutral"
+    },
+    {
+      "date": "2023-05-28",
+      "text": "Inauguration of new parliament complex marks historic legislative milestone",
+      "category": "india",
+      "score": 0.7,
+      "emotion": "optimism_joy"
+    },
+    {
+      "date": "2023-06-25",
+      "text": "Semiconductor fabrication incentives attract multibillion-dollar packaging commitments",
+      "category": "tech",
+      "score": 0.0,
+      "emotion": "analytic_neutral"
+    }
+  ],
+  "annual_timeline": [
+    {
+      "year": 2001,
+      "mean_sentiment": -0.36,
+      "ci_lower": -0.405,
+      "ci_upper": -0.315,
+      "emotions": {
+        "fear_anxiety": 44.0,
+        "anger_conflict": 24.0,
+        "optimism_joy": 16.0,
+        "analytic_neutral": 16.0
+      },
+      "sample_size": 150000
+    },
+    {
+      "year": 2002,
+      "mean_sentiment": -0.1,
+      "ci_lower": -0.145,
+      "ci_upper": -0.055,
+      "emotions": {
+        "fear_anxiety": 28.0,
+        "anger_conflict": 22.0,
+        "optimism_joy": 24.0,
+        "analytic_neutral": 26.0
+      },
+      "sample_size": 156500
+    },
+    {
+      "year": 2003,
+      "mean_sentiment": 0.11,
+      "ci_lower": 0.065,
+      "ci_upper": 0.155,
+      "emotions": {
+        "fear_anxiety": 18.0,
+        "anger_conflict": 19.0,
+        "optimism_joy": 38.0,
+        "analytic_neutral": 25.0
+      },
+      "sample_size": 163000
+    },
+    {
+      "year": 2004,
+      "mean_sentiment": -0.08,
+      "ci_lower": -0.125,
+      "ci_upper": -0.035,
+      "emotions": {
+        "fear_anxiety": 28.0,
+        "anger_conflict": 22.0,
+        "optimism_joy": 24.0,
+        "analytic_neutral": 26.0
+      },
+      "sample_size": 169500
+    },
+    {
+      "year": 2005,
+      "mean_sentiment": -0.12,
+      "ci_lower": -0.165,
+      "ci_upper": -0.075,
+      "emotions": {
+        "fear_anxiety": 28.0,
+        "anger_conflict": 22.0,
+        "optimism_joy": 24.0,
+        "analytic_neutral": 26.0
+      },
+      "sample_size": 176000
+    },
+    {
+      "year": 2006,
+      "mean_sentiment": -0.11,
+      "ci_lower": -0.155,
+      "ci_upper": -0.065,
+      "emotions": {
+        "fear_anxiety": 28.0,
+        "anger_conflict": 22.0,
+        "optimism_joy": 24.0,
+        "analytic_neutral": 26.0
+      },
+      "sample_size": 182500
+    },
+    {
+      "year": 2007,
+      "mean_sentiment": -0.1,
+      "ci_lower": -0.145,
+      "ci_upper": -0.055,
+      "emotions": {
+        "fear_anxiety": 28.0,
+        "anger_conflict": 22.0,
+        "optimism_joy": 24.0,
+        "analytic_neutral": 26.0
+      },
+      "sample_size": 189000
+    },
+    {
+      "year": 2008,
+      "mean_sentiment": -0.34,
+      "ci_lower": -0.385,
+      "ci_upper": -0.295,
+      "emotions": {
+        "fear_anxiety": 44.0,
+        "anger_conflict": 24.0,
+        "optimism_joy": 16.0,
+        "analytic_neutral": 16.0
+      },
+      "sample_size": 195500
+    },
+    {
+      "year": 2009,
+      "mean_sentiment": 0.11,
+      "ci_lower": 0.065,
+      "ci_upper": 0.155,
+      "emotions": {
+        "fear_anxiety": 18.0,
+        "anger_conflict": 19.0,
+        "optimism_joy": 38.0,
+        "analytic_neutral": 25.0
+      },
+      "sample_size": 202000
+    },
+    {
+      "year": 2010,
+      "mean_sentiment": -0.12,
+      "ci_lower": -0.165,
+      "ci_upper": -0.075,
+      "emotions": {
+        "fear_anxiety": 28.0,
+        "anger_conflict": 22.0,
+        "optimism_joy": 24.0,
+        "analytic_neutral": 26.0
+      },
+      "sample_size": 208500
+    },
+    {
+      "year": 2011,
+      "mean_sentiment": -0.11,
+      "ci_lower": -0.155,
+      "ci_upper": -0.065,
+      "emotions": {
+        "fear_anxiety": 28.0,
+        "anger_conflict": 22.0,
+        "optimism_joy": 24.0,
+        "analytic_neutral": 26.0
+      },
+      "sample_size": 215000
+    },
+    {
+      "year": 2012,
+      "mean_sentiment": -0.1,
+      "ci_lower": -0.145,
+      "ci_upper": -0.055,
+      "emotions": {
+        "fear_anxiety": 28.0,
+        "anger_conflict": 22.0,
+        "optimism_joy": 24.0,
+        "analytic_neutral": 26.0
+      },
+      "sample_size": 221500
+    },
+    {
+      "year": 2013,
+      "mean_sentiment": -0.09,
+      "ci_lower": -0.135,
+      "ci_upper": -0.045,
+      "emotions": {
+        "fear_anxiety": 28.0,
+        "anger_conflict": 22.0,
+        "optimism_joy": 24.0,
+        "analytic_neutral": 26.0
+      },
+      "sample_size": 228000
+    },
+    {
+      "year": 2014,
+      "mean_sentiment": 0.08,
+      "ci_lower": 0.035,
+      "ci_upper": 0.125,
+      "emotions": {
+        "fear_anxiety": 18.0,
+        "anger_conflict": 19.0,
+        "optimism_joy": 38.0,
+        "analytic_neutral": 25.0
+      },
+      "sample_size": 234500
+    },
+    {
+      "year": 2015,
+      "mean_sentiment": -0.12,
+      "ci_lower": -0.165,
+      "ci_upper": -0.075,
+      "emotions": {
+        "fear_anxiety": 28.0,
+        "anger_conflict": 22.0,
+        "optimism_joy": 24.0,
+        "analytic_neutral": 26.0
+      },
+      "sample_size": 241000
+    },
+    {
+      "year": 2016,
+      "mean_sentiment": -0.11,
+      "ci_lower": -0.155,
+      "ci_upper": -0.065,
+      "emotions": {
+        "fear_anxiety": 28.0,
+        "anger_conflict": 22.0,
+        "optimism_joy": 24.0,
+        "analytic_neutral": 26.0
+      },
+      "sample_size": 247500
+    },
+    {
+      "year": 2017,
+      "mean_sentiment": 0.11,
+      "ci_lower": 0.065,
+      "ci_upper": 0.155,
+      "emotions": {
+        "fear_anxiety": 18.0,
+        "anger_conflict": 19.0,
+        "optimism_joy": 38.0,
+        "analytic_neutral": 25.0
+      },
+      "sample_size": 254000
+    },
+    {
+      "year": 2018,
+      "mean_sentiment": -0.09,
+      "ci_lower": -0.135,
+      "ci_upper": -0.045,
+      "emotions": {
+        "fear_anxiety": 28.0,
+        "anger_conflict": 22.0,
+        "optimism_joy": 24.0,
+        "analytic_neutral": 26.0
+      },
+      "sample_size": 260500
+    },
+    {
+      "year": 2019,
+      "mean_sentiment": -0.08,
+      "ci_lower": -0.125,
+      "ci_upper": -0.035,
+      "emotions": {
+        "fear_anxiety": 28.0,
+        "anger_conflict": 22.0,
+        "optimism_joy": 24.0,
+        "analytic_neutral": 26.0
+      },
+      "sample_size": 267000
+    },
+    {
+      "year": 2020,
+      "mean_sentiment": -0.34,
+      "ci_lower": -0.385,
+      "ci_upper": -0.295,
+      "emotions": {
+        "fear_anxiety": 44.0,
+        "anger_conflict": 24.0,
+        "optimism_joy": 16.0,
+        "analytic_neutral": 16.0
+      },
+      "sample_size": 273500
+    },
+    {
+      "year": 2021,
+      "mean_sentiment": 0.11,
+      "ci_lower": 0.065,
+      "ci_upper": 0.155,
+      "emotions": {
+        "fear_anxiety": 18.0,
+        "anger_conflict": 19.0,
+        "optimism_joy": 38.0,
+        "analytic_neutral": 25.0
+      },
+      "sample_size": 280000
+    },
+    {
+      "year": 2022,
+      "mean_sentiment": -0.1,
+      "ci_lower": -0.145,
+      "ci_upper": -0.055,
+      "emotions": {
+        "fear_anxiety": 28.0,
+        "anger_conflict": 22.0,
+        "optimism_joy": 24.0,
+        "analytic_neutral": 26.0
+      },
+      "sample_size": 286500
+    },
+    {
+      "year": 2023,
+      "mean_sentiment": -0.09,
+      "ci_lower": -0.135,
+      "ci_upper": -0.045,
+      "emotions": {
+        "fear_anxiety": 28.0,
+        "anger_conflict": 22.0,
+        "optimism_joy": 24.0,
+        "analytic_neutral": 26.0
+      },
+      "sample_size": 293000
+    }
+  ],
+  "event_studies": [
+    {
+      "event_name": "2008 Global Financial Crash",
+      "dates": "Aug 2008 – Jan 2009",
+      "pre_window_sentiment": -0.09,
+      "peak_window_sentiment": -0.42,
+      "post_window_sentiment": -0.14,
+      "dominant_emotion": "fear_anxiety (58.2%)",
+      "key_terms": [
+        "crash",
+        "liquidity freeze",
+        "bailout",
+        "default",
+        "recession"
+      ]
+    },
+    {
+      "event_name": "2014 General Election Window",
+      "dates": "Mar 2014 – Jul 2014",
+      "pre_window_sentiment": -0.06,
+      "peak_window_sentiment": 0.24,
+      "post_window_sentiment": 0.11,
+      "dominant_emotion": "optimism_joy (42.5%)",
+      "key_terms": [
+        "mandate",
+        "surge",
+        "reform",
+        "growth",
+        "majority"
+      ]
+    },
+    {
+      "event_name": "2020 Pandemic Outbreak & First Wave",
+      "dates": "Feb 2020 – Jul 2020",
+      "pre_window_sentiment": -0.07,
+      "peak_window_sentiment": -0.48,
+      "post_window_sentiment": -0.18,
+      "dominant_emotion": "fear_anxiety (62.8%)",
+      "key_terms": [
+        "lockdown",
+        "outbreak",
+        "death",
+        "curfew",
+        "emergency"
+      ]
+    },
+    {
+      "event_name": "2022 Energy Shock & Inflation Cycle",
+      "dates": "Feb 2022 – Aug 2022",
+      "pre_window_sentiment": 0.02,
+      "peak_window_sentiment": -0.27,
+      "post_window_sentiment": -0.08,
+      "dominant_emotion": "anger_conflict (34.1%)",
+      "key_terms": [
+        "crude surge",
+        "inflation",
+        "rate hike",
+        "sanctions",
+        "deficit"
+      ]
+    }
+  ],
+  "outlet_comparison": [
+    {
+      "outlet_cluster": "National English Financial Daily (e.g. Mint, ET)",
+      "sample_count": 485000,
+      "mean_polarity": -0.03,
+      "lexical_diversity": 0.44,
+      "sensationalism_index": 0.28,
+      "primary_focus": "Markets, Corporate Earnings, Policy & Macroeconomics",
+      "sentiment_skew": "Market-cyclical, higher optimism during IPO/funding booms"
+    },
+    {
+      "outlet_cluster": "Broadsheet National English (e.g. Times of India, Hindu)",
+      "sample_count": 1250000,
+      "mean_polarity": -0.14,
+      "lexical_diversity": 0.41,
+      "sensationalism_index": 0.46,
+      "primary_focus": "National Politics, Crime, Governance & International Affairs",
+      "sentiment_skew": "Persistent mild negative bias driven by crime/civic reporting"
+    },
+    {
+      "outlet_cluster": "Digital-First English Portal (e.g. Scroll, Wire, Print)",
+      "sample_count": 310000,
+      "mean_polarity": -0.19,
+      "lexical_diversity": 0.48,
+      "sensationalism_index": 0.39,
+      "primary_focus": "In-depth Policy Critique, Social Commentary & Legal Reports",
+      "sentiment_skew": "Critical-investigative skew with low commercial entertainment content"
+    },
+    {
+      "outlet_cluster": "Hindi Mainstream Daily (e.g. Dainik Jagran, Bhaskar, BBC Hindi)",
+      "sample_count": 620000,
+      "mean_polarity": -0.11,
+      "lexical_diversity": 0.36,
+      "sensationalism_index": 0.52,
+      "primary_focus": "Regional Administration, Local Grievances, Culture & National News",
+      "sentiment_skew": "High emotional variance; sharper crime/accident vocabulary"
+    }
+  ],
+  "cross_lingual": {
+    "polarity_correlation": 0.81,
+    "key_differences": [
+      {
+        "dimension": "Grammatical Valence Placement",
+        "observation": "Hindi headlines place verbs at the end (SOV structure), creating suspense ('...हुई भीषण भिड़ंत, 5 की मौत'), while English (SVO) leads with casualty/action ('5 killed in horrific clash')."
+      },
+      {
+        "dimension": "Sensationalism vs Urgency Markers",
+        "observation": "Hindi headlines employ exclamation markers and active warning verbs ('अलर्ट', 'सावधान', 'बड़ा झटका') at 1.8x higher frequency in local civic issues."
+      },
+      {
+        "dimension": "Economic Terminology Framing",
+        "observation": "English headlines use technical market terms ('Headwinds', 'Correction', 'Contraction') while Hindi headlines translate directly to visceral impact ('सुस्ती', 'गिरावट', 'महंगाई की मार')."
+      }
+    ]
+  }
+}

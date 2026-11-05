@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { TOPICS, CATEGORIES } from '../data/topics';
 import { ROADMAPS } from '../data/roadmaps';
+import { SCENARIOS } from '../data/scenarios';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const trendingTopics = TOPICS.slice(0, 4);
@@ -169,6 +170,63 @@ const trendingTopics = TOPICS.slice(0, 4);
           </a>
           <a href={`${base}/roadmaps/ai-ml-engineer/`} class="px-5 py-2.5 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-bold text-xs transition-colors">
             AI/ML Engineer Roadmap →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research & Scenarios Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-slate-200/60 dark:border-darkborder/60">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Left: Flagship Empirical Research -->
+      <div class="p-8 rounded-3xl bg-gradient-to-br from-indigo-950 to-slate-900 text-white flex flex-col justify-between space-y-6">
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-1 rounded bg-indigo-500 text-white font-black text-[10px] uppercase tracking-wider">
+              DATA ANALYSIS
+            </span>
+            <span class="text-xs text-indigo-200">• 3.84M Headlines • 2001–2023</span>
+          </div>
+          <h3 class="text-2xl font-black tracking-tight leading-tight">
+            Headlines of Fear & Hope: Indian Media Sentiment
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            22 वर्षों के समाचार शीर्षकों का कम्प्यूटेशनल अध्ययन। संकटों (2008, 2020) और चुनावों (2014) के दौरान भावना और टोन कैसे बदलती है।
+          </p>
+        </div>
+        <div class="pt-4 flex items-center justify-between border-t border-indigo-900/80">
+          <a href={`${base}/research/media-sentiment-study/`} class="text-xs font-bold text-indigo-400 hover:text-white underline">
+            Read Full Research Paper →
+          </a>
+          <a href={`${base}/research/data-cards/`} class="text-xs text-slate-400 hover:text-slate-200">
+            Kaggle Data Cards
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Red-Teaming & Hypothetical Scenarios -->
+      <div class="p-8 rounded-3xl bg-amber-500/10 border-2 border-amber-500/30 flex flex-col justify-between space-y-6">
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-1 rounded bg-amber-500 text-slate-950 font-black text-[10px] uppercase tracking-wider">
+              HYPOTHETICAL SCENARIOS
+            </span>
+            <span class="text-xs text-amber-700 dark:text-amber-400 font-bold">• Red-Teaming Simulations</span>
+          </div>
+          <h3 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
+            Critical Systems Futures Studies
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            होर्मुज जलडमरूमध्य की 30-दिवसीय नाकाबंदी, चुनावी डीपफेक्स का डार्क सोशल हमला, या कोर बैंकिंग क्लाउड आउटेज: कारण-शृंखला (Causal Chains) और शाखा-परिणाम।
+          </p>
+        </div>
+        <div class="pt-4 flex items-center justify-between border-t border-amber-500/20">
+          <a href={`${base}/scenarios/`} class="text-xs font-bold text-amber-600 dark:text-amber-400 hover:underline">
+            Explore All 3 Scenarios →
+          </a>
+          <a href={`${base}/research/fact-vs-hypothesis/`} class="text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">
+            Fact vs Hypothesis Protocol
           </a>
         </div>
       </div>

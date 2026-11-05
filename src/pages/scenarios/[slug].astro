@@ -1,0 +1,323 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { SCENARIOS, type Scenario } from '../../data/scenarios';
+
+export function getStaticPaths() {
+  return SCENARIOS.map(sc => ({
+    params: { slug: sc.slug },
+    props: { scenario: sc }
+  }));
+}
+
+interface Props {
+  scenario: Scenario;
+}
+
+const { scenario } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Layout title={`${scenario.title} — Hypothetical Scenario`} description={scenario.abstract} category="Hypothetical Scenario">
+  <!-- Reading Progress Bar -->
+  <div id="reading-progress" class="fixed top-16 left-0 right-0 h-1 bg-amber-500 z-30 transition-all duration-75 w-0"></div>
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <!-- Breadcrumbs -->
+    <nav class="flex items-center gap-2 text-xs text-slate-500 mb-6 font-medium">
+      <a href={`${base}/`} class="hover:text-amber-500">Home</a>
+      <span>/</span>
+      <a href={`${base}/scenarios/`} class="hover:text-amber-500">Scenarios</a>
+      <span>/</span>
+      <span class="text-slate-900 dark:text-white font-semibold truncate max-w-xs">{scenario.slug}</span>
+    </nav>
+
+    <!-- MANDATORY GOLDEN RULE: HYPOTHETICAL SCENARIO WARNING BANNER -->
+    <div class="mb-8 p-6 rounded-2xl bg-amber-500/10 border-2 border-amber-500 shadow-lg shadow-amber-500/5">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-3">
+        <div class="flex items-center gap-3">
+          <span class="px-3 py-1 rounded-lg bg-amber-500 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
+            <span>⚠️</span> HYPOTHETICAL SCENARIO
+          </span>
+          <span class="text-xs font-bold text-amber-700 dark:text-amber-400 uppercase tracking-wider">
+            {scenario.status}
+          </span>
+        </div>
+        <a 
+          href={`${base}/research/fact-vs-hypothesis/`}
+          class="text-xs font-semibold text-amber-700 dark:text-amber-300 underline hover:text-amber-500"
+        >
+          Fact vs Hypothesis Protocol ↗
+        </a>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+        <strong>महत्वपूर्ण सूचना:</strong> यह कोई वास्तविक घटना, वर्तमान समाचार या भविष्यवाणी नहीं है। यह प्रणालीगत संवेदनशीलता और आपातकालीन प्रतिक्रिया का एक <em>सैद्धांतिक और तर्कसंगत सिमुलेशन (Red-Teaming Analysis)</em> है।
+      </p>
+    </div>
+
+    <!-- Title & Meta Header -->
+    <div class="space-y-4 mb-10">
+      <div class="flex items-center gap-2">
+        <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+          {scenario.domainLabel}
+        </span>
+        <span class="text-xs text-slate-400">• {scenario.readingMinutes} min read</span>
+        <span class="text-xs text-slate-400">• Last Updated: {scenario.lastUpdated}</span>
+      </div>
+
+      <h1 class="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
+        {scenario.title}
+      </h1>
+
+      <p class="text-base sm:text-lg font-hindi font-medium text-slate-600 dark:text-slate-400">
+        {scenario.titleHindi}
+      </p>
+    </div>
+
+    <!-- Abstract & Key Findings -->
+    <div class="p-6 sm:p-8 rounded-2xl bg-slate-50 dark:bg-darkcard border border-slate-200 dark:border-darkborder space-y-6 mb-12">
+      <div>
+        <h3 class="text-xs font-black uppercase tracking-wider text-slate-400 mb-2">Abstract</h3>
+        <p class="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed">
+          {scenario.abstract}
+        </p>
+      </div>
+
+      <div class="pt-6 border-t border-slate-200 dark:border-darkborder">
+        <h3 class="text-xs font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-3 flex items-center gap-1.5">
+          <span>⚡</span> Key Analytical Findings
+        </h3>
+        <ul class="space-y-2">
+          {scenario.keyFindings.map(kf => (
+            <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-800 dark:text-slate-200">
+              <span class="text-amber-500 font-bold mt-0.5">●</span>
+              <span>{kf}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Main Content Sections -->
+    <div class="space-y-12 text-slate-800 dark:text-slate-200">
+      <!-- 1. Premise / Trigger -->
+      <section class="space-y-3">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+          <span class="text-amber-500">1.</span> Premise & Scenario Trigger
+        </h2>
+        <div class="p-5 rounded-xl bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder text-sm sm:text-base leading-relaxed">
+          {scenario.premise}
+        </div>
+      </section>
+
+      <!-- 2. Assumptions -->
+      <section class="space-y-4">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+          <span class="text-amber-500">2.</span> Foundational Assumptions & Real-World Basis
+        </h2>
+        <p class="text-xs text-slate-500">
+          इस परिदृश्य का हर अनुमान यादृच्छिक नहीं है; प्रत्येक बिंदु का वास्तविक साक्ष्य और आधिकारिक स्रोत है:
+        </p>
+        <div class="grid grid-cols-1 gap-4">
+          {scenario.assumptions.map(as => (
+            <div class="p-5 rounded-xl bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-black uppercase tracking-wider px-2 py-0.5 rounded bg-amber-500/20 text-amber-700 dark:text-amber-300">
+                  Assumption #{as.id}
+                </span>
+                <a 
+                  href={as.sourceUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 hover:underline"
+                >
+                  {as.source} ↗
+                </a>
+              </div>
+              <p class="text-sm font-semibold text-slate-900 dark:text-white">
+                {as.statement}
+              </p>
+              <p class="text-xs text-slate-600 dark:text-slate-400">
+                <strong>Real-World Basis:</strong> {as.realWorldBasis}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- 3. Causal Chain Diagram -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+            <span class="text-amber-500">3.</span> Causal Chain & Ripple Logic
+          </h2>
+          <span class="text-[10px] font-mono text-slate-400 px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">
+            Simulated Causal Model
+          </span>
+        </div>
+        <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder overflow-x-auto">
+          <pre class="mermaid text-xs font-mono">
+            {scenario.causalChainMermaid}
+          </pre>
+        </div>
+      </section>
+
+      <!-- 4. Evidence Base (Historical Precedents) -->
+      <section class="space-y-4">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+          <span class="text-amber-500">4.</span> Evidence Base & Historical Precedents
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {scenario.evidenceBase.map(ev => (
+            <div class="p-5 rounded-xl bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder space-y-2">
+              <div class="flex items-center justify-between text-xs font-bold text-slate-900 dark:text-white">
+                <span>{ev.precedent}</span>
+                <span class="text-slate-400">{ev.year}</span>
+              </div>
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                {ev.analogyDescription}
+              </p>
+              <p class="text-[11px] text-slate-400 pt-2 border-t border-slate-100 dark:border-slate-800">
+                Ref: {ev.sourceCitation}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- 5. Branching Outcomes -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+            <span class="text-amber-500">5.</span> Branching Outcomes (Qualitative Likelihoods)
+          </h2>
+          <span class="text-[10px] font-semibold text-amber-600 dark:text-amber-400">
+            No Artificial Percentages
+          </span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {scenario.branchingOutcomes.map(bo => (
+            <div class={`p-5 rounded-2xl border-2 space-y-3 ${
+              bo.tier === 'Best-Case' ? 'bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-500/40' :
+              bo.tier === 'Base-Case' ? 'bg-amber-50/50 dark:bg-amber-950/20 border-amber-500/40' :
+              'bg-rose-50/50 dark:bg-rose-950/20 border-rose-500/40'
+            }`}>
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-black uppercase tracking-wider">{bo.tier}</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-white dark:bg-slate-900">
+                  {bo.qualitativeLikelihood}
+                </span>
+              </div>
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white">
+                {bo.title}
+              </h3>
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                {bo.summary}
+              </p>
+              <div class="pt-3 border-t border-slate-200/50 dark:border-slate-700/50">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Key Impacts:</span>
+                <ul class="text-xs space-y-1 text-slate-700 dark:text-slate-300">
+                  {bo.implications.map(imp => <li>• {imp}</li>)}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- 6. Early-Warning Indicators & Tripwires -->
+      <section class="space-y-4">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+          <span class="text-amber-500">6.</span> Early-Warning Indicators & Tripwires
+        </h2>
+        <div class="p-6 rounded-2xl bg-slate-50 dark:bg-darkcard border border-slate-200 dark:border-darkborder">
+          <p class="text-xs text-slate-500 mb-4">
+            अगर यह परिदृश्य कभी वास्तविक दुनिया में विकसित होने लगे, तो सबसे पहले ये संकेतक दिखेंगे:
+          </p>
+          <ul class="space-y-2.5">
+            {scenario.earlyWarningIndicators.map(ind => (
+              <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-800 dark:text-slate-200">
+                <span class="text-amber-500 font-bold mt-0.5">⚠️</span>
+                <span>{ind}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <!-- 7. Counter-Arguments -->
+      <section class="space-y-4">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+          <span class="text-amber-500">7.</span> Counter-Arguments & Self-Rebuttal
+        </h2>
+        <div class="space-y-3">
+          {scenario.counterArguments.map(ca => (
+            <div class="p-5 rounded-xl bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder space-y-2">
+              <h3 class="text-xs font-bold text-rose-600 dark:text-rose-400 flex items-center gap-1.5">
+                <span>🛑 Argument:</span> {ca.argument}
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 pl-4 border-l-2 border-slate-300 dark:border-slate-700">
+                <strong>Analytical Rebuttal / Context:</strong> {ca.rebuttalBasis}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- 8. Limitations & What We Don't Know -->
+      <section class="space-y-4">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+          <span class="text-amber-500">8.</span> Limitations & Unmodeled Variables
+        </h2>
+        <div class="p-5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
+          <span class="text-xs font-black uppercase tracking-wider text-slate-500">What This Model Cannot Predict:</span>
+          <ul class="text-xs space-y-1.5 text-slate-600 dark:text-slate-400">
+            {scenario.limitations.map(lim => <li>• {lim}</li>)}
+          </ul>
+        </div>
+      </section>
+
+      <!-- 9. References & Sources -->
+      <section class="space-y-4 pt-6 border-t border-slate-200 dark:border-darkborder">
+        <h2 class="text-lg font-black text-slate-900 dark:text-white tracking-tight">
+          References & Source Citations
+        </h2>
+        <ol class="space-y-2 text-xs text-slate-500">
+          {scenario.references.map((ref, idx) => (
+            <li class="flex items-baseline gap-2">
+              <span class="font-mono text-slate-400">[{idx + 1}]</span>
+              <div>
+                <a href={ref.url} target="_blank" rel="noopener noreferrer" class="font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
+                  {ref.title}
+                </a>
+                <span class="text-slate-400"> — {ref.publisher}</span>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+    </div>
+
+    <!-- Edit Link Footer -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-darkborder flex items-center justify-between text-xs text-slate-500">
+      <span>Knowledge Hub Futures Studies Unit</span>
+      <a 
+        href="https://github.com/givemehat/knowledge-hub/edit/main/src/data/scenarios.ts"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-emerald-600 dark:text-emerald-400 hover:underline"
+      >
+        Suggest correction on GitHub ↗
+      </a>
+    </div>
+  </div>
+
+  <!-- Mermaid.js integration -->
+  <script is:inline type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.classList.contains('dark') ? 'dark' : 'neutral',
+      securityLevel: 'loose'
+    });
+  </script>
+</Layout>

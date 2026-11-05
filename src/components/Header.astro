@@ -19,11 +19,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     </a>
 
     <!-- Desktop Nav Links -->
-    <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-slate-300">
+    <nav class="hidden md:flex items-center gap-5 text-sm font-medium text-slate-600 dark:text-slate-300">
       <a href={`${base}/topics/`} class={`hover:text-emerald-500 transition-colors ${currentPath.includes('/topics') ? 'text-emerald-500 font-semibold' : ''}`}>Topics</a>
       <a href={`${base}/roadmaps/`} class={`hover:text-emerald-500 transition-colors ${currentPath.includes('/roadmaps') ? 'text-emerald-500 font-semibold' : ''}`}>Roadmaps</a>
+      <a href={`${base}/scenarios/`} class={`hover:text-amber-500 transition-colors ${currentPath.includes('/scenarios') ? 'text-amber-500 font-semibold' : ''}`}>Scenarios</a>
+      <a href={`${base}/research/`} class={`hover:text-indigo-500 transition-colors ${currentPath.includes('/research') ? 'text-indigo-500 font-semibold' : ''}`}>Research</a>
       <a href={`${base}/resources/`} class={`hover:text-emerald-500 transition-colors ${currentPath.includes('/resources') ? 'text-emerald-500 font-semibold' : ''}`}>Resources</a>
-      <a href={`${base}/updates/`} class={`hover:text-emerald-500 transition-colors ${currentPath.includes('/updates') ? 'text-emerald-500 font-semibold' : ''}`}>Updates</a>
     </nav>
 
     <!-- Search Button & Actions -->

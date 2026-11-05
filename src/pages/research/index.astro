@@ -1,0 +1,106 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { DATA_CARDS } from '../../data/datacards';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Layout title="Empirical Research & Data Science Hub — Knowledge Hub" description="Data-driven media sentiment research, Kaggle dataset analytics, and empirical natural language processing.">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+    <!-- Header -->
+    <div class="max-w-3xl mb-12">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-300/40 text-indigo-700 dark:text-indigo-300 text-xs font-bold mb-4">
+        <span>🔬</span> Open Science & Data-Driven Insights
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight mb-4">
+        Media Sentiment & Empirical Research
+      </h1>
+      <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+        भारतीय मीडिया के 22+ वर्षों (2001–2023) के 3.8 मिलियन से अधिक शीर्षकों का डेटा-संचालित विश्लेषण। जानिए कैसे राष्ट्रीय संकटों, चुनावों, और आर्थिक बदलावों के दौरान मीडिया का टोन और भावनाएं शिफ्ट होती हैं।
+      </p>
+    </div>
+
+    <!-- Flagship Study Hero Banner -->
+    <div class="mb-14 p-8 rounded-3xl bg-gradient-to-br from-indigo-900 to-slate-900 text-white relative overflow-hidden shadow-2xl">
+      <div class="absolute -right-10 -bottom-10 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="max-w-2xl relative z-10 space-y-4">
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-1 rounded-md bg-indigo-500 text-white font-black text-xs uppercase tracking-wider">
+            Flagship Research Paper
+          </span>
+          <span class="text-xs text-indigo-200">• 3.8M Headlines Analyzed • VADER & IndicBERT</span>
+        </div>
+
+        <h2 class="text-2xl sm:text-3xl font-black tracking-tight leading-tight">
+          Headlines of Fear & Hope: Longitudinal Sentiment and Framing Dynamics in Indian Media (2001–2023)
+        </h2>
+
+        <p class="text-sm text-slate-300 leading-relaxed">
+          क्या भारतीय समाचार माध्यमों में नकारात्मकता का स्थायी पूर्वाग्रह (negativity bias) है? 2008 की वैश्विक मंदी, 2014 का आम चुनाव, और 2020 के लॉकडाउन के दौरान सुर्खियां कैसे बदलीं? वास्तविक डेटा, टाइम-सीरीज़, और पायथन कोड के साथ।
+        </p>
+
+        <div class="pt-4 flex flex-wrap items-center gap-4">
+          <a 
+            href={`${base}/research/media-sentiment-study/`}
+            class="px-6 py-3 rounded-xl bg-white text-slate-900 font-black text-xs hover:bg-slate-100 transition-colors inline-flex items-center gap-2 shadow-lg"
+          >
+            <span>Read Full Research Study</span>
+            <span>→</span>
+          </a>
+          <a 
+            href={`${base}/research/data-cards/`}
+            class="px-5 py-3 rounded-xl bg-indigo-950/80 border border-indigo-400/40 text-indigo-200 font-bold text-xs hover:bg-indigo-900 transition-colors"
+          >
+            Inspect Kaggle Data Cards
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Exploration Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <a 
+        href={`${base}/research/data-cards/`}
+        class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder hover:border-indigo-500 transition-all space-y-3 group"
+      >
+        <div class="text-2xl">📋</div>
+        <h3 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+          Dataset Cards (Data Transparency)
+        </h3>
+        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+          कैगल (Kaggle) के 3 सत्यापित डेटासेट्स (Rohit Kulkarni, Aadi Srivastava BBC Hindi, Rishabh Misra) के स्रोत, लाइसेंस, कॉलम स्कीमा और सैंपलिंग बायस।
+        </p>
+        <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 inline-block pt-2">View 3 Data Cards →</span>
+      </a>
+
+      <a 
+        href={`${base}/research/methodology/`}
+        class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder hover:border-indigo-500 transition-all space-y-3 group"
+      >
+        <div class="text-2xl">⚙️</div>
+        <h3 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+          NLP & Sentiment Methodology
+        </h3>
+        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+          VADER, AFINN, और ट्रांसफॉर्मर्स (MuRIL, IndicBERT) का तुलनात्मक मूल्यांकन। टोकनाइजेशन, स्टॉपवर्ड्स और सांख्यिकीय अनिश्चितता की तकनीकी व्याख्या।
+        </p>
+        <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 inline-block pt-2">Read Methodology →</span>
+      </a>
+
+      <a 
+        href={`${base}/research/fact-vs-hypothesis/`}
+        class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder hover:border-indigo-500 transition-all space-y-3 group"
+      >
+        <div class="text-2xl">⚖️</div>
+        <h3 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+          Fact vs Hypothesis Protocol
+        </h3>
+        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+          हम क्यों अनुभवजन्य शोध (Data Analysis) और काल्पनिक परिदृश्यों (Hypothetical Scenarios) को सख्त सीमाओं के साथ अलग रखते हैं।
+        </p>
+        <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 inline-block pt-2">Read Protocol →</span>
+      </a>
+    </div>
+  </div>
+</Layout>

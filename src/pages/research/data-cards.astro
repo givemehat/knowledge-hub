@@ -1,0 +1,131 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { DATA_CARDS } from '../../data/datacards';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Layout title="Dataset Cards & Data Transparency — Knowledge Hub" description="Comprehensive Data Cards for Kaggle datasets used in media sentiment research.">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <!-- Breadcrumbs -->
+    <nav class="flex items-center gap-2 text-xs text-slate-500 mb-6 font-medium">
+      <a href={`${base}/`} class="hover:text-indigo-500">Home</a>
+      <span>/</span>
+      <a href={`${base}/research/`} class="hover:text-indigo-500">Research</a>
+      <span>/</span>
+      <span class="text-slate-900 dark:text-white font-semibold">Data Cards</span>
+    </nav>
+
+    <!-- Header -->
+    <div class="space-y-4 mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-300/40 text-indigo-700 dark:text-indigo-300 text-xs font-bold">
+        <span>📋</span> Open Data Transparency
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
+        Kaggle Dataset Cards & Specifications
+      </h1>
+      <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+        हमारे शोध में उपयोग किए गए सभी डेटासेट्स का पूर्ण पारदर्शी विवरण। कोई भी अप्रमाणित या गढ़ा हुआ डेटासेट नहीं है; सभी विवरण Kaggle के आधिकारिक सार्वजनिक रिपॉजिटरी से सत्यापित हैं।
+      </p>
+    </div>
+
+    <!-- Cards List -->
+    <div class="space-y-12">
+      {DATA_CARDS.map(dc => (
+        <div class="p-6 sm:p-8 rounded-3xl bg-white dark:bg-darkcard border-2 border-slate-200 dark:border-darkborder space-y-6">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-darkborder">
+            <div>
+              <span class="text-xs font-black uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+                Creator: {dc.creator}
+              </span>
+              <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-0.5">
+                {dc.datasetName}
+              </h2>
+            </div>
+            <a 
+              href={dc.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-4 py-2 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-300/40 text-indigo-700 dark:text-indigo-300 font-bold text-xs hover:bg-indigo-100 transition-colors inline-flex items-center gap-1.5 shrink-0"
+            >
+              <span>View on Kaggle</span>
+              <span>↗</span>
+            </a>
+          </div>
+
+          <!-- Quick Stats Pill Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+            <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
+              <span class="text-slate-400 block text-[10px] uppercase font-bold">Time Range</span>
+              <span class="font-bold text-slate-800 dark:text-slate-200">{dc.timeRange}</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
+              <span class="text-slate-400 block text-[10px] uppercase font-bold">Sample Count</span>
+              <span class="font-bold text-slate-800 dark:text-slate-200">{dc.sampleCount}</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
+              <span class="text-slate-400 block text-[10px] uppercase font-bold">File Size</span>
+              <span class="font-bold text-slate-800 dark:text-slate-200">{dc.size}</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
+              <span class="text-slate-400 block text-[10px] uppercase font-bold">License</span>
+              <span class="font-bold text-emerald-600 dark:text-emerald-400">{dc.license}</span>
+            </div>
+          </div>
+
+          <!-- Description & Intended Use -->
+          <div class="space-y-3 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
+            <p><strong>Description:</strong> {dc.description}</p>
+            <p><strong>Intended Use:</strong> {dc.intendedUse}</p>
+          </div>
+
+          <!-- Schema Table -->
+          <div class="space-y-2">
+            <h3 class="text-xs font-black uppercase tracking-wider text-slate-400">Schema & Column Attributes</h3>
+            <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-darkborder">
+              <table class="w-full text-xs text-left">
+                <thead class="bg-slate-50 dark:bg-slate-900 text-slate-400 font-mono uppercase text-[10px]">
+                  <tr>
+                    <th class="py-2 px-3">Column Name</th>
+                    <th class="py-2 px-3">Data Type</th>
+                    <th class="py-2 px-3">Description</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                  {dc.columns.map(col => (
+                    <tr>
+                      <td class="py-2 px-3 font-mono font-bold text-indigo-600 dark:text-indigo-400">{col.name}</td>
+                      <td class="py-2 px-3 font-mono text-slate-400">{col.type}</td>
+                      <td class="py-2 px-3 text-slate-600 dark:text-slate-300">{col.description}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Limitations & Cleaning Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+            <div class="p-4 rounded-xl bg-rose-50/50 dark:bg-rose-950/20 border border-rose-200/50 dark:border-rose-800/40 space-y-2">
+              <h3 class="text-xs font-bold text-rose-700 dark:text-rose-400 uppercase tracking-wider flex items-center gap-1">
+                <span>⚠️</span> Known Biases & Limitations
+              </h3>
+              <ul class="text-xs space-y-1 text-slate-700 dark:text-slate-300">
+                {dc.limitationsAndBiases.map(lb => <li>• {lb}</li>)}
+              </ul>
+            </div>
+
+            <div class="p-4 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200/50 dark:border-emerald-800/40 space-y-2">
+              <h3 class="text-xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider flex items-center gap-1">
+                <span>🧹</span> Data Cleaning Protocol
+              </h3>
+              <ul class="text-xs space-y-1 text-slate-700 dark:text-slate-300">
+                {dc.cleaningSteps.map(cs => <li>• {cs}</li>)}
+              </ul>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</Layout>

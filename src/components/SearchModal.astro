@@ -1,6 +1,7 @@
 ---
 import { TOPICS } from '../data/topics';
 import { ROADMAPS } from '../data/roadmaps';
+import { SCENARIOS } from '../data/scenarios';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -25,7 +26,27 @@ const searchData = [
     url: `${base}/roadmaps/${r.slug}/`,
     summary: r.subtitle,
     tags: r.nodes.map(n => n.title).join(', ')
-  }))
+  })),
+  ...SCENARIOS.map(s => ({
+    type: 'Scenario',
+    title: s.title,
+    titleHindi: s.titleHindi,
+    category: s.domainLabel,
+    level: 'Hypothetical',
+    url: `${base}/scenarios/${s.slug}/`,
+    summary: s.abstract,
+    tags: 'scenario, red-teaming, simulation, futures'
+  })),
+  {
+    type: 'Research',
+    title: 'Headlines of Fear & Hope: Longitudinal Sentiment and Framing Dynamics in Indian Media (2001–2023)',
+    titleHindi: 'भारतीय समाचार मीडिया सेंटीमेंट और भावना अध्ययन (2001-2023)',
+    category: 'Media Research',
+    level: 'Data Analysis',
+    url: `${base}/research/media-sentiment-study/`,
+    summary: 'Longitudinal empirical research examining 3.84 million headlines from 2001 to 2023 using VADER, MuRIL, and Kaggle datasets.',
+    tags: 'sentiment analysis, media, kaggle, research, headlines, emotions'
+  }
 ];
 ---
 
