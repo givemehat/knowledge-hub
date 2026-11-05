@@ -25,6 +25,7 @@
     "viewAll": "View all topics",
     "viewAllCount": "View all {count} topics",
     "topTopicsLabel": "Top topics:",
+    "topTopics": "Top topics",
     "cardCta": "Explore domain",
     "comingSoonBadge": "Coming Soon",
     "comingSoonNotice": "Research and development in progress for this domain.",
@@ -32,7 +33,9 @@
     "oneGuide": "1 guide",
     "manyGuides": "{count} guides",
     "comingSoonCount": "Soon",
-    "minutes": "min read"
+    "minutes": "min read",
+    "minutesShort": "{minutes} min",
+    "fallbackBadge": "Available in Hindi only"
   },
   "stats": {
     "guides": "Topic Guides",

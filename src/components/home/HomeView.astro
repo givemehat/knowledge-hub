@@ -1,0 +1,184 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from './Hero.astro';
+import TrustStrip from './TrustStrip.astro';
+import BentoGrid from './BentoGrid.astro';
+import TopicScroller from './TopicScroller.astro';
+import RoadmapBanner from './RoadmapBanner.astro';
+import VerifyStrip from './VerifyStrip.astro';
+import CreatorStrip from './CreatorStrip.astro';
+
+import { TOPICS } from '../../data/topics';
+import { ROADMAPS } from '../../data/roadmaps';
+import { BRAND } from '../../config/brand';
+import type { Locale } from '../../i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'hi' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const isHindi = locale === 'hi';
+
+// Compute build-time authentic metrics
+const topicCount = TOPICS.length;
+const roadmapCount = ROADMAPS.length;
+const resourceCount = TOPICS.reduce((acc, t) => acc + (t.resources ? t.resources.length : 0), 0);
+const sourceCount = TOPICS.reduce((acc, t) => acc + (t.sources ? t.sources.length : 0), 0);
+
+// Page title and description: strictly no Devanagari on English route
+const pageTitle = isHindi
+  ? `${BRAND.name} (${BRAND.nameHi}) — छात्रों और डेवलपर्स के लिए प्रामाणिक ज्ञान इंजन`
+  : `${BRAND.name} — Modern Verified Knowledge Engine for Students & Builders`;
+
+const pageDescription = isHindi
+  ? "कॉलेज छात्रों और तकनीकी उत्साही लोगों के लिए प्रामाणिक रोडमैप, गहन तकनीकी गाइड और प्राथमिक स्रोत। No login, no ads, completely open."
+  : "Authentic roadmaps, deep-dive technical guides, and primary sources for college students and tech builders. No login, no ads, completely open.";
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  lang={locale}
+>
+  <!-- 1. Hero Section (Split Layout 55/45, Never Truncated H1, Live Preview Collage) -->
+  <Hero locale={locale} />
+
+  <!-- 2. Trust Strip (Build-time verified metrics + 4 integrity badges) -->
+  <TrustStrip
+    locale={locale}
+    topicCount={topicCount}
+    roadmapCount={roadmapCount}
+    resourceCount={resourceCount}
+    sourceCount={sourceCount}
+  />
+
+  <!-- 3. Bento Grid: Categories (56px Gradient Tiles, 28px Lucide SVGs, Direct Topic Links) -->
+  <BentoGrid locale={locale} />
+
+  <!-- 4. Trending & New Topics (Horizontal Snap Carousel) -->
+  <TopicScroller locale={locale} />
+
+  <!-- 5. Featured Roadmap Banner (DSA to Placement 6-Month Plan) -->
+  <RoadmapBanner locale={locale} />
+
+  <!-- 6. Research & Scenarios Section (Empirical Data Science + Futures Studies) -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-slate-200/80 dark:border-white/10">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+      <div>
+        <div class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-saffron-600 dark:text-saffron-400 mb-1">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+          <span>{isHindi ? 'शोध प्रयोगशाला' : 'Deep-Dive Research Lab'}</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+          {isHindi ? 'डेटा विश्लेषण और सिनेरियो सिमुलेशन' : 'Data Analysis & Scenario Simulations'}
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-xl">
+          {isHindi 
+            ? 'तथ्य और परिकल्पना को कड़ाई से अलग रखकर किए गए अनुभवजन्य अध्ययन और रेड-टीमिंग मॉडल।'
+            : 'Empirical longitudinal studies and red-teaming futures models with strict separation of fact and hypothesis.'}
+        </p>
+      </div>
+
+      <a
+        href={`${base}/${locale}/research/`}
+        class="inline-flex items-center gap-1.5 text-xs font-bold text-saffron-600 dark:text-saffron-400 hover:text-saffron-700 dark:hover:text-saffron-300 transition-colors group"
+      >
+        <span>{isHindi ? 'शोध-पत्र देखें' : 'View research papers'}</span>
+        <svg class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+      <!-- Left: Flagship Empirical Research -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-slate-950 text-white border border-slate-800 flex flex-col justify-between space-y-6 relative overflow-hidden shadow-card group">
+        <div class="absolute -right-12 -top-12 w-48 h-48 bg-brand-500/20 rounded-full blur-3xl pointer-events-none group-hover:bg-brand-500/30 transition-all"></div>
+        <div class="space-y-4 relative z-10">
+          <div class="flex items-center gap-2">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-brand-500 text-white font-black text-[10px] uppercase tracking-wider">
+              <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+              </svg>
+              {isHindi ? 'डेटा विश्लेषण' : 'DATA ANALYSIS'}
+            </span>
+            <span class="text-xs text-brand-300 font-mono">
+              {isHindi ? '• 38.4 लाख सुर्खियाँ • 2001–2023' : '• 3.84M Headlines • 2001–2023'}
+            </span>
+          </div>
+          <h3 class="text-xl sm:text-2xl font-black tracking-tight leading-snug">
+            {isHindi 
+              ? 'भय और आशा की सुर्खियाँ: भारतीय मीडिया का सेंटिमेंट'
+              : 'Headlines of Fear & Hope: Indian Media Sentiment'}
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            {isHindi 
+              ? '22 वर्षों के समाचार शीर्षकों का कम्प्यूटेशनल अध्ययन। 2008 वित्तीय संकट, 2014 चुनाव और 2020 लॉकडाउन के दौरान मीडिया टोन और फ़्रेमिंग का विश्लेषण।'
+              : 'A computational study of 22 years of news headlines examining media tone and framing dynamics during major financial crises and elections.'}
+          </p>
+        </div>
+        <div class="pt-4 flex items-center justify-between border-t border-white/10 relative z-10 text-xs">
+          <a href={`${base}/${locale}/research/media-sentiment-study/`} class="font-bold text-brand-400 hover:text-white transition-colors flex items-center gap-1 group/link">
+            <span>{isHindi ? 'शोध-पत्र पढ़ें' : 'Read Research Paper'}</span>
+            <svg class="w-3.5 h-3.5 group-link-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </svg>
+          </a>
+          <a href={`${base}/${locale}/research/data-cards/`} class="text-slate-400 hover:text-slate-200 transition-colors">
+            {isHindi ? 'Kaggle डेटा कार्ड्स ↗' : 'Kaggle Data Cards ↗'}
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Red-Teaming & Hypothetical Scenarios -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-saffron-500/10 dark:bg-saffron-950/20 border-2 border-saffron-500/30 flex flex-col justify-between space-y-6 relative overflow-hidden group shadow-card">
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-saffron-500 text-slate-950 font-black text-[10px] uppercase tracking-wider">
+              <svg class="w-3 h-3 text-slate-950" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              {isHindi ? 'काल्पनिक परिदृश्य' : 'HYPOTHETICAL SCENARIOS'}
+            </span>
+            <span class="text-xs text-saffron-700 dark:text-saffron-400 font-bold">
+              {isHindi ? '• रेड-टीमिंग सिमुलेशन' : '• Red-Teaming Simulations'}
+            </span>
+          </div>
+          <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-snug">
+            {isHindi 
+              ? 'गंभीर प्रणालियों का भविष्य अध्ययन'
+              : 'Critical Systems Futures Studies'}
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            {isHindi 
+              ? 'हॉर्मुज जलडमरूमध्य चोकपॉइंट संकट, चुनावी डीपफ़ेक और वित्तीय क्लाउड आउटेज: कारण-शृंखला (Mermaid diagrams) और संभावित परिणाम।'
+              : 'Strait of Hormuz chokepoint closure, state elections deepfake cascade, and financial cloud outage: causal chains (Mermaid diagrams) and branching outcomes.'}
+          </p>
+        </div>
+        <div class="pt-4 flex items-center justify-between border-t border-saffron-500/20 text-xs">
+          <a href={`${base}/${locale}/scenarios/`} class="font-bold text-saffron-600 dark:text-saffron-400 hover:text-saffron-700 dark:hover:text-saffron-300 transition-colors flex items-center gap-1">
+            <span>{isHindi ? 'तीनों सिनेरियो देखें' : 'Explore All 3 Scenarios'}</span>
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </svg>
+          </a>
+          <a href={`${base}/${locale}/research/fact-vs-hypothesis/`} class="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
+            {isHindi ? 'तथ्य बनाम परिकल्पना नियम ↗' : 'Fact vs Hypothesis Protocol ↗'}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Integrity & Fact-Checking Process (3-Step Verification Protocol) -->
+  <VerifyStrip locale={locale} />
+
+  <!-- 8. Creator Showcase & Community Contribution Strip -->
+  <CreatorStrip locale={locale} />
+</Layout>

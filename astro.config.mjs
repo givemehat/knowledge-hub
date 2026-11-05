@@ -5,5 +5,13 @@ export default defineConfig({
   site: 'https://givemehat.github.io',
   base: '/knowledge-hub',
   integrations: [tailwind()],
-  output: 'static'
+  output: 'static',
+  i18n: {
+    defaultLocale: 'hi',
+    locales: ['hi', 'en'],
+    routing: {
+      prefixDefaultLocale: true,
+      redirectToDefaultLocale: false
+    }
+  }
 });

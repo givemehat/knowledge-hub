@@ -25,6 +25,7 @@
     "viewAll": "सभी विषय देखें",
     "viewAllCount": "सभी {count} विषय देखें",
     "topTopicsLabel": "प्रमुख विषय:",
+    "topTopics": "प्रमुख विषय",
     "cardCta": "विषय देखें",
     "comingSoonBadge": "जल्द आ रहा है",
     "comingSoonNotice": "इस विषय पर शोध और लेखन जारी है।",
@@ -32,7 +33,9 @@
     "oneGuide": "1 गाइड",
     "manyGuides": "{count} गाइड",
     "comingSoonCount": "जल्द",
-    "minutes": "मिनट"
+    "minutes": "मिनट",
+    "minutesShort": "{minutes} मिनट",
+    "fallbackBadge": "अंग्रेज़ी में उपलब्ध"
   },
   "stats": {
     "guides": "गाइड्स",

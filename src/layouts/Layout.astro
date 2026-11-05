@@ -5,13 +5,14 @@ import SearchModal from '../components/SearchModal.astro';
 import MobileNav from '../components/MobileNav.astro';
 import { CREATOR } from '../data/creator';
 import { BRAND } from '../config/brand';
+import type { Locale } from '../i18n';
 
 interface Props {
   title: string;
   description?: string;
   category?: string;
   ogType?: string;
-  lang?: 'hi' | 'en';
+  lang?: Locale;
 }
 
 const {
@@ -25,12 +26,13 @@ const {
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImageURL = new URL(`${base}/brand/og-image.png`, Astro.site);
+const isHindi = lang === 'hi';
 
 const jsonLdWebsite = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": BRAND.name,
-  "alternateName": [BRAND.nameHi, BRAND.descriptor.en, BRAND.descriptor.hi],
+  "alternateName": isHindi ? [BRAND.nameHi, BRAND.descriptor.hi] : [BRAND.descriptor.en],
   "url": BRAND.siteUrl,
   "author": {
     "@type": "Person",
@@ -59,14 +61,14 @@ const jsonLdWebsite = {
     <meta name="theme-color" content={BRAND.themeColor} />
 
     <!-- SEO Meta Tags -->
-    <title>{title} | {BRAND.name}</title>
+    <title>{title.includes(BRAND.name) ? title : `${title} | ${BRAND.name}`}</title>
     <meta name="description" content={description} />
     <meta name="author" content={CREATOR.name} />
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Open Graph -->
     <meta property="og:type" content={ogType} />
-    <meta property="og:title" content={`${title} | ${BRAND.name}`} />
+    <meta property="og:title" content={title.includes(BRAND.name) ? title : `${title} | ${BRAND.name}`} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={ogImageURL} />
@@ -74,7 +76,7 @@ const jsonLdWebsite = {
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={`${title} | ${BRAND.name}`} />
+    <meta name="twitter:title" content={title.includes(BRAND.name) ? title : `${title} | ${BRAND.name}`} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
 
@@ -108,25 +110,25 @@ const jsonLdWebsite = {
       href="#main-content"
       class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:bg-peach-600 focus:text-white focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-peach-400 text-xs font-bold"
     >
-      Skip to main content
+      {isHindi ? 'मुख्य सामग्री पर जाएँ' : 'Skip to main content'}
     </a>
 
-    <!-- Global Application Header -->
-    <Header />
+    <!-- Global Application Header (Locale-aware) -->
+    <Header locale={lang} />
 
     <!-- Main Page Content Container -->
     <main id="main-content" class="flex-grow focus:outline-none" tabindex="-1">
       <slot />
     </main>
 
-    <!-- Global Application Footer -->
-    <Footer />
+    <!-- Global Application Footer (Locale-aware) -->
+    <Footer locale={lang} />
 
-    <!-- Global Keyboard Shortcut Search Modal (Triggered by Ctrl+K / Cmd+K or Click) -->
-    <SearchModal />
+    <!-- Global Keyboard Shortcut Search Modal (Locale-aware) -->
+    <SearchModal locale={lang} />
 
-    <!-- Mobile Navigation Drawer -->
-    <MobileNav />
+    <!-- Mobile Navigation Drawer (Locale-aware) -->
+    <MobileNav locale={lang} />
 
     <!-- Client-side Interactive UI Helpers & Event Bus -->
     <script is:inline>
@@ -139,7 +141,7 @@ const jsonLdWebsite = {
           toast.className = 'fixed bottom-5 right-5 z-50 px-4 py-2.5 rounded-xl bg-slate-900/90 dark:bg-white/90 backdrop-blur-md text-white dark:text-slate-900 text-xs font-semibold shadow-apple-lg border border-white/10 dark:border-slate-200 transition-all duration-200 flex items-center gap-2';
           document.body.appendChild(toast);
         }
-        toast.innerHTML = `<svg class="w-4 h-4 text-emerald-400 dark:text-emerald-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>\${message}</span>`;
+        toast.innerHTML = `<svg class="w-4 h-4 text-emerald-400 dark:text-emerald-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>${message}</span>`;
         toast.classList.remove('opacity-0', 'translate-y-2');
         setTimeout(() => {
           toast.classList.add('opacity-0', 'translate-y-2');
@@ -147,33 +149,14 @@ const jsonLdWebsite = {
         }, 2500);
       };
 
-      // Theme toggle
-      const themeBtn = document.getElementById('theme-toggle-btn');
-      themeBtn?.addEventListener('click', () => {
-        const isDark = document.documentElement.classList.toggle('dark');
-        localStorage.setItem('peach_theme', isDark ? 'dark' : 'light');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      });
-
-      // Synchronize Language Selection & HTML lang attribute
-      window.addEventListener('peach:lang-change', (event) => {
-        const lang = event.detail.lang || 'hi';
-        document.documentElement.lang = lang;
-        document.body.classList.toggle('lang-en', lang === 'en');
-        document.body.classList.toggle('lang-hi', lang === 'hi');
-      });
-      // Backward-compatible alias
-      window.addEventListener('app:lang-change', (event) => {
-        const lang = event.detail.lang || 'hi';
-        document.documentElement.lang = lang;
-      });
-
-      // Initialize language state
-      (function initLanguageState() {
-        const currentLang = localStorage.getItem('peach_preferred_lang') || 'hi';
-        document.documentElement.lang = currentLang;
-        document.body.classList.toggle('lang-en', currentLang === 'en');
-        document.body.classList.toggle('lang-hi', currentLang === 'hi');
+      // Theme toggle event listener
+      (function() {
+        const themeBtn = document.getElementById('theme-toggle-btn');
+        if (!themeBtn) return;
+        themeBtn.addEventListener('click', () => {
+          const isDark = document.documentElement.classList.toggle('dark');
+          localStorage.setItem('peach_theme', isDark ? 'dark' : 'light');
+        });
       })();
     </script>
   </body>

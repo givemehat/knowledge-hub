@@ -1,32 +1,35 @@
 ---
+import { t, type Locale } from '../../i18n';
+
 interface Props {
   topicCount: number;
   roadmapCount: number;
   resourceCount: number;
   sourceCount: number;
+  locale?: Locale;
 }
 
-const { topicCount, roadmapCount, resourceCount, sourceCount } = Astro.props;
+const { topicCount, roadmapCount, resourceCount, sourceCount, locale = 'hi' } = Astro.props;
 
 const trustPoints = [
   {
-    title: 'Har claim ka verified source',
-    desc: 'Official documentation, research papers aur direct code repositories',
+    title: t(locale, 'trust.sourcesTitle'),
+    desc: t(locale, 'trust.sourcesDesc'),
     iconSvg: `<svg class="w-4 h-4 text-brand-600 dark:text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`
   },
   {
-    title: 'Audited last fact-checked date',
-    desc: 'Har guide par verification timestamp taaki stale ya out-of-date content na mile',
+    title: t(locale, 'trust.auditedTitle'),
+    desc: t(locale, 'trust.auditedDesc'),
     iconSvg: `<svg class="w-4 h-4 text-brand-600 dark:text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`
   },
   {
-    title: '100% Free & Ad-Free Forever',
-    desc: 'Zero creepy trackers, zero paywalls, koi account ya sign-in zaroori nahi',
+    title: t(locale, 'trust.freeTitle'),
+    desc: t(locale, 'trust.freeDesc'),
     iconSvg: `<svg class="w-4 h-4 text-brand-600 dark:text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`
   },
   {
-    title: 'Community-driven corrections',
-    desc: 'Kisi bhi technical fact ya code par mistake mile to direct GitHub PR bhej sakte ho',
+    title: t(locale, 'trust.communityTitle'),
+    desc: t(locale, 'trust.communityDesc'),
     iconSvg: `<svg class="w-4 h-4 text-brand-600 dark:text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" y1="9" x2="6" y2="21"/></svg>`
   }
 ];
@@ -51,7 +54,7 @@ const trustPoints = [
             {topicCount}
           </div>
           <div class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-1">
-            Curated Topic Guides
+            {t(locale, 'stats.guides')}
           </div>
         </div>
       </div>
@@ -69,11 +72,11 @@ const trustPoints = [
               {roadmapCount}
             </span>
             <span class="text-[9px] font-bold text-peacock-600 dark:text-peacock-400 bg-peacock-50 dark:bg-peacock-950/60 px-1 py-0.2 rounded">
-              aur aa rahe hain
+              {t(locale, 'stats.roadmapsSoon')}
             </span>
           </div>
           <div class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-1">
-            Interactive Roadmaps
+            {t(locale, 'stats.roadmaps')}
           </div>
         </div>
       </div>
@@ -90,7 +93,7 @@ const trustPoints = [
             {resourceCount}
           </div>
           <div class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-1">
-            Curated Free Resources
+            {t(locale, 'stats.resources')}
           </div>
         </div>
       </div>
@@ -107,7 +110,7 @@ const trustPoints = [
             {sourceCount}
           </div>
           <div class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-1">
-            Verified Citations
+            {t(locale, 'stats.citations')}
           </div>
         </div>
       </div>

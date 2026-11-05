@@ -36,7 +36,9 @@ export interface Topic {
   lastVerified: string;
   confidence: 'high' | 'medium' | 'evolving';
   summary: string;
+  summaryEn?: string;
   tldr: string[];
+  tldrEn?: string[];
   whyItMatters: string;
   coreConcepts: {
     heading: string;
@@ -118,11 +120,15 @@ export const TOPICS: Topic[] = [
     "lastVerified": "2026-11-04",
     "confidence": "evolving",
     "summary": "Large Language Models (LLMs) के अंदरूनी तंत्र को गहराई से समझें: Tokenization से लेकर Multi-Head Self-Attention, Pre-training, RLHF alignment और Inference generation तक।",
+    "summaryEn": "Deep-dive into the internal mechanics of Large Language Models: from tokenization to multi-head self-attention, pre-training, and inference.",
     "tldr": [
       "**Tokenization:** LLM raw text नहीं पढ़ते; वे text को 3-4 अक्षर के chunks (**tokens**) में तोड़ते हैं और उन्हें numeric IDs देते हैं [1]।",
       "**Transformer Architecture:** RNNs के sequential लूप्स के बजाय, Transformers पूरे वाक्य को एक साथ प्रोसेस करते हैं और **Self-Attention** से शब्दों के आपसी संदर्भ (context) की गणना करते हैं [1]।",
       "**Training Pipeline:** 2 चरणों में होता है: विशाल raw internet text पर **Pre-training** (Next-token prediction) और उसके बाद **Instruction Fine-Tuning** (SFT/RLHF/DPO) ताकि मॉडल इंसानों के आदेशों का सुरक्षित जवाब दे सके [2, 5]।",
       "**Inference Reality:** LLMs \"सोचते\" नहीं हैं; वे पिछले सभी tokens के आधार पर अगले सबसे संभावित token की probability distribution निकालकर एक-एक token generate करते हैं।"
+    ],
+    "tldrEn": [
+      "**Tokenization:** LLMs process tokens rather than raw text, breaking inputs into numerical sub-word vectors."
     ],
     "whyItMatters": "Large Language Models (LLMs) के अंदरूनी तंत्र को गहराई से समझें: Tokenization से लेकर Multi-Head Self-Attention, Pre-training, RLHF alignment और Inference generation तक।",
     "coreConcepts": [
@@ -261,11 +267,15 @@ export const TOPICS: Topic[] = [
     "lastVerified": "2026-11-04",
     "confidence": "evolving",
     "summary": "Retrieval-Augmented Generation (RAG) और Autonomous AI Agents की विस्तृत तुलना। जानिए कब simple search काफी है, कब multi-step reasoning वाले agents चाहिए, और production-grade hybrid systems कैसे बनाएं।",
+    "summaryEn": "Comprehensive architectural comparison between Retrieval-Augmented Generation (RAG) and autonomous AI agent workflows.",
     "tldr": [
       "**RAG (Knowledge Augmentation):** आपके private documents या internal database से relevant text chunks retrieve करके LLM के prompt में inject करता है [1]। यह static question-answering के लिए fast, cheap, और highly deterministic है।",
       "**AI Agents (Action & Tool Use):** एक dynamic loop (ReAct pattern) चलाते हैं जहाँ LLM तय करता है कि *क्या सोचना है*, *कौन सा tool call करना है* (Calculator, Web Search, Code Runner), और output के आधार पर अगला कदम क्या होगा [2]।",
       "**The Golden Rule:** अगर सवाल का जवाब केवल दस्तावेज़ पढ़कर दिया जा सकता है, तो **RAG** चुनें। अगर कार्य में multi-step planning, state changes, external APIs या conditionals शामिल हैं, तो **Agent** चुनें।",
       "**Cost & Latency:** RAG 1 round-trip में पूरा होता है (Latency < 1-2s); Agentic loops में कई LLM calls होती हैं (Latency 5-20s, cost 3x-10x ज़्यादा)।"
+    ],
+    "tldrEn": [
+      "**RAG:** Augments LLMs with private document chunks retrieved via vector similarity search."
     ],
     "whyItMatters": "Retrieval-Augmented Generation (RAG) और Autonomous AI Agents की विस्तृत तुलना। जानिए कब simple search काफी है, कब multi-step reasoning वाले agents चाहिए, और production-grade hybrid systems कैसे बनाएं।",
     "coreConcepts": [
@@ -369,7 +379,7 @@ export const TOPICS: Topic[] = [
       }
     ],
     "shortTitle": "AI Agents और RAG पाइपलाइन",
-    "shortTitleEn": "AI Agents & RAG Pipeline"
+    "shortTitleEn": "AI Agents and RAG Pipelines"
   },
   {
     "slug": "prompt-engineering-students",
@@ -390,11 +400,15 @@ export const TOPICS: Topic[] = [
     "lastVerified": "2026-11-04",
     "confidence": "high",
     "summary": "कॉलेज स्टूडेंट्स और फ्रेशर्स के लिए Prompt Engineering की संपूर्ण गाइड। जानिए Zero-Shot, Few-Shot, Chain-of-Thought (CoT) तकनीकें, असाइनमेंट में बिना चीटिंग के AI की मदद, और Hallucination पकड़ने के तरीके।",
+    "summaryEn": "A practical prompt engineering guide covering zero-shot, few-shot, and chain-of-thought methods for tech learners.",
     "tldr": [
       "**The Core Formula:** बेहतरीन prompts का एक ढांचा होता है: **Role + Context + Clear Task + Strict Constraints + Output Format** [1]।",
       "**Chain-of-Thought (CoT):** जब आप AI को *\"कदम दर कदम सोचो (Think step by step)\"* कहते हैं, तो गणितीय और तार्किक सटीकता 40-70% तक बढ़ जाती है [2]।",
       "**Few-Shot Examples:** केवल नियम समझाने के बजाय 2-3 इनपुट-आउटपुट उदाहरण देने से मॉडल आपकी इच्छित शैली पकड़ लेता है।",
       "**Student Ethics:** AI को \"सॉल्व करने वाली मशीन\" के रूप में इस्तेमाल न करें; इसे **\"पर्सनल ट्यूटर\"** (Socratic Mentor) बनाएं जो आपको सवाल पूछे और कमियों को उजागर करे।"
+    ],
+    "tldrEn": [
+      "**Formula:** Effective prompts consist of Role + Context + Clear Task + Explicit Constraints."
     ],
     "whyItMatters": "कॉलेज स्टूडेंट्स और फ्रेशर्स के लिए Prompt Engineering की संपूर्ण गाइड। जानिए Zero-Shot, Few-Shot, Chain-of-Thought (CoT) तकनीकें, असाइनमेंट में बिना चीटिंग के AI की मदद, और Hallucination पकड़ने के तरीके।",
     "coreConcepts": [
@@ -519,11 +533,15 @@ export const TOPICS: Topic[] = [
     "lastVerified": "2026-11-04",
     "confidence": "high",
     "summary": "बिना जटिल गणित और Linear Algebra के क्वांटम कंप्यूटिंग के बुनियादी सिद्धांतों को समझें। जानिए Qubit, Superposition, Entanglement और Measurement Collapse वास्तविक जीवन की सरल analogies के साथ।",
+    "summaryEn": "Understand foundational quantum computing principles: qubits, superposition, and entanglement without complex linear algebra.",
     "tldr": [
       "**Classical Bit vs Qubit:** एक सामान्य बिट या तो 0 होता है या 1 (जैसे एक लाइट स्विच)। एक **Qubit** 0 और 1 दोनों की सम्भावनाओं के मिश्रण में रह सकता है [1]।",
       "**Superposition:** मेज पर रखा सिक्का 'Heads' या 'Tails' होता है, लेकिन घूमता हुआ सिक्का (spinning coin) दोनों अवस्थाओं का मिश्रण है जब तक आप उसे रोक न दें।",
       "**Measurement Collapse:** जैसे ही आप क्वांटम सिस्टम को मापते (observe) हैं, उसकी सुपरपोजिशन तुरंत खत्म हो जाती है और वह सामान्य 0 या 1 में बदल जाता है [1]।",
       "**Entanglement:** दो या अधिक क्यूबिट्स का आपस में ऐसा गहरा जुड़ाव कि एक की स्थिति जानते ही दूसरे की स्थिति ब्रह्मांड के किसी भी कोने में तुरंत तय हो जाती है [3]।"
+    ],
+    "tldrEn": [
+      "**Qubit Physics:** Unlike classical binary bits (0 or 1), a qubit can exist in a linear superposition state of both."
     ],
     "whyItMatters": "बिना जटिल गणित और Linear Algebra के क्वांटम कंप्यूटिंग के बुनियादी सिद्धांतों को समझें। जानिए Qubit, Superposition, Entanglement और Measurement Collapse वास्तविक जीवन की सरल analogies के साथ।",
     "coreConcepts": [
@@ -626,7 +644,7 @@ export const TOPICS: Topic[] = [
       }
     ],
     "shortTitle": "क्यूबिट और सुपरपोज़िशन",
-    "shortTitleEn": "Qubits & Superposition"
+    "shortTitleEn": "Qubits and Superposition"
   },
   {
     "slug": "quantum-roadmap-and-reality",
@@ -647,11 +665,15 @@ export const TOPICS: Topic[] = [
     "lastVerified": "2026-11-04",
     "confidence": "evolving",
     "summary": "Qiskit के साथ व्यावहारिक क्वांटम कोडिंग सीखने का पूरा रोडमैप। साथ ही जानिए आज के क्वांटम हार्डवेयर की ज़मीनी हकीकत: NISQ युग की सीमाएं, एरर करेक्शन की चुनौती, और भारत का National Quantum Mission।",
+    "summaryEn": "A realistic engineering roadmap for quantum software development with Qiskit, cutting through current industry hype.",
     "tldr": [
       "**हाइप बनाम हकीकत:** आज हम **NISQ युग** (Noisy Intermediate-Scale Quantum) में हैं [2]। आज के सिस्टम्स में शोर (noise) और एरर बहुत ज़्यादा हैं; उपयोगी गणनाओं के लिए Fault-Tolerant Quantum Computing (FTQC) की दरकार है।",
       "**RSA टूटने का डर:** Shor's algorithm से RSA-2048 encryption तोड़ने के लिए लाखों physical qubits की ज़रूरत होगी, जो कम से कम 2030-2035 से पहले मुमकिन नहीं दिखता। फिर भी NIST ने 2024 में Post-Quantum Cryptography (FIPS 203/204/205) जारी कर दिए हैं [3]।",
       "**National Quantum Mission (भारत):** अप्रैल 2023 में भारत सरकार ने ₹6,003.65 करोड़ का NQM मंज़ूर किया, जिसका लक्ष्य 2031 तक 50 से 1,000 physical qubits और 2,000 किमी की Quantum Communication लाइनें विकसित करना है [1]।",
       "**सीखने का रास्ता:** Qiskit 1.0+ से शुरुआत करें, बुनियादी सर्किट्स बनाएं, और सिमुलेटर पर टेस्ट करें।"
+    ],
+    "tldrEn": [
+      "**Current Era:** We are in the NISQ (Noisy Intermediate-Scale Quantum) era; error mitigation remains paramount."
     ],
     "whyItMatters": "Qiskit के साथ व्यावहारिक क्वांटम कोडिंग सीखने का पूरा रोडमैप। साथ ही जानिए आज के क्वांटम हार्डवेयर की ज़मीनी हकीकत: NISQ युग की सीमाएं, एरर करेक्शन की चुनौती, और भारत का National Quantum Mission।",
     "coreConcepts": [
@@ -776,11 +798,15 @@ export const TOPICS: Topic[] = [
     "lastVerified": "2026-11-04",
     "confidence": "high",
     "summary": "भारतीय संविधान का निष्पक्ष, तथ्यपरक और संवैधानिक विश्लेषण। जानिए शक्ति पृथक्करण (Separation of Powers), कार्यपालिका, विधायिका और न्यायपालिका के बीच संतुलन (Checks & Balances), और संघात्मक ढांचा।",
+    "summaryEn": "A factual and constitutional analysis of India's governance structure: executive, legislative, and independent judiciary.",
     "tldr": [
       "**सर्वोच्च विधि:** भारत का संविधान देश का सर्वोच्च कानून (Grundnorm) है, जिसे 26 नवंबर 1949 को अंगीकृत किया गया और 26 जनवरी 1950 को लागू हुआ [1]।",
       "**तीन स्तंभ (Trias Politica):** सरकार के तीन मुख्य अंग हैं: **विधायिका** (कानून बनाना), **कार्यपालिका** (कानून लागू करना), और **न्यायपालिका** (कानून की व्याख्या करना और संविधान की रक्षा करना)।",
       "**Checks & Balances:** कोई भी अंग निरंकुश नहीं है। संसद कानून बनाती है, लेकिन सुप्रीम कोर्ट असंवैधानिक कानून को रद्द कर सकता है (Judicial Review) [3]। न्यायपालिका के जजों की नियुक्ति कार्यपालिका/कोलेजियम से होती है, और संसद उन पर महाभियोग (Impeachment) चला सकती है।",
       "**अर्ध-संघीय ढांचा (Quasi-Federal):** संविधान में संघीय (Federal) विशेषताएं हैं लेकिन केंद्र की ओर झुकाव (Unitary bias) है (7वीं अनुसूची: संघ सूची, राज्य सूची, समवर्ती सूची) [1]।"
+    ],
+    "tldrEn": [
+      "**Separation of Powers:** The Indian Constitution balances authority among the Legislature, Executive, and Judiciary."
     ],
     "whyItMatters": "भारतीय संविधान का निष्पक्ष, तथ्यपरक और संवैधानिक विश्लेषण। जानिए शक्ति पृथक्करण (Separation of Powers), कार्यपालिका, विधायिका और न्यायपालिका के बीच संतुलन (Checks & Balances), और संघात्मक ढांचा।",
     "coreConcepts": [
@@ -883,7 +909,7 @@ export const TOPICS: Topic[] = [
       }
     ],
     "shortTitle": "संविधान और सरकार की संरचना",
-    "shortTitleEn": "Constitution & Government"
+    "shortTitleEn": "Constitution & Govt Structure"
   },
   {
     "slug": "election-process-evm-vvpat",
@@ -1003,7 +1029,7 @@ export const TOPICS: Topic[] = [
       }
     ],
     "shortTitle": "चुनाव प्रक्रिया: EVM और VVPAT",
-    "shortTitleEn": "Election Process: EVM & VVPAT"
+    "shortTitleEn": "Election Process: EVM and VVPAT"
   },
   {
     "slug": "union-budget-rti-dbt",
@@ -1132,7 +1158,7 @@ export const TOPICS: Topic[] = [
       }
     ],
     "shortTitle": "केंद्रीय बजट, RTI और DBT",
-    "shortTitleEn": "Union Budget, RTI & DBT"
+    "shortTitleEn": "Union Budget, RTI and DBT"
   },
   {
     "slug": "dsa-roadmap-6-months",
@@ -1262,7 +1288,7 @@ export const TOPICS: Topic[] = [
       }
     ],
     "shortTitle": "DSA का 6-महीने का रोडमैप",
-    "shortTitleEn": "DSA 6-Month Roadmap"
+    "shortTitleEn": "6-Month DSA Roadmap"
   },
   {
     "slug": "placement-offcampus-playbook",
@@ -1645,7 +1671,7 @@ export const TOPICS: Topic[] = [
       }
     ],
     "shortTitle": "सॉफ़्टवेयर प्रोजेक्ट्स गाइड",
-    "shortTitleEn": "Software Project Ideas Hub"
+    "shortTitleEn": "Software Projects Guide"
   },
   {
     "slug": "llms-explained",
@@ -1665,11 +1691,15 @@ export const TOPICS: Topic[] = [
     "lastVerified": "2026-11-04",
     "confidence": "evolving",
     "summary": "Large Language Models (LLMs) के अंदरूनी तंत्र को गहराई से समझें: Tokenization से लेकर Multi-Head Self-Attention, Pre-training, RLHF alignment और Inference generation तक।",
+    "summaryEn": "Deep-dive into the internal mechanics of Large Language Models: from tokenization to multi-head self-attention, pre-training, and inference.",
     "tldr": [
       "**Tokenization:** LLM raw text नहीं पढ़ते; वे text को 3-4 अक्षर के chunks (**tokens**) में तोड़ते हैं और उन्हें numeric IDs देते हैं [1]।",
       "**Transformer Architecture:** RNNs के sequential लूप्स के बजाय, Transformers पूरे वाक्य को एक साथ प्रोसेस करते हैं और **Self-Attention** से शब्दों के आपसी संदर्भ (context) की गणना करते हैं [1]।",
       "**Training Pipeline:** 2 चरणों में होता है: विशाल raw internet text पर **Pre-training** (Next-token prediction) और उसके बाद **Instruction Fine-Tuning** (SFT/RLHF/DPO) ताकि मॉडल इंसानों के आदेशों का सुरक्षित जवाब दे सके [2, 5]।",
       "**Inference Reality:** LLMs \"सोचते\" नहीं हैं; वे पिछले सभी tokens के आधार पर अगले सबसे संभावित token की probability distribution निकालकर एक-एक token generate करते हैं।"
+    ],
+    "tldrEn": [
+      "**Tokenization:** LLMs process tokens rather than raw text, breaking inputs into numerical sub-word vectors."
     ],
     "whyItMatters": "Large Language Models (LLMs) के अंदरूनी तंत्र को गहराई से समझें: Tokenization से लेकर Multi-Head Self-Attention, Pre-training, RLHF alignment और Inference generation तक।",
     "coreConcepts": [
@@ -1808,11 +1838,15 @@ export const TOPICS: Topic[] = [
     "lastVerified": "2026-11-04",
     "confidence": "evolving",
     "summary": "Retrieval-Augmented Generation (RAG) और Autonomous AI Agents की विस्तृत तुलना। जानिए कब simple search काफी है, कब multi-step reasoning वाले agents चाहिए, और production-grade hybrid systems कैसे बनाएं।",
+    "summaryEn": "Comprehensive architectural comparison between Retrieval-Augmented Generation (RAG) and autonomous AI agent workflows.",
     "tldr": [
       "**RAG (Knowledge Augmentation):** आपके private documents या internal database से relevant text chunks retrieve करके LLM के prompt में inject करता है [1]। यह static question-answering के लिए fast, cheap, और highly deterministic है।",
       "**AI Agents (Action & Tool Use):** एक dynamic loop (ReAct pattern) चलाते हैं जहाँ LLM तय करता है कि *क्या सोचना है*, *कौन सा tool call करना है* (Calculator, Web Search, Code Runner), और output के आधार पर अगला कदम क्या होगा [2]।",
       "**The Golden Rule:** अगर सवाल का जवाब केवल दस्तावेज़ पढ़कर दिया जा सकता है, तो **RAG** चुनें। अगर कार्य में multi-step planning, state changes, external APIs या conditionals शामिल हैं, तो **Agent** चुनें।",
       "**Cost & Latency:** RAG 1 round-trip में पूरा होता है (Latency < 1-2s); Agentic loops में कई LLM calls होती हैं (Latency 5-20s, cost 3x-10x ज़्यादा)।"
+    ],
+    "tldrEn": [
+      "**RAG:** Augments LLMs with private document chunks retrieved via vector similarity search."
     ],
     "whyItMatters": "Retrieval-Augmented Generation (RAG) और Autonomous AI Agents की विस्तृत तुलना। जानिए कब simple search काफी है, कब multi-step reasoning वाले agents चाहिए, और production-grade hybrid systems कैसे बनाएं।",
     "coreConcepts": [
@@ -1937,11 +1971,15 @@ export const TOPICS: Topic[] = [
     "lastVerified": "2026-11-04",
     "confidence": "high",
     "summary": "कॉलेज स्टूडेंट्स और फ्रेशर्स के लिए Prompt Engineering की संपूर्ण गाइड। जानिए Zero-Shot, Few-Shot, Chain-of-Thought (CoT) तकनीकें, असाइनमेंट में बिना चीटिंग के AI की मदद, और Hallucination पकड़ने के तरीके।",
+    "summaryEn": "A practical prompt engineering guide covering zero-shot, few-shot, and chain-of-thought methods for tech learners.",
     "tldr": [
       "**The Core Formula:** बेहतरीन prompts का एक ढांचा होता है: **Role + Context + Clear Task + Strict Constraints + Output Format** [1]।",
       "**Chain-of-Thought (CoT):** जब आप AI को *\"कदम दर कदम सोचो (Think step by step)\"* कहते हैं, तो गणितीय और तार्किक सटीकता 40-70% तक बढ़ जाती है [2]।",
       "**Few-Shot Examples:** केवल नियम समझाने के बजाय 2-3 इनपुट-आउटपुट उदाहरण देने से मॉडल आपकी इच्छित शैली पकड़ लेता है।",
       "**Student Ethics:** AI को \"सॉल्व करने वाली मशीन\" के रूप में इस्तेमाल न करें; इसे **\"पर्सनल ट्यूटर\"** (Socratic Mentor) बनाएं जो आपको सवाल पूछे और कमियों को उजागर करे।"
+    ],
+    "tldrEn": [
+      "**Formula:** Effective prompts consist of Role + Context + Clear Task + Explicit Constraints."
     ],
     "whyItMatters": "कॉलेज स्टूडेंट्स और फ्रेशर्स के लिए Prompt Engineering की संपूर्ण गाइड। जानिए Zero-Shot, Few-Shot, Chain-of-Thought (CoT) तकनीकें, असाइनमेंट में बिना चीटिंग के AI की मदद, और Hallucination पकड़ने के तरीके।",
     "coreConcepts": [
@@ -2066,11 +2104,15 @@ export const TOPICS: Topic[] = [
     "lastVerified": "2026-11-04",
     "confidence": "high",
     "summary": "बिना जटिल गणित और Linear Algebra के क्वांटम कंप्यूटिंग के बुनियादी सिद्धांतों को समझें। जानिए Qubit, Superposition, Entanglement और Measurement Collapse वास्तविक जीवन की सरल analogies के साथ।",
+    "summaryEn": "Understand foundational quantum computing principles: qubits, superposition, and entanglement without complex linear algebra.",
     "tldr": [
       "**Classical Bit vs Qubit:** एक सामान्य बिट या तो 0 होता है या 1 (जैसे एक लाइट स्विच)। एक **Qubit** 0 और 1 दोनों की सम्भावनाओं के मिश्रण में रह सकता है [1]।",
       "**Superposition:** मेज पर रखा सिक्का 'Heads' या 'Tails' होता है, लेकिन घूमता हुआ सिक्का (spinning coin) दोनों अवस्थाओं का मिश्रण है जब तक आप उसे रोक न दें।",
       "**Measurement Collapse:** जैसे ही आप क्वांटम सिस्टम को मापते (observe) हैं, उसकी सुपरपोजिशन तुरंत खत्म हो जाती है और वह सामान्य 0 या 1 में बदल जाता है [1]।",
       "**Entanglement:** दो या अधिक क्यूबिट्स का आपस में ऐसा गहरा जुड़ाव कि एक की स्थिति जानते ही दूसरे की स्थिति ब्रह्मांड के किसी भी कोने में तुरंत तय हो जाती है [3]।"
+    ],
+    "tldrEn": [
+      "**Qubit Physics:** Unlike classical binary bits (0 or 1), a qubit can exist in a linear superposition state of both."
     ],
     "whyItMatters": "बिना जटिल गणित और Linear Algebra के क्वांटम कंप्यूटिंग के बुनियादी सिद्धांतों को समझें। जानिए Qubit, Superposition, Entanglement और Measurement Collapse वास्तविक जीवन की सरल analogies के साथ।",
     "coreConcepts": [
@@ -2173,7 +2215,7 @@ export const TOPICS: Topic[] = [
       }
     ],
     "shortTitle": "क्वांटम गेट्स और सर्किट्स",
-    "shortTitleEn": "Quantum Gates & Circuits"
+    "shortTitleEn": "Quantum Gates and Circuits"
   },
   {
     "slug": "indian-constitution-basics",
@@ -2195,11 +2237,15 @@ export const TOPICS: Topic[] = [
     "lastVerified": "2026-11-04",
     "confidence": "high",
     "summary": "भारतीय संविधान का निष्पक्ष, तथ्यपरक और संवैधानिक विश्लेषण। जानिए शक्ति पृथक्करण (Separation of Powers), कार्यपालिका, विधायिका और न्यायपालिका के बीच संतुलन (Checks & Balances), और संघात्मक ढांचा।",
+    "summaryEn": "A factual and constitutional analysis of India's governance structure: executive, legislative, and independent judiciary.",
     "tldr": [
       "**सर्वोच्च विधि:** भारत का संविधान देश का सर्वोच्च कानून (Grundnorm) है, जिसे 26 नवंबर 1949 को अंगीकृत किया गया और 26 जनवरी 1950 को लागू हुआ [1]।",
       "**तीन स्तंभ (Trias Politica):** सरकार के तीन मुख्य अंग हैं: **विधायिका** (कानून बनाना), **कार्यपालिका** (कानून लागू करना), और **न्यायपालिका** (कानून की व्याख्या करना और संविधान की रक्षा करना)।",
       "**Checks & Balances:** कोई भी अंग निरंकुश नहीं है। संसद कानून बनाती है, लेकिन सुप्रीम कोर्ट असंवैधानिक कानून को रद्द कर सकता है (Judicial Review) [3]। न्यायपालिका के जजों की नियुक्ति कार्यपालिका/कोलेजियम से होती है, और संसद उन पर महाभियोग (Impeachment) चला सकती है।",
       "**अर्ध-संघीय ढांचा (Quasi-Federal):** संविधान में संघीय (Federal) विशेषताएं हैं लेकिन केंद्र की ओर झुकाव (Unitary bias) है (7वीं अनुसूची: संघ सूची, राज्य सूची, समवर्ती सूची) [1]।"
+    ],
+    "tldrEn": [
+      "**Separation of Powers:** The Indian Constitution balances authority among the Legislature, Executive, and Judiciary."
     ],
     "whyItMatters": "भारतीय संविधान का निष्पक्ष, तथ्यपरक और संवैधानिक विश्लेषण। जानिए शक्ति पृथक्करण (Separation of Powers), कार्यपालिका, विधायिका और न्यायपालिका के बीच संतुलन (Checks & Balances), और संघात्मक ढांचा।",
     "coreConcepts": [
@@ -2569,7 +2615,7 @@ export const TOPICS: Topic[] = [
     "slug": "operating-systems-memory-concurrency",
     "title": "Operating Systems: Processes, Threads, Memory Management और Concurrency",
     "shortTitle": "OS: प्रोसेस, मेमोरी और लॉक्स",
-    "shortTitleEn": "OS: Processes & Concurrency",
+    "shortTitleEn": "OS: Processes, Memory and Locks",
     "category": "tech-fundamentals",
     "categoryLabel": "Tech Fundamentals",
     "level": "intermediate",
@@ -2649,7 +2695,7 @@ export const TOPICS: Topic[] = [
     "slug": "computer-networks-tcp-ip-http",
     "title": "Computer Networks: TCP 3-Way Handshake, DNS, HTTP/3 और Socket Programming",
     "shortTitle": "कंप्यूटर नेटवर्क्स: TCP/IP और HTTP",
-    "shortTitleEn": "Computer Networks: TCP/IP & HTTP",
+    "shortTitleEn": "Computer Networks: TCP/IP and HTTP",
     "category": "tech-fundamentals",
     "categoryLabel": "Tech Fundamentals",
     "level": "intermediate",

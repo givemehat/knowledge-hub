@@ -4,72 +4,76 @@ import { ROADMAPS } from '../data/roadmaps';
 import { SCENARIOS } from '../data/scenarios';
 import { BRAND } from '../config/brand';
 import { CREATOR } from '../data/creator';
+import type { Locale } from '../i18n';
 
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'hi' } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const isHindi = locale === 'hi';
 
-// Prepare search dataset
+// Prepare search dataset with locale-aware URLs and titles
 const searchData = [
   ...TOPICS.map(t => ({
-    type: 'Topic',
-    title: t.title,
-    titleHindi: t.titleHindi || '',
-    category: t.categoryLabel,
+    type: isHindi ? 'विषय' : 'Topic',
+    title: isHindi ? (t.shortTitle || t.title) : (t.shortTitleEn || t.title),
+    category: isHindi ? t.categoryLabel : (t.category === 'ai-ml' ? 'AI & Machine Learning' : t.category === 'quantum' ? 'Quantum Computing' : t.category === 'career' ? 'Career & Placement' : t.category === 'projects' ? 'Projects Hub' : t.category === 'tech-fundamentals' ? 'Tech Fundamentals' : 'Politics & Governance'),
     level: t.level,
-    url: `${base}/topics/${t.slug}/`,
-    summary: t.summary,
+    url: `${base}/${locale}/topics/${t.slug}/`,
+    summary: isHindi ? t.summary : (t.summaryEn || ''),
     tags: t.tags.join(', ')
   })),
   ...ROADMAPS.map(r => ({
-    type: 'Roadmap',
-    title: r.title,
-    titleHindi: r.titleHindi || '',
-    category: 'Roadmap Guide',
+    type: isHindi ? 'रोडमैप' : 'Roadmap',
+    title: isHindi ? (r.titleHindi || r.title) : r.title,
+    category: isHindi ? 'रोडमैप' : 'Roadmap Guide',
     level: r.difficulty,
-    url: `${base}/roadmaps/${r.slug}/`,
-    summary: r.subtitle,
+    url: `${base}/${locale}/roadmaps/${r.slug}/`,
+    summary: isHindi ? r.subtitle : (r.description || 'Step-by-step career and skills learning roadmap.'),
     tags: r.nodes.map(n => n.title).join(', ')
   })),
   ...SCENARIOS.map(s => ({
-    type: 'Scenario',
-    title: s.title,
-    titleHindi: s.titleHindi,
-    category: s.domainLabel,
+    type: isHindi ? 'सिनेरियो' : 'Scenario',
+    title: isHindi ? s.titleHindi : s.title,
+    category: isHindi ? s.domainLabel : 'Futures Studies',
     level: 'Hypothetical',
-    url: `${base}/scenarios/${s.slug}/`,
-    summary: s.abstract,
+    url: `${base}/${locale}/scenarios/${s.slug}/`,
+    summary: isHindi ? s.abstract : (s.subtitle || 'Red-teaming strategic simulation and branch outcomes.'),
     tags: 'scenario, red-teaming, simulation, futures'
   })),
   {
-    type: 'Research',
-    title: 'Headlines of Fear & Hope: Longitudinal Sentiment and Framing Dynamics in Indian Media (2001–2023)',
-    titleHindi: 'भारतीय समाचार मीडिया सेंटीमेंट और भावना अध्ययन (2001-2023)',
-    category: 'Media Research',
+    type: isHindi ? 'शोध' : 'Research',
+    title: isHindi ? 'भारतीय समाचार मीडिया सेंटीमेंट अध्ययन (2001-2023)' : 'Headlines of Fear & Hope: Longitudinal Sentiment and Framing Dynamics in Indian Media (2001–2023)',
+    category: isHindi ? 'मीडिया शोध' : 'Media Research',
     level: 'Data Analysis',
-    url: `${base}/research/media-sentiment-study/`,
-    summary: 'Longitudinal empirical research examining 3.84 million headlines from 2001 to 2023 using VADER, MuRIL, and Kaggle datasets.',
+    url: `${base}/${locale}/research/media-sentiment-study/`,
+    summary: isHindi ? '38.4 लाख शीर्षकों का कम्प्यूटेशनल अध्ययन।' : 'Longitudinal empirical research examining 3.84 million headlines from 2001 to 2023 using VADER, MuRIL, and Kaggle datasets.',
     tags: 'sentiment analysis, media, kaggle, research, headlines, emotions'
   },
   {
-    type: 'Creator',
-    title: `About ${CREATOR.name} & ${BRAND.name} Manifesto`,
-    titleHindi: `${CREATOR.hindiName} और ${BRAND.nameHi} के बारे में`,
-    category: 'Creator & Story',
+    type: isHindi ? 'परिचय' : 'Creator',
+    title: isHindi ? `${CREATOR.name} और ${BRAND.name} परिचय` : `About ${CREATOR.name} & ${BRAND.name} Manifesto`,
+    category: isHindi ? 'परिचय' : 'Creator & Story',
     level: 'Profile',
-    url: `${base}/about/`,
-    summary: `Personal journey, skills, engineering background, and motivation behind building ${BRAND.name}.`,
+    url: `${base}/${locale}/about/`,
+    summary: isHindi ? 'ज्ञान इंजन बनाने की प्रेरणा और पृष्ठभूमि।' : `Personal journey, skills, engineering background, and motivation behind building ${BRAND.name}.`,
     tags: 'creator, rajnish singh, author, about, portfolio, bio, skills'
   },
   {
-    type: 'Contact',
-    title: `Connect & Contact ${CREATOR.name}`,
-    titleHindi: 'संपर्क करें और सहयोग करें',
-    category: 'Collaboration',
+    type: isHindi ? 'संपर्क' : 'Contact',
+    title: isHindi ? `${CREATOR.name} से संपर्क करें` : `Connect & Contact ${CREATOR.name}`,
+    category: isHindi ? 'सहयोग' : 'Collaboration',
     level: 'Connect',
-    url: `${base}/contact/`,
-    summary: 'Get in touch for internships, software engineering roles, open-source feedback, and vCard download.',
+    url: `${base}/${locale}/contact/`,
+    summary: isHindi ? 'सहयोग और सुझाव के लिए संपर्क करें।' : 'Get in touch for internships, software engineering roles, open-source feedback, and vCard download.',
     tags: 'contact, hire, collaborate, message, email, github, vcard, qr code'
   }
 ];
+
+const noResultsText = isHindi ? "कोई परिणाम नहीं मिला। अन्य शब्द खोजें।" : "No verified results found. Try broader keywords.";
+const defaultPlaceholderText = isHindi ? "सत्यापित विषय, चीट-शीट और रोडमैप खोजें..." : "Search through verified topics, cheat sheets, and interview roadmaps...";
 ---
 
 <div id="search-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-start justify-center pt-16 sm:pt-24 px-4 transition-opacity">
@@ -82,7 +86,7 @@ const searchData = [
       <input
         type="text"
         id="search-input"
-        placeholder="Type to search topics, roadmaps, or tech concepts (e.g. RAG, DSA, Docker)..."
+        placeholder={isHindi ? "खोजने के लिए टाइप करें (जैसे RAG, DSA, OS)..." : "Type to search topics, roadmaps, or tech concepts (e.g. RAG, DSA, Docker)..."}
         class="w-full bg-transparent text-slate-900 dark:text-white placeholder-slate-400 text-sm focus:outline-none"
         autocomplete="off"
       />
@@ -92,22 +96,24 @@ const searchData = [
     <!-- Results List -->
     <div id="search-results" class="overflow-y-auto p-3 space-y-2 text-sm">
       <div class="p-8 text-center text-slate-400 text-xs">
-        Search through verified topics, cheat sheets, and interview roadmaps...
+        {isHindi ? "सत्यापित विषय, चीट-शीट और रोडमैप खोजें..." : "Search through verified topics, cheat sheets, and interview roadmaps..."}
       </div>
     </div>
 
     <!-- Quick Footer Tip -->
     <div class="px-5 py-3 bg-slate-50/80 dark:bg-slate-900/60 border-t border-slate-100 dark:border-white/10 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
       <div class="flex items-center gap-3">
-        <span><kbd class="px-1.5 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/10 text-[10px]">↑</kbd> <kbd class="px-1.5 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/10 text-[10px]">↓</kbd> to navigate</span>
-        <span><kbd class="px-1.5 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/10 text-[10px]">↵</kbd> to select</span>
+        <span><kbd class="px-1.5 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/10 text-[10px]">↑</kbd> <kbd class="px-1.5 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/10 text-[10px]">↓</kbd> {isHindi ? "चुनने के लिए" : "to navigate"}</span>
+        <span><kbd class="px-1.5 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/10 text-[10px]">↵</kbd> {isHindi ? "खोलने के लिए" : "to select"}</span>
       </div>
-      <span class="font-medium text-brand-600 dark:text-brand-400">Instant Static Search</span>
+      <span class="font-medium text-brand-600 dark:text-brand-400">
+        {isHindi ? "त्वरित खोज" : "Instant Static Search"}
+      </span>
     </div>
   </div>
 </div>
 
-<script is:inline define:vars={{ searchData }}>
+<script is:inline define:vars={{ searchData, noResultsText }}>
   const modal = document.getElementById('search-modal');
   const openBtn = document.getElementById('open-search-btn');
   const closeBtn = document.getElementById('close-search-btn');
@@ -132,7 +138,7 @@ const searchData = [
   openBtn?.addEventListener('click', openSearch);
   closeBtn?.addEventListener('click', closeSearch);
 
-  modal.addEventListener('click', (e) => {
+  modal?.addEventListener('click', (e) => {
     if (e.target === modal) closeSearch();
   });
 
@@ -148,72 +154,70 @@ const searchData = [
       const items = resultsContainer.querySelectorAll('.search-item');
       if (e.key === 'ArrowDown') {
         e.preventDefault();
-        selectedIndex = (selectedIndex + 1) % items.length;
-        updateActiveItem(items);
+        selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
+        updateSelection(items);
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
-        selectedIndex = (selectedIndex - 1 + items.length) % items.length;
-        updateActiveItem(items);
-      } else if (e.key === 'Enter' && selectedIndex >= 0 && items[selectedIndex]) {
+        selectedIndex = Math.max(selectedIndex - 1, 0);
+        updateSelection(items);
+      } else if (e.key === 'Enter') {
         e.preventDefault();
-        items[selectedIndex].click();
+        if (selectedIndex >= 0 && items[selectedIndex]) {
+          items[selectedIndex].click();
+        }
       }
     }
   });
 
-  function updateActiveItem(items) {
+  function updateSelection(items) {
     items.forEach((item, idx) => {
       if (idx === selectedIndex) {
-        item.classList.add('bg-slate-100', 'dark:bg-slate-800', 'border-brand-500/50');
+        item.classList.add('bg-brand-50', 'dark:bg-brand-950/70', 'border-brand-500/30');
         item.scrollIntoView({ block: 'nearest' });
       } else {
-        item.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'border-brand-500/50');
+        item.classList.remove('bg-brand-50', 'dark:bg-brand-950/70', 'border-brand-500/30');
       }
     });
   }
 
-  searchInput?.addEventListener('input', (e) => {
-    const query = e.target.value.toLowerCase().trim();
-    if (!query) {
-      renderResults(searchData.slice(0, 6));
-      return;
-    }
-
-    currentResults = searchData.filter(item => 
-      item.title.toLowerCase().includes(query) ||
-      item.titleHindi.toLowerCase().includes(query) ||
-      item.summary.toLowerCase().includes(query) ||
-      item.tags.toLowerCase().includes(query) ||
-      item.category.toLowerCase().includes(query)
-    );
-
-    renderResults(currentResults);
-  });
-
   function renderResults(results) {
+    currentResults = results;
     selectedIndex = -1;
     if (results.length === 0) {
-      resultsContainer.innerHTML = `
-        <div class="p-8 text-center text-slate-400 text-sm">
-          No matching topics found for your search.
-        </div>
-      `;
+      resultsContainer.innerHTML = `<div class="p-8 text-center text-slate-400 text-xs">${noResultsText}</div>`;
       return;
     }
 
     resultsContainer.innerHTML = results.map((item, idx) => `
-      <a href="${item.url}" class="search-item block p-3.5 rounded-2xl bg-white dark:bg-darkcard hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-all border border-slate-200/70 dark:border-white/10">
-        <div class="flex items-center justify-between gap-2 mb-1.5">
-          <div class="flex items-center gap-2">
-            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-white/10">
-              ${item.type}
-            </span>
-            <h4 class="font-semibold text-slate-900 dark:text-white text-sm">${item.title}</h4>
+      <a href="${item.url}" class="search-item flex items-start gap-3 p-3 rounded-2xl border border-transparent hover:border-slate-200/80 dark:hover:border-white/10 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all cursor-pointer group">
+        <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-1 rounded-md bg-brand-50 dark:bg-brand-950/70 text-brand-700 dark:text-brand-300 border border-brand-500/20 shrink-0 mt-0.5">
+          ${item.type}
+        </span>
+        <div class="flex-grow min-w-0">
+          <div class="flex items-center justify-between gap-2">
+            <h4 class="font-bold text-sm text-slate-900 dark:text-white truncate group-hover:text-brand-600 transition-colors">
+              ${item.title}
+            </h4>
+            <span class="text-[10px] text-slate-400 font-mono shrink-0">${item.level}</span>
           </div>
-          <span class="text-[11px] text-slate-400 font-medium shrink-0">${item.category}</span>
+          <p class="text-xs text-slate-500 dark:text-slate-400 truncate mt-0.5">${item.summary || ''}</p>
         </div>
-        <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-1">${item.summary}</p>
       </a>
     `).join('');
   }
+
+  searchInput?.addEventListener('input', (e) => {
+    const q = e.target.value.toLowerCase().trim();
+    if (!q) {
+      renderResults(searchData.slice(0, 6));
+      return;
+    }
+    const filtered = searchData.filter(item => 
+      item.title.toLowerCase().includes(q) ||
+      (item.summary && item.summary.toLowerCase().includes(q)) ||
+      (item.tags && item.tags.toLowerCase().includes(q)) ||
+      item.category.toLowerCase().includes(q)
+    );
+    renderResults(filtered.slice(0, 10));
+  });
 </script>

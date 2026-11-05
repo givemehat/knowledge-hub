@@ -1,28 +1,36 @@
 ---
 import IndianPattern from '../ui/IndianPattern.astro';
 import { BRAND } from '../../config/brand';
+import { t, type Locale } from '../../i18n';
 
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'hi' } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const isHindi = locale === 'hi';
 
 const quickTopics = [
   {
-    label: 'RAG Architecture',
-    href: `${base}/topics/ai-agents-and-rag/`,
+    label: isHindi ? 'RAG आर्किटेक्चर' : 'RAG Architecture',
+    href: `${base}/${locale}/topics/ai-agents-and-rag/`,
     iconSvg: `<svg class="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>`
   },
   {
-    label: 'DSA 6-Month Plan',
-    href: `${base}/roadmaps/dsa-placement/`,
-    iconSvg: `<svg class="w-3.5 h-3.5 text-peacock-600 dark:text-peacock-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>`
+    label: isHindi ? 'DSA 6-महीने का प्लान' : 'DSA 6-Month Plan',
+    href: `${base}/${locale}/roadmaps/dsa-placement/`,
+    iconSvg: `<svg class="w-3.5 h-3.5 text-peacock-600 dark:text-peacock-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/>
+    </svg>`
   },
   {
-    label: 'Quantum Qubits',
-    href: `${base}/topics/qubits-superposition-entanglement/`,
+    label: isHindi ? 'क्यूबिट और क्वांटम' : 'Quantum Qubits',
+    href: `${base}/${locale}/topics/qubits-superposition-entanglement/`,
     iconSvg: `<svg class="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(45 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-45 12 12)"/><circle cx="12" cy="12" r="2"/></svg>`
   },
   {
-    label: 'Samvidhan Basics',
-    href: `${base}/topics/indian-constitution-structure/`,
+    label: isHindi ? 'संविधान की बुनियाद' : 'Constitution Basics',
+    href: `${base}/${locale}/topics/indian-constitution-structure/`,
     iconSvg: `<svg class="w-3.5 h-3.5 text-saffron-600 dark:text-saffron-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`
   },
 ];
@@ -46,21 +54,41 @@ const quickTopics = [
           <svg class="w-3.5 h-3.5 text-peacock-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
           </svg>
-          <span>Verified · Sourced · Free</span>
+          <span>{t(locale, 'hero.trustPill')}</span>
           <span class="text-slate-300 dark:text-slate-600">•</span>
-          <span class="text-slate-500 dark:text-slate-400 font-medium">No Login Needed</span>
+          <span class="text-slate-500 dark:text-slate-400 font-medium">{t(locale, 'hero.noLogin')}</span>
         </div>
 
         <!-- H1 Headline (100% Plain Static Text, Peach Underline, Never Cut Off) -->
         <h1 id="hero-h1" class="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-black text-slate-900 dark:text-white tracking-[-0.02em] leading-[1.08] mb-4 [text-wrap:balance]">
-          <span class="hero-text-hi font-hindi">सीखो वही जो <span class="relative inline-block text-slate-900 dark:text-white">सच में काम आए<svg class="absolute -bottom-1 sm:-bottom-1.5 left-0 w-full h-3 text-peach-500 overflow-visible pointer-events-none" viewBox="0 0 100 12" fill="none" preserveAspectRatio="none" aria-hidden="true"><path d="M2 9C25 3 75 3 98 8" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/></svg></span>।</span>
-          <span class="hero-text-en hidden">Learn what <span class="relative inline-block text-slate-900 dark:text-white">truly matters<svg class="absolute -bottom-1 sm:-bottom-1.5 left-0 w-full h-3 text-peach-500 overflow-visible pointer-events-none" viewBox="0 0 100 12" fill="none" preserveAspectRatio="none" aria-hidden="true"><path d="M2 9C25 3 75 3 98 8" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/></svg></span> in tech.</span>
+          {isHindi ? (
+            <span class="font-hindi">
+              सीखो वही जो{' '}
+              <span class="relative inline-block text-slate-900 dark:text-white">
+                सच में काम आए
+                <svg class="absolute -bottom-1 sm:-bottom-1.5 left-0 w-full h-3 text-peach-500 overflow-visible pointer-events-none" viewBox="0 0 100 12" fill="none" preserveAspectRatio="none" aria-hidden="true">
+                  <path d="M2 9C25 3 75 3 98 8" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+              ।
+            </span>
+          ) : (
+            <span>
+              Learn what{' '}
+              <span class="relative inline-block text-slate-900 dark:text-white">
+                truly matters
+                <svg class="absolute -bottom-1 sm:-bottom-1.5 left-0 w-full h-3 text-peach-500 overflow-visible pointer-events-none" viewBox="0 0 100 12" fill="none" preserveAspectRatio="none" aria-hidden="true">
+                  <path d="M2 9C25 3 75 3 98 8" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+              {' '}in tech.
+            </span>
+          )}
         </h1>
 
         <!-- Human, Benefit-First Subtext (Max 2 lines, High Contrast >= 4.5:1) -->
         <p id="hero-subtext" class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-6 max-w-xl">
-          <span class="hero-text-hi font-hindi">कॉलेज छात्रों और जिज्ञासु पाठकों के लिए प्रामाणिक रोडमैप, गहन तकनीकी विषय और चुनिंदा संसाधन। न कोई लॉगिन, न कोई विज्ञापन।</span>
-          <span class="hero-text-en hidden">Sourced roadmaps, deep-dive architectural guides, and curated resources for developers and curious minds. No logins, no ads.</span>
+          {t(locale, 'hero.subtext')}
         </p>
 
         <!-- Primary Bada Search Bar (60px height, Glass, OS-aware) -->
@@ -70,7 +98,7 @@ const quickTopics = [
             id="hero-primary-search"
             onclick="document.getElementById('open-search-btn')?.click()"
             class="w-full flex items-center justify-between px-4 sm:px-5 py-4 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/15 shadow-apple-md hover:shadow-apple-lg hover:border-brand-500/60 dark:hover:border-brand-400/60 transition-all text-slate-400 cursor-pointer text-left group active:scale-[0.99]"
-            aria-label="Search topics, career roadmaps, or verified cheatsheets"
+            aria-label={t(locale, 'hero.searchPlaceholder')}
           >
             <div class="flex items-center gap-3">
               <div class="w-9 h-9 rounded-xl bg-brand-50 dark:bg-brand-950/70 flex items-center justify-center text-brand-600 dark:text-brand-400 group-hover:scale-105 transition-transform">
@@ -80,7 +108,7 @@ const quickTopics = [
                 </svg>
               </div>
               <span class="text-slate-500 dark:text-slate-400 font-medium text-xs sm:text-sm line-clamp-1">
-                Search topics, career roadmaps, or verified cheatsheets...
+                {t(locale, 'hero.searchPlaceholder')}
               </span>
             </div>
             <kbd class="os-shortcut-hint hidden sm:inline-flex items-center gap-1 font-mono text-[11px] font-bold px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 shadow-xs">
@@ -91,7 +119,7 @@ const quickTopics = [
 
         <!-- Solid Quick Topics Row (Solid Surface + Explicit Icons) -->
         <div class="flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
-          <span class="font-semibold text-slate-600 dark:text-slate-300">Quick Topics:</span>
+          <span class="font-semibold text-slate-600 dark:text-slate-300">{t(locale, 'hero.quickTopicsLabel')}</span>
           {quickTopics.map(topic => (
             <a
               href={topic.href}
@@ -139,8 +167,12 @@ const quickTopics = [
                   </svg>
                 </div>
                 <div>
-                  <h4 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white leading-tight">DSA to Tech Placement</h4>
-                  <span class="text-[10px] text-slate-500 dark:text-slate-400">Phase 2: Trees & Graphs</span>
+                  <h4 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white leading-tight">
+                    {isHindi ? 'DSA से प्लेसमेंट रोडमैप' : 'DSA to Tech Placement'}
+                  </h4>
+                  <span class="text-[10px] text-slate-500 dark:text-slate-400">
+                    {isHindi ? 'फ़ेज़ 2: ट्रीज़ और ग्राफ़्स' : 'Phase 2: Trees & Graphs'}
+                  </span>
                 </div>
               </div>
               
@@ -157,15 +189,21 @@ const quickTopics = [
             <!-- Stepper Progress Chips: Done / Active / Next -->
             <div class="grid grid-cols-3 gap-2 text-[10px]">
               <div class="p-2 rounded-xl bg-peacock-50/80 dark:bg-peacock-950/50 border border-peacock-500/25 text-slate-800 dark:text-slate-200">
-                <span class="text-[9px] font-bold text-peacock-600 dark:text-peacock-400 block mb-0.5">✓ Done</span>
+                <span class="text-[9px] font-bold text-peacock-600 dark:text-peacock-400 block mb-0.5">
+                  {isHindi ? '✓ पूर्ण' : '✓ Done'}
+                </span>
                 <span class="font-medium truncate block">Arrays & Strings</span>
               </div>
               <div class="p-2 rounded-xl bg-brand-50/80 dark:bg-brand-950/60 border border-brand-500/40 text-brand-950 dark:text-white ring-1 ring-brand-500/20">
-                <span class="text-[9px] font-bold text-brand-600 dark:text-brand-400 block mb-0.5">● Active</span>
+                <span class="text-[9px] font-bold text-brand-600 dark:text-brand-400 block mb-0.5">
+                  {isHindi ? '● सक्रिय' : '● Active'}
+                </span>
                 <span class="font-bold truncate block">Trees & Graphs</span>
               </div>
               <div class="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-white/5 text-slate-500 dark:text-slate-400">
-                <span class="text-[9px] font-medium block mb-0.5">○ Next</span>
+                <span class="text-[9px] font-medium block mb-0.5">
+                  {isHindi ? '○ अगला' : '○ Next'}
+                </span>
                 <span class="font-medium truncate block">System Design</span>
               </div>
             </div>
@@ -175,45 +213,27 @@ const quickTopics = [
           <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-apple-md transform -rotate-1 transition-transform hover:rotate-0">
             <div class="flex items-center justify-between gap-2 mb-2">
               <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-brand-50 dark:bg-brand-950/70 text-brand-600 dark:text-brand-300 border border-brand-500/20">
-                AI & Systems
+                {isHindi ? 'AI और सिस्टम्स' : 'AI & Systems'}
               </span>
               <span class="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 px-2 py-0.5 rounded-md border border-emerald-500/20">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                Verified · HIGH
+                {isHindi ? 'जाँचा हुआ · उच्च' : 'Verified · HIGH'}
               </span>
             </div>
             
             <h4 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white mb-1">
-              AI Agents & RAG Architecture
+              {isHindi ? 'AI एजेंट्स और RAG आर्किटेक्चर' : 'AI Agents & RAG Architecture'}
             </h4>
             
             <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-2">
-              Query private knowledge bases accurately using vector similarity retrieval without model fine-tuning.
+              {isHindi 
+                ? 'वेक्टर सिमिलैरिटी सर्च से प्राइवेट नॉलेज बेस को बिना मॉडल फ़ाइन-ट्यूनिंग के सटीक उत्तर प्राप्त करें।'
+                : 'Query private knowledge bases accurately using vector similarity retrieval without model fine-tuning.'}
             </p>
           </div>
 
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<script is:inline>
-  function updateHeroLang(lang) {
-    const isEn = lang === 'en';
-    document.querySelectorAll('.hero-text-hi').forEach(el => el.classList.toggle('hidden', isEn));
-    document.querySelectorAll('.hero-text-en').forEach(el => el.classList.toggle('hidden', !isEn));
-  }
-
-  window.addEventListener('peach:lang-change', (e) => updateHeroLang(e.detail.lang));
-  window.addEventListener('app:lang-change', (e) => updateHeroLang(e.detail.lang));
-
-  (function initHeroLang() {
-    const saved = localStorage.getItem('peach_preferred_lang') || 'hi';
-    updateHeroLang(saved);
-  })();
-</script>
-
     </div>
   </div>
 </section>
