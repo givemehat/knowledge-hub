@@ -1,0 +1,15 @@
+---
+import DataCardsView from '../../../components/research/DataCardsView.astro';
+import type { Locale } from '../../../i18n';
+
+export function getStaticPaths() {
+  return [
+    { params: { locale: 'hi' } },
+    { params: { locale: 'en' } }
+  ];
+}
+
+const { locale = 'hi' } = Astro.params as { locale: Locale };
+---
+
+<DataCardsView locale={locale as Locale} />

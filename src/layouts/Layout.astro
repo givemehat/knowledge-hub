@@ -102,6 +102,29 @@ const jsonLdWebsite = {
         }
       })();
     </script>
+
+    <!-- Language Preference Route Alignment (Instant zero-flash client redirect if preferred lang differs from unprefixed route) -->
+    <script is:inline>
+      (function() {
+        try {
+          const pref = localStorage.getItem('peach_preferred_lang');
+          if (!pref || (pref !== 'en' && pref !== 'hi')) return;
+          const path = window.location.pathname;
+          const base = '/knowledge-hub';
+          const subpath = path.startsWith(base) ? path.slice(base.length) : path;
+          
+          // Check if we are on an un-prefixed root route (not /en/ or /hi/)
+          const isPrefixed = subpath.startsWith('/en/') || subpath === '/en' || subpath.startsWith('/hi/') || subpath === '/hi';
+          if (!isPrefixed) {
+            const cleanSub = subpath.startsWith('/') ? subpath : '/' + subpath;
+            const target = `${base}/${pref}${cleanSub === '/' ? '/' : cleanSub}`;
+            if (target !== path) {
+              window.location.replace(target + window.location.search + window.location.hash);
+            }
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
 
   <body class="bg-surface-light dark:bg-surface-dark text-slate-800 dark:text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-peach-500/20 selection:text-peach-900 dark:selection:text-peach-200">

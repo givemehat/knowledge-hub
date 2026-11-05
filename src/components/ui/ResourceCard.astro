@@ -64,8 +64,8 @@ const verifiedLabel = isHindi ? 'जाँचा गया' : 'Verified';
       </Chip>
 
       <div class="flex items-center gap-1.5">
-        <Chip variant="language" size="sm">
-          {language === 'hi' ? 'हिन्दी' : 'English'}
+        <Chip variant="language" size="sm" lang={language === 'hi' && isHindi ? 'hi' : undefined}>
+          {language === 'hi' ? (isHindi ? 'हिन्दी' : 'Hindi') : 'English'}
         </Chip>
         {free && (
           <Chip variant="free" size="sm">

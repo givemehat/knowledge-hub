@@ -1,0 +1,177 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { BRAND } from '../../config/brand';
+import type { Locale } from '../../i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'hi' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const isHindi = locale === 'hi';
+
+const ui = {
+  en: {
+    title: `Fact vs Hypothesis Protocol — ${BRAND.name}`,
+    desc: `Why and how ${BRAND.name} strictly separates empirical facts from hypothetical red-teaming scenario models.`,
+    home: "Home",
+    research: "Research",
+    factHypo: "Fact vs Hypothesis",
+    eyebrow: "Epistemological Boundary",
+    heading: "The Golden Rule: Fact vs Hypothesis Protocol",
+    subtext: `On ${BRAND.name}, verified facts and hypothetical future scenarios are never commingled. Discover why we conduct strategic red-teaming simulations and the non-negotiable ethical standards we enforce to protect readers from misinformation.`,
+    badgeTitle: "Visual Badge System (Clear Epistemological Separation)",
+    factBadge: "VERIFIED FACT / TOPIC",
+    factTitle: "Verified Knowledge & Primary Sources",
+    factDesc: "Every claim is footnoted with official government gazettes, peer-reviewed research papers, or canonical code repositories. This represents 100% current ground truth.",
+    hypoBadge: "HYPOTHETICAL SCENARIO",
+    hypoTitle: "Simulated Scenarios & Strategic Red-Teaming",
+    hypoDesc: "'What does not currently exist, but logically could unfold'. Exclusively designed for strategic forecasting, risk assessment, and system stress-testing.",
+    standardsTitle: "6 Non-Negotiable Editorial Standards",
+    standards: [
+      {
+        title: "1. Zero Breaking-News Framing:",
+        desc: "Strict prohibition against presenting simulated models in a 'Breaking News', press-release, or sensationalist headline format."
+      },
+      {
+        title: "2. Zero Fabricated Quotes from Living Persons:",
+        desc: "We never attribute synthetic decisions, directives, or quotes to living political leaders, military officers, or public officials. Analysis strictly uses structural roles ('a regional maritime power', 'central monetary authorities')."
+      },
+      {
+        title: "3. Mandatory Real-World Empirical Anchoring:",
+        desc: "If a scenario models a maritime chokepoint disruption, we first establish verified EIA tanker transit figures and baseline bypass pipeline capacities before projecting stresses."
+      },
+      {
+        title: "4. No Fabricated Quantitative Probabilities:",
+        desc: "Instead of ungrounded pseudo-exact figures like '73.4% probability', we utilize established qualitative risk quadrants ('Higher likelihood / moderate impact', 'Low probability / high impact')."
+      },
+      {
+        title: "5. Mandatory Falsification & Counter-Arguments:",
+        desc: "Every scenario must conclude with explicit failure modes detailing exactly why the projection could fail and outlining the strongest structural counter-arguments."
+      },
+      {
+        title: "6. Focus on Systemic & Strategic Resilience:",
+        desc: "Content never includes tactical weapon guides, operational attack vectors, or inciteful material. Research is strictly restricted to macroeconomic logistics, institutional diplomacy, and policy resilience."
+      }
+    ]
+  },
+  hi: {
+    title: `तथ्य बनाम परिकल्पना प्रोटोकॉल — ${BRAND.name} (${BRAND.nameHi})`,
+    desc: `${BRAND.name} पर तथ्य और काल्पनिक परिदृश्य क्यों और कैसे अलग रखे जाते हैं।`,
+    home: "होम",
+    research: "शोध",
+    factHypo: "तथ्य बनाम परिकल्पना",
+    eyebrow: "ज्ञानमीमांसक सीमा रेखा",
+    heading: "द गोल्डन रूल: तथ्य बनाम परिकल्पना प्रोटोकॉल",
+    subtext: `${BRAND.nameHi} (${BRAND.name}) पर तथ्य और काल्पनिक परिदृश्य कभी एक साथ नहीं मिलाए जाते। जानिए हम क्यों रेड-टीमिंग सिमुलेशन करते हैं और पाठकों की सुरक्षा के लिए कौन से सख्त नियम लागू करते हैं।`,
+    badgeTitle: "विजुअल बैज सिस्टम (स्पष्ट दृश्य भेद)",
+    factBadge: "प्रमाणित तथ्य / विषय",
+    factTitle: "प्रमाणित ज्ञान और दस्तावेज़",
+    factDesc: "हर दावा आधिकारिक सरकारी गजट, अकादमिक शोध पत्र, या सत्यापित कोड डॉक्स से फुटनोट किया गया है। यह 100% वर्तमान सत्य है।",
+    hypoBadge: "काल्पनिक परिदृश्य",
+    hypoTitle: "सिम्युलेटेड परिदृश्य व रेड-टीमिंग",
+    hypoDesc: "'जो अभी नहीं हुआ है लेकिन तार्किक रूप से हो सकता है'। यह केवल रणनीतिक योजना, जोखिम मूल्यांकन और सिस्टम स्ट्रेस-टेस्टिंग के लिए है।",
+    standardsTitle: "6 गैर-परक्राम्य संपादकीय मानक",
+    standards: [
+      {
+        title: "1. कभी भी ब्रेकिंग न्यूज़ शैली नहीं:",
+        desc: "किसी भी परिदृश्य को 'Breaking News', प्रेस रिलीज़ या वास्तविक समाचार की तरह प्रस्तुत करने की सख्त मनाही है।"
+      },
+      {
+        title: "2. वास्तविक जीवित व्यक्तियों के नाम से फर्जी बयान नहीं:",
+        desc: "हम कभी भी किसी जीवित नेता, जनरल या अधिकारी के नाम से काल्पनिक उद्धरण या निर्णय नहीं लिखते। हमेशा जेनेरिक भूमिकाओं ('a regional maritime power', 'regulatory authorities') का उपयोग किया जाता है।"
+      },
+      {
+        title: "3. हर अनुमान का वास्तविक साक्ष्य (Real-World Anchoring):",
+        desc: "अगर हम यह मानते हैं कि तेल का बहाव रुक जाएगा, तो हम पहले यह साबित करते हैं कि EIA के अनुसार वहां से कितना तेल गुज़रता है और पाइपलाइन की वास्तविक क्षमता क्या है।"
+      },
+      {
+        title: "4. कृत्रिम संभावना प्रतिशत (Fake Percentages) पर रोक:",
+        desc: "भविष्य के जटिल परिदृश्यों में '73.4% संभावना' जैसे मनगढ़ंत आंकड़े देने के बजाय हम गुणात्मक श्रेणियों ('Higher likelihood', 'Low probability, high impact') का प्रयोग करते हैं।"
+      },
+      {
+        title: "5. मजबूत काउंटर-आर्ग्युमेंट्स अनिवार्य:",
+        desc: "प्रत्येक परिदृश्य के अंत में यह स्पष्ट लिखा जाता है कि यह परिदृश्य क्यों गलत साबित हो सकता है और इसके विरुद्ध सबसे मजबूत तर्क क्या हैं।"
+      },
+      {
+        title: "6. सैन्य सामग्री में सामरिक नीति तक सीमित:",
+        desc: "किसी भी परिदृश्य में हथियार बनाने, किसी विशिष्ट स्थान पर सामरिक हमले की योजना या हिंसा भड़काने वाली जानकारी शामिल नहीं की जाती। केवल वैश्विक व्यापार, लॉजिस्टिक्स और नीतिगत प्रतिरोध का विश्लेषण किया जाता है।"
+      }
+    ]
+  }
+};
+
+const t = isHindi ? ui.hi : ui.en;
+---
+
+<Layout title={t.title} description={t.desc} lang={locale}>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <!-- Breadcrumbs -->
+    <nav class="flex items-center gap-2 text-xs text-slate-500 mb-6 font-medium">
+      <a href={`${base}/${locale}/`} class="hover:text-indigo-500">{t.home}</a>
+      <span>/</span>
+      <a href={`${base}/${locale}/research/`} class="hover:text-indigo-500">{t.research}</a>
+      <span>/</span>
+      <span class="text-slate-900 dark:text-white font-semibold">{t.factHypo}</span>
+    </nav>
+
+    <!-- Header -->
+    <div class="space-y-4 mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-saffron-50 dark:bg-saffron-950/60 border border-saffron-300/40 text-saffron-700 dark:text-saffron-300 text-xs font-bold">
+        <svg class="w-3.5 h-3.5 text-saffron-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" /></svg>
+        <span>{t.eyebrow}</span>
+      </div>
+      <h1 class={`text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight ${isHindi ? 'font-hindi' : ''}`}>
+        {t.heading}
+      </h1>
+      <p class={`text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed ${isHindi ? 'font-hindi' : ''}`}>
+        {t.subtext}
+      </p>
+    </div>
+
+    <!-- Visual Badge Comparison Table -->
+    <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder space-y-4 mb-12">
+      <h2 class={`text-base font-bold text-slate-900 dark:text-white ${isHindi ? 'font-hindi' : ''}`}>
+        {t.badgeTitle}
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+        <div class="p-4 rounded-xl bg-emerald-500/10 border-2 border-emerald-500/40 space-y-2">
+          <span class="px-2.5 py-0.5 rounded bg-emerald-600 text-white font-black uppercase text-[10px]">
+            {t.factBadge}
+          </span>
+          <p class={`font-bold text-slate-900 dark:text-white ${isHindi ? 'font-hindi' : ''}`}>{t.factTitle}</p>
+          <p class={`text-slate-600 dark:text-slate-300 leading-relaxed ${isHindi ? 'font-hindi' : ''}`}>
+            {t.factDesc}
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-amber-500/10 border-2 border-amber-500/40 space-y-2">
+          <span class="px-2.5 py-0.5 rounded bg-amber-500 text-slate-950 font-black uppercase text-[10px]">
+            {t.hypoBadge}
+          </span>
+          <p class={`font-bold text-slate-900 dark:text-white ${isHindi ? 'font-hindi' : ''}`}>{t.hypoTitle}</p>
+          <p class={`text-slate-600 dark:text-slate-300 leading-relaxed ${isHindi ? 'font-hindi' : ''}`}>
+            {t.hypoDesc}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- The 6 Non-Negotiable Standards -->
+    <div class="space-y-6 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+      <h2 class={`text-xl font-black text-slate-900 dark:text-white tracking-tight ${isHindi ? 'font-hindi' : ''}`}>
+        {t.standardsTitle}
+      </h2>
+
+      <div class="space-y-4">
+        {t.standards.map(st => (
+          <div class="p-4 rounded-xl bg-slate-50 dark:bg-darkcard border border-slate-200 dark:border-darkborder space-y-1">
+            <strong class={`text-slate-900 dark:text-white font-bold block ${isHindi ? 'font-hindi' : ''}`}>{st.title}</strong>
+            <p class={isHindi ? 'font-hindi' : ''}>{st.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</Layout>

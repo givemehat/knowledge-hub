@@ -25,6 +25,7 @@ export interface Scenario {
   readingMinutes: number;
   lastUpdated: string;
   abstract: string;
+  abstractEn?: string;
   keyFindings: string[];
   premise: string;
   assumptions: ScenarioAssumption[];
@@ -61,6 +62,7 @@ export const SCENARIOS: Scenario[] = [
     readingMinutes: 14,
     lastUpdated: '2026-11-04',
     abstract: 'यह शोध पत्र एक काल्पनिक 30-दिवसीय होर्मुज जलडमरूमध्य (Strait of Hormuz) चोकपॉइंट नाकाबंदी का विस्तृत रणनीतिक सिमुलेशन प्रस्तुत करता है। इसमें ऊर्जा प्रवाह, रिफाइनरी इन्वेंट्री, एशियाई अर्थव्यवस्थाओं (विशेषकर भारत और चीन) पर वित्तीय प्रभाव, और नौसैनिक एस्कॉर्ट की गतिशीलता का वस्तुनिष्ठ विश्लेषण किया गया है।',
+    abstractEn: 'This research paper presents a rigorous strategic wargame simulating a hypothetical 30-day blockade of the Strait of Hormuz chokepoint. It systematically models petroleum transit disruption, Asian refinery inventory depletion (focusing on India and China), macroeconomic balance-of-payments contagion, and naval escort dynamics.',
     keyFindings: [
       'दैनिक ~20-21 मिलियन बैरल कच्चा तेल (~20% वैश्विक खपत) बाधित होगा, जिसमें से बाईपास पाइपलाइनों द्वारा केवल ~6.5 मिलियन bpd ही पुनर्निर्देशित किया जा सकता है।',
       'ब्रेंट क्रूड में 60-90% की अल्पकालिक उछाल ($130-$160/बैरल) की संभावना, जिससे आयात-निर्भर अर्थव्यवस्थाओं के चालू खाता घाटे (CAD) और मुद्रा पर तात्कालिक दबाव बनेगा।',
@@ -197,6 +199,7 @@ export const SCENARIOS: Scenario[] = [
     readingMinutes: 13,
     lastUpdated: '2026-11-04',
     abstract: 'यह परिदृश्य विश्लेषण मतदान से ठीक 36 घंटे पहले एंड-टू-एंड एन्क्रिप्टेड मैसेजिंग नेटवर्क्स पर अत्यधिक यथार्थवादी मल्टीमॉडल AI डीपफेक्स (सिंथेटिक ऑडियो/वीडियो) के समन्वित प्रसार के प्रभावों का तकनीकी और प्रशासनिक सिमुलेशन प्रस्तुत करता है।',
+    abstractEn: 'This scenario analysis models the systemic impacts of coordinated, hyper-realistic multimodal AI deepfakes deployed across end-to-end encrypted messaging channels 36 hours before voting commences in a national election.',
     keyFindings: [
       'डार्क सोशल (Dark Social - WhatsApp/Telegram) पर सामग्री का प्रसार पारंपरिक फैक्ट-चेकिंग सत्यापन चक्र से 10 से 15 गुना तेज़ होता है।',
       'धारा 126 (Representation of the People Act 1951) के 48-घंटे के "साइलेंस पीरियड" में मुख्यधारा मीडिया के औपचारिक अभियानों पर रोक होने से सूचना का एक तात्कालिक शून्य (Information Vacuum) उत्पन्न होता है।',
@@ -319,6 +322,7 @@ export const SCENARIOS: Scenario[] = [
     readingMinutes: 13,
     lastUpdated: '2026-11-04',
     abstract: 'यह शोध पत्र एक प्रमुख पब्लिक क्लाउड प्रदाता के कई अवेलेबिलिटी जोन्स (AZs) में 18 घंटे के निरंतर आउटेज के कारण डिजिटल भुगतान स्विच (UPI, IMPS, कार्ड नेटवर्क्स) और अंतर-बैंक सेटलमेंट में उत्पन्न होने वाले तरलता संकट का रणनीतिक मॉडल प्रस्तुत करता है।',
+    abstractEn: 'This empirical research wargames an 18-hour continuous multi-availability-zone outage across major public cloud providers, stress-testing digital payment switches (UPI, IMPS, card rails) and interbank liquidity settlement systems.',
     keyFindings: [
       'डिजिटल भुगतान स्विच का 60%+ हिस्सा प्रमुख हाइपरस्केल क्लाउड इन्फ्रास्ट्रक्चर और मर्चेंट गेटवे एपीआई पर निर्भर है।',
       'आउटेज के पहले 6 घंटों में विफल लेनदेन (Failed Transactions) 45-65% तक पहुंच जाते हैं, जिससे पॉइंट-ऑफ-सेल (POS) और आवश्यक वस्तु खरीद में तात्कालिक रुकावट आती है।',

@@ -1,0 +1,269 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import IndianPattern from '../ui/IndianPattern.astro';
+import { TOPICS, CATEGORIES } from '../../data/topics';
+import { BRAND } from '../../config/brand';
+import { t, formatReadingTime, type Locale } from '../../i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'hi' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const isHindi = locale === 'hi';
+
+const ui = {
+  en: {
+    title: `Knowledge Library & Topic Guides — ${BRAND.name}`,
+    desc: "Browse 19+ verified topics across AI, Quantum Computing, Placement, and Tech Fundamentals with runnable code and primary sources.",
+    eyebrow: "Curated Knowledge Repository",
+    heading: "Topics & Architectural Guides",
+    subtext: "Every guide features structured TL;DR takeaways, core concepts with runnable code snippets, mini projects, myth-busters, and primary academic citations.",
+    allGuides: `All Guides (${TOPICS.length})`,
+    difficulty: "Difficulty:",
+    all: "All",
+    beginner: "Beginner",
+    intermediate: "Intermediate",
+    advanced: "Advanced",
+    searchPlaceholder: "Search topics by keyword...",
+    readGuide: "Read Guide",
+    noTopicsFound: "No topics found",
+    clearFilters: "Clear filters or try a different search keyword."
+  },
+  hi: {
+    title: `ज्ञान पुस्तकालय और तकनीकी गाइड्स — ${BRAND.name} (${BRAND.nameHi})`,
+    desc: "AI, क्वांटम कंप्यूटिंग, प्लेसमेंट और टेक फंडामेंटल्स पर 19+ जाँचे-परखे तकनीकी गाइड्स।",
+    eyebrow: "प्रामाणिक ज्ञान संग्रह",
+    heading: "विषय और आर्किटेक्चरल गाइड्स",
+    subtext: "हर गाइड में संरचित TL;DR निष्कर्ष, कोड स्निपेट्स के साथ मुख्य अवधारणाएं, मिनी प्रोजेक्ट्स, मिथक भंजक और प्राथमिक अकादमिक उद्धरण शामिल हैं।",
+    allGuides: `सभी गाइड्स (${TOPICS.length})`,
+    difficulty: "कठिनाई स्तर:",
+    all: "सभी",
+    beginner: "शुरुआती",
+    intermediate: "मध्यम",
+    advanced: "उन्नत",
+    searchPlaceholder: "कीवर्ड द्वारा विषय खोजें...",
+    readGuide: "गाइड पढ़ें",
+    noTopicsFound: "कोई विषय नहीं मिला",
+    clearFilters: "फ़िल्टर हटाएं या कोई दूसरा खोज शब्द आज़माएं।"
+  }
+};
+
+const text = isHindi ? ui.hi : ui.en;
+---
+
+<Layout title={text.title} description={text.desc} lang={locale}>
+  <div class="relative overflow-hidden border-b border-slate-200/80 dark:border-white/10 py-12">
+    <IndianPattern variant="jaali" opacity={0.03} />
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/20 text-xs font-semibold mb-4">
+          <svg class="w-3.5 h-3.5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+          {text.eyebrow}
+        </div>
+        <h1 class={`text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight ${isHindi ? 'font-hindi' : ''}`}>
+          {text.heading}
+        </h1>
+        <p class={`text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-3 leading-relaxed ${isHindi ? 'font-hindi' : ''}`}>
+          {text.subtext}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <!-- Filters Bar (Minimal intuitive domain filters) -->
+    <div class="bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 rounded-2xl p-4 sm:p-5 mb-8 shadow-sm space-y-4">
+      <!-- Category Chips (Lucide SVG style, zero emojis) -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none" id="category-filter-chips">
+        <button class="cat-filter active shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-brand-500 text-white shadow-sm cursor-pointer" data-category="all">
+          {text.allGuides}
+        </button>
+        {CATEGORIES.map(cat => {
+          const catName = isHindi ? cat.name : (t(locale, `categories.${cat.id}.name`) || cat.name);
+          return (
+            <button class="cat-filter shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer transition-colors" data-category={cat.id}>
+              {catName}
+            </button>
+          );
+        })}
+      </div>
+
+      <!-- Level Chips & Search -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-white/10">
+        <div class="flex items-center gap-1.5 text-xs font-medium" id="level-filter-chips">
+          <span class="text-slate-400 mr-1 text-[11px]">{text.difficulty}</span>
+          <button class="level-filter active px-2.5 py-1 rounded-lg bg-brand-50 dark:bg-brand-950 text-brand-700 dark:text-brand-300 font-semibold border border-brand-500/20" data-level="all">{text.all}</button>
+          <button class="level-filter px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400" data-level="beginner">{text.beginner}</button>
+          <button class="level-filter px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400" data-level="intermediate">{text.intermediate}</button>
+          <button class="level-filter px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400" data-level="advanced">{text.advanced}</button>
+        </div>
+
+        <div class="relative w-full sm:w-72">
+          <input 
+            type="text" 
+            id="topic-search-input" 
+            placeholder={text.searchPlaceholder}
+            class="w-full text-xs px-3.5 py-2 pl-9 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-brand-500"
+          />
+          <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Topics Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="topics-grid">
+      {TOPICS.map(topic => {
+        const topicTitle = isHindi ? topic.title : (topic.shortTitleEn || topic.title);
+        const topicSummary = isHindi ? topic.summary : (topic.summaryEn || topic.summary);
+        const categoryLabel = isHindi ? topic.categoryLabel : (t(locale, `categories.${topic.category}.name`) || topic.categoryLabel);
+
+        return (
+          <a 
+            href={`${base}/topics/${topic.slug}/`}
+            class="topic-card group bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 rounded-2xl p-6 hover:border-brand-500/60 hover:shadow-card hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between"
+            data-category={topic.category}
+            data-level={topic.level}
+            data-title={topicTitle.toLowerCase()}
+            data-tags={topic.tags.join(' ').toLowerCase()}
+          >
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-3">
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-brand-50 dark:bg-brand-950/80 text-brand-700 dark:text-brand-300 border border-brand-500/20">
+                  {categoryLabel}
+                </span>
+                <span class="inline-flex items-center gap-1 text-xs text-slate-400 font-medium">
+                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                  {formatReadingTime(topic.readingMinutes, locale)}
+                </span>
+              </div>
+
+              <h3 class={`text-base font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors leading-snug ${isHindi ? 'font-hindi' : ''}`}>
+                {topicTitle}
+              </h3>
+
+              <p class={`text-xs text-slate-600 dark:text-slate-400 mt-2.5 line-clamp-3 leading-relaxed ${isHindi ? 'font-hindi' : ''}`}>
+                {topicSummary}
+              </p>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <span class={`text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full ${
+                topic.level === 'beginner' ? 'bg-peacock-500/10 text-peacock-600 dark:text-peacock-400' :
+                topic.level === 'intermediate' ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400' :
+                'bg-brand-500/10 text-brand-600 dark:text-brand-400'
+              }`}>
+                {isHindi ? (topic.level === 'beginner' ? 'शुरुआती' : topic.level === 'intermediate' ? 'मध्यम' : 'उन्नत') : topic.level}
+              </span>
+              <span class="inline-flex items-center gap-1 text-xs font-semibold text-brand-600 dark:text-brand-400 group-hover:translate-x-1 transition-transform">
+                <span>{text.readGuide}</span>
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+              </span>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+
+    <!-- Empty State -->
+    <div id="no-topics-found" class="hidden text-center py-16">
+      <div class="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mx-auto text-slate-400 mb-3">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+      </div>
+      <h3 class={`text-sm font-bold text-slate-900 dark:text-white ${isHindi ? 'font-hindi' : ''}`}>{text.noTopicsFound}</h3>
+      <p class={`text-xs text-slate-500 mt-1 ${isHindi ? 'font-hindi' : ''}`}>{text.clearFilters}</p>
+    </div>
+  </div>
+</Layout>
+
+<script is:inline>
+  let activeCat = 'all';
+  let activeLevel = 'all';
+  let searchTerm = '';
+
+  const cards = document.querySelectorAll('.topic-card');
+  const emptyState = document.getElementById('no-topics-found');
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const initialCat = urlParams.get('category');
+  if (initialCat) {
+    activeCat = initialCat;
+    document.querySelectorAll('.cat-filter').forEach(btn => {
+      if (btn.dataset.category === initialCat) {
+        btn.classList.add('active', 'bg-brand-500', 'text-white', 'shadow-sm');
+        btn.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+      } else {
+        btn.classList.remove('active', 'bg-brand-500', 'text-white', 'shadow-sm');
+        btn.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+      }
+    });
+    filterCards();
+  }
+
+  document.querySelectorAll('.cat-filter').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.cat-filter').forEach(b => {
+        b.classList.remove('active', 'bg-brand-500', 'text-white', 'shadow-sm');
+        b.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+      });
+      btn.classList.add('active', 'bg-brand-500', 'text-white', 'shadow-sm');
+      btn.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+      activeCat = btn.dataset.category || 'all';
+      filterCards();
+    });
+  });
+
+  document.querySelectorAll('.level-filter').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.level-filter').forEach(b => {
+        b.classList.remove('active', 'bg-brand-50', 'dark:bg-brand-950', 'text-brand-700', 'dark:text-brand-300', 'font-semibold', 'border', 'border-brand-500/20');
+        b.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-400');
+      });
+      btn.classList.add('active', 'bg-brand-50', 'dark:bg-brand-950', 'text-brand-700', 'dark:text-brand-300', 'font-semibold', 'border', 'border-brand-500/20');
+      btn.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-400');
+      activeLevel = btn.dataset.level || 'all';
+      filterCards();
+    });
+  });
+
+  const searchInput = document.getElementById('topic-search-input');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      searchTerm = e.target.value.toLowerCase().trim();
+      filterCards();
+    });
+  }
+
+  function filterCards() {
+    let visibleCount = 0;
+    cards.forEach(card => {
+      const cat = card.dataset.category;
+      const lvl = card.dataset.level;
+      const title = card.dataset.title || '';
+      const tags = card.dataset.tags || '';
+
+      const matchCat = activeCat === 'all' || cat === activeCat;
+      const matchLevel = activeLevel === 'all' || lvl === activeLevel;
+      const matchSearch = !searchTerm || title.includes(searchTerm) || tags.includes(searchTerm);
+
+      if (matchCat && matchLevel && matchSearch) {
+        card.classList.remove('hidden');
+        visibleCount++;
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+
+    if (emptyState) {
+      if (visibleCount === 0) {
+        emptyState.classList.remove('hidden');
+      } else {
+        emptyState.classList.add('hidden');
+      }
+    }
+  }
+</script>

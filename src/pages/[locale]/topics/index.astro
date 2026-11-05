@@ -1,0 +1,15 @@
+---
+import TopicsView from '../../../components/topics/TopicsView.astro';
+import type { Locale } from '../../../i18n';
+
+export function getStaticPaths() {
+  return [
+    { params: { locale: 'hi' } },
+    { params: { locale: 'en' } }
+  ];
+}
+
+const { locale = 'hi' } = Astro.params as { locale: Locale };
+---
+
+<TopicsView locale={locale as Locale} />

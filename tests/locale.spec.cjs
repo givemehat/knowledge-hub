@@ -162,7 +162,7 @@ async function runLocaleTestSuite() {
       const devanagariMatches = content.match(/[\u0900-\u097F]/g);
       if (devanagariMatches && devanagariMatches.length > 0) {
         totalDevanagariViolations += devanagariMatches.length;
-        violationReport.push(`${path.basename(filePath)} (${devanagariMatches.length} chars)`);
+        violationReport.push(`${path.relative(ROOT_DIR, filePath)} (${devanagariMatches.length} chars)`);
       }
     }
 
@@ -324,6 +324,47 @@ async function runLocaleTestSuite() {
     assert(htmlLangAfterEn === 'en', 'Test 3h: Navigating to /en/ updates html[lang] to "en"');
     assert(enInsetLabel.includes('Top topics'), 'Test 3i: English page shows "Top topics" in card inset panel');
     assert(!enInsetLabel.includes('प्रमुख विषय'), 'Test 3j: English page does NOT show "प्रमुख विषय"');
+
+    // TEST 9: Research Section Language Purity & Toggling (User Reported Bug)
+    console.log('\n--- Running Test 9: Research Page Locale & Toggle Navigation ---');
+    await page.goto(`http://localhost:${PREVIEW_PORT}/knowledge-hub/en/research/`, { waitUntil: 'networkidle' });
+
+    const enResLang = await page.$eval('html', el => el.getAttribute('lang'));
+    const enResHeading = await page.$eval('#research-heading', el => el.textContent.trim());
+    const enResSubtitle = await page.$eval('#research-subtitle', el => el.textContent.trim());
+    const enResFlagshipDesc = await page.$eval('#research-flagship-desc', el => el.textContent.trim());
+    const enCard1Desc = await page.$eval('[data-card-index="0"] .card-desc', el => el.textContent.trim());
+
+    assert(enResLang === 'en', 'Test 9a: /en/research/ has html[lang]="en"');
+    assert(enResHeading === 'Media Sentiment & Empirical Research', 'Test 9b: /en/research/ renders English heading');
+    assert(enResSubtitle.startsWith('Data-driven analysis of 3.8+ million'), 'Test 9c: /en/research/ renders pure English subtitle');
+    assert(enResFlagshipDesc.startsWith('Does Indian news media exhibit'), 'Test 9d: /en/research/ renders pure English flagship description');
+    assert(enCard1Desc.startsWith('Verified sources, open licenses'), 'Test 9e: /en/research/ renders pure English card descriptions');
+
+    // Screenshot of fixed English Research Page
+    await page.screenshot({ path: path.join(SCREENSHOT_DIR, '04_fixed_research_en.png'), fullPage: false });
+
+    // Click Hindi toggle on research page
+    await page.click('#lang-segmented-control button[data-lang="hi"]');
+    await page.waitForLoadState('networkidle');
+
+    const hiResUrl = page.url();
+    const hiResHeading = await page.$eval('#research-heading', el => el.textContent.trim());
+    const hiResSubtitle = await page.$eval('#research-subtitle', el => el.textContent.trim());
+
+    assert(hiResUrl.includes('/hi/research/'), 'Test 9f: Clicking हिं on research page navigates to /hi/research/', `URL: ${hiResUrl}`);
+    assert(hiResHeading.includes('मीडिया सेंटीमेंट और अनुभवजन्य शोध'), 'Test 9g: /hi/research/ renders pure Hindi heading');
+    assert(hiResSubtitle.startsWith('भारतीय मीडिया के 22+ वर्षों'), 'Test 9h: /hi/research/ renders pure Hindi subtitle');
+
+    // Screenshot of fixed Hindi Research Page
+    await page.screenshot({ path: path.join(SCREENSHOT_DIR, '05_fixed_research_hi.png'), fullPage: false });
+
+    // Test 10: Client-side preference redirection when landing on unprefixed /research/
+    console.log('\n--- Running Test 10: Instant Preference Alignment on Un-prefixed Route ---');
+    await page.evaluate(() => localStorage.setItem('peach_preferred_lang', 'en'));
+    await page.goto(`http://localhost:${PREVIEW_PORT}/knowledge-hub/research/`, { waitUntil: 'networkidle' });
+    const redirectedUrl = page.url();
+    assert(redirectedUrl.includes('/en/research/'), 'Test 10: Visiting /research/ with preferred lang "en" immediately redirects to /en/research/', `URL: ${redirectedUrl}`);
 
     // TEST 8: Responsive baseline screenshots across viewports & themes
     console.log('\n--- Running Test 8: Responsive Before/After Screenshot Captures ---');

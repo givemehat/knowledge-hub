@@ -1,0 +1,263 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import IndianPattern from '../ui/IndianPattern.astro';
+import AvailabilityBadge from '../creator/AvailabilityBadge.astro';
+import SkillChips from '../creator/SkillChips.astro';
+import ProjectCard from '../creator/ProjectCard.astro';
+import Card from '../ui/Card.astro';
+import Chip from '../ui/Chip.astro';
+import InsetPanel from '../ui/InsetPanel.astro';
+import Button from '../ui/Button.astro';
+import CardFooter from '../ui/CardFooter.astro';
+import { CREATOR } from '../../data/creator';
+import { BRAND } from '../../config/brand';
+import type { Locale } from '../../i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'hi' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const isHindi = locale === 'hi';
+
+const ui = {
+  en: {
+    pageTitle: `About ${CREATOR.name} & ${BRAND.name} Manifesto`,
+    pageDesc: `Learn about ${CREATOR.name}, the motivation behind ${BRAND.name}, and our open-source manifesto for high-velocity learning.`,
+    connectBtn: "Connect with Me",
+    saveContact: "Save Contact (vCard)",
+    journeyLabel: "Personal Journey",
+    storyHeading: "Why This Project Exists",
+    originChip: "Editorial Origin",
+    philosophyLabel: "Core Philosophy",
+    philosophyText: "Fast, distraction-free knowledge: zero advertisements, zero tracking telemetry, 100% static delivery, and verified factual sources.",
+    skillsLabel: "Technical Competencies",
+    skillsHeading: "Skills & Tech Stack",
+    projectsLabel: "Open-Source Portfolio",
+    projectsHeading: "Featured Projects",
+    growthLabel: "Continuous Growth",
+    growthHeading: "What I'm Learning & Building Now",
+    researchTrack: "Research Track",
+    deepeningTitle: "Deepening Knowledge In:",
+    viewStudiesBtn: "View Studies →",
+    activeStudy: "Active Study",
+    productionBuilds: "Production Builds",
+    buildingTitle: "Currently Building:",
+    exploreReposBtn: "Explore Repos →",
+    inProgress: "In Progress"
+  },
+  hi: {
+    pageTitle: `${CREATOR.name} और ${BRAND.name} (${BRAND.nameHi}) के बारे में`,
+    pageDesc: `${CREATOR.name} के बारे में जानें, ${BRAND.name} के पीछे की प्रेरणा और उच्च-गुणवत्ता वाले ज्ञान के लिए हमारा घोषणापत्र।`,
+    connectBtn: "मुझसे जुड़ें",
+    saveContact: "संपर्क सहेजें (vCard)",
+    journeyLabel: "व्यक्तिगत यात्रा",
+    storyHeading: "यह प्रोजेक्ट क्यों बना?",
+    originChip: "संपादकीय पृष्ठभूमि",
+    philosophyLabel: "मूल दर्शन",
+    philosophyText: "तेज़, विकर्षण-मुक्त ज्ञान: शून्य विज्ञापन, शून्य ट्रैकिंग, 100% स्थिर डिलीवरी और सत्यापित प्रामाणिक स्रोत।",
+    skillsLabel: "तकनीकी दक्षता",
+    skillsHeading: "कौशल और तकनीकी स्टैक",
+    projectsLabel: "ओपन-सोर्स पोर्टफोलियो",
+    projectsHeading: "प्रमुख प्रोजेक्ट्स",
+    growthLabel: "सतत विकास",
+    growthHeading: "मैं अभी क्या सीख और बना रहा हूँ",
+    researchTrack: "शोध ट्रैक",
+    deepeningTitle: "गहन अध्ययन का क्षेत्र:",
+    viewStudiesBtn: "शोध देखें →",
+    activeStudy: "सक्रिय अध्ययन",
+    productionBuilds: "प्रोडक्शन निर्माण",
+    buildingTitle: "वर्तमान में निर्माणाधीन:",
+    exploreReposBtn: "रिपॉजिटरी देखें →",
+    inProgress: "प्रगति पर"
+  }
+};
+
+const text = isHindi ? ui.hi : ui.en;
+---
+
+<Layout title={text.pageTitle} description={text.pageDesc} lang={locale}>
+  <!-- Hero Section -->
+  <div class="relative overflow-hidden border-b border-slate-200/80 dark:border-white/10 py-16">
+    <IndianPattern variant="rangoli" opacity={0.035} />
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-8">
+        <!-- Creator Avatar Squircle -->
+        <div class="w-24 h-24 rounded-3xl bg-gradient-to-br from-brand-600 via-indigo-600 to-peacock-600 flex items-center justify-center text-white text-3xl font-black shadow-card shrink-0">
+          {CREATOR.name.split(' ').map(n => n[0]).join('')}
+        </div>
+
+        <div class="space-y-2">
+          <AvailabilityBadge />
+          <h1 class={`text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight ${isHindi ? 'font-hindi' : ''}`}>
+            Hi, I'm {CREATOR.name}
+          </h1>
+          <p class="text-base sm:text-lg font-medium text-brand-600 dark:text-brand-400">
+            {CREATOR.role} • {CREATOR.location}
+          </p>
+        </div>
+      </div>
+
+      <p class={`text-base sm:text-xl text-slate-700 dark:text-slate-300 max-w-3xl leading-relaxed ${isHindi ? 'font-hindi' : ''}`}>
+        {CREATOR.tagline}
+      </p>
+
+      <div class="flex flex-wrap items-center gap-3 mt-8">
+        <Button href={`${base}/contact/`} variant="primary" size="md">
+          <span>{text.connectBtn}</span>
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+        </Button>
+
+        <a
+          href={CREATOR.links.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 font-bold text-xs hover:border-brand-500 transition-all shadow-xs"
+        >
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          <span>GitHub @{CREATOR.handle}</span>
+        </a>
+
+        <a
+          href={`${base}/vcard.vcf`}
+          download="Rajnish_Singh.vcf"
+          class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+        >
+          <svg class="w-3.5 h-3.5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+          <span>{text.saveContact}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-16">
+    <!-- SECTION 1: THE STORY -->
+    <section class="space-y-6">
+      <div class="border-b border-slate-200/80 dark:border-white/10 pb-4">
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400">{text.journeyLabel}</span>
+        <h2 class={`text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1 ${isHindi ? 'font-hindi' : ''}`}>
+          {text.storyHeading}
+        </h2>
+      </div>
+
+      <Card class="p-6 sm:p-8 space-y-5">
+        <div class="flex items-center justify-between gap-3 flex-wrap">
+          <Chip variant="neutral">{text.originChip}</Chip>
+          <span class="text-xs text-slate-400 font-mono">{BRAND.name} Platform</span>
+        </div>
+
+        <div class="space-y-4 text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed">
+          {CREATOR.bioParagraphs.map(paragraph => (
+            <p>{paragraph}</p>
+          ))}
+        </div>
+
+        <InsetPanel variant="recommend" label={text.philosophyLabel}>
+          {text.philosophyText}
+        </InsetPanel>
+      </Card>
+    </section>
+
+    <!-- SECTION 2: SKILLS & TECH STACK -->
+    <section class="space-y-6">
+      <div class="border-b border-slate-200/80 dark:border-white/10 pb-4">
+        <span class="text-xs font-bold uppercase tracking-wider text-peacock-600 dark:text-peacock-400">{text.skillsLabel}</span>
+        <h2 class={`text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1 ${isHindi ? 'font-hindi' : ''}`}>
+          {text.skillsHeading}
+        </h2>
+      </div>
+
+      <SkillChips />
+    </section>
+
+    <!-- SECTION 3: FEATURED PROJECTS -->
+    <section class="space-y-6">
+      <div class="border-b border-slate-200/80 dark:border-white/10 pb-4">
+        <span class="text-xs font-bold uppercase tracking-wider text-saffron-600 dark:text-saffron-400">{text.projectsLabel}</span>
+        <h2 class={`text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1 ${isHindi ? 'font-hindi' : ''}`}>
+          {text.projectsHeading}
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-fr">
+        {CREATOR.featuredProjects.map(proj => (
+          <ProjectCard project={proj} />
+        ))}
+      </div>
+    </section>
+
+    <!-- SECTION 4: CURRENT FOCUS & LEARNING -->
+    <section class="space-y-6">
+      <div class="border-b border-slate-200/80 dark:border-white/10 pb-4">
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400">{text.growthLabel}</span>
+        <h2 class={`text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1 ${isHindi ? 'font-hindi' : ''}`}>
+          {text.growthHeading}
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-fr">
+        <Card class="p-6 space-y-4">
+          <div class="flex items-center justify-between gap-2">
+            <Chip variant="category">{text.researchTrack}</Chip>
+            <span class="text-[11px] text-slate-400 font-mono">Q4 2026</span>
+          </div>
+
+          <div class="flex items-center gap-2.5 font-bold text-base text-slate-900 dark:text-white">
+            <div class="w-8 h-8 rounded-lg bg-brand-50 dark:bg-brand-950 flex items-center justify-center text-brand-600 dark:text-brand-400">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+            </div>
+            <span>{text.deepeningTitle}</span>
+          </div>
+
+          <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
+            {CREATOR.currentFocus.learning.map(item => (
+              <li class="flex items-start gap-2">
+                <span class="text-brand-500 font-bold shrink-0 mt-0.5">•</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+
+          <CardFooter class="mt-auto">
+            <span slot="left">{text.activeStudy}</span>
+            <Button slot="action" href={`${base}/${locale}/research/`} variant="outline" size="sm">
+              {text.viewStudiesBtn}
+            </Button>
+          </CardFooter>
+        </Card>
+
+        <Card class="p-6 space-y-4">
+          <div class="flex items-center justify-between gap-2">
+            <Chip variant="status">{text.productionBuilds}</Chip>
+            <span class="text-[11px] text-slate-400 font-mono">{text.inProgress}</span>
+          </div>
+
+          <div class="flex items-center gap-2.5 font-bold text-base text-slate-900 dark:text-white">
+            <div class="w-8 h-8 rounded-lg bg-peacock-50 dark:bg-peacock-950 flex items-center justify-center text-peacock-600 dark:text-peacock-400">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+            </div>
+            <span>{text.buildingTitle}</span>
+          </div>
+
+          <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
+            {CREATOR.currentFocus.building.map(item => (
+              <li class="flex items-start gap-2">
+                <span class="text-peacock-500 font-bold shrink-0 mt-0.5">•</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+
+          <CardFooter class="mt-auto">
+            <span slot="left">{text.inProgress}</span>
+            <Button slot="action" href={CREATOR.links.github} target="_blank" rel="noopener noreferrer" variant="outline" size="sm">
+              {text.exploreReposBtn}
+            </Button>
+          </CardFooter>
+        </Card>
+      </div>
+    </section>
+  </div>
+</Layout>

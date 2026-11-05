@@ -1,0 +1,275 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import IndianPattern from '../ui/IndianPattern.astro';
+import ResourceCard from '../ui/ResourceCard.astro';
+import { CURATED_RESOURCES } from '../../data/resources';
+import { BRAND } from '../../config/brand';
+import type { Locale } from '../../i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'hi' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const isHindi = locale === 'hi';
+
+const ui = {
+  en: {
+    title: `Curated Free Resources — ${BRAND.name}`,
+    desc: "Vetted top-tier technical videos, canonical documentation, and free developer tools curated by engineers.",
+    eyebrow: "100% Free & Verified Sources",
+    heading: "Curated Learning Resources",
+    subtext: "Skip the endless search. Every resource has been audited and battle-tested by engineers so your time is never wasted.",
+    all: "All",
+    video: "Video",
+    doc: "Docs",
+    course: "Courses",
+    tool: "Tools",
+    book: "Books",
+    searchPlaceholder: "Search by title, author, or topic...",
+    domainLabel: "Domain:",
+    allDomains: "All Domains",
+    langLabel: "Language:",
+    allLangs: "All",
+    availableLabel: "Available:",
+    emptyHeading: "No resources found",
+    emptySubtext: "Clear active filters or try a different search keyword."
+  },
+  hi: {
+    title: `चुनिंदा शिक्षण संसाधन — ${BRAND.name} (${BRAND.nameHi})`,
+    desc: "इंजीनियर्स द्वारा जाँचे और परखे गए शीर्ष तकनीकी वीडियो, आधिकारिक दस्तावेज़ और मुफ़्त टूल्स।",
+    eyebrow: "100% मुफ़्त एवं जाँचे-परखे स्रोत",
+    heading: "चुनिंदा शिक्षण संसाधन",
+    subtext: "अनावश्यक खोजों से बचें। हर संसाधन को इंजीनियर्स ने स्वयं परखा और मूल्यांकित किया है ताकि आपका समय व्यर्थ न हो।",
+    all: "सभी",
+    video: "वीडियो",
+    doc: "दस्तावेज़",
+    course: "कोर्स",
+    tool: "टूल्स",
+    book: "पुस्तकें",
+    searchPlaceholder: "शीर्षक, लेखक या विषय खोजें...",
+    domainLabel: "विषय:",
+    allDomains: "सभी विषय",
+    langLabel: "भाषा:",
+    allLangs: "सभी",
+    availableLabel: "उपलब्ध:",
+    emptyHeading: "कोई संसाधन नहीं मिला",
+    emptySubtext: "सक्रिय फ़िल्टर साफ़ करें या दूसरा कीवर्ड खोजें।"
+  }
+};
+
+const text = isHindi ? ui.hi : ui.en;
+---
+
+<Layout
+  title={text.title}
+  description={text.desc}
+  lang={locale}
+>
+  <div class="relative overflow-hidden border-b border-slate-200/80 dark:border-white/10 py-12">
+    <IndianPattern variant="rangoli" opacity={0.03} />
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-peacock-500/10 text-peacock-700 dark:text-peacock-300 border border-peacock-500/20 text-xs font-semibold mb-4">
+          <svg class="w-3.5 h-3.5 text-peacock-600 dark:text-peacock-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+          <span id="page-eyebrow">{text.eyebrow}</span>
+        </div>
+        <h1 id="page-heading" class={`text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight ${isHindi ? 'font-hindi' : ''}`}>
+          {text.heading}
+        </h1>
+        <p id="page-subtext" class={`text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-3 leading-relaxed ${isHindi ? 'font-hindi' : ''}`}>
+          {text.subtext}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <!-- Filter Controls Toolbar -->
+    <div class="bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 rounded-2xl p-4 sm:p-5 mb-8 shadow-sm space-y-4">
+      <!-- Row 1: Type Tabs & Search -->
+      <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+        <!-- Type Tabs -->
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none" id="type-tabs">
+          <button class="type-filter-btn active px-3 py-1.5 rounded-xl text-xs font-semibold bg-brand-500 text-white shadow-sm cursor-pointer" data-type="all">
+            {text.all} ({CURATED_RESOURCES.length})
+          </button>
+          <button class="type-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer" data-type="video">
+            {text.video}
+          </button>
+          <button class="type-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer" data-type="doc">
+            {text.doc}
+          </button>
+          <button class="type-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer" data-type="course">
+            {text.course}
+          </button>
+          <button class="type-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer" data-type="tool">
+            {text.tool}
+          </button>
+          <button class="type-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer" data-type="book">
+            {text.book}
+          </button>
+        </div>
+
+        <!-- Search input -->
+        <div class="relative w-full lg:w-72">
+          <input 
+            type="text" 
+            id="resource-search" 
+            placeholder={text.searchPlaceholder}
+            class="w-full text-xs px-3.5 py-2 pl-9 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-brand-500"
+          />
+          <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Row 2: Category, Language Sub-filters & Active Count -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-white/10 text-xs">
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="flex items-center gap-1.5">
+            <span class="text-slate-400 font-medium text-[11px]">{text.domainLabel}</span>
+            <select id="cat-select" class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 focus:outline-none focus:border-brand-500 cursor-pointer">
+              <option value="all">{text.allDomains}</option>
+              <option value="ai">AI & ML</option>
+              <option value="dsa">DSA & Career</option>
+              <option value="quantum">Quantum Computing</option>
+              <option value="systems">Tech Fundamentals</option>
+              <option value="policy">Politics & Governance</option>
+            </select>
+          </div>
+
+          <div class="flex items-center gap-1.5" id="lang-filters">
+            <span class="text-slate-400 font-medium text-[11px]">{text.langLabel}</span>
+            <button class="lang-filter-btn active px-2.5 py-1 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold" data-lang="all">{text.allLangs}</button>
+            <button class="lang-filter-btn px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400" data-lang="hi" lang={isHindi ? 'hi' : undefined}>{isHindi ? 'हिन्दी' : 'Hindi'}</button>
+            <button class="lang-filter-btn px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400" data-lang="en">English</button>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 font-mono text-xs">
+          <span>{text.availableLabel}</span>
+          <span id="results-count" class="font-bold text-slate-900 dark:text-white px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-white/10">
+            {CURATED_RESOURCES.length}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Unified Resources Grid (Equal Height per Row via auto-rows-fr) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr" id="resources-grid">
+      {CURATED_RESOURCES.map(res => (
+        <div
+          class="resource-filter-wrapper h-full"
+          data-type={res.type}
+          data-category={res.category}
+          data-lang={res.language}
+          data-search={`${res.title} ${res.author} ${res.whyWatch} ${isHindi ? (res.whyWatchHi || '') : ''}`.toLowerCase()}
+        >
+          <ResourceCard {...res} locale={locale} />
+        </div>
+      ))}
+    </div>
+
+    <!-- Empty State Variant -->
+    <div id="no-results-msg" class="hidden text-center py-16 bg-slate-50/50 dark:bg-slate-900/20 rounded-3xl border border-dashed border-slate-300 dark:border-slate-700 p-8 my-8">
+      <div class="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mx-auto text-slate-400 mb-3">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </div>
+      <h3 id="empty-heading" class={`text-sm font-bold text-slate-900 dark:text-white ${isHindi ? 'font-hindi' : ''}`}>{text.emptyHeading}</h3>
+      <p id="empty-subtext" class={`text-xs text-slate-500 mt-1 ${isHindi ? 'font-hindi' : ''}`}>{text.emptySubtext}</p>
+    </div>
+  </div>
+</Layout>
+
+<script is:inline>
+  let activeType = 'all';
+  let activeCat = 'all';
+  let activeLang = 'all';
+  let searchQuery = '';
+
+  const wrappers = document.querySelectorAll('.resource-filter-wrapper');
+  const emptyState = document.getElementById('no-results-msg');
+  const resultsCountEl = document.getElementById('results-count');
+
+  function applyFilters() {
+    let visibleCount = 0;
+    wrappers.forEach(el => {
+      const type = el.dataset.type;
+      const cat = el.dataset.category;
+      const lang = el.dataset.lang;
+      const text = el.dataset.search || '';
+
+      const matchType = activeType === 'all' || type === activeType;
+      const matchCat = activeCat === 'all' || cat === activeCat;
+      const matchLang = activeLang === 'all' || lang === activeLang;
+      const matchSearch = !searchQuery || text.includes(searchQuery);
+
+      if (matchType && matchCat && matchLang && matchSearch) {
+        el.classList.remove('hidden');
+        visibleCount++;
+      } else {
+        el.classList.add('hidden');
+      }
+    });
+
+    if (resultsCountEl) resultsCountEl.textContent = String(visibleCount);
+    if (emptyState) {
+      if (visibleCount === 0) {
+        emptyState.classList.remove('hidden');
+      } else {
+        emptyState.classList.add('hidden');
+      }
+    }
+  }
+
+  document.querySelectorAll('.type-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.type-filter-btn').forEach(b => {
+        b.classList.remove('active', 'bg-brand-500', 'text-white', 'shadow-sm');
+        b.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+      });
+      btn.classList.add('active', 'bg-brand-500', 'text-white', 'shadow-sm');
+      btn.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+      activeType = btn.dataset.type || 'all';
+      applyFilters();
+    });
+  });
+
+  const catSelect = document.getElementById('cat-select');
+  if (catSelect) {
+    catSelect.addEventListener('change', (e) => {
+      activeCat = e.target.value;
+      applyFilters();
+    });
+  }
+
+  document.querySelectorAll('.lang-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.lang-filter-btn').forEach(b => {
+        b.classList.remove('active', 'bg-slate-900', 'dark:bg-white', 'text-white', 'dark:text-slate-900', 'font-semibold');
+        b.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-400');
+      });
+      btn.classList.add('active', 'bg-slate-900', 'dark:bg-white', 'text-white', 'dark:text-slate-900', 'font-semibold');
+      btn.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-400');
+      activeLang = btn.dataset.lang || 'all';
+      applyFilters();
+    });
+  });
+
+  const searchInput = document.getElementById('resource-search');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value.toLowerCase().trim();
+      applyFilters();
+    });
+  }
+</script>

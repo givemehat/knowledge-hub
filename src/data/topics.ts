@@ -1029,7 +1029,8 @@ export const TOPICS: Topic[] = [
       }
     ],
     "shortTitle": "चुनाव प्रक्रिया: EVM और VVPAT",
-    "shortTitleEn": "Election Process: EVM and VVPAT"
+    "shortTitleEn": "Election Process: EVM and VVPAT",
+    "summaryEn": "Objective technical and legal breakdown of Indias electoral apparatus: Election Commission powers, Model Code of Conduct, standalone EVM-VVPAT architecture, and the Supreme Court 2024 verdict."
   },
   {
     "slug": "union-budget-rti-dbt",
@@ -1158,7 +1159,8 @@ export const TOPICS: Topic[] = [
       }
     ],
     "shortTitle": "केंद्रीय बजट, RTI और DBT",
-    "shortTitleEn": "Union Budget, RTI and DBT"
+    "shortTitleEn": "Union Budget, RTI and DBT",
+    "summaryEn": "Demystifying the Union Budget: revenue vs capital expenditure, fiscal deficit calculations, alongside actionable guides for filing RTIs and understanding Direct Benefit Transfer systems."
   },
   {
     "slug": "dsa-roadmap-6-months",
@@ -1288,7 +1290,8 @@ export const TOPICS: Topic[] = [
       }
     ],
     "shortTitle": "DSA का 6-महीने का रोडमैप",
-    "shortTitleEn": "6-Month DSA Roadmap"
+    "shortTitleEn": "6-Month DSA Roadmap",
+    "summaryEn": "A structured, disciplined 6-month roadmap for mastering data structures and algorithms from foundational arrays to dynamic programming, graphs, and system design interviews."
   },
   {
     "slug": "placement-offcampus-playbook",
@@ -1419,7 +1422,8 @@ export const TOPICS: Topic[] = [
       }
     ],
     "shortTitle": "ऑफ़-कैंपस प्लेसमेंट प्लेबुक",
-    "shortTitleEn": "Off-Campus Placement Playbook"
+    "shortTitleEn": "Off-Campus Placement Playbook",
+    "summaryEn": "Tactical off-campus placement guide for Tier-2 and Tier-3 engineering students: cold emailing hiring managers, ATS-friendly resumes, referral networks, and salary negotiation."
   },
   {
     "slug": "core-cs-subjects-interview",
@@ -1550,7 +1554,8 @@ export const TOPICS: Topic[] = [
       }
     ],
     "shortTitle": "कोर CS इंटरव्यू मास्टरी",
-    "shortTitleEn": "Core CS Interview Mastery"
+    "shortTitleEn": "Core CS Interview Mastery",
+    "summaryEn": "High-yield computer science interview handbook covering Operating Systems, Computer Networks, DBMS internals, and Object-Oriented Design with typical industry interview questions."
   },
   {
     "slug": "project-ideas-hub",
@@ -1671,7 +1676,8 @@ export const TOPICS: Topic[] = [
       }
     ],
     "shortTitle": "सॉफ़्टवेयर प्रोजेक्ट्स गाइड",
-    "shortTitleEn": "Software Projects Guide"
+    "shortTitleEn": "Software Projects Guide",
+    "summaryEn": "Curated catalog of production-ready software project architectures: full-stack applications, distributed services, and AI systems that demonstrate genuine engineering ability."
   },
   {
     "slug": "llms-explained",
@@ -2478,7 +2484,8 @@ export const TOPICS: Topic[] = [
       }
     ],
     "shortTitle": "सिस्टम डिज़ाइन इंटरव्यू प्राइमर",
-    "shortTitleEn": "System Design Interview Primer"
+    "shortTitleEn": "System Design Interview Primer",
+    "summaryEn": "Comprehensive algorithmic placement guide covering pattern recognition in LeetCode, scalable system architecture basics, and behavioral interview strategies."
   },
   {
     "slug": "offcampus-internship-playbook",
@@ -2609,13 +2616,15 @@ export const TOPICS: Topic[] = [
       }
     ],
     "shortTitle": "इंटर्नशिप हंट और कोल्ड ईमेल",
-    "shortTitleEn": "Internship Hunt & Cold Email"
+    "shortTitleEn": "Internship Hunt & Cold Email",
+    "summaryEn": "Practical roadmap for landing high-growth tech internships off-campus: open-source contributions, portfolio projects, outreach templates, and technical round prep."
   },
   {
     "slug": "operating-systems-memory-concurrency",
     "title": "Operating Systems: Processes, Threads, Memory Management और Concurrency",
     "shortTitle": "OS: प्रोसेस, मेमोरी और लॉक्स",
     "shortTitleEn": "OS: Processes, Memory and Locks",
+    "summaryEn": "Deep architectural study of OS fundamentals: virtual memory, page tables, CPU scheduling, thread concurrency, mutex synchronization, and deadlocks with runnable C examples.",
     "category": "tech-fundamentals",
     "categoryLabel": "Tech Fundamentals",
     "level": "intermediate",
@@ -2696,6 +2705,7 @@ export const TOPICS: Topic[] = [
     "title": "Computer Networks: TCP 3-Way Handshake, DNS, HTTP/3 और Socket Programming",
     "shortTitle": "कंप्यूटर नेटवर्क्स: TCP/IP और HTTP",
     "shortTitleEn": "Computer Networks: TCP/IP and HTTP",
+    "summaryEn": "Complete engineering primer on computer networking: OSI vs TCP/IP protocols, 3-way handshakes, TLS 1.3 encryption, DNS resolution, and HTTP/1.1 through HTTP/3.",
     "category": "tech-fundamentals",
     "categoryLabel": "Tech Fundamentals",
     "level": "intermediate",
@@ -2776,6 +2786,7 @@ export const TOPICS: Topic[] = [
     "titleHindi": "AI UI प्रॉम्प्टिंग: टेलविंड CSS, टाइपोग्राफी स्केल और लेआउट आर्किटेक्चर",
     "shortTitle": "AI UI प्रॉम्प्टिंग और आर्किटेक्चर",
     "shortTitleEn": "AI UI Prompting & Engineering",
+    "summaryEn": "Modern AI-driven UI design and frontend engineering: component prompt design, typography tokenization, Apple and Material design systems, and rapid prototyping workflows.",
     "category": "ai-ml",
     "categoryLabel": "AI & Machine Learning",
     "level": "intermediate",

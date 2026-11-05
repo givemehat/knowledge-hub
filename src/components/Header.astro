@@ -22,22 +22,22 @@ const navLinks = [
 
 // Calculate equivalent route in other locale for seamless navigation toggle
 function getTargetLocaleUrl(target: Locale): string {
-  if (target === locale) return currentPath;
   const pathWithoutBase = currentPath.startsWith(base) ? currentPath.slice(base.length) : currentPath;
 
-  let targetPath = pathWithoutBase;
-  if (targetPath.startsWith(`/${locale}/`)) {
-    targetPath = `/${target}/` + targetPath.slice(`/${locale}/`.length);
-  } else if (targetPath === `/${locale}` || targetPath === `/${locale}/`) {
-    targetPath = `/${target}/`;
-  } else if (targetPath.startsWith('/en/') || targetPath.startsWith('/hi/')) {
-    targetPath = `/${target}/` + targetPath.slice(4);
-  } else if (targetPath === '/' || targetPath === '') {
-    targetPath = `/${target}/`;
-  } else {
-    targetPath = `/${target}${targetPath.startsWith('/') ? targetPath : '/' + targetPath}`;
+  let cleanPath = pathWithoutBase;
+  if (cleanPath.startsWith('/en/')) {
+    cleanPath = cleanPath.slice(3);
+  } else if (cleanPath.startsWith('/hi/')) {
+    cleanPath = cleanPath.slice(3);
+  } else if (cleanPath === '/en' || cleanPath === '/hi') {
+    cleanPath = '/';
   }
-  return `${base}${targetPath}`;
+
+  if (!cleanPath.startsWith('/')) {
+    cleanPath = '/' + cleanPath;
+  }
+
+  return `${base}/${target}${cleanPath === '/' ? '/' : cleanPath}`;
 }
 
 const enUrl = getTargetLocaleUrl('en');

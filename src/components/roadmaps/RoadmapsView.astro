@@ -1,0 +1,139 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import IndianPattern from '../ui/IndianPattern.astro';
+import Card from '../ui/Card.astro';
+import Chip from '../ui/Chip.astro';
+import InsetPanel from '../ui/InsetPanel.astro';
+import CardFooter from '../ui/CardFooter.astro';
+import Button from '../ui/Button.astro';
+import { ROADMAPS } from '../../data/roadmaps';
+import { BRAND } from '../../config/brand';
+import type { Locale } from '../../i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'hi' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const isHindi = locale === 'hi';
+
+const ui = {
+  en: {
+    title: `Visual Interactive Roadmaps — ${BRAND.name}`,
+    desc: "Step-by-step career and technical roadmaps with hours estimates, milestone tracking, and verified free resources.",
+    eyebrow: "Structured Career Roadmaps",
+    heading: "Interactive Engineering Roadmaps",
+    subtext: "Every roadmap features step-by-step milestones, realistic time estimates, local progress tracking (Path View & Board View), and verified free resources.",
+    weeksSuffix: "Weeks",
+    milestoneLabel: "Milestone Checkpoints",
+    moreMilestones: "+ {count} more milestones in roadmap",
+    milestonesCount: "{count} Milestones",
+    launchBtn: "Launch Roadmap"
+  },
+  hi: {
+    title: `इंटरएक्टिव इंजीनियरिंग रोडमैप्स — ${BRAND.name} (${BRAND.nameHi})`,
+    desc: "करियर और तकनीकी अध्ययन के लिए चरणबद्ध रोडमैप, घंटे के अनुमान और मुफ़्त संसाधन।",
+    eyebrow: "संरचित करियर रोडमैप्स",
+    heading: "इंटरएक्टिव इंजीनियरिंग रोडमैप्स",
+    subtext: "प्रत्येक रोडमैप में चरणबद्ध मील के पत्थर, समय अनुमान, स्थानीय प्रगति ट्रैकिंग (Path View और Board View), और सत्यापित मुफ़्त संसाधन शामिल हैं।",
+    weeksSuffix: "सप्ताह",
+    milestoneLabel: "प्रमुख मील के पत्थर",
+    moreMilestones: "+ {count} और पड़ाव इस रोडमैप में",
+    milestonesCount: "{count} पड़ाव",
+    launchBtn: "रोडमैप शुरू करें"
+  }
+};
+
+const text = isHindi ? ui.hi : ui.en;
+---
+
+<Layout title={text.title} description={text.desc} lang={locale}>
+  <div class="relative overflow-hidden border-b border-slate-200/80 dark:border-white/10 py-12">
+    <IndianPattern variant="rangoli" opacity={0.03} />
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/20 text-xs font-semibold mb-4">
+          <svg class="w-3.5 h-3.5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>{text.eyebrow}</span>
+        </div>
+        <h1 class={`text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight ${isHindi ? 'font-hindi' : ''}`}>
+          {text.heading}
+        </h1>
+        <p class={`text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-3 leading-relaxed ${isHindi ? 'font-hindi' : ''}`}>
+          {text.subtext}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 auto-rows-fr">
+      {ROADMAPS.map(roadmap => (
+        <Card class="roadmap-card">
+          <div>
+            <!-- Top Chip Row -->
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <Chip variant="neutral" size="sm">
+                {isHindi ? (roadmap.difficulty === 'intermediate' ? 'मध्यम' : roadmap.difficulty === 'beginner' ? 'शुरुआती' : 'उन्नत') : roadmap.difficulty}
+              </Chip>
+              <Chip variant="phase" size="sm">
+                ~{roadmap.estimatedWeeks} {text.weeksSuffix}
+              </Chip>
+            </div>
+
+            <!-- Title & Subtitle -->
+            <h2 class="text-2xl font-black text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+              <a href={`${base}/roadmaps/${roadmap.slug}/`} class={`hover:underline ${isHindi ? 'font-hindi' : ''}`}>
+                {isHindi && roadmap.titleHindi ? roadmap.titleHindi : roadmap.title}
+              </a>
+            </h2>
+
+            <p class={`text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-3 leading-relaxed ${isHindi ? 'font-hindi' : ''}`}>
+              {roadmap.subtitle}
+            </p>
+
+            <!-- InsetPanel "Milestone Checkpoints" -->
+            <InsetPanel variant="top-topics" label={text.milestoneLabel} class="mt-6">
+              <div class="space-y-2 mt-1">
+                {roadmap.nodes.slice(0, 4).map((node, i) => (
+                  <div class="flex items-center gap-2.5 text-xs text-slate-700 dark:text-slate-300">
+                    <span class="w-5 h-5 rounded-lg bg-white dark:bg-slate-800 text-[10px] flex items-center justify-center font-bold text-slate-500 shrink-0 font-mono border border-slate-200/50 dark:border-white/5">
+                      {i + 1}
+                    </span>
+                    <span class={`truncate font-medium ${isHindi ? 'font-hindi' : ''}`}>{node.title}</span>
+                  </div>
+                ))}
+                {roadmap.nodes.length > 4 && (
+                  <div class="text-[11px] text-slate-400 pl-7 font-mono">
+                    {text.moreMilestones.replace('{count}', String(roadmap.nodes.length - 4))}
+                  </div>
+                )}
+              </div>
+            </InsetPanel>
+          </div>
+
+          <!-- Pinned Footer -->
+          <CardFooter>
+            <span slot="meta" class="text-xs text-slate-400 font-mono">
+              {text.milestonesCount.replace('{count}', String(roadmap.nodes.length))}
+            </span>
+            <div slot="action">
+              <Button
+                href={`${base}/roadmaps/${roadmap.slug}/`}
+                variant="primary"
+                size="sm"
+                icon="arrow"
+              >
+                <span>{text.launchBtn}</span>
+              </Button>
+            </div>
+          </CardFooter>
+        </Card>
+      ))}
+    </div>
+  </div>
+</Layout>
