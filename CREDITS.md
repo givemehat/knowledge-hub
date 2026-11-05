@@ -1,5 +1,5 @@
 # 📜 Credits & Open-Source Attributions
-**Knowledge Hub (ज्ञान केंद्र)** is committed to 100% licensing transparency and honoring all open-source creators, type designers, data scientists, and illustrators.
+**Bodh (बोध)** is committed to 100% licensing transparency and honoring all open-source creators, type designers, data scientists, and illustrators.
 
 ---
 
@@ -7,9 +7,9 @@
 
 | Font Family | Designer / Foundries | License | Usage Scope | Link |
 |---|---|---|---|---|
+| **Noto Sans Devanagari** | Google Fonts / Monotype Design Team | SIL Open Font License 1.1 (OFL) | Hindi Typography, Devanagari Headings & Body Copy | [Google Fonts](https://fonts.google.com/specimen/Noto+Sans+Devanagari) |
 | **Plus Jakarta Sans** | Tokotype (Gumpita Rahayu) | SIL Open Font License 1.1 (OFL) | Primary UI Headings & Display | [Google Fonts](https://fonts.google.com/specimen/Plus+Jakarta+Sans) |
 | **Inter** | Rasmus Andersson | SIL Open Font License 1.1 (OFL) | Interface Body Text & High Readability | [Google Fonts](https://fonts.google.com/specimen/Inter) |
-| **Noto Sans Devanagari** | Google Fonts / Monotype Design Team | SIL Open Font License 1.1 (OFL) | Hindi Typography & Devanagari Headings | [Google Fonts](https://fonts.google.com/specimen/Noto+Sans+Devanagari) |
 | **JetBrains Mono** | JetBrains (Philipp Nurullin) | SIL Open Font License 1.1 (OFL) | Code blocks, Technical tokens, Big-O tables | [JetBrains Mono](https://www.jetbrains.com/lp/mono/) |
 
 ---
@@ -18,9 +18,10 @@
 
 | Icon Set / Asset | Maintainer | License | Application | Link |
 |---|---|---|---|---|
+| **Bodh Duotone Domain Icons** | Bodh Design System | MIT / CC BY-SA 4.0 | 6 Semantic Domain Icons (Neural Brain, Atomic Orbit, Briefcase, Rocket, Isometric Stack, Constitutional Landmark) | Hand-crafted in `src/components/domains/IconTile.astro` |
 | **Lucide Icons** | Lucide Open Source Community | ISC License (Permissive) | 100% of System UI Icons (replacing informal emojis) | [Lucide](https://lucide.dev/) |
 | **Simple Icons** | Simple Icons Community | CC0 1.0 Universal (Public Domain) | Brand & Tech Stack Icons (Python, Docker, GitHub, etc.) | [Simple Icons](https://simpleicons.org/) |
-| **Geometric Jaali & Rangoli SVGs** | Knowledge Hub Design System | MIT / CC BY-SA 4.0 | Subtle Indian Heritage Background Textures (SVG) | Hand-crafted in codebase |
+| **Geometric Jaali & Rangoli SVGs** | Bodh Design System | MIT / CC BY-SA 4.0 | Subtle Indian Heritage Background Textures (SVG) | Hand-crafted in codebase |
 
 ---
 

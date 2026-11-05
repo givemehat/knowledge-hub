@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import IndianPattern from '../../components/ui/IndianPattern.astro';
+import IconTile from '../../components/domains/IconTile.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -263,5 +264,76 @@ const icons = [
         </div>
       </div>
     </div>
+    <!-- Semantic Domain Tiles Showcase (Duotone 56px Surfaces) -->
+    <section class="space-y-6 pt-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div>
+          <h2 class="text-xl font-bold text-slate-900 dark:text-white">6 Semantic Domain Tiles (Duotone 56px Surfaces)</h2>
+          <p class="text-xs text-slate-500">Zero inappropriate metaphors: Neural brain for AI, atomic orbit for Quantum, briefcase for Career, rocket ship for Projects, layered stack for Tech Fundamentals, constitutional landmark for Governance.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- 1. AI & Machine Learning -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-xs flex items-start gap-4">
+          <IconTile category="ai-ml" />
+          <div>
+            <div class="font-bold text-sm text-slate-900 dark:text-white">AI & Machine Learning</div>
+            <div class="text-[11px] text-indigo-600 dark:text-indigo-400 font-semibold mb-1">Synaptic Neural Brain (NOT mic)</div>
+            <p class="text-xs text-slate-500 leading-relaxed">Represents neural network activations, synapses, and cognitive architectures.</p>
+          </div>
+        </div>
+
+        <!-- 2. Quantum Computing -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-xs flex items-start gap-4">
+          <IconTile category="quantum" />
+          <div>
+            <div class="font-bold text-sm text-slate-900 dark:text-white">Quantum Computing</div>
+            <div class="text-[11px] text-sky-600 dark:text-sky-400 font-semibold mb-1">Atomic Orbit & Nucleus</div>
+            <p class="text-xs text-slate-500 leading-relaxed">Visualizes electron probability clouds, superposition, and quantum spin states.</p>
+          </div>
+        </div>
+
+        <!-- 3. Career & Placement -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-xs flex items-start gap-4">
+          <IconTile category="career" />
+          <div>
+            <div class="font-bold text-sm text-slate-900 dark:text-white">Career & Placement</div>
+            <div class="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold mb-1">Briefcase & Upward Growth Path</div>
+            <p class="text-xs text-slate-500 leading-relaxed">Represents professional trajectory, DSA mastery, and placement success.</p>
+          </div>
+        </div>
+
+        <!-- 4. Projects Hub -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-xs flex items-start gap-4">
+          <IconTile category="projects" />
+          <div>
+            <div class="font-bold text-sm text-slate-900 dark:text-white">Projects Hub</div>
+            <div class="text-[11px] text-amber-600 dark:text-amber-400 font-semibold mb-1">Rocket Ship Launch (NOT star)</div>
+            <p class="text-xs text-slate-500 leading-relaxed">Embodies shipping software, production deployment, and building in public.</p>
+          </div>
+        </div>
+
+        <!-- 5. Tech Fundamentals -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-xs flex items-start gap-4">
+          <IconTile category="tech-fundamentals" />
+          <div>
+            <div class="font-bold text-sm text-slate-900 dark:text-white">Tech Fundamentals</div>
+            <div class="text-[11px] text-violet-600 dark:text-violet-400 font-semibold mb-1">Layered Isometric Architecture</div>
+            <p class="text-xs text-slate-500 leading-relaxed">Represents abstraction layers: Hardware, OS kernel, Networks, and Application runtimes.</p>
+          </div>
+        </div>
+
+        <!-- 6. Politics & Governance -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-xs flex items-start gap-4">
+          <IconTile category="gov-policy" />
+          <div>
+            <div class="font-bold text-sm text-slate-900 dark:text-white">Politics & Governance</div>
+            <div class="text-[11px] text-rose-600 dark:text-rose-400 font-semibold mb-1">Constitutional Landmark & Pillars (NOT home)</div>
+            <p class="text-xs text-slate-500 leading-relaxed">Pillars of democracy, legal frameworks, EVM/VVPAT, and public policy.</p>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </Layout>

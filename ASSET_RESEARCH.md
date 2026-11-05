@@ -64,4 +64,19 @@ For programming languages, cloud providers, and social platforms (GitHub, Python
 A dedicated comparison route has been built at:
 👉 **[`/dev/icon-compare`](file:///Users/rajnishsingh/projects/knowledge-hub/src/pages/dev/icon-compare.astro)**
 
-This page showcases 12 identical key actions (Search, Book, Terminal, Code, Checkmark, Alert, Git Branch, Star, External Link, Share, User, Settings) rendered in Lucide, Tabler, Phosphor, and Iconoir styles under both Light and Dark themes.
+---
+
+## 7. Semantic Duotone Domain Tiles Architecture (Prompt 8)
+
+For the primary category tiles on the homepage, generic symbols and inappropriate metaphors were permanently replaced:
+
+| Category | Replaced Bad Metaphor | New Semantic Vector | Visual Architecture |
+|---|---|---|---|
+| **AI & Machine Learning** | ❌ Microphone (irrelevant audio icon) | **Synaptic Neural Brain** | 28px duotone vector with neural nodes and axonic connections |
+| **Quantum Computing** | ⚠️ Low-contrast generic ellipses | **Atomic Orbit & Probability Nucleus** | Dual rotated elliptical orbitals with central probability core |
+| **Career & Placement** | ⚠️ Plain flat briefcase | **Briefcase & Upward Trajectory** | Briefcase geometry fused with rising arrow vector |
+| **Projects Hub** | ❌ Star (favourite/bookmark symbol) | **Rocket Ship Launch & Propulsion** | Rocket fuselage, navigation viewport, and thruster exhaust |
+| **Tech Fundamentals** | ❌ Repeated orange / terminal only | **Layered Isometric System Stack** | Triple-tier isometric plane stack representing OS, Networks & DB layers |
+| **Politics & Governance** | ❌ Residential house (home page symbol) | **Constitutional Landmark & Pillars** | Triangular pediment, four institutional pillars, and foundation lintel |
+
+All 6 domain tiles are rendered in **56px soft-tinted surfaces (10–14% opacity) with 1px matching borders** and live previews on **[`/dev/icon-compare`](file:///Users/rajnishsingh/projects/knowledge-hub/src/pages/dev/icon-compare.astro)**.

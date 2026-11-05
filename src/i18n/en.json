@@ -1,0 +1,80 @@
+{
+  "nav": {
+    "topics": "Topics",
+    "roadmaps": "Roadmaps",
+    "scenarios": "Scenarios",
+    "research": "Research",
+    "resources": "Resources",
+    "about": "About"
+  },
+  "hero": {
+    "trustPill": "Verified · Sourced · 100% Free",
+    "noLogin": "No Login Needed",
+    "h1Prefix": "Learn what truly",
+    "h1Highlight": "matters in tech",
+    "h1Suffix": ".",
+    "subtext": "Sourced roadmaps, deep-dive architectural guides, and curated resources for developers and curious minds. No logins, no ads.",
+    "searchPlaceholder": "Search topics, career roadmaps, or verified cheatsheets...",
+    "searchLabel": "Search",
+    "quickTopicsLabel": "Quick Topics:"
+  },
+  "domains": {
+    "eyebrow": "Explore domains",
+    "heading": "What do you want to learn today?",
+    "subtext": "From computer science fundamentals to advanced AI and governance, verified guides and roadmaps for every domain.",
+    "viewAll": "View all topics",
+    "viewAllCount": "View all {count} topics",
+    "topTopicsLabel": "Top topics:",
+    "cardCta": "Explore domain",
+    "comingSoonBadge": "Coming Soon",
+    "comingSoonNotice": "Research and development in progress for this domain.",
+    "suggestTopicBtn": "Suggest topic",
+    "oneGuide": "1 guide",
+    "manyGuides": "{count} guides",
+    "comingSoonCount": "Soon",
+    "minutes": "min read"
+  },
+  "stats": {
+    "guides": "Topic Guides",
+    "roadmaps": "Career Roadmaps",
+    "roadmapsSoon": "more arriving soon",
+    "resources": "Curated Free Resources",
+    "citations": "Verified Citations"
+  },
+  "trust": {
+    "sourcesTitle": "Primary sources for every claim",
+    "sourcesDesc": "Official documentation, peer-reviewed research papers, and open-source code repositories",
+    "auditedTitle": "Audited fact-check timestamp",
+    "auditedDesc": "Audit timestamp on every guide prevents outdated or stale technical information",
+    "freeTitle": "100% Free & Ad-Free Forever",
+    "freeDesc": "Zero creepy trackers, zero paywalls, no mandatory account creation required",
+    "communityTitle": "Open to community corrections",
+    "communityDesc": "Notice a technical inaccuracy? Propose a correction directly through a GitHub pull request"
+  },
+  "categories": {
+    "ai-ml": {
+      "name": "AI & Machine Learning",
+      "benefit": "Transformers, prompt engineering, RAG pipelines, and production agent architectures."
+    },
+    "quantum": {
+      "name": "Quantum Computing",
+      "benefit": "Qubit physics, superposition, entanglement, and runnable Qiskit code examples."
+    },
+    "career": {
+      "name": "Career & Placement",
+      "benefit": "6-month DSA mastery roadmap, off-campus hiring playbook, and system design essentials."
+    },
+    "projects": {
+      "name": "Projects Hub",
+      "benefit": "Resume-worthy projects, open-source issue walkthroughs, and production architectures."
+    },
+    "tech-fundamentals": {
+      "name": "Tech Fundamentals",
+      "benefit": "Operating systems, computer networks, DBMS internals, and core CS interview topics."
+    },
+    "gov-policy": {
+      "name": "Politics & Governance",
+      "benefit": "Indian Constitution structure, EVM & VVPAT mechanisms, Union budget, and DBT systems."
+    }
+  }
+}

@@ -6,7 +6,12 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "test": "node tests/domains.spec.cjs && node tests/i18n.spec.cjs && node scripts/check-hinglish.cjs",
+    "test:domains": "node tests/domains.spec.cjs",
+    "test:i18n": "node tests/i18n.spec.cjs",
+    "test:hinglish": "node scripts/check-hinglish.cjs",
+    "test:homepage": "node tests/homepage.spec.cjs"
   },
   "dependencies": {
     "@astrojs/tailwind": "^6.0.2",

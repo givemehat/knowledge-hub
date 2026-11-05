@@ -1,0 +1,229 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import IndianPattern from '../../components/ui/IndianPattern.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Layout
+  title="Devanagari & Latin Type Specimen — Bodh (बोध)"
+  description="Bilingual typographic system benchmark: Noto Sans Devanagari paired with Inter and Plus Jakarta Sans under rigorous optical calibration."
+  lang="hi"
+>
+  <div class="relative overflow-hidden border-b border-slate-200/80 dark:border-white/10 py-12">
+    <IndianPattern variant="rangoli" opacity={0.03} />
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/20 text-xs font-semibold mb-4">
+          <svg class="w-3.5 h-3.5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <polyline points="4 7 4 4 20 4 20 7"/>
+            <line x1="9" y1="20" x2="15" y2="20"/>
+            <line x1="12" y1="4" x2="12" y2="20"/>
+          </svg>
+          Typography & Script Architecture
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
+          Devanagari & Latin Type Specimen
+        </h1>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
+          Google Noto Sans Devanagari paired seamlessly with Plus Jakarta Sans and Inter. Engineered specifically for complex Indian script conjuncts, vertical breathing room, and zero letter collision.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+    <!-- 1. The 5 Non-Negotiable Rules Matrix -->
+    <section>
+      <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+        <span class="w-6 h-6 rounded-lg bg-brand-500/10 text-brand-600 dark:text-brand-400 text-xs flex items-center justify-center font-bold">1</span>
+        5 Non-Negotiable Devanagari Typography Rules
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Rule 1: Tracking / Letter-spacing -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-xs space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm text-slate-900 dark:text-white">Rule 1: letter-spacing: 0 !important</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">Active</span>
+          </div>
+          <p class="text-xs text-slate-500">
+            Negative letter-spacing destroys Devanagari glyph conjuncts (संयुक्ताक्षर) and collides vertical matras with the Shirorekha.
+          </p>
+          <div class="space-y-3 pt-2">
+            <div class="p-3.5 rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200/80 dark:border-rose-900/50">
+              <span class="text-[10px] uppercase font-bold tracking-wider text-rose-600 block mb-1">❌ Incorrect (Tracking -0.05em):</span>
+              <p class="font-hindi text-base text-slate-800 dark:text-slate-200" style="letter-spacing: -0.05em;">
+                क्वांटम कंप्यूटिंग और आर्टिफिशियल इंटेलिजेंस
+              </p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200/80 dark:border-emerald-900/50">
+              <span class="text-[10px] uppercase font-bold tracking-wider text-emerald-600 block mb-1">✅ Bodh Standard (Tracking 0):</span>
+              <p class="font-hindi text-base text-slate-800 dark:text-slate-200" style="letter-spacing: 0;">
+                क्वांटम कंप्यूटिंग और आर्टिफिशियल इंटेलिजेंस
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rule 2: Text Transform -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-xs space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm text-slate-900 dark:text-white">Rule 2: text-transform: none !important</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">Active</span>
+          </div>
+          <p class="text-xs text-slate-500">
+            Devanagari has no concept of capital or lowercase letters. Applying uppercase styling breaks rendering pipelines in mixed strings.
+          </p>
+          <div class="space-y-3 pt-2">
+            <div class="p-3.5 rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200/80 dark:border-rose-900/50">
+              <span class="text-[10px] uppercase font-bold tracking-wider text-rose-600 block mb-1">❌ Incorrect (uppercase forced):</span>
+              <p class="font-hindi text-base text-slate-800 dark:text-slate-200 uppercase">
+                चुने हुए डोमेन्स (CHUNE HUE DOMAINS)
+              </p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200/80 dark:border-emerald-900/50">
+              <span class="text-[10px] uppercase font-bold tracking-wider text-emerald-600 block mb-1">✅ Bodh Standard (Natural Case):</span>
+              <p class="font-hindi text-base text-slate-800 dark:text-slate-200 normal-case">
+                चुने हुए विषय (Explore domains)
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rule 3: Vertical Rhythm / Line Height -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-xs space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm text-slate-900 dark:text-white">Rule 3: line-height: 1.75 for Body Text</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">Active</span>
+          </div>
+          <p class="text-xs text-slate-500">
+            Devanagari matras (ऊपर की मात्राएँ जैसे ो, ै, ं और नीचे की ु, ू, ृ) occupy ~25% more vertical space than Latin ascenders/descenders.
+          </p>
+          <div class="space-y-3 pt-2">
+            <div class="p-3.5 rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200/80 dark:border-rose-900/50">
+              <span class="text-[10px] uppercase font-bold tracking-wider text-rose-600 block mb-1">❌ Cramped (Leading 1.3):</span>
+              <p class="font-hindi text-xs text-slate-800 dark:text-slate-200 leading-[1.3]">
+                भारतीय संविधान की प्रस्तावना में समाजवादी, धर्मनिरपेक्ष और अखंडता जैसे शब्दों को ऐतिहासिक संशोधन के माध्यम से जोड़ा गया।
+              </p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200/80 dark:border-emerald-900/50">
+              <span class="text-[10px] uppercase font-bold tracking-wider text-emerald-600 block mb-1">✅ Calibrated (Leading 1.75):</span>
+              <p class="font-hindi text-xs text-slate-800 dark:text-slate-200 leading-[1.75]">
+                भारतीय संविधान की प्रस्तावना में समाजवादी, धर्मनिरपेक्ष और अखंडता जैसे शब्दों को ऐतिहासिक संशोधन के माध्यम से जोड़ा गया।
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rule 4 & 5: Purna-viram & Tabular Figures -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-xs space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-sm text-slate-900 dark:text-white">Rule 4 & 5: Purna-Viram (।) & Tabular Figures</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">Active</span>
+          </div>
+          <p class="text-xs text-slate-500">
+            Always terminate Hindi sentences with authentic Purna-Viram (।) instead of Western period (.), and ensure numbers line up vertically.
+          </p>
+          <div class="space-y-3 pt-2">
+            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-white/10">
+              <span class="text-[10px] uppercase font-bold tracking-wider text-slate-500 block mb-1">Purna-Viram Example:</span>
+              <p class="font-hindi text-sm text-slate-800 dark:text-slate-200">
+                सीखो वही जो सच में काम आए। प्रामाणिक स्रोत और बिना किसी विज्ञापन का ज्ञान।
+              </p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-white/10 font-mono">
+              <span class="text-[10px] uppercase font-bold tracking-wider text-slate-500 block mb-1 font-sans">Tabular Numerals (Lining Figures):</span>
+              <div class="flex gap-4 text-xs tabular-nums text-slate-700 dark:text-slate-300">
+                <span>01. 14 मिनट</span>
+                <span>02. 12 मिनट</span>
+                <span>03. 18 मिनट</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Side-by-Side Bilingual Type Match -->
+    <section>
+      <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+        <span class="w-6 h-6 rounded-lg bg-peacock-500/10 text-peacock-600 dark:text-peacock-400 text-xs flex items-center justify-center font-bold">2</span>
+        Side-by-Side Bilingual Pairing (Noto Sans Devanagari + Latin)
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Hindi Column -->
+        <div class="p-8 rounded-3xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 space-y-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-bold px-2 py-0.5 rounded bg-brand-500/10 text-brand-600">Devanagari (हिन्दी)</span>
+            <span class="text-xs text-slate-400">Noto Sans Devanagari</span>
+          </div>
+          <h3 class="text-2xl font-bold text-slate-900 dark:text-white font-hindi">
+            तकनीकी स्वतंत्रता और गहरा अध्ययन
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-300 font-hindi leading-[1.75]">
+            जब तक हम ऑपरेटिंग सिस्टम, नेटवर्किंग प्रोटोकॉल और ट्रांसफ़ॉर्मर मॉडल के आंतरिक गणित को नहीं समझते, तब तक हम वास्तविक आर्किटेक्ट नहीं बन सकते। बोध का उद्देश्य हर भारतीय छात्र को गहराई तक पहुँचाना है।
+          </p>
+          <div class="pt-2 flex items-center gap-4 text-xs text-slate-500 font-hindi">
+            <span>६ विषय उपलब्ध</span>
+            <span>·</span>
+            <span>१००% मुफ़्त</span>
+          </div>
+        </div>
+
+        <!-- English Column -->
+        <div class="p-8 rounded-3xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 space-y-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-bold px-2 py-0.5 rounded bg-peacock-500/10 text-peacock-600">Latin (English)</span>
+            <span class="text-xs text-slate-400">Plus Jakarta Sans & Inter</span>
+          </div>
+          <h3 class="text-2xl font-bold text-slate-900 dark:text-white">
+            Technical Independence & Deep Inquiry
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            Until we master the core internals of operating systems, networking protocols, and transformer mathematics, we cannot build truly resilient architectures. Bodh provides uncompromised technical rigor for builders.
+          </p>
+          <div class="pt-2 flex items-center gap-4 text-xs text-slate-500">
+            <span>6 Domains Available</span>
+            <span>·</span>
+            <span>100% Free Forever</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Devanagari Glyphs & Weights Specimen -->
+    <section class="p-8 rounded-3xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-white/10 space-y-6">
+      <h2 class="text-lg font-bold text-slate-900 dark:text-white">Full Glyph Matrix: Noto Sans Devanagari</h2>
+      
+      <div class="space-y-4">
+        <div>
+          <span class="text-xs font-semibold text-slate-400 block mb-1">Vowels (स्वर):</span>
+          <p class="font-hindi text-xl text-slate-800 dark:text-slate-200 tracking-wide">
+            अ आ इ ई उ ऊ ऋ ए ऐ ओ औ अं अः
+          </p>
+        </div>
+        <div>
+          <span class="text-xs font-semibold text-slate-400 block mb-1">Consonants (व्यंजन):</span>
+          <p class="font-hindi text-xl text-slate-800 dark:text-slate-200 tracking-wide leading-relaxed">
+            क ख ग घ ङ · च छ ज झ ञ · ट ठ ड ढ ण · त थ द ध न · प फ ब भ म · य र ल व · श ष स ह · क्ष त्र ज्ञ
+          </p>
+        </div>
+        <div>
+          <span class="text-xs font-semibold text-slate-400 block mb-1">Vowel Signs & Conjuncts (मात्राएँ एवं संयुक्ताक्षर):</span>
+          <p class="font-hindi text-xl text-slate-800 dark:text-slate-200 tracking-wide">
+            ा  ि  ी  ु  ू  ृ  े  ै  ो  ौ  ं  ः  ँ  ्  |  क्र प्र त्र श्र द्ध द्व द्य ष्ट्र ङ्क
+          </p>
+        </div>
+        <div>
+          <span class="text-xs font-semibold text-slate-400 block mb-1">Punctuation & Numerals (विराम चिह्न एवं अंक):</span>
+          <p class="font-hindi text-xl text-slate-800 dark:text-slate-200 tracking-wide">
+            ।  ॥  ० १ २ ३ ४ ५ ६ ७ ८ ९
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>

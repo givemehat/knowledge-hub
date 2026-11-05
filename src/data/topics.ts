@@ -1,3 +1,4 @@
+// Single source of truth for topics, categories, and educational metadata
 export interface TopicSource {
   title: string;
   url: string;
@@ -25,6 +26,8 @@ export interface Topic {
   slug: string;
   title: string;
   titleHindi?: string;
+  shortTitle?: string;
+  shortTitleEn?: string;
   category: 'ai-ml' | 'quantum' | 'career' | 'projects' | 'tech-fundamentals' | 'gov-policy';
   categoryLabel: string;
   level: 'beginner' | 'intermediate' | 'advanced';
@@ -56,6 +59,45 @@ export interface Topic {
   relatedSlugs: string[];
   sources: TopicSource[];
 }
+
+export const CATEGORIES = [
+  {
+    "id": "ai-ml",
+    "name": "AI & Machine Learning",
+    "icon": "cpu",
+    "description": "LLMs, RAG, Prompt Engineering, Agents & Transformers"
+  },
+  {
+    "id": "quantum",
+    "name": "Quantum Computing",
+    "icon": "atom",
+    "description": "Qubits, Superposition, Shor, Grover & Qiskit"
+  },
+  {
+    "id": "career",
+    "name": "Career & Placement",
+    "icon": "briefcase",
+    "description": "DSA, Off-campus strategies, Resumes & Interview Playbooks"
+  },
+  {
+    "id": "projects",
+    "name": "Projects Hub",
+    "icon": "rocket",
+    "description": "Step-by-step production-grade portfolio projects"
+  },
+  {
+    "id": "tech-fundamentals",
+    "name": "Tech Fundamentals",
+    "icon": "terminal",
+    "description": "Operating systems, computer networks, DBMS, aur core CS interview concepts."
+  },
+  {
+    "id": "gov-policy",
+    "name": "Politics & Governance",
+    "icon": "landmark",
+    "description": "Constitution, Digital India, UPI, DBT & Public Policy"
+  }
+];
 
 export const TOPICS: Topic[] = [
   {
@@ -196,7 +238,9 @@ export const TOPICS: Topic[] = [
         "publisher": "NeurIPS / arXiv",
         "accessed": "2026-11-04"
       }
-    ]
+    ],
+    "shortTitle": "LLMs कैसे काम करते हैं",
+    "shortTitleEn": "How LLMs Work"
   },
   {
     "slug": "ai-agents-and-rag",
@@ -323,7 +367,9 @@ export const TOPICS: Topic[] = [
         "publisher": "LlamaIndex",
         "accessed": "2026-11-04"
       }
-    ]
+    ],
+    "shortTitle": "AI Agents और RAG पाइपलाइन",
+    "shortTitleEn": "AI Agents & RAG Pipeline"
   },
   {
     "slug": "prompt-engineering-students",
@@ -450,7 +496,9 @@ export const TOPICS: Topic[] = [
         "publisher": "DeepLearning.AI / Andrew Ng",
         "accessed": "2026-11-04"
       }
-    ]
+    ],
+    "shortTitle": "प्रॉम्प्ट इंजीनियरिंग गाइड",
+    "shortTitleEn": "Prompt Engineering Guide"
   },
   {
     "slug": "qubits-superposition-entanglement",
@@ -576,7 +624,9 @@ export const TOPICS: Topic[] = [
         "publisher": "IBM / Qiskit",
         "accessed": "2026-11-04"
       }
-    ]
+    ],
+    "shortTitle": "क्यूबिट और सुपरपोज़िशन",
+    "shortTitleEn": "Qubits & Superposition"
   },
   {
     "slug": "quantum-roadmap-and-reality",
@@ -702,7 +752,9 @@ export const TOPICS: Topic[] = [
         "publisher": "YouTube",
         "accessed": "2026-11-04"
       }
-    ]
+    ],
+    "shortTitle": "क्वांटम कंप्यूटिंग रोडमैप",
+    "shortTitleEn": "Quantum Computing Roadmap"
   },
   {
     "slug": "indian-constitution-structure",
@@ -829,7 +881,9 @@ export const TOPICS: Topic[] = [
         "publisher": "National Informatics Centre (NIC)",
         "accessed": "2026-11-04"
       }
-    ]
+    ],
+    "shortTitle": "संविधान और सरकार की संरचना",
+    "shortTitleEn": "Constitution & Government"
   },
   {
     "slug": "election-process-evm-vvpat",
@@ -947,7 +1001,9 @@ export const TOPICS: Topic[] = [
         "publisher": "ECI",
         "accessed": "2026-11-04"
       }
-    ]
+    ],
+    "shortTitle": "चुनाव प्रक्रिया: EVM और VVPAT",
+    "shortTitleEn": "Election Process: EVM & VVPAT"
   },
   {
     "slug": "union-budget-rti-dbt",
@@ -1074,7 +1130,9 @@ export const TOPICS: Topic[] = [
         "publisher": "Ministry of Finance",
         "accessed": "2026-11-04"
       }
-    ]
+    ],
+    "shortTitle": "केंद्रीय बजट, RTI और DBT",
+    "shortTitleEn": "Union Budget, RTI & DBT"
   },
   {
     "slug": "dsa-roadmap-6-months",
@@ -1202,7 +1260,9 @@ export const TOPICS: Topic[] = [
         "publisher": "LeetCode",
         "accessed": "2026-11-04"
       }
-    ]
+    ],
+    "shortTitle": "DSA का 6-महीने का रोडमैप",
+    "shortTitleEn": "DSA 6-Month Roadmap"
   },
   {
     "slug": "placement-offcampus-playbook",
@@ -1331,13 +1391,15 @@ export const TOPICS: Topic[] = [
         "publisher": "Wellfound",
         "accessed": "2026-11-04"
       }
-    ]
+    ],
+    "shortTitle": "ऑफ़-कैंपस प्लेसमेंट प्लेबुक",
+    "shortTitleEn": "Off-Campus Placement Playbook"
   },
   {
     "slug": "core-cs-subjects-interview",
     "title": "Core CS Subjects Mastery: OS, DBMS, Computer Networks और OOP इंटरव्यू के लिए क्या और कितना पढ़ें",
     "titleHindi": "",
-    "category": "career",
+    "category": "tech-fundamentals",
     "categoryLabel": "Career & Placement",
     "level": "intermediate",
     "tags": [
@@ -1460,7 +1522,9 @@ export const TOPICS: Topic[] = [
         "publisher": "YouTube",
         "accessed": "2026-11-04"
       }
-    ]
+    ],
+    "shortTitle": "कोर CS इंटरव्यू मास्टरी",
+    "shortTitleEn": "Core CS Interview Mastery"
   },
   {
     "slug": "project-ideas-hub",
@@ -1579,7 +1643,9 @@ export const TOPICS: Topic[] = [
         "publisher": "freeCodeCamp",
         "accessed": "2026-11-04"
       }
-    ]
+    ],
+    "shortTitle": "सॉफ़्टवेयर प्रोजेक्ट्स गाइड",
+    "shortTitleEn": "Software Project Ideas Hub"
   },
   {
     "slug": "llms-explained",
@@ -1719,7 +1785,9 @@ export const TOPICS: Topic[] = [
         "publisher": "NeurIPS / arXiv",
         "accessed": "2026-11-04"
       }
-    ]
+    ],
+    "shortTitle": "ट्रांसफ़ॉर्मर आर्किटेक्चर डीप-डाइव",
+    "shortTitleEn": "Transformer Architecture Deep Dive"
   },
   {
     "slug": "rag",
@@ -1846,7 +1914,9 @@ export const TOPICS: Topic[] = [
         "publisher": "LlamaIndex",
         "accessed": "2026-11-04"
       }
-    ]
+    ],
+    "shortTitle": "वेक्टर सर्च और एम्बेडिंग्स",
+    "shortTitleEn": "Vector Search & Embeddings"
   },
   {
     "slug": "prompt-engineering",
@@ -1973,7 +2043,9 @@ export const TOPICS: Topic[] = [
         "publisher": "DeepLearning.AI / Andrew Ng",
         "accessed": "2026-11-04"
       }
-    ]
+    ],
+    "shortTitle": "Few-Shot प्रॉम्प्टिंग तकनीक",
+    "shortTitleEn": "Few-Shot Prompting Techniques"
   },
   {
     "slug": "qubits-superposition",
@@ -2099,7 +2171,9 @@ export const TOPICS: Topic[] = [
         "publisher": "IBM / Qiskit",
         "accessed": "2026-11-04"
       }
-    ]
+    ],
+    "shortTitle": "क्वांटम गेट्स और सर्किट्स",
+    "shortTitleEn": "Quantum Gates & Circuits"
   },
   {
     "slug": "indian-constitution-basics",
@@ -2226,7 +2300,9 @@ export const TOPICS: Topic[] = [
         "publisher": "National Informatics Centre (NIC)",
         "accessed": "2026-11-04"
       }
-    ]
+    ],
+    "shortTitle": "मौलिक अधिकार और कर्तव्य",
+    "shortTitleEn": "Fundamental Rights & Duties"
   },
   {
     "slug": "dsa-placement-mastery",
@@ -2354,7 +2430,9 @@ export const TOPICS: Topic[] = [
         "publisher": "LeetCode",
         "accessed": "2026-11-04"
       }
-    ]
+    ],
+    "shortTitle": "सिस्टम डिज़ाइन इंटरव्यू प्राइमर",
+    "shortTitleEn": "System Design Interview Primer"
   },
   {
     "slug": "offcampus-internship-playbook",
@@ -2483,15 +2561,167 @@ export const TOPICS: Topic[] = [
         "publisher": "Wellfound",
         "accessed": "2026-11-04"
       }
+    ],
+    "shortTitle": "इंटर्नशिप हंट और कोल्ड ईमेल",
+    "shortTitleEn": "Internship Hunt & Cold Email"
+  },
+  {
+    "slug": "operating-systems-memory-concurrency",
+    "title": "Operating Systems: Processes, Threads, Memory Management और Concurrency",
+    "shortTitle": "OS: प्रोसेस, मेमोरी और लॉक्स",
+    "shortTitleEn": "OS: Processes & Concurrency",
+    "category": "tech-fundamentals",
+    "categoryLabel": "Tech Fundamentals",
+    "level": "intermediate",
+    "tags": [
+      "os",
+      "concurrency",
+      "memory-management",
+      "threads",
+      "deadlocks"
+    ],
+    "readingMinutes": 14,
+    "lastVerified": "2026-11-05",
+    "confidence": "high",
+    "summary": "ऑपरेटिंग सिस्टम्स के चार बुनियादी स्तंभ: प्रोसेस शेड्यूलिंग, वर्चुअल मेमोरी और पेजिंग, म्यूटेक्स/सेमाफ़ोर और डेडलॉक प्रिवेंशन।",
+    "tldr": [
+      "**Processes vs Threads:** Process का अपना पृथक virtual address space होता है; Threads उसी process की memory share करते हैं।",
+      "**Virtual Memory & Paging:** OS physical RAM को 4KB pages में बाँटता है और TLB व Page Tables से translation करता है।",
+      "**Concurrency Hazards:** Race conditions, Deadlocks (Coffman conditions), और Mutex vs Semaphore का सही चयन।"
+    ],
+    "whyItMatters": "System performance, backend scaling और interview rounds में OS fundamentals सबसे निर्णायक विषय हैं।",
+    "coreConcepts": [
+      {
+        "heading": "Process Lifecycle & Memory Hierarchy",
+        "content": "Virtual addressing, context switching, CPU scheduling algorithms."
+      }
+    ],
+    "roadmapSteps": [
+      "Foundations",
+      "Memory Management",
+      "Concurrency",
+      "File Systems"
+    ],
+    "handsOn": [
+      {
+        "title": "Multi-threaded Producer-Consumer",
+        "task": "Implement thread synchronization with mutex",
+        "deliverable": "Verified concurrent code"
+      }
+    ],
+    "mistakesAndMyths": [
+      {
+        "myth": "Multi-threading हमेशा कोड को तेज़ बनाती है",
+        "reality": "Context-switching overhead और lock contention थ्रेडिंग को धीमा भी कर सकते हैं।"
+      }
+    ],
+    "resources": [
+      {
+        "type": "doc",
+        "title": "OSTEP: Operating Systems Three Easy Pieces",
+        "url": "https://pages.cs.wisc.edu/~remzi/OSTEP/",
+        "author": "Remzi Arpaci-Dusseau",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Best OS textbook"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Process और Thread में मुख्य अंतर क्या है?",
+        "answer": "Memory isolation और resource sharing overhead."
+      }
+    ],
+    "relatedSlugs": [
+      "core-cs-subjects-interview",
+      "dsa-roadmap-6-months"
+    ],
+    "sources": [
+      {
+        "title": "Operating Systems: Three Easy Pieces",
+        "url": "https://pages.cs.wisc.edu/~remzi/OSTEP/",
+        "publisher": "Arpaci-Dusseau Books",
+        "accessed": "2026-11-05"
+      }
+    ]
+  },
+  {
+    "slug": "computer-networks-tcp-ip-http",
+    "title": "Computer Networks: TCP 3-Way Handshake, DNS, HTTP/3 और Socket Programming",
+    "shortTitle": "कंप्यूटर नेटवर्क्स: TCP/IP और HTTP",
+    "shortTitleEn": "Computer Networks: TCP/IP & HTTP",
+    "category": "tech-fundamentals",
+    "categoryLabel": "Tech Fundamentals",
+    "level": "intermediate",
+    "tags": [
+      "networking",
+      "tcp-ip",
+      "dns",
+      "http3",
+      "sockets"
+    ],
+    "readingMinutes": 12,
+    "lastVerified": "2026-11-05",
+    "confidence": "high",
+    "summary": "नेटवर्किंग के आवश्यक सिद्धांत: TCP विश्वसनीयता और फ्लो कंट्रोल, DNS रिज़ॉल्यूशन, HTTP/1.1 से HTTP/3 (QUIC) का विकास और वेब सॉकेट्स।",
+    "tldr": [
+      "**TCP 3-Way Handshake:** SYN -> SYN-ACK -> ACK कनेक्शन स्थापित करता है और Sequence Numbers तय करता है।",
+      "**UDP vs TCP:** TCP गारंटीड डिलीवरी और Congestion Control देता है; UDP लो-लेटेंसी स्ट्रीमिंग के लिए बेस्ट है।",
+      "**Modern HTTP/3:** QUIC प्रोटोकॉल पर आधारित, जो हेड-ऑफ-लाइन ब्लॉकिंग को जड़ से खत्म करता है।"
+    ],
+    "whyItMatters": "API latency, cloud microservices और distributed systems को ऑप्टिमाइज़ करने के लिए नेटवर्किंग का ज्ञान अनिवार्य है।",
+    "coreConcepts": [
+      {
+        "heading": "OSI 7 Layers vs TCP/IP Protocol Suite",
+        "content": "Layering abstraction, routing, socket APIs."
+      }
+    ],
+    "roadmapSteps": [
+      "Network Models",
+      "Transport Layer (TCP/UDP)",
+      "Application Layer (DNS/HTTP)",
+      "Network Security"
+    ],
+    "handsOn": [
+      {
+        "title": "Raw Socket Server",
+        "task": "Build a basic HTTP server using raw sockets in Python",
+        "deliverable": "HTTP/1.1 response handler"
+      }
+    ],
+    "mistakesAndMyths": [
+      {
+        "myth": "HTTPS डेटा ट्रांसमिशन को धीमा कर देता है",
+        "reality": "Modern TLS 1.3 0-RTT handshakes encryption overhead को नगण्य बना देते हैं।"
+      }
+    ],
+    "resources": [
+      {
+        "type": "book",
+        "title": "Computer Networking: A Top-Down Approach",
+        "url": "https://gaia.cs.umass.edu/kurose_ross/",
+        "author": "Kurose & Ross",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Definitive networking guide"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "TCP और UDP में कब क्या चुनें?",
+        "answer": "विश्वसनीयता चाहिए तो TCP, रियल-टाइम स्पीड चाहिए तो UDP।"
+      }
+    ],
+    "relatedSlugs": [
+      "core-cs-subjects-interview"
+    ],
+    "sources": [
+      {
+        "title": "RFC 9000: QUIC Protocol",
+        "url": "https://www.rfc-editor.org/rfc/rfc9000",
+        "publisher": "IETF",
+        "accessed": "2026-11-05"
+      }
     ]
   }
-];
-
-export const CATEGORIES = [
-  { id: 'ai-ml', name: 'AI & Machine Learning', icon: 'cpu', description: 'LLMs, RAG, Prompt Engineering, Agents & Transformers' },
-  { id: 'quantum', name: 'Quantum Computing', icon: 'atom', description: 'Qubits, Superposition, Shor, Grover & Qiskit' },
-  { id: 'career', name: 'Career & Placement', icon: 'briefcase', description: 'DSA, Off-campus strategies, Resumes & Interview Playbooks' },
-  { id: 'projects', name: 'Projects Hub', icon: 'rocket', description: 'Step-by-step production-grade portfolio projects' },
-  { id: 'tech-fundamentals', name: 'Tech Fundamentals', icon: 'terminal', description: 'Git, GitHub, Docker, Linux, APIs & Core Systems' },
-  { id: 'gov-policy', name: 'Politics & Governance', icon: 'landmark', description: 'Constitution, Digital India, UPI, DBT & Public Policy' }
 ];
