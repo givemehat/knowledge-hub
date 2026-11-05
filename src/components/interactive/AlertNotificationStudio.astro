@@ -1,0 +1,304 @@
+---
+import Card from '../ui/Card.astro';
+import Button from '../ui/Button.astro';
+---
+
+<div id="alert-notification-studio" class="space-y-6">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-200/80 dark:border-white/10">
+    <div>
+      <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-peach-500/10 text-peach-700 dark:text-peach-300 border border-peach-500/20 text-[11px] font-bold uppercase tracking-wider mb-1">
+        <span>System Feedback</span>
+      </div>
+      <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+        Alert & Notification Motion System
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+        Test high-visibility feedback mechanisms: slide-down banners, shake-to-warn physics, progress-timed toasts, and stacked queues.
+      </p>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+    <!-- Left Column: Trigger Cards (5 cols) -->
+    <div class="lg:col-span-5 space-y-3">
+      
+      <!-- Trigger 1: Slide Down Banner -->
+      <div class="p-4 rounded-xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold uppercase">Success State</span>
+          <h5 class="font-bold text-xs text-slate-900 dark:text-white">Slide-Down Banner</h5>
+        </div>
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            class="trigger-alert-btn px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-bold text-xs hover:bg-emerald-500 transition-colors cursor-pointer"
+            data-type="slide-banner"
+          >
+            Trigger
+          </button>
+          <button type="button" class="copy-alert-prompt-btn p-1.5 rounded-lg text-slate-400 hover:text-peach-600 hover:bg-slate-100 dark:hover:bg-slate-800" data-prompt="Create a success alert that slides down from the top of the container, remains visible for 4 seconds, then slides back up and out of view with a smooth ease-in-out curve." title="Copy Prompt">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Trigger 2: Fade & Shake Error -->
+      <div class="p-4 rounded-xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-mono text-rose-600 dark:text-rose-400 font-bold uppercase">Critical Error</span>
+          <h5 class="font-bold text-xs text-slate-900 dark:text-white">Fade & Shake Alert</h5>
+        </div>
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            class="trigger-alert-btn px-3 py-1.5 rounded-lg bg-rose-600 text-white font-bold text-xs hover:bg-rose-500 transition-colors cursor-pointer"
+            data-type="shake-error"
+          >
+            Trigger
+          </button>
+          <button type="button" class="copy-alert-prompt-btn p-1.5 rounded-lg text-slate-400 hover:text-peach-600 hover:bg-slate-100 dark:hover:bg-slate-800" data-prompt="Create an error alert that fades in and shakes horizontally three times (±8px) over 400ms to immediately draw attention to critical errors or validation failures." title="Copy Prompt">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Trigger 3: Slide-In Toast Notification -->
+      <div class="p-4 rounded-xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold uppercase">Background Job</span>
+          <h5 class="font-bold text-xs text-slate-900 dark:text-white">Slide-In Progress Toast</h5>
+        </div>
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            class="trigger-alert-btn px-3 py-1.5 rounded-lg bg-blue-600 text-white font-bold text-xs hover:bg-blue-500 transition-colors cursor-pointer"
+            data-type="toast-progress"
+          >
+            Trigger
+          </button>
+          <button type="button" class="copy-alert-prompt-btn p-1.5 rounded-lg text-slate-400 hover:text-peach-600 hover:bg-slate-100 dark:hover:bg-slate-800" data-prompt="Create a toast notification that slides in from the right edge, displays an auto-dismiss progress bar countdown over 3.5 seconds, then gracefully slides back out." title="Copy Prompt">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Trigger 4: Stacked Notification Queue -->
+      <div class="p-4 rounded-xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-mono text-peach-600 dark:text-peach-400 font-bold uppercase">Dynamic Stack</span>
+          <h5 class="font-bold text-xs text-slate-900 dark:text-white">Stacked Event Queue</h5>
+        </div>
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            class="trigger-alert-btn px-3 py-1.5 rounded-lg bg-peach-500 text-white font-bold text-xs hover:bg-peach-600 transition-colors cursor-pointer"
+            data-type="stack-queue"
+          >
+            + Add To Stack
+          </button>
+          <button type="button" class="copy-alert-prompt-btn p-1.5 rounded-lg text-slate-400 hover:text-peach-600 hover:bg-slate-100 dark:hover:bg-slate-800" data-prompt="Create a stacked notification system where new alerts appear at the bottom and smoothly push existing alerts upward, featuring coordinate-aware entrance and exit transitions." title="Copy Prompt">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Column: Live Simulated Screen Stage (7 cols) -->
+    <div class="lg:col-span-7">
+      <div class="relative min-h-[300px] rounded-2xl bg-slate-100/80 dark:bg-slate-900 border border-slate-200/80 dark:border-white/10 p-6 flex flex-col justify-between overflow-hidden shadow-apple-sm">
+        
+        <!-- Top: Slide Banner Slot -->
+        <div id="slot-top-banner" class="w-full flex justify-center">
+          <!-- Injected banner appears here -->
+        </div>
+
+        <!-- Center: Screen Stage Placeholder -->
+        <div id="alert-stage-placeholder" class="text-center py-10 space-y-2 text-slate-400 dark:text-slate-500">
+          <svg class="w-8 h-8 mx-auto opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+          <p class="text-xs font-mono">Click a trigger button on the left to fire live animations</p>
+        </div>
+
+        <!-- Bottom Right: Toast / Stack Container -->
+        <div id="slot-bottom-toasts" class="absolute bottom-4 right-4 space-y-2 z-20 max-w-xs w-full pointer-events-none">
+          <!-- Dynamic toasts appear here -->
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Slide Down Keyframes */
+  @keyframes slideDownBanner {
+    0% { transform: translateY(-100%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  .anim-slide-down {
+    animation: slideDownBanner 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* Fade & Shake Keyframes */
+  @keyframes fadeAndShake {
+    0% { opacity: 0; transform: translateY(-6px); }
+    30% { opacity: 1; transform: translateX(-8px); }
+    50% { transform: translateX(8px); }
+    70% { transform: translateX(-5px); }
+    90% { transform: translateX(5px); }
+    100% { transform: translateX(0); }
+  }
+  .anim-shake-error {
+    animation: fadeAndShake 0.45s ease-out forwards;
+  }
+
+  /* Slide In Right Toast */
+  @keyframes slideInRightToast {
+    0% { transform: translateX(110%); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+  }
+  .anim-toast-enter {
+    animation: slideInRightToast 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* Toast Progress Bar Countdown */
+  @keyframes toastProgressCountdown {
+    0% { width: 100%; }
+    100% { width: 0%; }
+  }
+  .anim-toast-progress {
+    animation: toastProgressCountdown 3.5s linear forwards;
+  }
+</style>
+
+<script is:inline>
+  (function initAlertNotificationStudio() {
+    const topSlot = document.getElementById('slot-top-banner');
+    const toastSlot = document.getElementById('slot-bottom-toasts');
+    let stackCounter = 0;
+
+    function triggerSlideBanner() {
+      if (!topSlot) return;
+      topSlot.innerHTML = '';
+      const banner = document.createElement('div');
+      banner.className = 'w-full max-w-md p-3.5 rounded-xl bg-emerald-500 text-white font-sans text-xs font-semibold shadow-lg flex items-center justify-between anim-slide-down';
+      banner.innerHTML = `
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          <span>Deployment completed successfully to production!</span>
+        </div>
+        <button type="button" class="dismiss-banner text-white/80 hover:text-white font-bold ml-2">✕</button>
+      `;
+      topSlot.appendChild(banner);
+
+      banner.querySelector('.dismiss-banner').addEventListener('click', () => {
+        banner.remove();
+      });
+
+      setTimeout(() => {
+        if (banner.parentNode) banner.remove();
+      }, 4500);
+    }
+
+    function triggerShakeError() {
+      if (!topSlot) return;
+      topSlot.innerHTML = '';
+      const alert = document.createElement('div');
+      alert.className = 'w-full max-w-md p-3.5 rounded-xl bg-rose-600 text-white font-sans text-xs font-semibold shadow-lg flex items-center justify-between anim-shake-error';
+      alert.innerHTML = `
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          <span>Payment authorization failed: Invalid CVV code.</span>
+        </div>
+        <button type="button" class="dismiss-banner text-white/80 hover:text-white font-bold ml-2">✕</button>
+      `;
+      topSlot.appendChild(alert);
+
+      alert.querySelector('.dismiss-banner').addEventListener('click', () => {
+        alert.remove();
+      });
+
+      setTimeout(() => {
+        if (alert.parentNode) alert.remove();
+      }, 5000);
+    }
+
+    function triggerToastProgress() {
+      if (!toastSlot) return;
+      const toast = document.createElement('div');
+      toast.className = 'pointer-events-auto p-3.5 rounded-xl bg-slate-900 text-white text-xs font-medium shadow-card space-y-2 border border-slate-800 anim-toast-enter relative overflow-hidden';
+      toast.innerHTML = `
+        <div class="flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+            <span>Syncing database cluster...</span>
+          </div>
+          <button type="button" class="dismiss-toast text-slate-400 hover:text-white font-bold">✕</button>
+        </div>
+        <div class="w-full h-1 bg-slate-800 rounded-full overflow-hidden">
+          <div class="h-full bg-blue-500 anim-toast-progress"></div>
+        </div>
+      `;
+      toastSlot.appendChild(toast);
+
+      toast.querySelector('.dismiss-toast').addEventListener('click', () => {
+        toast.remove();
+      });
+
+      setTimeout(() => {
+        if (toast.parentNode) toast.remove();
+      }, 3600);
+    }
+
+    function triggerStackQueue() {
+      if (!toastSlot) return;
+      stackCounter++;
+      const item = document.createElement('div');
+      item.className = 'pointer-events-auto p-3 rounded-xl bg-white dark:bg-darkcard text-slate-900 dark:text-white text-xs font-semibold shadow-card border border-slate-200/80 dark:border-white/10 flex items-center justify-between anim-toast-enter';
+      item.innerHTML = `
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-peach-500"></span>
+          <span>Event #${stackCounter}: User checkout completed</span>
+        </div>
+        <button type="button" class="dismiss-stack text-slate-400 hover:text-slate-800 dark:hover:text-white font-bold ml-2">✕</button>
+      `;
+      toastSlot.appendChild(item);
+
+      item.querySelector('.dismiss-stack').addEventListener('click', () => {
+        item.remove();
+      });
+
+      setTimeout(() => {
+        if (item.parentNode) item.remove();
+      }, 4000);
+    }
+
+    // Bind triggers
+    document.querySelectorAll('.trigger-alert-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const type = btn.dataset.type;
+        if (type === 'slide-banner') triggerSlideBanner();
+        else if (type === 'shake-error') triggerShakeError();
+        else if (type === 'toast-progress') triggerToastProgress();
+        else if (type === 'stack-queue') triggerStackQueue();
+      });
+    });
+
+    // Copy prompt buttons
+    document.querySelectorAll('.copy-alert-prompt-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const prompt = btn.dataset.prompt;
+        if (!prompt) return;
+        try {
+          await navigator.clipboard.writeText(prompt);
+          btn.style.color = '#10B981';
+          setTimeout(() => {
+            btn.style.color = '';
+          }, 2000);
+        } catch (e) {
+          console.error('Clipboard copy failed:', e);
+        }
+      });
+    });
+  })();
+</script>

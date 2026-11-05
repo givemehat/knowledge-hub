@@ -19,6 +19,9 @@ import DeviceFrameShowcase from '../../components/interactive/DeviceFrameShowcas
 import FontPairingMatrix from '../../components/interactive/FontPairingMatrix.astro';
 import TextAnimationStudio from '../../components/interactive/TextAnimationStudio.astro';
 import ScenarioPromptPresets from '../../components/interactive/ScenarioPromptPresets.astro';
+import AnimationPromptBuilder from '../../components/interactive/AnimationPromptBuilder.astro';
+import CardButtonMotionStudio from '../../components/interactive/CardButtonMotionStudio.astro';
+import AlertNotificationStudio from '../../components/interactive/AlertNotificationStudio.astro';
 import { CREATOR } from '../../data/creator';
 
 export function getStaticPaths() {
@@ -95,6 +98,17 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
               </a>
               <a href="#scenario-presets" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
                 ★ 4 Scenario Presets
+              </a>
+            )}
+            {topic.slug === 'ui-animation-micro-interactions' && (
+              <a href="#animation-prompt-builder" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
+                ★ Motion Builder
+              </a>
+              <a href="#card-button-motion-studio" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
+                ★ Cards & Buttons Lab
+              </a>
+              <a href="#alert-notification-studio" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
+                ★ Alert & Toast System
               </a>
             )}
             {topic.roadmapSteps && topic.roadmapSteps.length > 0 && (
@@ -299,6 +313,26 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
             <!-- 3. Ready-to-Use Scenario Prompt Presets -->
             <section id="scenario-presets" class="space-y-4">
               <ScenarioPromptPresets />
+            </section>
+          </div>
+        )}
+
+        <!-- Interactive Studios (For UI Animation & Micro-Interactions Guide) -->
+        {topic.slug === 'ui-animation-micro-interactions' && (
+          <div class="space-y-12 pt-4">
+            <!-- 1. Interactive Animation Prompt Builder -->
+            <section id="animation-prompt-builder" class="space-y-4">
+              <AnimationPromptBuilder />
+            </section>
+
+            <!-- 2. Card & Button Motion Dynamics Lab -->
+            <section id="card-button-motion-studio" class="space-y-4">
+              <CardButtonMotionStudio />
+            </section>
+
+            <!-- 3. Alert & Toast Notification System -->
+            <section id="alert-notification-studio" class="space-y-4">
+              <AlertNotificationStudio />
             </section>
           </div>
         )}

@@ -1,0 +1,316 @@
+---
+import Card from '../ui/Card.astro';
+import Button from '../ui/Button.astro';
+---
+
+<div id="card-button-motion-studio" class="space-y-8">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-200/80 dark:border-white/10">
+    <div>
+      <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-peach-500/10 text-peach-700 dark:text-peach-300 border border-peach-500/20 text-[11px] font-bold uppercase tracking-wider mb-1">
+        <span>Component Micro-Interactions</span>
+      </div>
+      <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+        Card & Button Motion Lab
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+        Tactile feedback primitives: cursor-tracking 3D tilts, cascading entrances, 180° card flips, and coordinate-aware ripple physics.
+      </p>
+    </div>
+  </div>
+
+  <!-- SECTION 1: 4 Card Animation Patterns -->
+  <div class="space-y-4">
+    <div class="flex items-center justify-between">
+      <h4 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-peach-500"></span>
+        <span>1. Card Interaction Dynamics</span>
+      </h4>
+      <span class="text-xs font-mono text-slate-400">Hover / Cursor-Tracking</span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="cards-motion-grid">
+      
+      <!-- Card 1: Hover Scale & Elevation -->
+      <div class="group/scale-card p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm hover:scale-[1.04] hover:shadow-card hover:border-peach-500/50 transition-all duration-300 cursor-pointer flex flex-col justify-between">
+        <div>
+          <div class="text-[10px] font-mono text-slate-400 uppercase tracking-wide mb-2">Pattern 01</div>
+          <div class="w-10 h-10 rounded-xl bg-peach-500/10 text-peach-600 dark:text-peach-400 flex items-center justify-center mb-3">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+          </div>
+          <h5 class="font-bold text-sm text-slate-900 dark:text-white mb-1">Hover Scale & Lift</h5>
+          <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+            Scales 1.04x with depth elevation shadow and border tint over 300ms.
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+          <span class="text-[10px] font-mono text-peach-600 dark:text-peach-400 font-bold">300ms ease-out</span>
+          <button type="button" class="copy-motion-snippet-btn text-[11px] font-bold text-slate-600 dark:text-slate-300 hover:text-peach-600" data-prompt="Add a hover effect to product cards that scales them to 1.05x their size and adds a subtle shadow with a smooth 300ms transition.">
+            Copy Prompt
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 2: 3D Tilt Effect -->
+      <div
+        id="interactive-tilt-card"
+        class="tilt-card-container p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm transition-transform duration-100 cursor-pointer flex flex-col justify-between perspective-1000"
+      >
+        <div>
+          <div class="text-[10px] font-mono text-slate-400 uppercase tracking-wide mb-2">Pattern 02</div>
+          <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-3">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"/></svg>
+          </div>
+          <h5 class="font-bold text-sm text-slate-900 dark:text-white mb-1">3D Cursor Tilt</h5>
+          <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+            Tracks cursor position in real time with dynamic pitch and yaw angle shifts.
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+          <span class="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold">±10° 3D Transform</span>
+          <button type="button" class="copy-motion-snippet-btn text-[11px] font-bold text-slate-600 dark:text-slate-300 hover:text-peach-600" data-prompt="Create a 3D tilt effect for feature cards that responds to cursor position, with a maximum rotation of 10 degrees and a subtle shadow that shifts with the tilt angle.">
+            Copy Prompt
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 3: Staggered Cascade Entrance -->
+      <div class="p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm flex flex-col justify-between">
+        <div>
+          <div class="text-[10px] font-mono text-slate-400 uppercase tracking-wide mb-2">Pattern 03</div>
+          <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center mb-3">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+          </div>
+          <h5 class="font-bold text-sm text-slate-900 dark:text-white mb-1">Cascade Entrance</h5>
+          <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+            Orchestrates sequential child entry with incremental 100ms offset delays.
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+          <span class="text-[10px] font-mono text-purple-600 dark:text-purple-400 font-bold">100ms Stagger</span>
+          <button type="button" class="copy-motion-snippet-btn text-[11px] font-bold text-slate-600 dark:text-slate-300 hover:text-peach-600" data-prompt="Implement a staggered entrance animation for cards where each card fades in and moves up 15px with a 100ms delay between each card.">
+            Copy Prompt
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 4: 3D Flip Card -->
+      <div class="flip-card-wrapper h-[180px] perspective-1000 group/flip cursor-pointer">
+        <div class="flip-card-inner relative w-full h-full text-center transition-transform duration-500 transform-style-3d group-hover/flip:rotate-y-180">
+          <!-- Front Face -->
+          <div class="flip-card-front absolute w-full h-full backface-hidden p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm flex flex-col justify-between text-left">
+            <div>
+              <div class="text-[10px] font-mono text-slate-400 uppercase tracking-wide mb-2">Pattern 04</div>
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-2">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </div>
+              <h5 class="font-bold text-sm text-slate-900 dark:text-white">3D Flip Card</h5>
+              <p class="text-[11px] text-slate-500">Hover to flip 180°</p>
+            </div>
+            <span class="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">rotateY(180deg)</span>
+          </div>
+          <!-- Back Face -->
+          <div class="flip-card-back absolute w-full h-full backface-hidden rotate-y-180 p-5 rounded-2xl bg-slate-900 text-white border border-slate-800 shadow-apple-sm flex flex-col justify-between text-left">
+            <div>
+              <div class="text-[10px] font-mono text-peach-400 uppercase tracking-wide mb-1">Back Face Details</div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Reveals secondary metadata or actions without taking additional layout space.
+              </p>
+            </div>
+            <button type="button" class="copy-motion-snippet-btn text-[10px] font-bold text-peach-300 hover:text-white" data-prompt="Create flip cards that rotate 180 degrees on hover to reveal additional information on the back side, with a smooth 3D rotation effect.">
+              Copy Prompt
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 2: 4 Interactive Button Motion Patterns -->
+  <div class="space-y-4 pt-2 border-t border-slate-200/80 dark:border-white/10">
+    <div class="flex items-center justify-between">
+      <h4 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-peach-500"></span>
+        <span>2. Button Micro-Feedback</span>
+      </h4>
+      <span class="text-xs font-mono text-slate-400">Tactile Click & Hover States</span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="buttons-motion-grid">
+      
+      <!-- Button 1: Scale & Color Shift -->
+      <div class="p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm flex flex-col justify-between items-center text-center space-y-4">
+        <div>
+          <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wide">Micro-Interaction 01</span>
+          <h5 class="font-bold text-sm text-slate-900 dark:text-white mt-1">Scale & Color</h5>
+        </div>
+        <button
+          type="button"
+          class="px-5 py-2.5 rounded-xl bg-peach-500 hover:bg-peach-600 text-white font-bold text-xs hover:scale-105 active:scale-95 transition-all duration-200 shadow-sm cursor-pointer"
+        >
+          Hover & Tap Me
+        </button>
+        <button type="button" class="copy-motion-snippet-btn text-[11px] font-bold text-slate-500 hover:text-peach-600" data-prompt="Create a button that scales to 1.05x size and shifts background shade on hover with a 200ms ease-out transition.">
+          Copy Prompt
+        </button>
+      </div>
+
+      <!-- Button 2: Material Coordinate Ripple -->
+      <div class="p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm flex flex-col justify-between items-center text-center space-y-4">
+        <div>
+          <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wide">Micro-Interaction 02</span>
+          <h5 class="font-bold text-sm text-slate-900 dark:text-white mt-1">Coordinate Ripple</h5>
+        </div>
+        <button
+          id="ripple-demo-button"
+          type="button"
+          class="relative overflow-hidden px-5 py-2.5 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-bold text-xs shadow-sm cursor-pointer"
+        >
+          Click Coordinates
+        </button>
+        <button type="button" class="copy-motion-snippet-btn text-[11px] font-bold text-slate-500 hover:text-peach-600" data-prompt="Add a Material Design-inspired ripple effect that expands from the click point outward with a subtle fade-out animation.">
+          Copy Prompt
+        </button>
+      </div>
+
+      <!-- Button 3: Icon Slide & Push -->
+      <div class="p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm flex flex-col justify-between items-center text-center space-y-4">
+        <div>
+          <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wide">Micro-Interaction 03</span>
+          <h5 class="font-bold text-sm text-slate-900 dark:text-white mt-1">Icon Slide & Push</h5>
+        </div>
+        <button
+          type="button"
+          class="group/slide-btn inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors shadow-sm cursor-pointer"
+        >
+          <span class="group-hover/slide-btn:-translate-x-1 transition-transform duration-200">Continue</span>
+          <svg class="w-4 h-4 group-hover/slide-btn:translate-x-1 transition-transform duration-200 text-peach-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </button>
+        <button type="button" class="copy-motion-snippet-btn text-[11px] font-bold text-slate-500 hover:text-peach-600" data-prompt="Create a button where the label slides left and an arrow icon slides right on hover with a smooth 200ms ease transition.">
+          Copy Prompt
+        </button>
+      </div>
+
+      <!-- Button 4: Breathing Pulse CTA -->
+      <div class="p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm flex flex-col justify-between items-center text-center space-y-4">
+        <div>
+          <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wide">Micro-Interaction 04</span>
+          <h5 class="font-bold text-sm text-slate-900 dark:text-white mt-1">Breathing Pulse Glow</h5>
+        </div>
+        <button
+          type="button"
+          class="relative px-5 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow-sm cursor-pointer anim-pulse-glow"
+        >
+          Action Required
+        </button>
+        <button type="button" class="copy-motion-snippet-btn text-[11px] font-bold text-slate-500 hover:text-peach-600" data-prompt="Add a pulsing glow effect to the CTA button that expands and fades out repeatedly to draw attention to important actions.">
+          Copy Prompt
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+
+  /* Pulse Glow Animation */
+  @keyframes pulseGlowRing {
+    0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
+    70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+  }
+  .anim-pulse-glow {
+    animation: pulseGlowRing 2s infinite;
+  }
+
+  /* Material Ripple Ink */
+  .ink-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(0);
+    animation: inkRippleEffect 0.6s linear;
+    pointer-events: none;
+  }
+  @keyframes inkRippleEffect {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function initCardButtonMotion() {
+    // 1. 3D Tilt Card Interaction
+    const tiltCard = document.getElementById('interactive-tilt-card');
+    if (tiltCard) {
+      tiltCard.addEventListener('mousemove', e => {
+        const rect = tiltCard.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -10;
+        const rotateY = ((x - centerX) / centerX) * 10;
+        tiltCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+      });
+
+      tiltCard.addEventListener('mouseleave', () => {
+        tiltCard.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
+      });
+    }
+
+    // 2. Ripple Button Interaction
+    const rippleBtn = document.getElementById('ripple-demo-button');
+    if (rippleBtn) {
+      rippleBtn.addEventListener('click', e => {
+        const circle = document.createElement('span');
+        const diameter = Math.max(rippleBtn.clientWidth, rippleBtn.clientHeight);
+        const radius = diameter / 2;
+        const rect = rippleBtn.getBoundingClientRect();
+
+        circle.style.width = circle.style.height = `${diameter}px`;
+        circle.style.left = `${e.clientX - rect.left - radius}px`;
+        circle.style.top = `${e.clientY - rect.top - radius}px`;
+        circle.classList.add('ink-ripple');
+
+        const ripple = rippleBtn.querySelector('.ink-ripple');
+        if (ripple) ripple.remove();
+
+        rippleBtn.appendChild(circle);
+      });
+    }
+
+    // 3. Copy prompt buttons
+    document.querySelectorAll('.copy-motion-snippet-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const prompt = btn.dataset.prompt;
+        if (!prompt) return;
+        try {
+          await navigator.clipboard.writeText(prompt);
+          const original = btn.textContent;
+          btn.textContent = 'Copied!';
+          setTimeout(() => {
+            btn.textContent = original;
+          }, 2000);
+        } catch (e) {
+          console.error('Clipboard copy failed:', e);
+        }
+      });
+    });
+  })();
+</script>

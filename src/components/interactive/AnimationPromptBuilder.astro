@@ -1,0 +1,478 @@
+---
+import Card from '../ui/Card.astro';
+import Button from '../ui/Button.astro';
+---
+
+<div id="animation-prompt-builder" class="space-y-6">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-200/80 dark:border-white/10">
+    <div>
+      <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-peach-500/10 text-peach-700 dark:text-peach-300 border border-peach-500/20 text-[11px] font-bold uppercase tracking-wider mb-1">
+        <span>Motion Dynamics Engine</span>
+      </div>
+      <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+        Interactive Animation Prompt Builder
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+        Configure animation primitives—type, duration, easing physics, and delay—to preview motion in real time and export production prompt tokens.
+      </p>
+    </div>
+
+    <!-- Reset to Defaults Button -->
+    <button
+      id="reset-anim-builder-btn"
+      type="button"
+      class="self-start sm:self-auto text-xs font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-white px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+    >
+      Reset Defaults
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+    <!-- Left Column: Controls (5 cols) -->
+    <div class="lg:col-span-5 space-y-4 p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm">
+      
+      <!-- 1. Animation Type -->
+      <div class="space-y-2">
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          1. Animation Type
+        </label>
+        <div class="grid grid-cols-3 gap-2" id="anim-type-selector">
+          <button
+            type="button"
+            data-type="fade"
+            class="anim-type-btn active px-2.5 py-2 rounded-xl text-xs font-semibold text-center border transition-all bg-peach-500/10 border-peach-500 text-peach-900 dark:text-peach-200 shadow-sm"
+          >
+            FADE
+          </button>
+          <button
+            type="button"
+            data-type="slide"
+            class="anim-type-btn px-2.5 py-2 rounded-xl text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20"
+          >
+            SLIDE
+          </button>
+          <button
+            type="button"
+            data-type="scale"
+            class="anim-type-btn px-2.5 py-2 rounded-xl text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20"
+          >
+            SCALE
+          </button>
+          <button
+            type="button"
+            data-type="rotate"
+            class="anim-type-btn px-2.5 py-2 rounded-xl text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20"
+          >
+            ROTATE
+          </button>
+          <button
+            type="button"
+            data-type="blur"
+            class="anim-type-btn px-2.5 py-2 rounded-xl text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20"
+          >
+            BLUR
+          </button>
+          <button
+            type="button"
+            data-type="pulse"
+            class="anim-type-btn px-2.5 py-2 rounded-xl text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20"
+          >
+            PULSE
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. Duration Slider -->
+      <div class="space-y-1.5 pt-2 border-t border-slate-100 dark:border-white/5">
+        <div class="flex items-center justify-between text-xs">
+          <span class="font-bold text-slate-700 dark:text-slate-300">Duration</span>
+          <span id="anim-duration-val" class="font-mono text-peach-700 dark:text-peach-400 font-bold">500ms</span>
+        </div>
+        <input
+          type="range"
+          id="anim-duration-input"
+          min="100"
+          max="1200"
+          step="50"
+          value="500"
+          class="w-full accent-peach-500 cursor-pointer"
+        />
+        <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+          <span>100ms (Micro)</span>
+          <span>500ms (UI)</span>
+          <span>1200ms (Slow)</span>
+        </div>
+      </div>
+
+      <!-- 3. Delay Slider -->
+      <div class="space-y-1.5 pt-2 border-t border-slate-100 dark:border-white/5">
+        <div class="flex items-center justify-between text-xs">
+          <span class="font-bold text-slate-700 dark:text-slate-300">Delay</span>
+          <span id="anim-delay-val" class="font-mono text-peach-700 dark:text-peach-400 font-bold">0ms</span>
+        </div>
+        <input
+          type="range"
+          id="anim-delay-input"
+          min="0"
+          max="600"
+          step="50"
+          value="0"
+          class="w-full accent-peach-500 cursor-pointer"
+        />
+        <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+          <span>0ms (Immediate)</span>
+          <span>300ms (Stagger)</span>
+          <span>600ms</span>
+        </div>
+      </div>
+
+      <!-- 4. Easing Function -->
+      <div class="space-y-2 pt-2 border-t border-slate-100 dark:border-white/5">
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          4. Easing Function
+        </label>
+        <div class="grid grid-cols-2 gap-1.5" id="anim-easing-selector">
+          <button
+            type="button"
+            data-easing="ease-out"
+            class="anim-easing-btn active px-2.5 py-1.5 rounded-lg text-xs font-semibold text-left border transition-all bg-peach-500/10 border-peach-500 text-peach-900 dark:text-peach-200"
+          >
+            <span>Ease-Out</span>
+            <span class="block text-[9px] text-slate-400 font-mono">Natural Decel</span>
+          </button>
+          <button
+            type="button"
+            data-easing="ease-in-out"
+            class="anim-easing-btn px-2.5 py-1.5 rounded-lg text-xs font-semibold text-left border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300"
+          >
+            <span>Ease-In-Out</span>
+            <span class="block text-[9px] text-slate-400 font-mono">Smooth S-curve</span>
+          </button>
+          <button
+            type="button"
+            data-easing="bounce"
+            class="anim-easing-btn px-2.5 py-1.5 rounded-lg text-xs font-semibold text-left border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300"
+          >
+            <span>Spring / Bounce</span>
+            <span class="block text-[9px] text-slate-400 font-mono">Cubic-Bezier</span>
+          </button>
+          <button
+            type="button"
+            data-easing="linear"
+            class="anim-easing-btn px-2.5 py-1.5 rounded-lg text-xs font-semibold text-left border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300"
+          >
+            <span>Linear</span>
+            <span class="block text-[9px] text-slate-400 font-mono">Constant Speed</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 5. Iterations -->
+      <div class="space-y-2 pt-2 border-t border-slate-100 dark:border-white/5">
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          5. Iterations
+        </label>
+        <div class="grid grid-cols-4 gap-1.5" id="anim-iterations-selector">
+          <button type="button" data-iter="1" class="anim-iter-btn active py-1.5 rounded-lg text-xs font-semibold border text-center transition-all bg-peach-500/10 border-peach-500 text-peach-900 dark:text-peach-200">1x</button>
+          <button type="button" data-iter="2" class="anim-iter-btn py-1.5 rounded-lg text-xs font-semibold border text-center transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300">2x</button>
+          <button type="button" data-iter="3" class="anim-iter-btn py-1.5 rounded-lg text-xs font-semibold border text-center transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300">3x</button>
+          <button type="button" data-iter="infinite" class="anim-iter-btn py-1.5 rounded-lg text-xs font-semibold border text-center transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300">∞</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Column: Live Visual Preview & Generated Prompt (7 cols) -->
+    <div class="lg:col-span-7 space-y-4">
+      <!-- Live Motion Preview Stage Card -->
+      <div class="p-6 sm:p-7 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm space-y-5">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/5">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Live Motion Stage</span>
+          </div>
+          <button
+            id="replay-stage-anim-btn"
+            type="button"
+            class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900 text-white dark:bg-white dark:text-slate-900 hover:bg-peach-600 dark:hover:bg-peach-400 dark:hover:text-white text-xs font-bold transition-colors cursor-pointer"
+          >
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            <span>Replay Motion</span>
+          </button>
+        </div>
+
+        <!-- Render Target Stage Container -->
+        <div class="p-8 sm:p-12 rounded-xl bg-slate-50/70 dark:bg-slate-900/50 border border-slate-200/60 dark:border-white/5 min-h-[220px] flex items-center justify-center overflow-hidden">
+          
+          <!-- Animated Element Box -->
+          <div
+            id="anim-target-box"
+            class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-card text-center space-y-2 max-w-sm transition-transform"
+          >
+            <div class="w-12 h-12 rounded-xl bg-peach-500/10 text-peach-600 dark:text-peach-400 mx-auto flex items-center justify-center font-bold">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <h4 class="font-bold text-base text-slate-900 dark:text-white">
+              Hardware-Accelerated UI
+            </h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              GPU-composited transforms with 60fps frame rate and zero layout recalculation overhead.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Active Motion Spec Badges -->
+        <div class="flex flex-wrap items-center gap-2 pt-1 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+          <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800" id="badge-anim-type">Type: Fade</span>
+          <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800" id="badge-anim-duration">500ms</span>
+          <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800" id="badge-anim-easing">ease-out</span>
+          <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800" id="badge-anim-iter">1 iteration</span>
+        </div>
+      </div>
+
+      <!-- Generated Production Prompt Card -->
+      <div class="p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <svg class="w-3.5 h-3.5 text-peach-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span>Precision Animation Prompt</span>
+          </div>
+          <button
+            id="copy-anim-builder-prompt-btn"
+            type="button"
+            class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-peach-500 hover:text-white dark:hover:bg-peach-500 dark:hover:text-white text-xs font-bold text-slate-700 dark:text-slate-300 transition-colors cursor-pointer"
+          >
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            <span id="copy-anim-builder-label">Copy Prompt</span>
+          </button>
+        </div>
+
+        <pre id="anim-builder-prompt-text" class="p-3.5 rounded-xl bg-slate-900 text-slate-200 text-xs font-mono leading-relaxed whitespace-pre-wrap break-words border border-slate-800">Create a smooth fade entrance animation for UI elements that transitions opacity from 0 to 1 over 500ms using an ease-out timing curve and a 0ms delay. Ensure hardware acceleration by wrapping transforms and include @media (prefers-reduced-motion: reduce) to instantly display content for accessibility.</pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Dynamic Animation Keyframes */
+  @keyframes dynamicFade {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  @keyframes dynamicSlide {
+    0% { opacity: 0; transform: translateY(24px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes dynamicScale {
+    0% { opacity: 0; transform: scale(0.85); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes dynamicRotate {
+    0% { opacity: 0; transform: rotate(-8deg) scale(0.95); }
+    100% { opacity: 1; transform: rotate(0deg) scale(1); }
+  }
+
+  @keyframes dynamicBlur {
+    0% { opacity: 0; filter: blur(10px); transform: translateY(10px); }
+    100% { opacity: 1; filter: blur(0px); transform: translateY(0); }
+  }
+
+  @keyframes dynamicPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+    100% { transform: scale(1); }
+  }
+
+  .anim-run-fade { animation-name: dynamicFade; }
+  .anim-run-slide { animation-name: dynamicSlide; }
+  .anim-run-scale { animation-name: dynamicScale; }
+  .anim-run-rotate { animation-name: dynamicRotate; }
+  .anim-run-blur { animation-name: dynamicBlur; }
+  .anim-run-pulse { animation-name: dynamicPulse; }
+</style>
+
+<script is:inline>
+  (function initAnimationPromptBuilder() {
+    let state = {
+      type: 'fade',
+      duration: 500,
+      delay: 0,
+      easing: 'ease-out',
+      iterations: '1'
+    };
+
+    const targetBox = document.getElementById('anim-target-box');
+    const promptTextEl = document.getElementById('anim-builder-prompt-text');
+    const replayBtn = document.getElementById('replay-stage-anim-btn');
+    const resetBtn = document.getElementById('reset-anim-builder-btn');
+    const copyBtn = document.getElementById('copy-anim-builder-prompt-btn');
+    const copyLabel = document.getElementById('copy-anim-builder-label');
+
+    const durationInput = document.getElementById('anim-duration-input');
+    const durationVal = document.getElementById('anim-duration-val');
+    const delayInput = document.getElementById('anim-delay-input');
+    const delayVal = document.getElementById('anim-delay-val');
+
+    const badgeType = document.getElementById('badge-anim-type');
+    const badgeDuration = document.getElementById('badge-anim-duration');
+    const badgeEasing = document.getElementById('badge-anim-easing');
+    const badgeIter = document.getElementById('badge-anim-iter');
+
+    function getEasingCss(key) {
+      if (key === 'bounce') return 'cubic-bezier(0.34, 1.56, 0.64, 1)';
+      return key;
+    }
+
+    function applyAnimation() {
+      if (!targetBox) return;
+
+      // Remove existing animation classes
+      targetBox.className = 'p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-card text-center space-y-2 max-w-sm transition-transform';
+      targetBox.style.animation = 'none';
+      void targetBox.offsetWidth; // Reflow
+
+      const easingValue = getEasingCss(state.easing);
+      const animClass = `anim-run-${state.type}`;
+      
+      targetBox.classList.add(animClass);
+      targetBox.style.animationDuration = `${state.duration}ms`;
+      targetBox.style.animationDelay = `${state.delay}ms`;
+      targetBox.style.animationTimingFunction = easingValue;
+      targetBox.style.animationIterationCount = state.iterations === 'infinite' ? 'infinite' : state.iterations;
+      targetBox.style.animationFillMode = 'forwards';
+
+      // Update badges
+      if (badgeType) badgeType.textContent = `Type: ${state.type.toUpperCase()}`;
+      if (badgeDuration) badgeDuration.textContent = `${state.duration}ms`;
+      if (badgeEasing) badgeEasing.textContent = state.easing;
+      if (badgeIter) badgeIter.textContent = state.iterations === 'infinite' ? 'Infinite loop' : `${state.iterations} iteration(s)`;
+
+      // Generate prompt
+      updatePrompt();
+    }
+
+    function updatePrompt() {
+      if (!promptTextEl) return;
+      const typeDesc = {
+        fade: 'fade entrance animation',
+        slide: 'smooth slide-up entrance animation (transform: translateY(24px) to 0)',
+        scale: 'tactile scale-in animation (transform: scale(0.85) to 1)',
+        rotate: 'subtle perspective rotate entrance (-8deg to 0deg)',
+        blur: 'optical blur-reduction entrance (filter: blur(10px) to blur(0px))',
+        pulse: 'breathing pulse animation (scale: 1.06)'
+      };
+
+      const prompt = `Create a ${typeDesc[state.type] || 'UI entrance animation'} with the following calibrated motion physics:
+• Duration: ${state.duration}ms
+• Delay: ${state.delay}ms
+• Timing Function: ${state.easing} (${getEasingCss(state.easing)})
+• Iteration Count: ${state.iterations}
+• Performance: Animate strictly hardware-accelerated transform/opacity properties to prevent layout reflows.
+• Accessibility: Ensure complete WCAG 2.1 compliance with an automatic @media (prefers-reduced-motion: reduce) fallback.`;
+
+      promptTextEl.textContent = prompt;
+    }
+
+    // Type selection buttons
+    const typeButtons = document.querySelectorAll('.anim-type-btn');
+    typeButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        typeButtons.forEach(b => {
+          b.classList.remove('active', 'bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+          b.classList.add('border-slate-200', 'dark:border-white/10', 'text-slate-700', 'dark:text-slate-300');
+        });
+        btn.classList.add('active', 'bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+        btn.classList.remove('border-slate-200', 'dark:border-white/10', 'text-slate-700', 'dark:text-slate-300');
+        state.type = btn.dataset.type;
+        applyAnimation();
+      });
+    });
+
+    // Duration slider
+    if (durationInput && durationVal) {
+      durationInput.addEventListener('input', e => {
+        state.duration = Number(e.target.value);
+        durationVal.textContent = `${state.duration}ms`;
+        applyAnimation();
+      });
+    }
+
+    // Delay slider
+    if (delayInput && delayVal) {
+      delayInput.addEventListener('input', e => {
+        state.delay = Number(e.target.value);
+        delayVal.textContent = `${state.delay}ms`;
+        applyAnimation();
+      });
+    }
+
+    // Easing buttons
+    const easingButtons = document.querySelectorAll('.anim-easing-btn');
+    easingButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        easingButtons.forEach(b => {
+          b.classList.remove('active', 'bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+          b.classList.add('border-slate-200', 'dark:border-white/10', 'text-slate-700', 'dark:text-slate-300');
+        });
+        btn.classList.add('active', 'bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+        btn.classList.remove('border-slate-200', 'dark:border-white/10', 'text-slate-700', 'dark:text-slate-300');
+        state.easing = btn.dataset.easing;
+        applyAnimation();
+      });
+    });
+
+    // Iterations buttons
+    const iterButtons = document.querySelectorAll('.anim-iter-btn');
+    iterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        iterButtons.forEach(b => {
+          b.classList.remove('active', 'bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+          b.classList.add('border-slate-200', 'dark:border-white/10', 'text-slate-700', 'dark:text-slate-300');
+        });
+        btn.classList.add('active', 'bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+        btn.classList.remove('border-slate-200', 'dark:border-white/10', 'text-slate-700', 'dark:text-slate-300');
+        state.iterations = btn.dataset.iter;
+        applyAnimation();
+      });
+    });
+
+    // Replay button
+    if (replayBtn) {
+      replayBtn.addEventListener('click', applyAnimation);
+    }
+
+    // Reset button
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        state = { type: 'fade', duration: 500, delay: 0, easing: 'ease-out', iterations: '1' };
+        if (durationInput) durationInput.value = '500';
+        if (durationVal) durationVal.textContent = '500ms';
+        if (delayInput) delayInput.value = '0';
+        if (delayVal) delayVal.textContent = '0ms';
+        applyAnimation();
+      });
+    }
+
+    // Copy Prompt Button
+    if (copyBtn && promptTextEl) {
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(promptTextEl.textContent.trim());
+          if (copyLabel) copyLabel.textContent = 'Copied!';
+          setTimeout(() => {
+            if (copyLabel) copyLabel.textContent = 'Copy Prompt';
+          }, 2000);
+        } catch (e) {
+          console.error('Clipboard copy failed:', e);
+        }
+      });
+    }
+
+    // Initial run
+    applyAnimation();
+  })();
+</script>
