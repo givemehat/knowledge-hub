@@ -1,0 +1,216 @@
+---
+const componentPrompts = [
+  {
+    id: 'hero-section',
+    title: 'Modern Hero Section with Glassmorphic Card',
+    category: 'Hero / Landing',
+    difficulty: 'Intermediate',
+    framework: 'Tailwind CSS',
+    description: 'High-converting hero section with dual-script typography, subtle radial mesh backdrop, pill notification badge, primary CTA, and responsive right-side card container.',
+    prompt: `Generate a modern, responsive hero section using Tailwind CSS for a technical knowledge engine.
+Requirements:
+1. Layout: 2-column grid on desktop (lg:grid-cols-12), stacked single-column on mobile.
+2. Background: Warm radial mesh gradient (e.g. from-peach-500/10 via-brand-500/5 to-transparent) with a subtle noise/pattern overlay.
+3. Left Content (lg:col-span-7):
+   - Eyebrow pill badge with pulsating live green dot: "v1.3 Verified Knowledge".
+   - H1 Display Title: 44-56px, bold, tight letter-spacing (-0.025em), with a gradient text highlight on key keywords.
+   - Subtitle: 16-18px text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl.
+   - Action row: Primary dark pill button with subtle shadow (min-h: 44px) + Secondary ghost button with play/arrow icon.
+   - Trust indicators: "No ads · Zero trackers · 100% Open Access" with checkmark icons.
+4. Right Mockup (lg:col-span-5):
+   - A floating glassmorphic container (backdrop-blur-xl bg-white/80 dark:bg-slate-900/80 border border-slate-200/80 dark:border-white/10) showing an interactive preview snippet.
+   - Smooth hover micro-interaction: translate-y-[-4px] and shadow elevation on hover.
+5. Accessibility & Motion: Wrap animations in @media (prefers-reduced-motion: no-preference). Ensure WCAG AA contrast (minimum 4.5:1).`
+  },
+  {
+    id: 'pricing-table',
+    title: '3-Tier SaaS Pricing Table with Featured Highlight',
+    category: 'Monetization / Pricing',
+    difficulty: 'Intermediate',
+    framework: 'Tailwind CSS',
+    description: 'Accessible 3-tier pricing matrix with monthly/annual switch, elevated center tier, badge chips, feature checklists with dual state (included vs missing), and distinct CTA button variants.',
+    prompt: `Create a responsive 3-tier pricing matrix using Tailwind CSS.
+Requirements:
+1. Billing Toggle: Centered switch for "Monthly" vs "Annually (Save 20%)" with accessible role="switch" and aria-checked.
+2. Grid Layout: 3 columns on desktop (grid-cols-1 md:grid-cols-3 gap-6), single column on mobile.
+3. Cards Structure (Starter, Pro [Recommended], Enterprise):
+   - Starter Card: Clean white surface, 1px light border, plan name, price ($0/mo), 5 feature bullets with checkmarks, outline CTA button.
+   - Pro Card (Featured Center): Elevated with 2px brand border (border-peach-500), subtle drop shadow (shadow-xl), floating top badge ("Most Popular"), primary solid dark pill CTA button.
+   - Enterprise Card: Custom SLA features, phone/mail icon, "Contact Sales" outline button.
+4. Equal Heights: Use flex-col and mt-auto on card footers so all CTA buttons align horizontally regardless of feature list length.
+5. Contrast: Ensure all feature text and prices achieve at least 4.5:1 contrast against card surfaces.`
+  },
+  {
+    id: 'sticky-navbar',
+    title: 'Sticky Navigation Bar with Mobile Drawer',
+    category: 'Navigation',
+    difficulty: 'Intermediate',
+    framework: 'Tailwind CSS + JS',
+    description: 'Sticky header with blurred backdrop, baseline-aligned brand logo, active route pills, search shortcut modal trigger (Cmd+K), and mobile hamburger overlay menu with touch-friendly 44px targets.',
+    prompt: `Design a sticky responsive navigation bar using Tailwind CSS and minimal vanilla JavaScript.
+Requirements:
+1. Bar Container: sticky top-0 z-50 w-full backdrop-blur-xl bg-white/85 dark:bg-[#121016]/85 border-b border-slate-200/80 dark:border-white/10 h-16.
+2. Left: Brand logo lockup featuring an inline geometric SVG mark (32px height) + baseline-aligned brand name text and secondary Devanagari badge.
+3. Center (Desktop md+): Navigation links ("Domains", "Roadmaps", "Research", "About") with subtle active pill state (bg-slate-100 dark:bg-white/10).
+4. Right:
+   - Search trigger button with keyboard badge: "Search... ⌘K" (min-h: 36px).
+   - Theme toggle button (Sun / Moon SVG icons).
+   - Language selector pill switch ("EN" | "हिं").
+5. Mobile (<768px):
+   - Hamburger button with aria-expanded and aria-label="Toggle Navigation".
+   - Full-screen or slide-down mobile drawer with 44px touch targets, close icon, and smooth translate-y transition.`
+  },
+  {
+    id: 'bento-grid',
+    title: 'Asymmetric Bento Grid Showcase',
+    category: 'Content Layout',
+    difficulty: 'Advanced',
+    framework: 'Tailwind CSS',
+    description: 'Modern Apple/Linear-inspired Bento grid layout with asymmetric column and row spans, duotone category icons, inset panels, and micro-hover states.',
+    prompt: `Create a Bento Grid layout for showcasing educational domains and technical features using Tailwind CSS.
+Requirements:
+1. Grid Architecture:
+   - Mobile: 1 column (grid-cols-1 gap-4).
+   - Tablet: 2 columns (md:grid-cols-2).
+   - Desktop: 3 columns with asymmetric cell spans (lg:grid-cols-3 gap-6).
+2. Featured Hero Cell: Spans 2 columns on desktop (lg:col-span-2) with an illustrated interactive graphic or code snippet, primary headline, and badge.
+3. Standard Cells: Single-span cards with:
+   - 56px duotone icon tile with rounded-2xl squircle container.
+   - Count pill ("6 guides" / "Verified").
+   - Title (18px font-bold text-slate-900 dark:text-white).
+   - Benefit description (2 lines max, line-clamp-2).
+   - Nested InsetPanel listing top 3 topics with reading minutes.
+   - Pinned footer with arrow action link.
+4. Visual Polish: 1px light border, large radius (rounded-3xl), subtle shadow (shadow-apple-sm), hover:border-peach-500/50 hover:shadow-elevation transition.`
+  },
+  {
+    id: 'macos-browser-frame',
+    title: 'macOS Browser Device Frame with Realistic Shadow',
+    category: 'Device Framing',
+    difficulty: 'Beginner',
+    framework: 'Tailwind CSS',
+    description: 'Browser mockup container with authentic macOS traffic light buttons (red, yellow, green), interactive-style URL address bar, lock icon, and responsive viewport wrapper.',
+    prompt: `Create a macOS-style browser window mockup frame using Tailwind CSS.
+Requirements:
+1. Window Container: rounded-2xl overflow-hidden border border-slate-200 dark:border-white/15 bg-white dark:bg-slate-950 shadow-2xl.
+2. Title Bar:
+   - Height: 44px, background: bg-slate-100/90 dark:bg-slate-900/90 border-b border-slate-200 dark:border-white/10.
+   - Left: 3 macOS traffic light circles with hover icons:
+     * Red close button (#FF5F56, 12px)
+     * Yellow minimize button (#FFBD2E, 12px)
+     * Green maximize button (#27C93F, 12px)
+   - Center: Realistic URL address pill with lock icon: "https://peach.dev/app/dashboard" (bg-white dark:bg-slate-800 px-4 py-1 rounded-lg text-xs font-mono text-slate-500 border border-slate-200 dark:border-white/5 max-w-sm mx-auto flex items-center justify-center gap-1.5).
+3. Window Content Area: Clean canvas ready to embed interactive components or screenshots with responsive aspect ratio.`
+  },
+  {
+    id: 'iphone-device-frame',
+    title: 'iPhone 16 Pro Frame with Dynamic Island',
+    category: 'Device Framing',
+    difficulty: 'Intermediate',
+    framework: 'Tailwind CSS',
+    description: 'Mobile device frame mockup featuring modern thin bezels, Dynamic Island pill cutout, realistic status bar (time 9:41, 5G, Wi-Fi, battery), and bottom home indicator bar.',
+    prompt: `Build a realistic iPhone 16 Pro device mockup container using Tailwind CSS.
+Requirements:
+1. Outer Chassis: Max-width 360px, rounded-[48px] border-[10px] border-slate-800 dark:border-slate-700 bg-slate-950 shadow-2xl p-1 relative overflow-hidden mx-auto.
+2. Screen Area: rounded-[38px] overflow-hidden bg-white dark:bg-[#121016] min-h-[640px] flex flex-col relative.
+3. Top Dynamic Island & Status Bar:
+   - Dynamic Island: Centered black pill cutout (w-24 h-6 rounded-full bg-black z-30 mx-auto mt-2 flex items-center justify-between px-2).
+   - Status Bar (z-20 px-6 pt-2 flex items-center justify-between text-[11px] font-semibold text-slate-800 dark:text-white):
+     * Left: Clock "9:41".
+     * Right: Signal bars, Wi-Fi icon, and battery pill with percentage.
+4. Screen Viewport: Scrollable content container with smooth touch scrolling.
+5. Bottom Home Indicator: Centered pill bar (w-32 h-1 bg-slate-300 dark:bg-slate-700 rounded-full mx-auto mb-2 mt-auto).`
+  }
+];
+---
+
+<div id="component-prompts-gallery" class="space-y-6">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-200/80 dark:border-white/10">
+    <div>
+      <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-peach-500/10 text-peach-700 dark:text-peach-300 border border-peach-500/20 text-[11px] font-bold uppercase tracking-wider mb-1">
+        <span>Ready-to-Use Templates</span>
+      </div>
+      <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+        Master UI Component Prompts
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+        Production-tested prompt templates with explicit CSS architecture, responsive behavior, and accessibility constraints.
+      </p>
+    </div>
+
+    <div class="text-xs text-slate-500 font-mono">
+      <span>6 Verified Templates</span>
+    </div>
+  </div>
+
+  <!-- Prompt Cards Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {componentPrompts.map((cp, idx) => (
+      <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm flex flex-col justify-between space-y-4 group hover:border-peach-500/40 transition-all duration-200">
+        <div>
+          <!-- Header Meta Row -->
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+              {cp.category}
+            </span>
+            <div class="flex items-center gap-1.5 text-[11px] font-mono text-slate-400">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              <span>{cp.framework}</span>
+            </div>
+          </div>
+
+          <!-- Title & Description -->
+          <h4 class="font-bold text-base sm:text-lg text-slate-900 dark:text-white group-hover:text-peach-700 dark:group-hover:text-peach-400 transition-colors leading-snug">
+            {cp.title}
+          </h4>
+          <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
+            {cp.description}
+          </p>
+
+          <!-- Prompt Box -->
+          <div class="mt-4 relative">
+            <pre class="p-4 rounded-xl bg-slate-900 text-slate-200 font-mono text-[11px] leading-relaxed max-h-48 overflow-y-auto whitespace-pre-wrap select-all border border-slate-800">{cp.prompt}</pre>
+          </div>
+        </div>
+
+        <!-- Footer Action -->
+        <div class="pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+          <span class="text-[11px] text-slate-400 font-medium">Click copy & paste into Claude / v0 / Cursor</span>
+
+          <button
+            type="button"
+            data-copy-target={cp.id}
+            data-prompt={cp.prompt}
+            class="copy-component-prompt-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-bold hover:bg-peach-600 dark:hover:bg-peach-400 dark:hover:text-white transition-all cursor-pointer shadow-xs active:scale-95"
+          >
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            <span class="btn-label">Copy Prompt</span>
+          </button>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<script is:inline>
+  document.querySelectorAll('.copy-component-prompt-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const prompt = btn.getAttribute('data-prompt') || '';
+      const label = btn.querySelector('.btn-label');
+      try {
+        await navigator.clipboard.writeText(prompt);
+        if (label) label.textContent = 'Copied! ✓';
+        btn.classList.add('bg-emerald-600', 'dark:bg-emerald-500', 'text-white');
+        setTimeout(() => {
+          if (label) label.textContent = 'Copy Prompt';
+          btn.classList.remove('bg-emerald-600', 'dark:bg-emerald-500', 'text-white');
+        }, 2000);
+      } catch (e) {
+        console.error('Failed to copy prompt:', e);
+      }
+    });
+  });
+</script>

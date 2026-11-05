@@ -1,0 +1,459 @@
+---
+import Card from '../ui/Card.astro';
+import Button from '../ui/Button.astro';
+---
+
+<div id="typography-prompt-builder" class="space-y-6">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-200/80 dark:border-white/10">
+    <div>
+      <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-peach-500/10 text-peach-700 dark:text-peach-300 border border-peach-500/20 text-[11px] font-bold uppercase tracking-wider mb-1">
+        <span>Interactive Studio</span>
+      </div>
+      <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+        Typography Prompt Studio
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+        Adjust optical typography tokens and generate precision prompts for Claude, GPT, or Gemini.
+      </p>
+    </div>
+
+    <!-- Reset to Defaults Button -->
+    <button
+      id="reset-type-controls"
+      class="self-start sm:self-auto text-xs font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-white px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+    >
+      Reset Defaults
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+    <!-- Left Column: Controls (5 cols) -->
+    <div class="lg:col-span-5 space-y-5 p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm">
+      
+      <!-- 1. Typeface Selection -->
+      <div class="space-y-2">
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          1. Select Typeface Family
+        </label>
+        <div class="grid grid-cols-2 gap-2" id="font-family-selector">
+          <button
+            type="button"
+            data-font="Inter"
+            class="font-btn active px-3 py-2 rounded-xl text-xs font-semibold text-left border transition-all flex items-center justify-between bg-peach-500/10 border-peach-500 text-peach-900 dark:text-peach-200"
+          >
+            <span>Inter</span>
+            <span class="text-[10px] text-peach-600 dark:text-peach-400 font-mono">Sans</span>
+          </button>
+
+          <button
+            type="button"
+            data-font="Plus Jakarta Sans"
+            class="font-btn px-3 py-2 rounded-xl text-xs font-semibold text-left border transition-all flex items-center justify-between border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20"
+          >
+            <span>Plus Jakarta</span>
+            <span class="text-[10px] text-slate-400 font-mono">Modern</span>
+          </button>
+
+          <button
+            type="button"
+            data-font="Geist"
+            class="font-btn px-3 py-2 rounded-xl text-xs font-semibold text-left border transition-all flex items-center justify-between border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20"
+          >
+            <span>Geist Sans</span>
+            <span class="text-[10px] text-slate-400 font-mono">Vercel</span>
+          </button>
+
+          <button
+            type="button"
+            data-font="Manrope"
+            class="font-btn px-3 py-2 rounded-xl text-xs font-semibold text-left border transition-all flex items-center justify-between border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20"
+          >
+            <span>Manrope</span>
+            <span class="text-[10px] text-slate-400 font-mono">Geometric</span>
+          </button>
+
+          <button
+            type="button"
+            data-font="IBM Plex Sans"
+            class="font-btn px-3 py-2 rounded-xl text-xs font-semibold text-left border transition-all flex items-center justify-between border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20"
+          >
+            <span>IBM Plex</span>
+            <span class="text-[10px] text-slate-400 font-mono">Enterprise</span>
+          </button>
+
+          <button
+            type="button"
+            data-font="JetBrains Mono"
+            class="font-btn px-3 py-2 rounded-xl text-xs font-semibold text-left border transition-all flex items-center justify-between border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20"
+          >
+            <span>JetBrains Mono</span>
+            <span class="text-[10px] text-slate-400 font-mono">Code</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. Heading Size Slider -->
+      <div class="space-y-1.5 pt-2 border-t border-slate-100 dark:border-white/5">
+        <div class="flex items-center justify-between text-xs">
+          <span class="font-bold text-slate-700 dark:text-slate-300">Heading Size (H1)</span>
+          <span id="heading-size-val" class="font-mono text-peach-700 dark:text-peach-400 font-bold">48px</span>
+        </div>
+        <input
+          type="range"
+          id="heading-size-input"
+          min="32"
+          max="64"
+          step="2"
+          value="48"
+          class="w-full accent-peach-500 cursor-pointer"
+        />
+        <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+          <span>32px</span>
+          <span>48px</span>
+          <span>64px</span>
+        </div>
+      </div>
+
+      <!-- 3. Subheading Size Slider -->
+      <div class="space-y-1.5 pt-2 border-t border-slate-100 dark:border-white/5">
+        <div class="flex items-center justify-between text-xs">
+          <span class="font-bold text-slate-700 dark:text-slate-300">Subheading Size (H2/H3)</span>
+          <span id="subheading-size-val" class="font-mono text-peach-700 dark:text-peach-400 font-bold">24px</span>
+        </div>
+        <input
+          type="range"
+          id="subheading-size-input"
+          min="18"
+          max="32"
+          step="1"
+          value="24"
+          class="w-full accent-peach-500 cursor-pointer"
+        />
+        <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+          <span>18px</span>
+          <span>24px</span>
+          <span>32px</span>
+        </div>
+      </div>
+
+      <!-- 4. Body Text Size Slider -->
+      <div class="space-y-1.5 pt-2 border-t border-slate-100 dark:border-white/5">
+        <div class="flex items-center justify-between text-xs">
+          <span class="font-bold text-slate-700 dark:text-slate-300">Body Text Size</span>
+          <span id="body-size-val" class="font-mono text-peach-700 dark:text-peach-400 font-bold">15px</span>
+        </div>
+        <input
+          type="range"
+          id="body-size-input"
+          min="13"
+          max="18"
+          step="1"
+          value="15"
+          class="w-full accent-peach-500 cursor-pointer"
+        />
+        <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+          <span>13px</span>
+          <span>15px</span>
+          <span>18px</span>
+        </div>
+      </div>
+
+      <!-- 5. Heading Weight -->
+      <div class="space-y-1.5 pt-2 border-t border-slate-100 dark:border-white/5">
+        <div class="flex items-center justify-between text-xs">
+          <span class="font-bold text-slate-700 dark:text-slate-300">Heading Weight</span>
+          <span id="heading-weight-val" class="font-mono text-peach-700 dark:text-peach-400 font-bold">700 (Bold)</span>
+        </div>
+        <input
+          type="range"
+          id="heading-weight-input"
+          min="500"
+          max="900"
+          step="100"
+          value="700"
+          class="w-full accent-peach-500 cursor-pointer"
+        />
+        <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+          <span>500 (Med)</span>
+          <span>700 (Bold)</span>
+          <span>900 (Black)</span>
+        </div>
+      </div>
+
+      <!-- 6. Letter Spacing -->
+      <div class="space-y-1.5 pt-2 border-t border-slate-100 dark:border-white/5">
+        <div class="flex items-center justify-between text-xs">
+          <span class="font-bold text-slate-700 dark:text-slate-300">Heading Letter Spacing</span>
+          <span id="letter-spacing-val" class="font-mono text-peach-700 dark:text-peach-400 font-bold">-0.025em (Tight)</span>
+        </div>
+        <input
+          type="range"
+          id="letter-spacing-input"
+          min="-5"
+          max="5"
+          step="1"
+          value="-2"
+          class="w-full accent-peach-500 cursor-pointer"
+        />
+        <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+          <span>-0.05em</span>
+          <span>0.00em</span>
+          <span>+0.05em</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Live Visual Preview & Generated Prompt (7 cols) -->
+    <div class="lg:col-span-7 space-y-5">
+      <!-- Live Typography Preview Card -->
+      <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/5">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Live Typography Preview</span>
+          </div>
+          <span id="active-font-badge" class="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+            Font: Inter
+          </span>
+        </div>
+
+        <!-- Render Target Box -->
+        <div id="preview-render-target" class="p-6 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/60 dark:border-white/5 transition-all space-y-4">
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-peach-500/10 text-peach-700 dark:text-peach-300 text-xs font-bold">
+            <span class="w-1.5 h-1.5 rounded-full bg-peach-500"></span>
+            <span>TAG / BADGE</span>
+          </div>
+
+          <h1 id="preview-heading" class="text-slate-900 dark:text-white leading-tight">
+            Crafting Precision Interfaces with AI
+          </h1>
+
+          <h2 id="preview-subheading" class="text-slate-600 dark:text-slate-300 leading-snug">
+            Systematic typography transforms raw prompts into production software.
+          </h2>
+
+          <p id="preview-body" class="text-slate-700 dark:text-slate-300 leading-relaxed max-w-xl">
+            This live preview demonstrates how the chosen optical weight, sizing scale, and letter-spacing harmonize across different typographic tiers. When prompt instructions specify exact font sizes and letter spacing, generative models avoid bloated line breaks and erratic text wraps.
+          </p>
+
+          <div class="pt-2 flex flex-wrap items-center gap-3">
+            <button class="px-4 py-2 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 text-xs font-bold hover:bg-peach-600 dark:hover:bg-peach-400 dark:hover:text-white transition-colors cursor-pointer shadow-sm">
+              Primary Action Button →
+            </button>
+            <span class="text-xs text-slate-500 font-mono">14px · Weight: 600</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Generated Prompt Output Card -->
+      <div class="p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-peach-600 dark:text-peach-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">Generated Prompt Ready to Copy</span>
+          </div>
+
+          <!-- Copy Button -->
+          <button
+            id="copy-type-prompt-btn"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-bold hover:bg-peach-600 dark:hover:bg-peach-400 dark:hover:text-white transition-all cursor-pointer shadow-xs active:scale-95"
+          >
+            <svg id="copy-icon" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            <span id="copy-text">Copy Prompt</span>
+          </button>
+        </div>
+
+        <pre id="generated-prompt-text" class="p-4 rounded-xl bg-slate-900 text-slate-100 font-mono text-xs leading-relaxed overflow-x-auto whitespace-pre-wrap select-all border border-slate-800"></pre>
+
+        <p class="text-[11px] text-slate-500 dark:text-slate-400">
+          Tip: Paste this block directly into Claude, Cursor, v0, or ChatGPT when initiating any UI generation session.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function initTypeStudio() {
+    let currentFont = 'Inter';
+    let headingSize = 48;
+    let subheadingSize = 24;
+    let bodySize = 15;
+    let headingWeight = 700;
+    let letterSpacingEm = -0.025;
+
+    const fontButtons = document.querySelectorAll('#font-family-selector .font-btn');
+    const headingSizeInput = document.getElementById('heading-size-input');
+    const headingSizeVal = document.getElementById('heading-size-val');
+    const subheadingSizeInput = document.getElementById('subheading-size-input');
+    const subheadingSizeVal = document.getElementById('subheading-size-val');
+    const bodySizeInput = document.getElementById('body-size-input');
+    const bodySizeVal = document.getElementById('body-size-val');
+    const headingWeightInput = document.getElementById('heading-weight-input');
+    const headingWeightVal = document.getElementById('heading-weight-val');
+    const letterSpacingInput = document.getElementById('letter-spacing-input');
+    const letterSpacingVal = document.getElementById('letter-spacing-val');
+
+    const previewHeading = document.getElementById('preview-heading');
+    const previewSubheading = document.getElementById('preview-subheading');
+    const previewBody = document.getElementById('preview-body');
+    const previewTarget = document.getElementById('preview-render-target');
+    const activeFontBadge = document.getElementById('active-font-badge');
+    const generatedPromptText = document.getElementById('generated-prompt-text');
+    const copyBtn = document.getElementById('copy-type-prompt-btn');
+    const copyText = document.getElementById('copy-text');
+    const resetBtn = document.getElementById('reset-type-controls');
+
+    function updateStudio() {
+      // 1. Update font badge and preview styles
+      if (activeFontBadge) activeFontBadge.textContent = `Font: ${currentFont}`;
+      if (previewTarget) previewTarget.style.fontFamily = `"${currentFont}", system-ui, sans-serif`;
+
+      if (previewHeading) {
+        previewHeading.style.fontSize = `${headingSize}px`;
+        previewHeading.style.fontWeight = headingWeight;
+        previewHeading.style.letterSpacing = `${letterSpacingEm}em`;
+      }
+
+      if (previewSubheading) {
+        previewSubheading.style.fontSize = `${subheadingSize}px`;
+        previewSubheading.style.fontWeight = '600';
+        previewSubheading.style.letterSpacing = '0em';
+      }
+
+      if (previewBody) {
+        previewBody.style.fontSize = `${bodySize}px`;
+        previewBody.style.fontWeight = '400';
+        previewBody.style.letterSpacing = '0em';
+        previewBody.style.lineHeight = '1.6';
+      }
+
+      // 2. Generate Prompt Text
+      const weightLabels = {
+        '500': '500 (Medium)',
+        '600': '600 (Semibold)',
+        '700': '700 (Bold)',
+        '800': '800 (Extrabold)',
+        '900': '900 (Black)'
+      };
+
+      const prompt = `Create a modern, clean web interface using the "${currentFont}" typeface with the following exact typography scale:
+• Main Headings (H1): ${headingSize}px (${(headingSize / 16).toFixed(2)}rem), font-weight: ${headingWeight}, letter-spacing: ${letterSpacingEm.toFixed(3)}em, line-height: 1.15
+• Subheadings (H2/H3): ${subheadingSize}px (${(subheadingSize / 16).toFixed(2)}rem), font-weight: 600, letter-spacing: 0.00em, line-height: 1.3
+• Body Text: ${bodySize}px (${(bodySize / 16).toFixed(2)}rem), font-weight: 400, line-height: 1.6, letter-spacing: 0.00em
+• Button Labels & Badges: 14px, font-weight: 600, uppercase letter-spacing: 0.05em
+• Accessibility: Ensure text achieves WCAG AA contrast (minimum 4.5:1 for body text, 3:1 for large display titles) against the background.`;
+
+      if (generatedPromptText) {
+        generatedPromptText.textContent = prompt;
+      }
+    }
+
+    // Font selection
+    fontButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        fontButtons.forEach(b => {
+          b.classList.remove('bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+          b.classList.add('border-slate-200', 'dark:border-white/10', 'text-slate-700', 'dark:text-slate-300');
+        });
+        btn.classList.add('bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+        btn.classList.remove('border-slate-200', 'dark:border-white/10', 'text-slate-700', 'dark:text-slate-300');
+        currentFont = btn.dataset.font || 'Inter';
+        updateStudio();
+      });
+    });
+
+    // Sliders
+    headingSizeInput?.addEventListener('input', (e) => {
+      headingSize = parseInt(e.target.value);
+      if (headingSizeVal) headingSizeVal.textContent = `${headingSize}px`;
+      updateStudio();
+    });
+
+    subheadingSizeInput?.addEventListener('input', (e) => {
+      subheadingSize = parseInt(e.target.value);
+      if (subheadingSizeVal) subheadingSizeVal.textContent = `${subheadingSize}px`;
+      updateStudio();
+    });
+
+    bodySizeInput?.addEventListener('input', (e) => {
+      bodySize = parseInt(e.target.value);
+      if (bodySizeVal) bodySizeVal.textContent = `${bodySize}px`;
+      updateStudio();
+    });
+
+    headingWeightInput?.addEventListener('input', (e) => {
+      headingWeight = parseInt(e.target.value);
+      const names = { 500: '500 (Med)', 600: '600 (Semi)', 700: '700 (Bold)', 800: '800 (Extra)', 900: '900 (Black)' };
+      if (headingWeightVal) headingWeightVal.textContent = names[headingWeight] || `${headingWeight}`;
+      updateStudio();
+    });
+
+    letterSpacingInput?.addEventListener('input', (e) => {
+      const val = parseInt(e.target.value);
+      letterSpacingEm = val * 0.0125;
+      if (letterSpacingVal) {
+        letterSpacingVal.textContent = `${letterSpacingEm.toFixed(3)}em ${letterSpacingEm < 0 ? '(Tight)' : letterSpacingEm > 0 ? '(Wide)' : '(Normal)'}`;
+      }
+      updateStudio();
+    });
+
+    // Copy Button
+    copyBtn?.addEventListener('click', async () => {
+      const textToCopy = generatedPromptText?.textContent || '';
+      try {
+        await navigator.clipboard.writeText(textToCopy);
+        if (copyText) copyText.textContent = 'Copied! ✓';
+        copyBtn.classList.add('bg-emerald-600', 'dark:bg-emerald-500', 'text-white');
+        setTimeout(() => {
+          if (copyText) copyText.textContent = 'Copy Prompt';
+          copyBtn.classList.remove('bg-emerald-600', 'dark:bg-emerald-500', 'text-white');
+        }, 2000);
+      } catch (err) {
+        console.error('Copy failed:', err);
+      }
+    });
+
+    // Reset Defaults
+    resetBtn?.addEventListener('click', () => {
+      currentFont = 'Inter';
+      headingSize = 48;
+      subheadingSize = 24;
+      bodySize = 15;
+      headingWeight = 700;
+      letterSpacingEm = -0.025;
+
+      if (headingSizeInput) headingSizeInput.value = '48';
+      if (subheadingSizeInput) subheadingSizeInput.value = '24';
+      if (bodySizeInput) bodySizeInput.value = '15';
+      if (headingWeightInput) headingWeightInput.value = '700';
+      if (letterSpacingInput) letterSpacingInput.value = '-2';
+
+      if (headingSizeVal) headingSizeVal.textContent = '48px';
+      if (subheadingSizeVal) subheadingSizeVal.textContent = '24px';
+      if (bodySizeVal) bodySizeVal.textContent = '15px';
+      if (headingWeightVal) headingWeightVal.textContent = '700 (Bold)';
+      if (letterSpacingVal) letterSpacingVal.textContent = '-0.025em (Tight)';
+
+      fontButtons.forEach(b => {
+        if (b.dataset.font === 'Inter') {
+          b.classList.add('bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+          b.classList.remove('border-slate-200', 'dark:border-white/10', 'text-slate-700', 'dark:text-slate-300');
+        } else {
+          b.classList.remove('bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+          b.classList.add('border-slate-200', 'dark:border-white/10', 'text-slate-700', 'dark:text-slate-300');
+        }
+      });
+
+      updateStudio();
+    });
+
+    // Initial run
+    updateStudio();
+  })();
+</script>

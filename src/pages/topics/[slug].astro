@@ -13,6 +13,9 @@ import ResourceCard from '../../components/ui/ResourceCard.astro';
 import Accordion from '../../components/ui/Accordion.astro';
 import AuthorCard from '../../components/creator/AuthorCard.astro';
 import SoftCTA from '../../components/creator/SoftCTA.astro';
+import TypographyPromptBuilder from '../../components/interactive/TypographyPromptBuilder.astro';
+import ComponentPromptGallery from '../../components/interactive/ComponentPromptGallery.astro';
+import DeviceFrameShowcase from '../../components/interactive/DeviceFrameShowcase.astro';
 import { CREATOR } from '../../data/creator';
 
 export function getStaticPaths() {
@@ -69,6 +72,17 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
             <a href="#core-concepts" class="block py-1.5 px-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
               3. Core Concepts & Code
             </a>
+            {topic.slug === 'ai-ui-prompting-engineering' && (
+              <a href="#interactive-typography-studio" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
+                ★ Typography Studio
+              </a>
+              <a href="#component-prompt-templates" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
+                ★ Component Prompts
+              </a>
+              <a href="#device-mockups-studio" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
+                ★ Device Framing
+              </a>
+            )}
             {topic.roadmapSteps && topic.roadmapSteps.length > 0 && (
               <a href="#roadmap" class="block py-1.5 px-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
                 4. Step-by-Step Path
@@ -234,6 +248,26 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
             ))}
           </div>
         </section>
+
+        <!-- Interactive Studios (For AI UI Prompting Engineering Guide) -->
+        {topic.slug === 'ai-ui-prompting-engineering' && (
+          <div class="space-y-12 pt-4">
+            <!-- 1. Typography Prompt Studio -->
+            <section id="interactive-typography-studio" class="space-y-4">
+              <TypographyPromptBuilder />
+            </section>
+
+            <!-- 2. Master Component Prompt Templates -->
+            <section id="component-prompt-templates" class="space-y-4">
+              <ComponentPromptGallery />
+            </section>
+
+            <!-- 3. Device Framing & Mockup Studio -->
+            <section id="device-mockups-studio" class="space-y-4">
+              <DeviceFrameShowcase />
+            </section>
+          </div>
+        )}
 
         <!-- 5. Step-by-Step Learning Path -->
         {topic.roadmapSteps && topic.roadmapSteps.length > 0 && (
