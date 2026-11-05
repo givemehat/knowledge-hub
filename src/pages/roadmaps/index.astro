@@ -7,12 +7,13 @@ import InsetPanel from '../../components/ui/InsetPanel.astro';
 import CardFooter from '../../components/ui/CardFooter.astro';
 import Button from '../../components/ui/Button.astro';
 import { ROADMAPS } from '../../data/roadmaps';
+import { BRAND } from '../../config/brand';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <Layout
-  title="Visual Interactive Roadmaps — Bodh (बोध)"
+  title={`Visual Interactive Roadmaps — ${BRAND.name} (${BRAND.nameHi})`}
   description="करियर और तकनीकी अध्ययन के लिए चरणबद्ध रोडमैप, घंटे के अनुमान और मुफ़्त संसाधन।"
   lang="hi"
 >

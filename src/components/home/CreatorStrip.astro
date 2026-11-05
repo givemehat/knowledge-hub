@@ -1,5 +1,6 @@
 ---
 import { CREATOR } from '../../data/creator';
+import { BRAND } from '../../config/brand';
 import AvailabilityBadge from '../creator/AvailabilityBadge.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -10,14 +11,14 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     
     <!-- Left: Creator Info & Purpose -->
     <div class="flex items-start gap-4 max-w-xl">
-      <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-peacock-500 text-white font-black text-xl flex items-center justify-center shrink-0 shadow-md shadow-brand-500/20">
+      <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-peach-500 via-coral-500 to-brand-500 text-white font-black text-xl flex items-center justify-center shrink-0 shadow-md shadow-peach-500/20">
         {CREATOR.name.split(' ').map(n => n[0]).join('')}
       </div>
 
       <div class="space-y-1.5">
         <div class="flex flex-wrap items-center gap-2">
           <h3 class="font-bold text-base sm:text-lg text-slate-900 dark:text-white leading-tight">
-            Banaya hai {CREATOR.name} ne
+            Created by {CREATOR.name}
           </h3>
           <span class="text-xs text-brand-600 dark:text-brand-400 font-mono font-medium">
             {CREATOR.handle}
@@ -26,7 +27,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         </div>
 
         <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-          Bodh ek open-source, ad-free knowledge platform hai. Koi bhi learner ise padh sakta hai, aur koi bhi developer naye topics ya corrections propose kar sakta hai.
+          {BRAND.name} is a 100% static, open-source knowledge engine built for curious students and builders. Verified citations, runnable code, zero trackers, and zero paywalls.
         </p>
       </div>
     </div>

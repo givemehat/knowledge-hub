@@ -1,12 +1,13 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import IndianPattern from '../../components/ui/IndianPattern.astro';
+import { BRAND } from '../../config/brand';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <Layout
-  title="Devanagari & Latin Type Specimen — Bodh (बोध)"
+  title={`Devanagari & Latin Type Specimen — ${BRAND.name} (${BRAND.nameHi})`}
   description="Bilingual typographic system benchmark: Noto Sans Devanagari paired with Inter and Plus Jakarta Sans under rigorous optical calibration."
   lang="hi"
 >
@@ -59,7 +60,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
               </p>
             </div>
             <div class="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200/80 dark:border-emerald-900/50">
-              <span class="text-[10px] uppercase font-bold tracking-wider text-emerald-600 block mb-1">✅ Bodh Standard (Tracking 0):</span>
+              <span class="text-[10px] uppercase font-bold tracking-wider text-emerald-600 block mb-1">✅ {BRAND.name} Standard (Tracking 0):</span>
               <p class="font-hindi text-base text-slate-800 dark:text-slate-200" style="letter-spacing: 0;">
                 क्वांटम कंप्यूटिंग और आर्टिफिशियल इंटेलिजेंस
               </p>
@@ -84,7 +85,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
               </p>
             </div>
             <div class="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200/80 dark:border-emerald-900/50">
-              <span class="text-[10px] uppercase font-bold tracking-wider text-emerald-600 block mb-1">✅ Bodh Standard (Natural Case):</span>
+              <span class="text-[10px] uppercase font-bold tracking-wider text-emerald-600 block mb-1">✅ {BRAND.name} Standard (Natural Case):</span>
               <p class="font-hindi text-base text-slate-800 dark:text-slate-200 normal-case">
                 चुने हुए विषय (Explore domains)
               </p>
@@ -164,7 +165,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
             तकनीकी स्वतंत्रता और गहरा अध्ययन
           </h3>
           <p class="text-sm text-slate-600 dark:text-slate-300 font-hindi leading-[1.75]">
-            जब तक हम ऑपरेटिंग सिस्टम, नेटवर्किंग प्रोटोकॉल और ट्रांसफ़ॉर्मर मॉडल के आंतरिक गणित को नहीं समझते, तब तक हम वास्तविक आर्किटेक्ट नहीं बन सकते। बोध का उद्देश्य हर भारतीय छात्र को गहराई तक पहुँचाना है।
+            जब तक हम ऑपरेटिंग सिस्टम, नेटवर्किंग प्रोटोकॉल और ट्रांसफ़ॉर्मर मॉडल के आंतरिक गणित को नहीं समझते, तब तक हम वास्तविक आर्किटेक्ट नहीं बन सकते। {BRAND.nameHi} का उद्देश्य हर भारतीय छात्र को गहराई तक पहुँचाना है।
           </p>
           <div class="pt-2 flex items-center gap-4 text-xs text-slate-500 font-hindi">
             <span>६ विषय उपलब्ध</span>
@@ -183,7 +184,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
             Technical Independence & Deep Inquiry
           </h3>
           <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-            Until we master the core internals of operating systems, networking protocols, and transformer mathematics, we cannot build truly resilient architectures. Bodh provides uncompromised technical rigor for builders.
+            Until we master the core internals of operating systems, networking protocols, and transformer mathematics, we cannot build truly resilient architectures. {BRAND.name} provides uncompromised technical rigor for builders.
           </p>
           <div class="pt-2 flex items-center gap-4 text-xs text-slate-500">
             <span>6 Domains Available</span>

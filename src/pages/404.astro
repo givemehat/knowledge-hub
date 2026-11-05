@@ -1,9 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { BRAND } from '../config/brand';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
-<Layout title="404 — Page Not Found — Knowledge Hub">
+<Layout title={`404 — Page Not Found — ${BRAND.name}`}>
   <div class="max-w-2xl mx-auto px-4 py-28 text-center">
     <div class="w-16 h-16 rounded-3xl bg-brand-500/10 dark:bg-brand-950/60 border border-brand-500/20 flex items-center justify-center mx-auto mb-6 shadow-sm">
       <svg class="w-8 h-8 text-brand-600 dark:text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

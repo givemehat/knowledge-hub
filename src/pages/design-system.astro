@@ -11,6 +11,7 @@ import IconTile from '../components/ui/IconTile.astro';
 import ResourceCard from '../components/ui/ResourceCard.astro';
 import CodeBlock from '../components/ui/CodeBlock.astro';
 import Accordion from '../components/ui/Accordion.astro';
+import { BRAND } from '../config/brand';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -24,7 +25,7 @@ const sampleFaqs = [
     answer: 'Multiple heavy dark buttons create visual competition and cognitive overload. Every card has a single clear call-to-action (the ink pill), while secondary actions use outline or ghost buttons.'
   },
   {
-    question: 'How does Bodh eliminate glued text like "Difficultyintermediate"?',
+    question: `How does ${BRAND.name} eliminate glued text like "Difficultyintermediate"?`,
     answer: 'By strictly using MetaRow.astro or separate semantic spans with explicit spacing, ensuring labels and values never collapse into stuck strings.'
   }
 ];
@@ -41,22 +42,22 @@ def scaled_dot_product_attention(Q, K, V):
 `;
 ---
 
-<Layout title="Bodh Design System — Card DNA & Component Library" description="Living component library, Card DNA design tokens, and side-by-side sibling comparisons for Bodh (Knowledge Hub).">
+<Layout title={`${BRAND.name} Design System — Card DNA & Component Library`} description={`Living component library, Card DNA design tokens, and side-by-side sibling comparisons for ${BRAND.name}.`}>
   <!-- Hero Section -->
   <div class="relative overflow-hidden border-b border-slate-200/80 dark:border-white/10 py-14">
     <IndianPattern variant="rangoli" opacity={0.035} />
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="max-w-3xl space-y-3">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/20 text-xs font-semibold">
-          <svg class="w-3.5 h-3.5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" /></svg>
-          Card DNA Design System v1.2
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-peach-500/10 text-peach-800 dark:text-peach-300 border border-peach-500/20 text-xs font-semibold">
+          <svg class="w-3.5 h-3.5 text-peach-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" /></svg>
+          Card DNA Design System v1.3
         </div>
         <h1 class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
           One Cohesive Product Experience
         </h1>
         <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
-          The verified Resource Card is Bodh's design north star. This page showcases the shared component library and visual proof that every card on the platform shares the exact same DNA.
+          The verified Resource Card is {BRAND.name}'s design north star. This page showcases the shared component library and visual proof that every card on the platform shares the exact same DNA.
         </p>
       </div>
     </div>
@@ -81,7 +82,7 @@ def scaled_dot_product_attention(Q, K, V):
           </span>
         </div>
         <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2">
-          Side-by-side rendering of different card types across Bodh. Notice the unified chip row, surface elevation, signature inset panel, and pinned card footer with a single ink pill button.
+          Side-by-side rendering of different card types across {BRAND.name}. Notice the unified chip row, surface elevation, signature inset panel, and pinned card footer with a single ink pill button.
         </p>
       </div>
 

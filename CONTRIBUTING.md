@@ -1,6 +1,6 @@
-# Contributing to Knowledge Hub
+# Contributing to Peach
 
-Thank you for contributing to Knowledge Hub! We welcome PRs for new topics, fact updates, typo fixes, and roadmap enhancements.
+Thank you for contributing to Peach! We welcome PRs for new topics, fact updates, typo fixes, and roadmap enhancements.
 
 ---
 

@@ -1,11 +1,12 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { DATA_CARDS } from '../../data/datacards';
+import { BRAND } from '../../config/brand';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
-<Layout title="Empirical Research & Data Science Hub — Knowledge Hub" description="Data-driven media sentiment research, Kaggle dataset analytics, and empirical natural language processing.">
+<Layout title={`Empirical Research & Data Science Hub — ${BRAND.name}`} description="Data-driven media sentiment research, Kaggle dataset analytics, and empirical natural language processing.">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
     <!-- Header -->
     <div class="max-w-3xl mb-12">

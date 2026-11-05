@@ -27,11 +27,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
       <div class="space-y-1">
         <div class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-          <span>Kuch naya seekha?</span>
+          <span>Found this helpful?</span>
           <span class="w-1.5 h-1.5 rounded-full bg-peacock-500"></span>
         </div>
         <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-snug">
-          Yeh guide <strong>{CREATOR.name}</strong> ne build ki hai. Agar pasand aayi toh feedback dein ya connect karein!
+          Researched and built by <strong>{CREATOR.name}</strong>. Feedback or improvements welcome!
         </p>
       </div>
     </div>
@@ -60,7 +60,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 <script is:inline>
   const cta = document.getElementById('soft-creator-cta');
   const dismissBtn = document.getElementById('dismiss-soft-cta');
-  const storageKey = 'bodh_soft_cta_dismissed';
+  const storageKey = 'peach_soft_cta_dismissed';
 
   if (!sessionStorage.getItem(storageKey)) {
     let shown = false;

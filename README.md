@@ -1,6 +1,6 @@
-# Bodh (बोध) — Modern Static Knowledge Engine for Bharat
+# Peach (पीच) — Modern Static Knowledge Engine
 
-> **The modern Wikipedia for college students, developers, and curious readers.**  
+> **Learn tech and the world, with verified sources.**  
 > 100% static, sub-second fast, privacy-first, verified primary citations, and completely ad-free.
 
 [![Astro](https://img.shields.io/badge/Astro-5.0-FF5D01?logo=astro&logoColor=white)](https://astro.build/)
@@ -86,7 +86,7 @@ Is file ko update karte hi **Header, Footer, About page, Contact form, Topic aut
 /resources/               -> Curated Free Videos, Docs, Books & Tools (Tabbed filter)
 /research/                -> Empirical Research & Longitudinal Sentiment Study (3.84M headlines)
 /scenarios/               -> Strategic Futures Studies & Hypothetical Scenarios
-/about/                   -> Creator Story, Skills, Projects, and Bodh Manifesto
+/about/                   -> Creator Story, Skills, Projects, and Peach Manifesto
 /contact/                 -> Contact Form, Social Links, QR Code & vCard (.vcf)
 /design-system/           -> Storybook-Style Interactive Design System Showcase
 /dev/icon-compare/        -> Side-by-Side Icon Benchmark Lab (Lucide vs Tabler vs Phosphor)

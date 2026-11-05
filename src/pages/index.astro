@@ -10,6 +10,7 @@ import CreatorStrip from '../components/home/CreatorStrip.astro';
 
 import { TOPICS } from '../data/topics';
 import { ROADMAPS } from '../data/roadmaps';
+import { BRAND } from '../config/brand';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -21,7 +22,7 @@ const sourceCount = TOPICS.reduce((acc, t) => acc + (t.sources ? t.sources.lengt
 ---
 
 <Layout
-  title="Bodh (बोध) — Modern Verified Knowledge Engine for Students & Builders"
+  title={`${BRAND.name} (${BRAND.nameHi}) — Modern Verified Knowledge Engine for Students & Builders`}
   description="कॉलेज छात्रों और तकनीकी उत्साही लोगों के लिए प्रामाणिक रोडमैप, गहन तकनीकी गाइड और प्राथमिक स्रोत। No login, no ads, completely open."
 >
   <!-- 1. Hero Section (Split Layout 55/45, Never Truncated H1, Live Preview Collage) -->

@@ -10,11 +10,12 @@ import InsetPanel from '../components/ui/InsetPanel.astro';
 import Button from '../components/ui/Button.astro';
 import CardFooter from '../components/ui/CardFooter.astro';
 import { CREATOR } from '../data/creator';
+import { BRAND } from '../config/brand';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
-<Layout title={`About ${CREATOR.name} & Bodh Manifesto`} description={`Learn about ${CREATOR.name}, the motivation behind Bodh (Knowledge Hub), and our open-source manifesto for high-velocity learning.`}>
+<Layout title={`About ${CREATOR.name} & ${BRAND.name} Manifesto`} description={`Learn about ${CREATOR.name}, the motivation behind ${BRAND.name}, and our open-source manifesto for high-velocity learning.`}>
   <!-- Hero Section -->
   <div class="relative overflow-hidden border-b border-slate-200/80 dark:border-white/10 py-16">
     <IndianPattern variant="rangoli" opacity={0.035} />
@@ -82,7 +83,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <Card class="p-6 sm:p-8 space-y-5">
         <div class="flex items-center justify-between gap-3 flex-wrap">
           <Chip variant="neutral">Editorial Origin</Chip>
-          <span class="text-xs text-slate-400 font-mono">Bodh Knowledge Platform</span>
+          <span class="text-xs text-slate-400 font-mono">{BRAND.name} Platform</span>
         </div>
 
         <div class="space-y-4 text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed">
@@ -202,7 +203,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <div class="border-b border-slate-200/80 dark:border-white/10 pb-4">
         <span class="text-xs font-bold uppercase tracking-wider text-saffron-600 dark:text-saffron-400">Project Philosophy</span>
         <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1">
-          Bodh (Knowledge Hub) Manifesto
+          {BRAND.name} Manifesto
         </h2>
       </div>
 

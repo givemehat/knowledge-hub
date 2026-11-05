@@ -1,11 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import IndianPattern from '../components/ui/IndianPattern.astro';
+import { BRAND } from '../config/brand';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
-<Layout title="How to Contribute — Knowledge Hub" description="Open-source guide on submitting new topics, fixing typos, and proposing roadmap improvements.">
+<Layout title={`How to Contribute — ${BRAND.name}`} description={`Open-source guide on submitting new topics, fixing typos, and proposing roadmap improvements to ${BRAND.name}.`}>
   <div class="relative overflow-hidden border-b border-slate-200/80 dark:border-white/10 py-12">
     <IndianPattern variant="rangoli" opacity={0.03} />
 
@@ -15,10 +16,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         Open Source & Community Driven
       </div>
       <h1 class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
-        Contribute to Knowledge Hub
+        Contribute to {BRAND.name}
       </h1>
       <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
-        Knowledge Hub ek public good hai. Agar aapko koi factual correction karni ho, typo theek karna ho, ya naya topic propose karna ho, direct GitHub par PR open karein!
+        {BRAND.name} is an open-source public good. If you notice a factual discrepancy, typo, or want to contribute a new guide, open a pull request directly on GitHub!
       </p>
     </div>
   </div>

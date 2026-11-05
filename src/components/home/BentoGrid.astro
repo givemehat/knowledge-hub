@@ -39,7 +39,7 @@ const enrichedCategories = CATEGORIES.map(cat => {
         </svg>
         <span id="domains-eyebrow" class="font-medium tracking-normal">{t.domains.eyebrow}</span>
       </div>
-      <h2 id="domains-heading" class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+      <h2 id="domains-heading" class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-normal [letter-spacing:0]">
         {t.domains.heading}
       </h2>
       <p id="domains-subtext" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-xl leading-relaxed">
@@ -76,8 +76,7 @@ const enrichedCategories = CATEGORIES.map(cat => {
 
 <!-- Client-side reactive i18n text switcher for domains section -->
 <script is:inline define:vars={{ hiDict, enDict, topicCount: TOPICS.length }}>
-  window.addEventListener('bodh:lang-change', (event) => {
-    const lang = event.detail.lang || 'hi';
+  function handleLangSwitch(lang) {
     const dict = lang === 'en' ? enDict : hiDict;
     const isEn = lang === 'en';
 
@@ -128,13 +127,16 @@ const enrichedCategories = CATEGORIES.map(cat => {
 
     // Update document lang
     document.documentElement.lang = lang;
-  });
+  }
+
+  window.addEventListener('peach:lang-change', (event) => handleLangSwitch(event.detail.lang || 'hi'));
+  window.addEventListener('app:lang-change', (event) => handleLangSwitch(event.detail.lang || 'hi'));
 
   // Apply stored preference on initial load
   (function initInitialLang() {
-    const saved = localStorage.getItem('bodh_preferred_lang') || 'hi';
+    const saved = localStorage.getItem('peach_preferred_lang') || 'hi';
     if (saved === 'en') {
-      window.dispatchEvent(new CustomEvent('bodh:lang-change', { detail: { lang: 'en' } }));
+      window.dispatchEvent(new CustomEvent('peach:lang-change', { detail: { lang: 'en' } }));
     } else {
       document.documentElement.lang = 'hi';
     }

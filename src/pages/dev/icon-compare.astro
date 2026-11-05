@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import IndianPattern from '../../components/ui/IndianPattern.astro';
 import IconTile from '../../components/domains/IconTile.astro';
+import { BRAND } from '../../config/brand';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -22,7 +23,7 @@ const icons = [
 ];
 ---
 
-<Layout title="Icon Families Comparison Lab — Knowledge Hub Dev" description="Side-by-side benchmark of 12 core UI icons across Lucide, Tabler, Phosphor, and Iconoir styles.">
+<Layout title={`Icon Families Comparison Lab — ${BRAND.name} Dev`} description="Side-by-side benchmark of 12 core UI icons across Lucide, Tabler, Phosphor, and Iconoir styles.">
   <div class="relative overflow-hidden border-b border-slate-200/80 dark:border-white/10 py-12">
     <IndianPattern variant="rangoli" opacity={0.03} />
 

@@ -123,7 +123,7 @@ const { class: className = '' } = Astro.props;
       }
     } catch (err) {
       // Graceful fallback to direct mailto client
-      const subject = encodeURIComponent(formData.get('subject') || 'Contact from Bodh');
+      const subject = encodeURIComponent(formData.get('subject') || 'Contact from Peach');
       const body = encodeURIComponent(formData.get('message') || '');
       const mailtoUrl = `mailto:${fallbackEmail}?subject=${subject}&body=${body}`;
 

@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import IndianPattern from '../../components/ui/IndianPattern.astro';
 import { TOPICS, CATEGORIES } from '../../data/topics';
+import { BRAND } from '../../config/brand';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -16,7 +17,7 @@ const categoryLabels: Record<string, string> = {
 };
 ---
 
-<Layout title="Knowledge Library & Topic Guides — Knowledge Hub" description="Browse 19+ verified topics across AI, Quantum Computing, Placement, and Tech Fundamentals with runnable code and primary sources.">
+<Layout title={`Knowledge Library & Topic Guides — ${BRAND.name}`} description="Browse 19+ verified topics across AI, Quantum Computing, Placement, and Tech Fundamentals with runnable code and primary sources.">
   <div class="relative overflow-hidden border-b border-slate-200/80 dark:border-white/10 py-12">
     <IndianPattern variant="jaali" opacity={0.03} />
 

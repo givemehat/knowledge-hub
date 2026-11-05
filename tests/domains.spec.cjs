@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 async function runDomainsTestSuite() {
-  console.log('=== Starting Bodh Domains Section & Icon Overhaul Test Suite ===');
+  console.log('=== Starting Peach Domains Section & Icon Overhaul Test Suite ===');
 
   const previewPort = 4323;
   console.log(`[Setup] Starting local preview server on port ${previewPort}...`);
@@ -67,25 +67,25 @@ async function runDomainsTestSuite() {
 
     // TEST 3: Semantic Icon Verification (Zero Inappropriate Metaphors)
     // 3a: AI & ML must have Brain/Synapse, NOT microphone
-    const aiIconHtml = await page.$eval('[data-category="ai-ml"] [data-icon-set="bodh-duotone"]', el => el.innerHTML);
+    const aiIconHtml = await page.$eval('[data-category="ai-ml"] [data-icon-set="peach-duotone"]', el => el.innerHTML);
     const hasMic = aiIconHtml.includes('d="M12 2a3 3') || aiIconHtml.includes('line x1="12" x2="12" y1="19" y2="22"');
     const hasBrain = aiIconHtml.includes('M14 4C9.5') || aiIconHtml.includes('circle cx="10" cy="9"');
     assert(!hasMic && hasBrain, 'Test 3a: AI & ML uses Neural Brain duotone icon, NOT microphone');
 
     // 3b: Projects must have Rocket ship, NOT generic star
-    const projIconHtml = await page.$eval('[data-category="projects"] [data-icon-set="bodh-duotone"]', el => el.innerHTML);
+    const projIconHtml = await page.$eval('[data-category="projects"] [data-icon-set="peach-duotone"]', el => el.innerHTML);
     const hasStar = projIconHtml.includes('polygon points="12 2 15.09');
     const hasRocket = projIconHtml.includes('M14 3C17.5') || projIconHtml.includes('14 25L16.5');
     assert(!hasStar && hasRocket, 'Test 3b: Projects Hub uses Rocket ship launch icon, NOT star');
 
     // 3c: Politics & Governance must have Constitutional Landmark / Pillars, NOT house
-    const govIconHtml = await page.$eval('[data-category="gov-policy"] [data-icon-set="bodh-duotone"]', el => el.innerHTML);
+    const govIconHtml = await page.$eval('[data-category="gov-policy"] [data-icon-set="peach-duotone"]', el => el.innerHTML);
     const hasHouse = govIconHtml.includes('d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"');
     const hasPillars = govIconHtml.includes('M6 12V21M11 12V21') || govIconHtml.includes('M3 10L14 4L25 10');
     assert(!hasHouse && hasPillars, 'Test 3c: Governance uses Constitutional Landmark & Pillars icon, NOT house');
 
     // 3d: Tech Fundamentals has Layered Isometric Architecture
-    const techIconHtml = await page.$eval('[data-category="tech-fundamentals"] [data-icon-set="bodh-duotone"]', el => el.innerHTML);
+    const techIconHtml = await page.$eval('[data-category="tech-fundamentals"] [data-icon-set="peach-duotone"]', el => el.innerHTML);
     const hasStack = techIconHtml.includes('M14 3L24 8L14 13L4 8L14 3Z');
     assert(hasStack, 'Test 3d: Tech Fundamentals uses Layered Isometric System Architecture');
 

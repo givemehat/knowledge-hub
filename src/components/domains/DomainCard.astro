@@ -4,6 +4,7 @@ import Chip from '../ui/Chip.astro';
 import InsetPanel from '../ui/InsetPanel.astro';
 import CardFooter from '../ui/CardFooter.astro';
 import Button from '../ui/Button.astro';
+import { BRAND } from '../../config/brand';
 import IconTile from './IconTile.astro';
 import type { Topic } from '../../data/topics';
 
@@ -76,7 +77,7 @@ const comingSoonText = isHindi ? 'इस विषय पर शोध और �
 
     <!-- Row 4: Pinned Footer -->
     <CardFooter>
-      <span slot="meta" class="text-xs text-slate-400 font-medium">Bodh Labs</span>
+      <span slot="meta" class="text-xs text-slate-400 font-medium">{BRAND.name} Labs</span>
       <div slot="action">
         <Button
           href="https://github.com/givemehat/knowledge-hub/issues/new?title=Topic+Suggestion"

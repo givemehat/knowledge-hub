@@ -5,7 +5,7 @@ Email: rajnisihsingh@gmail.com
 Location: India
 
 /* SITE */
-Project: Bodh (Knowledge Hub)
+Project: Peach (पीच) — Knowledge Engine
 URL: https://givemehat.github.io/knowledge-hub/
 Architecture: 100% Static HTML / CSS / Client JS
 Framework: Astro + Tailwind CSS + TypeScript

@@ -2,6 +2,8 @@
 import { TOPICS } from '../data/topics';
 import { ROADMAPS } from '../data/roadmaps';
 import { SCENARIOS } from '../data/scenarios';
+import { BRAND } from '../config/brand';
+import { CREATOR } from '../data/creator';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -49,17 +51,17 @@ const searchData = [
   },
   {
     type: 'Creator',
-    title: 'About Rajnish Singh & Bodh Manifesto',
-    titleHindi: 'रजनीश सिंह और बोध के बारे में',
+    title: `About ${CREATOR.name} & ${BRAND.name} Manifesto`,
+    titleHindi: `${CREATOR.hindiName} और ${BRAND.nameHi} के बारे में`,
     category: 'Creator & Story',
     level: 'Profile',
     url: `${base}/about/`,
-    summary: 'Personal journey, skills, engineering background, and motivation behind building Bodh (Knowledge Hub).',
+    summary: `Personal journey, skills, engineering background, and motivation behind building ${BRAND.name}.`,
     tags: 'creator, rajnish singh, author, about, portfolio, bio, skills'
   },
   {
     type: 'Contact',
-    title: 'Connect & Contact Rajnish Singh',
+    title: `Connect & Contact ${CREATOR.name}`,
     titleHindi: 'संपर्क करें और सहयोग करें',
     category: 'Collaboration',
     level: 'Connect',

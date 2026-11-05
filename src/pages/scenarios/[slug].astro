@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { SCENARIOS, type Scenario } from '../../data/scenarios';
+import { BRAND } from '../../config/brand';
 
 export function getStaticPaths() {
   return SCENARIOS.map(sc => ({
@@ -302,7 +303,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
     <!-- Edit Link Footer -->
     <div class="mt-12 pt-6 border-t border-slate-200 dark:border-darkborder flex items-center justify-between text-xs text-slate-500">
-      <span>Knowledge Hub Futures Studies Unit</span>
+      <span>{BRAND.name} Futures Studies Unit</span>
       <a 
         href="https://github.com/givemehat/knowledge-hub/edit/main/src/data/scenarios.ts"
         target="_blank"

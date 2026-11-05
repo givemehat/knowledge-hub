@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 async function runI18nTestSuite() {
-  console.log('=== Starting Bodh i18n & Typography Automated Test Suite ===');
+  console.log('=== Starting Peach i18n & Typography Automated Test Suite ===');
 
   const previewPort = 4324;
   console.log(`[Setup] Starting local preview server on port ${previewPort}...`);

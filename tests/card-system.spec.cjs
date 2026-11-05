@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 async function runCardSystemTestSuite() {
-  console.log('=== Starting Bodh Card DNA & Design Unification Test Suite ===');
+  console.log('=== Starting Peach Card DNA & Design Unification Test Suite ===');
 
   const previewPort = 4325;
   console.log(`[Setup] Starting local preview server on port ${previewPort}...`);

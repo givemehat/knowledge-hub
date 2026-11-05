@@ -1,10 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { BRAND } from '../../config/brand';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
-<Layout title="Fact vs Hypothesis Protocol — Knowledge Hub" description="Why and how Knowledge Hub strictly separates empirical facts from hypothetical red-teaming scenario models.">
+<Layout title={`Fact vs Hypothesis Protocol — ${BRAND.name}`} description={`Why and how ${BRAND.name} strictly separates empirical facts from hypothetical red-teaming scenario models.`}>
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
     <!-- Breadcrumbs -->
     <nav class="flex items-center gap-2 text-xs text-slate-500 mb-6 font-medium">
@@ -24,8 +25,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <h1 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
         The Golden Rule: Fact vs Hypothesis Protocol
       </h1>
-      <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
-        नॉलेज हब (Knowledge Hub) पर तथ्य और काल्पनिक परिदृश्य कभी एक साथ नहीं मिलाए जाते। जानिए हम क्यों रेड-टीमिंग सिमुलेशन करते हैं और पाठकों की सुरक्षा के लिए कौन से सख्त नियम लागू करते हैं।
+      <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-hindi">
+        {BRAND.nameHi} ({BRAND.name}) पर तथ्य और काल्पनिक परिदृश्य कभी एक साथ नहीं मिलाए जाते। जानिए हम क्यों रेड-टीमिंग सिमुलेशन करते हैं और पाठकों की सुरक्षा के लिए कौन से सख्त नियम लागू करते हैं।
       </p>
     </div>
 

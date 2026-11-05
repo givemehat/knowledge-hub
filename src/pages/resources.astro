@@ -3,12 +3,13 @@ import Layout from '../layouts/Layout.astro';
 import IndianPattern from '../components/ui/IndianPattern.astro';
 import ResourceCard from '../components/ui/ResourceCard.astro';
 import { CURATED_RESOURCES } from '../data/resources';
+import { BRAND } from '../config/brand';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <Layout
-  title="Curated Free Resources — Bodh (बोध)"
+  title={`Curated Free Resources — ${BRAND.name} (${BRAND.nameHi})`}
   description="इंजीनियर्स द्वारा जाँचे और परखे गए शीर्ष तकनीकी वीडियो, आधिकारिक दस्तावेज़ और मुफ़्त टूल्स।"
   lang="hi"
 >
@@ -215,8 +216,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   });
 
   // Language change reactivity
-  window.addEventListener('bodh:lang-change', (event) => {
-    const lang = event.detail.lang || 'hi';
+  function onLangChange(lang) {
     const isEn = lang === 'en';
 
     const eyebrow = document.getElementById('page-eyebrow');
@@ -230,5 +230,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     if (subtext) subtext.textContent = isEn ? 'Skip algorithmic rabbit holes. Every resource is evaluated and tested by engineers.' : 'अनावश्यक खोजों से बचें। हर संसाधन को इंजीनियर्स ने स्वयं परखा और मूल्यांकित किया है ताकि आपका समय व्यर्थ न हो।';
     if (emptyHead) emptyHead.textContent = isEn ? 'No resources found' : 'कोई संसाधन नहीं मिला';
     if (emptySub) emptySub.textContent = isEn ? 'Clear active filters or try a different keyword.' : 'सक्रिय फ़िल्टर साफ़ करें या दूसरा कीवर्ड खोजें।';
-  });
+  }
+
+  window.addEventListener('peach:lang-change', (event) => onLangChange(event.detail.lang || 'hi'));
+  window.addEventListener('app:lang-change', (event) => onLangChange(event.detail.lang || 'hi'));
 </script>

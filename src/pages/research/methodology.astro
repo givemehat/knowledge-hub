@@ -1,10 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { BRAND } from '../../config/brand';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
-<Layout title="Research Methodology & NLP Architecture — Knowledge Hub" description="Detailed computational linguistics and sentiment scoring methodology for Knowledge Hub research.">
+<Layout title={`Research Methodology & NLP Architecture — ${BRAND.name}`} description={`Detailed computational linguistics and sentiment scoring methodology for ${BRAND.name} research.`}>
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
     <!-- Breadcrumbs -->
     <nav class="flex items-center gap-2 text-xs text-slate-500 mb-6 font-medium">

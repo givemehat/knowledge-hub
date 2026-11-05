@@ -4,6 +4,7 @@ import Footer from '../components/Footer.astro';
 import SearchModal from '../components/SearchModal.astro';
 import MobileNav from '../components/MobileNav.astro';
 import { CREATOR } from '../data/creator';
+import { BRAND } from '../config/brand';
 
 interface Props {
   title: string;
@@ -15,24 +16,26 @@ interface Props {
 
 const {
   title,
-  description = "Bodh (Knowledge Hub) - Modern, fast, and verified knowledge portal for students, developers, and tech learners.",
+  description = `${BRAND.name} (${BRAND.descriptor.en}) — Modern, fast, and verified knowledge portal for students, developers, and tech learners.`,
   category = "Technology",
   ogType = "website",
   lang = "hi"
 } = Astro.props;
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const ogImageURL = new URL(`${import.meta.env.BASE_URL.replace(/\/$/, '')}/brand/og-image.svg`, Astro.site);
+const ogImageURL = new URL(`${base}/brand/og-image.png`, Astro.site);
+
 const jsonLdWebsite = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "Bodh",
-  "alternateName": ["Knowledge Hub", "ज्ञान केंद्र"],
-  "url": "https://givemehat.github.io/knowledge-hub/",
+  "name": BRAND.name,
+  "alternateName": [BRAND.nameHi, BRAND.descriptor.en, BRAND.descriptor.hi],
+  "url": BRAND.siteUrl,
   "author": {
     "@type": "Person",
     "name": CREATOR.name,
-    "url": "https://givemehat.github.io/knowledge-hub/about/",
+    "url": `${BRAND.siteUrl}/about/`,
     "sameAs": [
       CREATOR.links.github,
       CREATOR.links.linkedin
@@ -46,186 +49,98 @@ const jsonLdWebsite = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="author" href="https://givemehat.github.io/knowledge-hub/humans.txt" />
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+    <link rel="icon" href={`${base}/favicon.ico`} sizes="32x32" />
+    <link rel="apple-touch-icon" href={`${base}/apple-touch-icon.png`} />
+    <link rel="manifest" href={`${base}/manifest.webmanifest`} />
+    <link rel="author" href={`${base}/humans.txt`} />
     <link rel="me" href={CREATOR.links.github} />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content={BRAND.themeColor} />
 
     <!-- SEO Meta Tags -->
-    <title>{title} | Bodh (बोध)</title>
+    <title>{title} | {BRAND.name}</title>
     <meta name="description" content={description} />
     <meta name="author" content={CREATOR.name} />
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Open Graph -->
     <meta property="og:type" content={ogType} />
-    <meta property="og:title" content={`${title} | Bodh`} />
+    <meta property="og:title" content={`${title} | ${BRAND.name}`} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={ogImageURL} />
-    <meta property="og:site_name" content="Bodh" />
+    <meta property="og:site_name" content={BRAND.name} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={`${title} | Bodh`} />
+    <meta name="twitter:title" content={`${title} | ${BRAND.name}`} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
 
     <!-- Structured Data JSON-LD -->
     <script type="application/ld+json" set:html={JSON.stringify(jsonLdWebsite)} />
 
-    <!-- Typography: Plus Jakarta Sans, Inter, JetBrains Mono, Noto Sans Devanagari -->
+    <!-- Google Fonts: Plus Jakarta Sans, Inter, Noto Sans Devanagari & JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
 
-    <style is:global>
-      :root {
-        --surface: #FAF8F5;
-        --surface-card: #FFFFFF;
-        --surface-raised: #F3EFEA;
-        --on-surface: #14121A;
-        --on-surface-variant: #595566;
-        --primary: #5B3DF5;
-        --primary-hover: #4829E0;
-        --saffron: #FF851A;
-        --teal: #0E8A8A;
-        --kumkum: #D62F4B;
-        --haldi: #F5B700;
-        --outline: rgba(20, 18, 26, 0.08);
-      }
-
-      .dark {
-        --surface: #121016;
-        --surface-card: #1A1722;
-        --surface-raised: #231F2E;
-        --on-surface: #F5F3FA;
-        --on-surface-variant: #A7A3B8;
-        --primary: #7C63FF;
-        --primary-hover: #927EFF;
-        --saffron: #FFA742;
-        --teal: #1DBBBB;
-        --kumkum: #FF5C77;
-        --haldi: #FFCC33;
-        --outline: rgba(245, 243, 250, 0.10);
-      }
-
-      /* Subtle Indian Rangoli Dot-Grid Pattern */
-      .bg-rangoli-grid {
-        background-image: radial-gradient(circle, rgba(91, 61, 245, 0.06) 1px, transparent 1px);
-        background-size: 24px 24px;
-      }
-      .dark .bg-rangoli-grid {
-        background-image: radial-gradient(circle, rgba(124, 99, 255, 0.08) 1px, transparent 1px);
-        background-size: 24px 24px;
-      }
-
-      /* Rhythmic Typography & Content Limits */
-      article {
-        max-width: 68ch;
-      }
-
-      /* Smooth Scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: transparent;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: rgba(140, 130, 160, 0.25);
-        border-radius: 9999px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: rgba(140, 130, 160, 0.45);
-      }
-
-      /* Devanagari 5 Non-Negotiable Typography Rules */
-      :lang(hi), .font-hindi {
-        font-family: 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-        letter-spacing: 0 !important;
-        text-transform: none !important;
-        line-height: 1.75;
-      }
-
-      :lang(hi) h1, :lang(hi) h2, :lang(hi) h3, :lang(hi) h4, :lang(hi) h5, :lang(hi) h6,
-      .font-hindi h1, .font-hindi h2, .font-hindi h3, .font-hindi h4, .font-hindi h5, .font-hindi h6 {
-        letter-spacing: 0 !important;
-        text-transform: none !important;
-        line-height: 1.35;
-      }
-
-      /* Numbers in tabular lining figures */
-      .font-mono, .tabular-nums, .count-pill {
-        font-variant-numeric: tabular-nums;
-      }
-    </style>
-
-    <!-- Inline Dark Theme Script (Zero-FOUC) -->
+    <!-- Theme Initialization Script (Avoids Flash of Unstyled Theme) -->
     <script is:inline>
-      const theme = (() => {
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-          return localStorage.getItem('theme');
+      (function() {
+        const storedTheme = localStorage.getItem('peach_theme') || localStorage.getItem('theme');
+        if (storedTheme === 'dark' || (!storedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
         }
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          return 'dark';
-        }
-        return 'light';
       })();
-
-      if (theme === 'light') {
-        document.documentElement.classList.remove('dark');
-      } else {
-        document.documentElement.classList.add('dark');
-      }
-      window.localStorage.setItem('theme', theme);
     </script>
   </head>
-  <body class="bg-surface-light dark:bg-darkbg text-slate-800 dark:text-slate-100 min-h-screen flex flex-col font-sans selection:bg-violet-500 selection:text-white transition-colors duration-150 pb-16 md:pb-0 antialiased">
-    <!-- Accessibility Skip Link -->
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 px-4 py-2 bg-violet-600 text-white font-bold rounded-xl shadow-xl">
+
+  <body class="bg-surface-light dark:bg-surface-dark text-slate-800 dark:text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-peach-500/20 selection:text-peach-900 dark:selection:text-peach-200">
+    <!-- Skip to Main Content Link (WAI-ARIA Accessibility Requirement) -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:bg-peach-600 focus:text-white focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-peach-400 text-xs font-bold"
+    >
       Skip to main content
     </a>
 
-    <!-- Top Indian Tricolor Micro-Accent Ribbon -->
-    <div class="h-0.5 w-full bg-gradient-to-r from-saffron-500 via-white dark:via-darkbg to-teal-500 opacity-80"></div>
-
+    <!-- Global Application Header -->
     <Header />
-    <SearchModal />
 
-    <main id="main-content" class="flex-grow">
+    <!-- Main Page Content Container -->
+    <main id="main-content" class="flex-grow focus:outline-none" tabindex="-1">
       <slot />
     </main>
 
+    <!-- Global Application Footer -->
     <Footer />
+
+    <!-- Global Keyboard Shortcut Search Modal (Triggered by Ctrl+K / Cmd+K or Click) -->
+    <SearchModal />
+
+    <!-- Mobile Navigation Drawer -->
     <MobileNav />
 
-    <!-- Global Toast Container -->
-    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
-
-    <!-- Global Scripts: Theme, Language & Toast Helper -->
+    <!-- Client-side Interactive UI Helpers & Event Bus -->
     <script is:inline>
-      // Global Toast Notification Helper
-      window.showToast = function(message, type = 'success') {
-        const container = document.getElementById('toast-container');
-        if (!container) return;
-        const toast = document.createElement('div');
-        toast.className = `px-4 py-2.5 rounded-xl text-xs font-semibold shadow-apple-lg border pointer-events-auto transition-all transform translate-y-2 opacity-0 flex items-center gap-2 ${
-          type === 'success' 
-            ? 'bg-white dark:bg-darkcard text-slate-900 dark:text-white border-teal-500/40 text-teal-600 dark:text-teal-400' 
-            : 'bg-white dark:bg-darkcard text-slate-900 dark:text-white border-slate-200 dark:border-darkborder'
-        }`;
-        toast.innerHTML = `
-          <svg class="w-4 h-4 shrink-0 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-          </svg>
-          <span>${message}</span>
-        `;
-        container.appendChild(toast);
-        requestAnimationFrame(() => {
-          toast.classList.remove('translate-y-2', 'opacity-0');
-        });
+      // Global toast notification dispatcher
+      window.showToast = function(message) {
+        let toast = document.getElementById('global-toast');
+        if (!toast) {
+          toast = document.createElement('div');
+          toast.id = 'global-toast';
+          toast.className = 'fixed bottom-5 right-5 z-50 px-4 py-2.5 rounded-xl bg-slate-900/90 dark:bg-white/90 backdrop-blur-md text-white dark:text-slate-900 text-xs font-semibold shadow-apple-lg border border-white/10 dark:border-slate-200 transition-all duration-200 flex items-center gap-2';
+          document.body.appendChild(toast);
+        }
+        toast.innerHTML = `<svg class="w-4 h-4 text-emerald-400 dark:text-emerald-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>\${message}</span>`;
+        toast.classList.remove('opacity-0', 'translate-y-2');
         setTimeout(() => {
           toast.classList.add('opacity-0', 'translate-y-2');
           setTimeout(() => toast.remove(), 200);
@@ -236,20 +151,26 @@ const jsonLdWebsite = {
       const themeBtn = document.getElementById('theme-toggle-btn');
       themeBtn?.addEventListener('click', () => {
         const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('peach_theme', isDark ? 'dark' : 'light');
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
       });
 
       // Synchronize Language Selection & HTML lang attribute
-      window.addEventListener('bodh:lang-change', (event) => {
+      window.addEventListener('peach:lang-change', (event) => {
         const lang = event.detail.lang || 'hi';
         document.documentElement.lang = lang;
         document.body.classList.toggle('lang-en', lang === 'en');
         document.body.classList.toggle('lang-hi', lang === 'hi');
       });
+      // Backward-compatible alias
+      window.addEventListener('app:lang-change', (event) => {
+        const lang = event.detail.lang || 'hi';
+        document.documentElement.lang = lang;
+      });
 
       // Initialize language state
       (function initLanguageState() {
-        const currentLang = localStorage.getItem('bodh_preferred_lang') || 'hi';
+        const currentLang = localStorage.getItem('peach_preferred_lang') || 'hi';
         document.documentElement.lang = currentLang;
         document.body.classList.toggle('lang-en', currentLang === 'en');
         document.body.classList.toggle('lang-hi', currentLang === 'hi');

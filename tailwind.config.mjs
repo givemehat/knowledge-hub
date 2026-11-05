@@ -14,14 +14,28 @@ export default {
           raisedLight: '#F3EFEA',
           raisedDark: '#231F2E',
         },
-        // Brand Primary Electric Violet / Indigo
+        // Peach Brand Accent Palette (Warm Golden Peach to Deep Ripe Coral)
+        peach: {
+          50: '#FFF5F0',        // Softest peach tint
+          100: '#FFE8DC',       // Soft peach chip fill
+          200: '#FFD2BE',       // Muted peach border / surface
+          300: '#FFB295',       // Soft brand highlight
+          400: '#FF9E7A',       // Signature warm golden peach (BRAND.themeColor)
+          500: '#FF7A59',       // Vibrant primary peach
+          600: '#F25C3B',       // Coral peach accent
+          700: '#D64522',       // Deep accessible coral
+          800: '#A83115',       // High-contrast text on white (6.4:1 WCAG AA)
+          900: '#7A220D',       // Deep rich peach
+          950: '#421005',
+        },
+        // Interactive System Indigo / Electric Violet (for links, focused states)
         brand: {
           50: '#F5F3FF',
           100: '#EDE9FE',
           200: '#DDD6FE',
           300: '#C4B5FD',
           400: '#A78BFA',
-          500: '#5B3DF5',        // Bodh Electric Indigo
+          500: '#5B3DF5',        // Electric Indigo
           600: '#4829E0',
           700: '#3A1EC4',
           800: '#2E15A3',

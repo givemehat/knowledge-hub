@@ -11,6 +11,21 @@ export interface UpdateEntry {
 export const UPDATES: UpdateEntry[] = [
   {
     date: '2026-11-05',
+    version: 'v1.3.0',
+    title: 'Brand Evolution: Renamed to Peach with Single Source of Truth',
+    type: 'major',
+    typeLabel: 'Brand & Identity',
+    summary: 'Evolved platform brand to Peach with a unified config architecture, original geometric logo, and peach color tokens.',
+    changes: [
+      'Introduced src/config/brand.ts as single source of truth for brand name, tagline, descriptor, and theme tokens.',
+      'Designed original Peach SVG mark featuring geometric cleft, bookmark leaf, and knowledge seed node.',
+      'Added high-contrast peach palette tokens (50-950) with verified WCAG AA compliance.',
+      'Updated page titles to "Page title | Peach" pattern and configured WebSite structured JSON-LD.',
+      'Added automated crawler tests (tests/brand.spec.cjs) guaranteeing zero hardcoded legacy brand names.'
+    ]
+  },
+  {
+    date: '2026-11-05',
     version: 'v1.2.0',
     title: 'Site-wide Design Unification (Card DNA Architecture)',
     type: 'feature',
@@ -42,7 +57,7 @@ export const UPDATES: UpdateEntry[] = [
   {
     date: '2026-11-04',
     version: 'v1.0.0',
-    title: 'Initial Production Release of Bodh (Knowledge Hub)',
+    title: 'Initial Production Release of Knowledge Engine',
     type: 'major',
     typeLabel: 'Initial Release',
     summary: 'Launched open-source verified knowledge platform for students and fresher developers with 100% static architecture.',
