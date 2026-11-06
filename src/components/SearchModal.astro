@@ -17,6 +17,7 @@ const isHindi = locale === 'hi';
 // Prepare search dataset with locale-aware URLs and titles
 const searchData = [
   ...TOPICS.map(t => ({
+    kind: 'topic',
     type: isHindi ? 'विषय' : 'Topic',
     title: isHindi ? (t.shortTitle || t.title) : (t.shortTitleEn || t.title),
     category: isHindi ? t.categoryLabel : (t.category === 'ai-ml' ? 'AI & Machine Learning' : t.category === 'quantum' ? 'Quantum Computing' : t.category === 'career' ? 'Career & Placement' : t.category === 'projects' ? 'Projects Hub' : t.category === 'tech-fundamentals' ? 'Tech Fundamentals' : 'Politics & Governance'),
@@ -26,6 +27,7 @@ const searchData = [
     tags: t.tags.join(', ')
   })),
   ...ROADMAPS.map(r => ({
+    kind: 'roadmap',
     type: isHindi ? 'रोडमैप' : 'Roadmap',
     title: isHindi ? (r.titleHindi || r.title) : r.title,
     category: isHindi ? 'रोडमैप' : 'Roadmap Guide',
@@ -35,6 +37,7 @@ const searchData = [
     tags: r.nodes.map(n => n.title).join(', ')
   })),
   ...SCENARIOS.map(s => ({
+    kind: 'scenario',
     type: isHindi ? 'सिनेरियो' : 'Scenario',
     title: isHindi ? s.titleHindi : s.title,
     category: isHindi ? s.domainLabel : 'Futures Studies',
@@ -44,6 +47,7 @@ const searchData = [
     tags: 'scenario, red-teaming, simulation, futures'
   })),
   {
+    kind: 'research',
     type: isHindi ? 'शोध' : 'Research',
     title: isHindi ? 'भारतीय समाचार मीडिया सेंटीमेंट अध्ययन (2001-2023)' : 'Headlines of Fear & Hope: Longitudinal Sentiment and Framing Dynamics in Indian Media (2001–2023)',
     category: isHindi ? 'मीडिया शोध' : 'Media Research',
@@ -53,6 +57,7 @@ const searchData = [
     tags: 'sentiment analysis, media, kaggle, research, headlines, emotions'
   },
   {
+    kind: 'other',
     type: isHindi ? 'परिचय' : 'Creator',
     title: isHindi ? `${CREATOR.name} और ${BRAND.name} परिचय` : `About ${CREATOR.name} & ${BRAND.name} Manifesto`,
     category: isHindi ? 'परिचय' : 'Creator & Story',
@@ -62,6 +67,7 @@ const searchData = [
     tags: 'creator, rajnish singh, author, about, portfolio, bio, skills'
   },
   {
+    kind: 'other',
     type: isHindi ? 'संपर्क' : 'Contact',
     title: isHindi ? `${CREATOR.name} से संपर्क करें` : `Connect & Contact ${CREATOR.name}`,
     category: isHindi ? 'सहयोग' : 'Collaboration',
@@ -69,6 +75,67 @@ const searchData = [
     url: `${base}/${locale}/contact/`,
     summary: isHindi ? 'सहयोग और सुझाव के लिए संपर्क करें।' : 'Get in touch for internships, software engineering roles, open-source feedback, and vCard download.',
     tags: 'contact, hire, collaborate, message, email, github, vcard, qr code'
+  },
+  // Interactive Design Engineering Studios (shadcn/ui, 21st.dev, Magic UI, Motion Primitives, Better-Design)
+  {
+    kind: 'studio',
+    type: isHindi ? 'स्टूडियो' : 'Studio',
+    title: isHindi ? 'shadcn/ui कोर प्रिमिटिव्स रजिस्ट्री एक्सप्लोरर' : 'shadcn/ui Core Primitives Registry & AI Prompt Studio',
+    category: isHindi ? 'कंपोनेंट रजिस्ट्री' : 'Component Registry',
+    level: 'Radix + Tailwind',
+    url: `${base}/${locale}/topics/ai-ui-prompting-engineering/#shadcn-registry-studio`,
+    summary: isHindi ? 'Dialog, cmdk, Form with Zod, Data Table, और Sheet प्रिमिटिव्स।' : 'Production-grade Radix UI primitives, Tailwind CVA tokenization, and copy-paste component prompts.',
+    tags: 'shadcn, dialog, modal, cmdk, command, form, zod, data table, sheet, drawer'
+  },
+  {
+    kind: 'studio',
+    type: isHindi ? 'स्टूडियो' : 'Studio',
+    title: isHindi ? '21st.dev कम्युनिटी रजिस्ट्री और AI MCP हब' : '21st.dev Design Engineer Community Registry & AI MCP Studio',
+    category: isHindi ? 'डिज़ाइन इंजीनियरिंग' : 'Design Engineering',
+    level: 'Framer Motion + MCP',
+    url: `${base}/${locale}/topics/ai-ui-prompting-engineering/#community-registry-studio`,
+    summary: isHindi ? 'AI Chat with CoT thinking, 3D Glare Card, Magnetic Button, और MCP सर्वर।' : 'The NPM for Design Engineers: interactive glare cards, magnetic buttons, and Model Context Protocol agent prompts.',
+    tags: '21st dev, npm, design engineer, mcp, model context protocol, glare card, magnetic button, ambient glow, ai chat'
+  },
+  {
+    kind: 'studio',
+    type: isHindi ? 'स्टूडियो' : 'Studio',
+    title: isHindi ? 'Magic UI काइनेटिक इफेक्ट्स और बेंटो मैट्रिक्स' : 'Magic UI Kinetic Signature Effects & Bento Grid Matrix',
+    category: isHindi ? 'काइनेटिक मोशन' : 'Kinetic Motion',
+    level: 'Shimmer & Beam',
+    url: `${base}/${locale}/topics/ui-animation-micro-interactions/#magicui-kinetic-effects`,
+    summary: isHindi ? 'Border Beam, Animated Beam, Shimmer Button, Meteors, और Particles।' : 'High-impact motion primitives: border beams, kinetic particles, shimmer actions, and bento archetypes.',
+    tags: 'magic ui, border beam, animated beam, shimmer button, meteors, particles, bento grid'
+  },
+  {
+    kind: 'studio',
+    type: isHindi ? 'स्टूडियो' : 'Studio',
+    title: isHindi ? 'Motion Primitives macOS फ्लोटिंग डॉक और शेडर्स' : 'Motion Primitives macOS Floating Dock & Progressive Blur',
+    category: isHindi ? 'UI फिजिक्स' : 'UI Physics',
+    level: 'Spring Physics',
+    url: `${base}/${locale}/topics/ui-animation-micro-interactions/#motion-primitives-studio`,
+    summary: isHindi ? 'स्प्रिंग मैग्निफिकेशन डॉक, मॉर्फिंग पॉपओवर, और प्रोग्रेसिव ब्लर।' : 'Fluid spring-physics floating dock, morphing popover, and progressive blur shader effects.',
+    tags: 'motion primitives, floating dock, spring, morphing popover, progressive blur, shader'
+  },
+  {
+    kind: 'studio',
+    type: isHindi ? 'स्टूडियो' : 'Studio',
+    title: isHindi ? 'टाइपोग्राफी स्टूडियो और फॉन्ट पेयरिंग मैट्रिक्स' : 'Typography Prompt Studio & Font Pairing Matrix',
+    category: isHindi ? 'टाइपोग्राफी' : 'Typography Scale',
+    level: 'Font Scaling',
+    url: `${base}/${locale}/topics/typography-prompting-font-pairing/#font-pairing-matrix`,
+    summary: isHindi ? '6 टाइपफेस, डायनामिक स्केलिंग, और 6 टेक्स्ट एनिमेशन प्लेग्राउंड्स।' : 'Live font pairing matrix, modular typographic scale, and 6 text animation playgrounds.',
+    tags: 'typography, font pairing, bricolage grotesque, inter, text animation, font scale'
+  },
+  {
+    kind: 'studio',
+    type: isHindi ? 'स्टूडियो' : 'Studio',
+    title: isHindi ? 'WCAG कलर कॉन्ट्रास्ट और एलिवेशन लैब' : 'WCAG Contrast Ratio Lab & Elevation Shadow Studio',
+    category: isHindi ? 'कलर व शैडो' : 'Color Systems',
+    level: 'WCAG AA/AAA',
+    url: `${base}/${locale}/topics/ui-styling-color-systems/#wcag-contrast-lab`,
+    summary: isHindi ? 'रियल-टाइम WCAG 4.5:1 / 7:1 कॉन्ट्रास्ट कैलकुलेटर और ऐप्पल शैडो लेयर्स।' : 'Real-time WCAG contrast verification, 5 brand archetypes, and elevation shadow generator.',
+    tags: 'wcag, contrast, color, better design, linear, stripe, vercel, supabase, apple, shadow'
   }
 ];
 
@@ -86,15 +153,34 @@ const defaultPlaceholderText = isHindi ? "सत्यापित विषय,
       <input
         type="text"
         id="search-input"
-        placeholder={isHindi ? "खोजने के लिए टाइप करें (जैसे RAG, DSA, OS)..." : "Type to search topics, roadmaps, or tech concepts (e.g. RAG, DSA, Docker)..."}
+        placeholder={isHindi ? "खोजने के लिए टाइप करें (जैसे shadcn, 21st, RAG, DSA)..." : "Type to search studios, topics, or registries (e.g. shadcn, 21st, RAG, Bento)..."}
         class="w-full bg-transparent text-slate-900 dark:text-white placeholder-slate-400 text-sm focus:outline-none"
         autocomplete="off"
       />
       <kbd id="close-search-btn" class="text-[11px] font-mono px-2 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-white/10 cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">ESC</kbd>
     </div>
 
+    <!-- Quick Filter Tags Bar -->
+    <div class="flex items-center gap-1.5 px-5 py-2 bg-slate-50/50 dark:bg-slate-900/40 border-b border-slate-100 dark:border-white/5 overflow-x-auto text-[11px]" id="search-filter-pills">
+      <button type="button" data-filter="all" class="search-pill active px-2.5 py-0.5 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold cursor-pointer shrink-0">
+        {isHindi ? "सभी" : "All"}
+      </button>
+      <button type="button" data-filter="studio" class="search-pill px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white font-semibold cursor-pointer shrink-0">
+        ★ {isHindi ? "स्टूडियो (6)" : "Studios (6)"}
+      </button>
+      <button type="button" data-filter="topic" class="search-pill px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white font-semibold cursor-pointer shrink-0">
+        {isHindi ? "विषय" : "Topics"}
+      </button>
+      <button type="button" data-filter="roadmap" class="search-pill px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white font-semibold cursor-pointer shrink-0">
+        {isHindi ? "रोडमैप" : "Roadmaps"}
+      </button>
+      <button type="button" data-filter="research" class="search-pill px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white font-semibold cursor-pointer shrink-0">
+        {isHindi ? "शोध" : "Research"}
+      </button>
+    </div>
+
     <!-- Results List -->
-    <div id="search-results" class="overflow-y-auto p-3 space-y-2 text-sm">
+    <div id="search-results" class="overflow-y-auto p-3 space-y-1.5 text-sm">
       <div class="p-8 text-center text-slate-400 text-xs">
         {isHindi ? "सत्यापित विषय, चीट-शीट और रोडमैप खोजें..." : "Search through verified topics, cheat sheets, and interview roadmaps..."}
       </div>
@@ -119,14 +205,61 @@ const defaultPlaceholderText = isHindi ? "सत्यापित विषय,
   const closeBtn = document.getElementById('close-search-btn');
   const searchInput = document.getElementById('search-input');
   const resultsContainer = document.getElementById('search-results');
+  const filterPills = document.querySelectorAll('#search-filter-pills .search-pill');
 
   let selectedIndex = -1;
   let currentResults = [];
+  let currentFilter = 'all';
+
+  function getBadgeClass(kind) {
+    if (kind === 'studio') {
+      return 'bg-violet-50 dark:bg-violet-950/70 text-violet-700 dark:text-violet-300 border-violet-500/30';
+    }
+    if (kind === 'roadmap') {
+      return 'bg-peacock-50 dark:bg-peacock-950/70 text-peacock-700 dark:text-peacock-300 border-peacock-500/30';
+    }
+    if (kind === 'research') {
+      return 'bg-saffron-50 dark:bg-saffron-950/70 text-saffron-700 dark:text-saffron-300 border-saffron-500/30';
+    }
+    return 'bg-brand-50 dark:bg-brand-950/70 text-brand-700 dark:text-brand-300 border-brand-500/20';
+  }
+
+  function getFilteredData(query, filter) {
+    let list = searchData;
+    if (filter === 'studio') {
+      list = list.filter(i => i.kind === 'studio');
+    } else if (filter === 'topic') {
+      list = list.filter(i => i.kind === 'topic');
+    } else if (filter === 'roadmap') {
+      list = list.filter(i => i.kind === 'roadmap');
+    } else if (filter === 'research') {
+      list = list.filter(i => i.kind === 'research');
+    }
+
+    if (!query) {
+      if (filter === 'all') {
+        const studios = searchData.filter(i => i.kind === 'studio');
+        const others = searchData.filter(i => i.kind !== 'studio').slice(0, 4);
+        return [...studios, ...others];
+      }
+      return list.slice(0, 10);
+    }
+
+    const q = query.toLowerCase().trim();
+    return list.filter(item => 
+      item.title.toLowerCase().includes(q) ||
+      (item.summary && item.summary.toLowerCase().includes(q)) ||
+      (item.tags && item.tags.toLowerCase().includes(q)) ||
+      item.category.toLowerCase().includes(q)
+    ).slice(0, 12);
+  }
 
   function openSearch() {
     modal.classList.remove('hidden');
     searchInput.value = '';
-    renderResults(searchData.slice(0, 6));
+    currentFilter = 'all';
+    updatePillStyles();
+    renderResults(getFilteredData('', currentFilter));
     setTimeout(() => searchInput.focus(), 50);
   }
 
@@ -134,6 +267,25 @@ const defaultPlaceholderText = isHindi ? "सत्यापित विषय,
     modal.classList.add('hidden');
     selectedIndex = -1;
   }
+
+  function updatePillStyles() {
+    filterPills.forEach(p => {
+      const match = p.getAttribute('data-filter') === currentFilter;
+      if (match) {
+        p.className = 'search-pill active px-2.5 py-0.5 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold cursor-pointer shrink-0';
+      } else {
+        p.className = 'search-pill px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white font-semibold cursor-pointer shrink-0';
+      }
+    });
+  }
+
+  filterPills.forEach(p => {
+    p.addEventListener('click', () => {
+      currentFilter = p.getAttribute('data-filter') || 'all';
+      updatePillStyles();
+      renderResults(getFilteredData(searchInput.value, currentFilter));
+    });
+  });
 
   openBtn?.addEventListener('click', openSearch);
   closeBtn?.addEventListener('click', closeSearch);
@@ -146,6 +298,15 @@ const defaultPlaceholderText = isHindi ? "सत्यापित विषय,
     if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
       e.preventDefault();
       modal.classList.contains('hidden') ? openSearch() : closeSearch();
+    }
+    // Allow pressing '/' to open search when no inputs are focused
+    if (e.key === '/' && modal.classList.contains('hidden')) {
+      const active = document.activeElement;
+      const isInput = active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.isContentEditable);
+      if (!isInput) {
+        e.preventDefault();
+        openSearch();
+      }
     }
     if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
       closeSearch();
@@ -172,10 +333,10 @@ const defaultPlaceholderText = isHindi ? "सत्यापित विषय,
   function updateSelection(items) {
     items.forEach((item, idx) => {
       if (idx === selectedIndex) {
-        item.classList.add('bg-brand-50', 'dark:bg-brand-950/70', 'border-brand-500/30');
+        item.classList.add('bg-slate-100', 'dark:bg-slate-800/80', 'border-slate-300', 'dark:border-white/20');
         item.scrollIntoView({ block: 'nearest' });
       } else {
-        item.classList.remove('bg-brand-50', 'dark:bg-brand-950/70', 'border-brand-500/30');
+        item.classList.remove('bg-slate-100', 'dark:bg-slate-800/80', 'border-slate-300', 'dark:border-white/20');
       }
     });
   }
@@ -190,7 +351,7 @@ const defaultPlaceholderText = isHindi ? "सत्यापित विषय,
 
     resultsContainer.innerHTML = results.map((item, idx) => `
       <a href="${item.url}" class="search-item flex items-start gap-3 p-3 rounded-2xl border border-transparent hover:border-slate-200/80 dark:hover:border-white/10 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all cursor-pointer group">
-        <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-1 rounded-md bg-brand-50 dark:bg-brand-950/70 text-brand-700 dark:text-brand-300 border border-brand-500/20 shrink-0 mt-0.5">
+        <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-1 rounded-md border shrink-0 mt-0.5 ${getBadgeClass(item.kind)}">
           ${item.type}
         </span>
         <div class="flex-grow min-w-0">
@@ -207,17 +368,6 @@ const defaultPlaceholderText = isHindi ? "सत्यापित विषय,
   }
 
   searchInput?.addEventListener('input', (e) => {
-    const q = e.target.value.toLowerCase().trim();
-    if (!q) {
-      renderResults(searchData.slice(0, 6));
-      return;
-    }
-    const filtered = searchData.filter(item => 
-      item.title.toLowerCase().includes(q) ||
-      (item.summary && item.summary.toLowerCase().includes(q)) ||
-      (item.tags && item.tags.toLowerCase().includes(q)) ||
-      item.category.toLowerCase().includes(q)
-    );
-    renderResults(filtered.slice(0, 10));
+    renderResults(getFilteredData(e.target.value, currentFilter));
   });
 </script>

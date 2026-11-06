@@ -346,5 +346,190 @@ def scaled_dot_product_attention(Q, K, V):
       </div>
     </section>
 
+    <!-- ======================================================== -->
+    <!-- SECTION 5: KINETIC & DESIGN ENGINEERING PRIMITIVES GALLERY -->
+    <!-- ======================================================== -->
+    <section id="kinetic-primitives-gallery" class="space-y-6">
+      <div class="border-b border-slate-200/80 dark:border-white/10 pb-4">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-violet-600 dark:text-violet-400">Section 05 • Design Engineering Primitives</span>
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1">
+              Kinetic UI Primitives (shadcn/ui, 21st.dev, Magic UI & Motion Primitives)
+            </h2>
+          </div>
+          <span class="text-xs font-mono text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full">
+            5 Curated Primitives
+          </span>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl">
+          Unified showcase of modern design-engineering patterns integrated into Peach, featuring copy-paste registry tokens and live interactive micro-interactions.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Primitive 1: Magic UI Shimmer Action Button -->
+        <Card variant="elevated" class="p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-violet-100 text-violet-700 dark:bg-violet-950/60 dark:text-violet-300 font-bold uppercase">
+              Magic UI
+            </span>
+            <span class="text-[10px] text-slate-400 font-mono">Shimmer</span>
+          </div>
+          <div>
+            <h3 class="text-sm font-black text-slate-900 dark:text-white">Kinetic Shimmer Button</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Smooth animated light beam passing across button surface on hover.</p>
+          </div>
+          <div class="py-4 flex justify-center">
+            <button
+              type="button"
+              class="relative group overflow-hidden px-5 py-2.5 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 text-xs font-bold shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer"
+            >
+              <span class="absolute inset-0 -translate-x-full group-hover:translate-x-full duration-1000 bg-gradient-to-r from-transparent via-white/30 dark:via-black/15 to-transparent transition-transform ease-out pointer-events-none"></span>
+              <span class="relative z-10 flex items-center gap-1.5">
+                <span>Shimmer Action</span>
+                <span>&rarr;</span>
+              </span>
+            </button>
+          </div>
+          <CardFooter class="pt-3 border-t border-slate-100 dark:border-white/10">
+            <a href={`${base}/topics/ui-animation-micro-interactions/#magicui-kinetic-effects`} class="text-xs font-bold text-brand-600 dark:text-brand-400 hover:underline">
+              Launch Motion Builder &rarr;
+            </a>
+          </CardFooter>
+        </Card>
+
+        <!-- Primitive 2: 21st.dev 3D Glare Card -->
+        <Card variant="elevated" class="p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-fuchsia-100 text-fuchsia-700 dark:bg-fuchsia-950/60 dark:text-fuchsia-300 font-bold uppercase">
+              21st.dev
+            </span>
+            <span class="text-[10px] text-slate-400 font-mono">3D Glare</span>
+          </div>
+          <div>
+            <h3 class="text-sm font-black text-slate-900 dark:text-white">Holographic Glare Card</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Dynamic CSS perspective tilt and radial highlight simulated on dark glass surfaces.</p>
+          </div>
+          <div class="py-3 flex justify-center">
+            <div class="w-full max-w-[200px] h-28 rounded-xl bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 border border-white/20 p-3 flex flex-col justify-between text-white shadow-lg">
+              <span class="text-[9px] font-mono text-indigo-300 uppercase">21st Pass</span>
+              <div class="text-[11px] font-bold">Holographic Foil</div>
+              <div class="text-[9px] font-mono text-slate-400">perspective: 1000px</div>
+            </div>
+          </div>
+          <CardFooter class="pt-3 border-t border-slate-100 dark:border-white/10">
+            <a href={`${base}/topics/ai-ui-prompting-engineering/#community-registry-studio`} class="text-xs font-bold text-brand-600 dark:text-brand-400 hover:underline">
+              Launch 21st.dev Hub &rarr;
+            </a>
+          </CardFooter>
+        </Card>
+
+        <!-- Primitive 3: shadcn/ui cmdk Command Palette Trigger -->
+        <Card variant="elevated" class="p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-bold uppercase">
+              shadcn/ui
+            </span>
+            <span class="text-[10px] text-slate-400 font-mono">cmdk</span>
+          </div>
+          <div>
+            <h3 class="text-sm font-black text-slate-900 dark:text-white">Command Palette (cmdk)</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Fast, accessible in-memory search dialog with keyboard navigation and instant filter.</p>
+          </div>
+          <div class="py-4 flex justify-center">
+            <button
+              type="button"
+              onclick="document.getElementById('open-search-btn')?.click()"
+              class="w-full max-w-[220px] flex items-center justify-between px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-white/10 text-xs text-slate-600 dark:text-slate-300 hover:border-slate-400 cursor-pointer transition-all"
+            >
+              <span>Search knowledge...</span>
+              <kbd class="font-mono text-[10px] font-bold px-1.5 py-0.5 rounded bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700">⌘K</kbd>
+            </button>
+          </div>
+          <CardFooter class="pt-3 border-t border-slate-100 dark:border-white/10">
+            <a href={`${base}/topics/ai-ui-prompting-engineering/#shadcn-registry-studio`} class="text-xs font-bold text-brand-600 dark:text-brand-400 hover:underline">
+              Launch shadcn Registry &rarr;
+            </a>
+          </CardFooter>
+        </Card>
+
+        <!-- Primitive 4: Motion Primitives Floating Dock -->
+        <Card variant="elevated" class="p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-100 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 font-bold uppercase">
+              Motion Primitives
+            </span>
+            <span class="text-[10px] text-slate-400 font-mono">macOS Dock</span>
+          </div>
+          <div>
+            <h3 class="text-sm font-black text-slate-900 dark:text-white">Spring Magnification Dock</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">macOS inspired icon bar featuring fluid spring magnification physics based on cursor distance.</p>
+          </div>
+          <div class="py-4 flex justify-center">
+            <div class="inline-flex items-center gap-2 p-1.5 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-white/10">
+              <div class="w-7 h-7 rounded-lg bg-white dark:bg-slate-700 flex items-center justify-center text-xs shadow-xs">📁</div>
+              <div class="w-7 h-7 rounded-lg bg-white dark:bg-slate-700 flex items-center justify-center text-xs shadow-xs">⚙️</div>
+              <div class="w-7 h-7 rounded-lg bg-white dark:bg-slate-700 flex items-center justify-center text-xs shadow-xs">🚀</div>
+              <div class="w-7 h-7 rounded-lg bg-white dark:bg-slate-700 flex items-center justify-center text-xs shadow-xs">🔍</div>
+            </div>
+          </div>
+          <CardFooter class="pt-3 border-t border-slate-100 dark:border-white/10">
+            <a href={`${base}/topics/ui-animation-micro-interactions/#motion-primitives-studio`} class="text-xs font-bold text-brand-600 dark:text-brand-400 hover:underline">
+              Launch Dock Studio &rarr;
+            </a>
+          </CardFooter>
+        </Card>
+
+        <!-- Primitive 5: Better-Design Brand Archetypes -->
+        <Card variant="elevated" class="p-5 space-y-4 md:col-span-2">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-100 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300 font-bold uppercase">
+              Better-Design
+            </span>
+            <span class="text-[10px] text-slate-400 font-mono">Brand Systems</span>
+          </div>
+          <div>
+            <h3 class="text-sm font-black text-slate-900 dark:text-white">Curated Brand Design Archetypes</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Token systems and elevation scales inspired by premier design-forward companies.</p>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 py-2">
+            <div class="p-2.5 rounded-xl bg-slate-950 text-white border border-white/10 text-center">
+              <div class="w-3 h-3 rounded-full bg-violet-500 mx-auto mb-1"></div>
+              <div class="text-[10px] font-bold">Linear</div>
+              <div class="text-[8px] font-mono text-slate-400">Dark Minimal</div>
+            </div>
+            <div class="p-2.5 rounded-xl bg-indigo-50 text-indigo-900 border border-indigo-200 text-center">
+              <div class="w-3 h-3 rounded-full bg-indigo-500 mx-auto mb-1"></div>
+              <div class="text-[10px] font-bold">Stripe</div>
+              <div class="text-[8px] font-mono text-indigo-500">Warm Vibrant</div>
+            </div>
+            <div class="p-2.5 rounded-xl bg-black text-white border border-white/20 text-center">
+              <div class="w-3 h-3 rounded-full bg-white mx-auto mb-1"></div>
+              <div class="text-[10px] font-bold">Vercel</div>
+              <div class="text-[8px] font-mono text-slate-400">Monochrome</div>
+            </div>
+            <div class="p-2.5 rounded-xl bg-emerald-950 text-emerald-200 border border-emerald-800 text-center">
+              <div class="w-3 h-3 rounded-full bg-emerald-400 mx-auto mb-1"></div>
+              <div class="text-[10px] font-bold">Supabase</div>
+              <div class="text-[8px] font-mono text-emerald-400">Emerald Glow</div>
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-100 text-slate-900 border border-slate-300 text-center">
+              <div class="w-3 h-3 rounded-full bg-slate-900 mx-auto mb-1"></div>
+              <div class="text-[10px] font-bold">Apple</div>
+              <div class="text-[8px] font-mono text-slate-600">Pure Clean</div>
+            </div>
+          </div>
+          <CardFooter class="pt-3 border-t border-slate-100 dark:border-white/10">
+            <a href={`${base}/topics/ui-styling-color-systems/#wcag-contrast-lab`} class="text-xs font-bold text-brand-600 dark:text-brand-400 hover:underline">
+              Launch WCAG & Archetype Studio &rarr;
+            </a>
+          </CardFooter>
+        </Card>
+
+      </div>
+    </section>
+
   </div>
 </Layout>

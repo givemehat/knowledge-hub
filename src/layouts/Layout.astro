@@ -181,6 +181,19 @@ const jsonLdWebsite = {
           localStorage.setItem('peach_theme', isDark ? 'dark' : 'light');
         });
       })();
+
+      // 21st.dev / Better-Design Card Cursor Ambient Light Tracking
+      (function() {
+        if (typeof window === 'undefined') return;
+        document.addEventListener('pointermove', function(e) {
+          const card = e.target.closest && e.target.closest('[data-component="card"]');
+          if (card) {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
+            card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
+          }
+        }, { passive: true });
+      })();
     </script>
   </body>
 </html>
