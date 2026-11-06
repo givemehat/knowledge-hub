@@ -103,7 +103,22 @@ async function runLayoutStudioTests() {
     const featBentoTab = page.locator('#bento-archetype-tabs button[data-archetype="features"]');
     await featBentoTab.click();
     const isFeatBentoVisible = await page.locator('#bento-grid-features').isVisible();
-    assert(isFeatBentoVisible, 'Test 5: DynamicBentoMatrix displays Product Features grid archetype');
+    assert(isFeatBentoVisible, 'Test 5a: DynamicBentoMatrix displays Product Features grid archetype');
+
+    // Test 5b: Switch to Magic UI Kinetic Bento Archetype
+    const magicBentoTab = page.locator('#bento-archetype-tabs button[data-archetype="magicui"]');
+    await magicBentoTab.click();
+    const isMagicBentoVisible = await page.locator('#bento-grid-magicui').isVisible();
+    assert(isMagicBentoVisible, 'Test 5b: DynamicBentoMatrix displays Magic UI Kinetic grid archetype');
+
+    const magicBentoPrompt = await page.$eval('#bento-prompt-output', el => el.innerText);
+    assert(magicBentoPrompt.includes('Magic UI inspired Bento Grid') && magicBentoPrompt.includes('@magicui/all'), 'Test 5c: Bento prompt updates to Magic UI specification');
+
+    // Test 5d: Cursor Spotlight Tracking on Magic UI Bento
+    await page.hover('#bento-grid-magicui', { position: { x: 100, y: 100 } });
+    await page.waitForTimeout(50);
+    const spotlightBg = await page.$eval('#magicui-spotlight-layer', el => el.style.background);
+    assert(spotlightBg.includes('radial-gradient'), 'Test 5d: Pointer hover activates dynamic cursor spotlight gradient', spotlightBg.slice(0, 45));
 
     // Test 6: Zero Console Errors
     assert(consoleErrors.length === 0, 'Test 6: Zero console errors on responsive layouts studio page', consoleErrors.join(' | '));

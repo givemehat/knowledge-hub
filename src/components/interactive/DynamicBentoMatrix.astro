@@ -40,6 +40,14 @@ import Button from '../ui/Button.astro';
       >
         Product Features
       </button>
+      <button
+        type="button"
+        data-archetype="magicui"
+        class="bento-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer flex items-center gap-1.5"
+      >
+        <span class="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse"></span>
+        <span>Magic UI Bento</span>
+      </button>
     </div>
   </div>
 
@@ -190,6 +198,94 @@ import Button from '../ui/Button.astro';
           <p class="text-[11px] text-slate-500 dark:text-slate-400">100% open-source, no trackers, strict user privacy by design.</p>
         </div>
       </div>
+
+      <!-- 4. MAGIC UI KINETIC BENTO ARCHETYPE -->
+      <div id="bento-grid-magicui" class="bento-grid-view hidden relative grid grid-cols-1 md:grid-cols-4 gap-4 p-2 rounded-2xl transition-all">
+        <!-- Spotlight cursor overlay -->
+        <div id="magicui-spotlight-layer" class="absolute inset-0 pointer-events-none rounded-2xl transition-opacity duration-300 opacity-0"></div>
+
+        <!-- Cell 1: Hero Border Beam (2x2) -->
+        <div class="md:col-span-2 md:row-span-2 relative overflow-hidden rounded-2xl p-[1.5px] shadow-lg">
+          <div class="border-beam-ring"></div>
+          <div class="relative rounded-[15px] bg-slate-900 text-white p-6 h-full flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                <span class="px-2 py-0.5 rounded-md bg-purple-500/20 text-purple-300 text-[10px] font-mono font-bold uppercase tracking-wider">
+                  @magicui/border-beam
+                </span>
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              </div>
+              <h4 class="text-xl font-black mt-2">Kinetic Intelligence Engine</h4>
+              <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                Asymmetric grid cells wired with orbiting perimeter beams, streaming SVG physics, and hardware-accelerated shaders.
+              </p>
+            </div>
+            <div class="flex items-center justify-between pt-4 border-t border-white/10">
+              <span class="text-[11px] font-mono text-purple-300">Framer Motion • 60 FPS</span>
+              <button type="button" class="px-3 py-1.5 rounded-lg bg-white text-slate-950 font-bold text-xs hover:bg-slate-100 transition-colors">
+                Inspect Beam &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cell 2: Animated Node Stream (1x2 Tall) -->
+        <div class="md:row-span-2 p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-xs flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-[10px] font-mono text-purple-600 dark:text-purple-400 font-bold uppercase">@magicui/animated-beam</span>
+              <span class="text-[10px] font-mono text-emerald-500">Live</span>
+            </div>
+            <h5 class="text-xs font-black text-slate-900 dark:text-white">Active Synapse Track</h5>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Real-time bi-directional packet stream between microservices.</p>
+          </div>
+
+          <!-- Mini Beam SVG -->
+          <div class="py-2 px-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-white/5 space-y-2">
+            <div class="flex items-center justify-between text-[10px] font-bold">
+              <span class="text-slate-700 dark:text-slate-300">Client UI</span>
+              <span class="text-purple-500">FastAPI</span>
+            </div>
+            <svg class="w-full h-6" viewBox="0 0 160 20">
+              <defs>
+                <linearGradient id="bento-beam-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#FF7A59"/>
+                  <stop offset="100%" stop-color="#9333EA"/>
+                </linearGradient>
+              </defs>
+              <line x1="10" y1="10" x2="150" y2="10" stroke="rgba(148,163,184,0.2)" stroke-width="2"/>
+              <line x1="10" y1="10" x2="150" y2="10" stroke="url(#bento-beam-grad)" stroke-width="3" stroke-dasharray="25 100" class="anim-beam-stream"/>
+            </svg>
+          </div>
+
+          <div class="text-[10px] text-slate-400 font-mono">Zero layout reflow • SVG GPU</div>
+        </div>
+
+        <!-- Cell 3: Number Ticker & Shimmer Button (1x1) -->
+        <div class="p-4 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-xs space-y-2 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] font-mono text-purple-600 dark:text-purple-400 font-bold uppercase">@magicui/number-ticker</span>
+            <div class="text-2xl font-black text-slate-900 dark:text-white mt-1">99.98%</div>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400">Deterministic Prompt Fidelity</p>
+          </div>
+          <button type="button" class="relative overflow-hidden w-full py-1.5 rounded-lg bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-bold text-xs text-center">
+            <div class="shimmer-glimmer"></div>
+            <span class="relative z-10">Instant Sync</span>
+          </button>
+        </div>
+
+        <!-- Cell 4: Cosmic Meteors Cell (1x1) -->
+        <div class="relative overflow-hidden p-4 rounded-2xl bg-slate-950 border border-slate-800 text-white shadow-xs space-y-2 min-h-[110px] flex flex-col justify-between">
+          <span class="meteor-streak" style="top: 20%; left: 90%; animation-delay: 0.2s; animation-duration: 2.2s;"></span>
+          <span class="meteor-streak" style="top: 55%; left: 80%; animation-delay: 1.1s; animation-duration: 2.6s;"></span>
+          
+          <div class="relative z-10">
+            <span class="text-[10px] font-mono text-peach-400 font-bold uppercase">@magicui/meteors</span>
+            <h5 class="text-xs font-black text-white mt-0.5">Atmospheric Stream</h5>
+          </div>
+          <div class="relative z-10 text-[10px] font-mono text-slate-400">Canvas Physics Overlay</div>
+        </div>
+      </div>
     </div>
 
     <!-- Generated Bento Prompt Block -->
@@ -236,7 +332,16 @@ import Button from '../ui/Button.astro';
 • Container: CSS Grid (grid-cols-1 md:grid-cols-4 gap-4).
 • Top Cell (4x1 Full Width): Overarching platform vision banner with dark glassmorphism background and high-visibility CTA.
 • Bottom Cells (4x 1x1): 4 distinct capability cards each featuring a numbered duotone badge, bold concise heading, and 2-line explanation.
-• Ensure WCAG AA contrast compliance and fluid responsive collapse for mobile screens.`
+• Ensure WCAG AA contrast compliance and fluid responsive collapse for mobile screens.`,
+
+      magicui: `Create a high-impact Magic UI inspired Bento Grid layout with interactive cursor spotlight and kinetic micro-effects:
+• Framework & Tooling: React, TypeScript, Tailwind CSS, Framer Motion, and @magicui/all.
+• Container: Asymmetric 4-column CSS grid (grid-cols-1 md:grid-cols-4 gap-4) wrapped with a pointer-following dynamic radial spotlight.
+• Cell 1 (Hero 2x2): Border Beam card (@magicui/border-beam) orbiting a glowing conic gradient perimeter around key product metrics.
+• Cell 2 (Data Stream 1x2 Tall): Animated Beam (@magicui/animated-beam) connecting client intake to AI inference nodes with SVG stroke dashoffset stream.
+• Cell 3 (Cosmic Analytics 1x1): Dark obsidian container with subtle Meteors (@magicui/meteors) flying in background.
+• Cell 4 (Shimmer Metric 1x1): Number Ticker with Shimmer Button (@magicui/shimmer-button) for instant primary conversion.
+• Accessibility: Strict @media (prefers-reduced-motion: reduce) disabling continuous loops while preserving crisp static styling.`
     };
 
     function updateBentoArchetype() {
@@ -251,6 +356,7 @@ import Button from '../ui/Button.astro';
         if (currentArchetype === 'portfolio') titleLabel.textContent = 'Portfolio Showcase Bento Grid';
         else if (currentArchetype === 'dashboard') titleLabel.textContent = 'Executive Dashboard Bento Grid';
         else if (currentArchetype === 'features') titleLabel.textContent = 'Product Capability Bento Grid';
+        else if (currentArchetype === 'magicui') titleLabel.textContent = 'Magic UI Kinetic Bento Grid';
       }
 
       // 3. Update prompt output
@@ -290,7 +396,82 @@ import Button from '../ui/Button.astro';
       });
     }
 
+    // Spotlight cursor tracking for Magic UI Bento Archetype
+    const magicGrid = document.getElementById('bento-grid-magicui');
+    const spotlight = document.getElementById('magicui-spotlight-layer');
+    if (magicGrid && spotlight) {
+      magicGrid.addEventListener('mousemove', e => {
+        const rect = magicGrid.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        spotlight.style.opacity = '1';
+        spotlight.style.background = `radial-gradient(400px circle at ${x}px ${y}px, rgba(147, 51, 234, 0.15), transparent 80%)`;
+      });
+      magicGrid.addEventListener('mouseleave', () => {
+        spotlight.style.opacity = '0';
+      });
+    }
+
     // Initial render
     updateBentoArchetype();
   })();
 </script>
+
+<style>
+  /* Border Beam conic gradient in bento */
+  @keyframes borderBeamRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .border-beam-ring {
+    position: absolute;
+    inset: -150%;
+    background: conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 270deg, #FF7A59 310deg, #9333EA 340deg, #5B3DF5 360deg);
+    animation: borderBeamRotate 4s linear infinite;
+  }
+  @keyframes beamStreamMove {
+    from { stroke-dashoffset: 125; }
+    to { stroke-dashoffset: 0; }
+  }
+  .anim-beam-stream {
+    animation: beamStreamMove 2.2s linear infinite;
+  }
+  @keyframes shimmerSweep {
+    0% { transform: translateX(-150%) skewX(-20deg); }
+    100% { transform: translateX(250%) skewX(-20deg); }
+  }
+  .shimmer-glimmer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+    animation: shimmerSweep 2.5s infinite ease-in-out;
+    pointer-events: none;
+  }
+  @keyframes meteorFlight {
+    0% { transform: rotate(215deg) translateX(0); opacity: 1; }
+    70% { opacity: 1; }
+    100% { transform: rotate(215deg) translateX(-280px); opacity: 0; }
+  }
+  .meteor-streak {
+    position: absolute;
+    height: 1.5px;
+    width: 45px;
+    background: linear-gradient(to right, #ffffff, transparent);
+    animation: meteorFlight 2.5s linear infinite;
+    pointer-events: none;
+  }
+  .meteor-streak::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 0 0 8px 1px #FF9E7A;
+  }
+</style>

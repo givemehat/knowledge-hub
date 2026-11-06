@@ -7,9 +7,11 @@ const PORT = 4340;
 const ROOT_DIR = '/Users/rajnishsingh/projects/knowledge-hub';
 const LAYOUT_DIR = path.join(ROOT_DIR, 'homepage_screenshots/layout_studio');
 const STYLING_DIR = path.join(ROOT_DIR, 'homepage_screenshots/styling_studio');
+const ANIM_DIR = path.join(ROOT_DIR, 'homepage_screenshots/animation_studio');
 
 fs.mkdirSync(LAYOUT_DIR, { recursive: true });
 fs.mkdirSync(STYLING_DIR, { recursive: true });
+fs.mkdirSync(ANIM_DIR, { recursive: true });
 
 const VIEWPORTS = [
   { name: 'desktop', width: 1440, height: 900 },
@@ -68,10 +70,40 @@ async function captureAll() {
         await bento.first().screenshot({
           path: path.join(LAYOUT_DIR, `bento_${vp.name}_${theme}.png`)
         });
+
+        // Click Magic UI Bento Tab and capture
+        const magicBentoTab = page1.locator('#bento-archetype-tabs button[data-archetype="magicui"]');
+        if (await magicBentoTab.count() > 0) {
+          await magicBentoTab.click();
+          await page1.waitForTimeout(250);
+          await bento.first().screenshot({
+            path: path.join(LAYOUT_DIR, `bento_magicui_${vp.name}_${theme}.png`)
+          });
+        }
       }
       await page1.close();
 
-      // 2. Styling Studio
+      // 2. Animation Studio (Magic UI Kinetic Effects)
+      const pageAnim = await browser.newPage({ viewport: { width: vp.width, height: vp.height } });
+      await pageAnim.goto(`http://localhost:${PORT}/knowledge-hub/topics/ui-animation-micro-interactions/`);
+      if (theme === 'dark') {
+        await pageAnim.evaluate(() => document.documentElement.classList.add('dark'));
+      } else {
+        await pageAnim.evaluate(() => document.documentElement.classList.remove('dark'));
+      }
+      await pageAnim.waitForTimeout(300);
+
+      const magicSection = pageAnim.locator('#magicui-kinetic-effects');
+      if (await magicSection.count() > 0) {
+        await magicSection.first().scrollIntoViewIfNeeded();
+        await pageAnim.waitForTimeout(200);
+        await magicSection.first().screenshot({
+          path: path.join(ANIM_DIR, `magicui_kinetic_${vp.name}_${theme}.png`)
+        });
+      }
+      await pageAnim.close();
+
+      // 3. Styling Studio
       const page2 = await browser.newPage({ viewport: { width: vp.width, height: vp.height } });
       await page2.goto(`http://localhost:${PORT}/knowledge-hub/topics/ui-styling-color-systems/`);
       if (theme === 'dark') {

@@ -210,6 +210,272 @@ import Button from '../ui/Button.astro';
 
     </div>
   </div>
+
+  <!-- SECTION 3: Magic UI Kinetic Signature Effects -->
+  <div class="space-y-4 pt-4 border-t border-slate-200/80 dark:border-white/10" id="magicui-kinetic-effects">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+      <div>
+        <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20 text-[10px] font-mono font-bold uppercase tracking-wider mb-1">
+          <span>Magic UI • Kinetic Component Registry</span>
+        </div>
+        <h4 class="text-sm sm:text-base font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200 flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-purple-500 animate-ping"></span>
+          <span>3. Magic UI Kinetic Signature Effects</span>
+        </h4>
+      </div>
+      <span class="text-xs font-mono text-peach-600 dark:text-peach-400 font-semibold">Framer Motion & Conic Physics</span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="magicui-effects-grid">
+      
+      <!-- Effect 1: Border Beam Card -->
+      <div class="relative overflow-hidden rounded-2xl p-[1.5px] group/beam cursor-pointer" id="magicui-border-beam-wrapper">
+        <div class="border-beam-ring"></div>
+        <div class="relative rounded-[15px] bg-white dark:bg-[#121016] p-5 h-full flex flex-col justify-between space-y-4">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-mono text-purple-600 dark:text-purple-400 font-bold uppercase">Magic UI 01</span>
+              <span class="text-[10px] font-mono text-slate-400">Border Beam</span>
+            </div>
+            <h5 class="font-black text-sm text-slate-900 dark:text-white">Luminous Border Beam</h5>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+              Continuous orbiting conic-gradient light beam running dynamically along card perimeters.
+            </p>
+          </div>
+
+          <div class="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 flex items-center justify-between">
+            <span class="text-[10px] font-mono text-slate-500">Conic 360° • 4s linear</span>
+            <span class="w-2 h-2 rounded-full bg-peach-500 animate-pulse"></span>
+          </div>
+
+          <div class="pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+            <span class="text-[10px] font-mono text-slate-400">@magicui/border-beam</span>
+            <button
+              type="button"
+              class="copy-motion-snippet-btn text-[11px] font-bold text-peach-600 dark:text-peach-400 hover:underline cursor-pointer"
+              data-prompt="Create a Magic UI inspired Border Beam card component with a continuous glowing border light orbiting the perimeter using CSS conic-gradient and Framer Motion."
+            >
+              Copy Prompt
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Effect 2: Animated Beam Node Visualizer -->
+      <div class="p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm flex flex-col justify-between space-y-4" id="magicui-animated-beam">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[10px] font-mono text-purple-600 dark:text-purple-400 font-bold uppercase">Magic UI 02</span>
+            <span class="text-[10px] font-mono text-slate-400">Animated Beam</span>
+          </div>
+          <h5 class="font-black text-sm text-slate-900 dark:text-white">Node-to-Node Beam</h5>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+            Bidirectional streaming SVG path connecting microservice nodes with luminous dash offsets.
+          </p>
+        </div>
+
+        <!-- Node Connector Interactive Canvas -->
+        <div class="relative py-2 px-3 rounded-xl bg-slate-100 dark:bg-slate-900/80 border border-slate-200 dark:border-white/5">
+          <div class="flex items-center justify-between relative z-10">
+            <div class="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-xs">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span class="text-[10px] font-bold text-slate-700 dark:text-slate-200">Client</span>
+            </div>
+            
+            <button
+              type="button"
+              id="trigger-beam-pulse-btn"
+              class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-peach-500/20 text-peach-700 dark:text-peach-300 hover:bg-peach-500/30 transition-colors cursor-pointer"
+              title="Click to pulse signal"
+            >
+              Pulse
+            </button>
+
+            <div class="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-xs">
+              <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+              <span class="text-[10px] font-bold text-slate-700 dark:text-slate-200">Peach API</span>
+            </div>
+          </div>
+
+          <!-- Animated SVG Beam Track -->
+          <svg class="w-full h-8 mt-1" viewBox="0 0 240 30" fill="none">
+            <defs>
+              <linearGradient id="magic-beam-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#10B981" stop-opacity="0.2"/>
+                <stop offset="50%" stop-color="#FF7A59" stop-opacity="1"/>
+                <stop offset="100%" stop-color="#5B3DF5" stop-opacity="0.2"/>
+              </linearGradient>
+            </defs>
+            <path d="M 25 15 C 80 5, 160 25, 215 15" stroke="rgba(148, 163, 184, 0.2)" stroke-width="2" stroke-linecap="round"/>
+            <path id="magic-beam-active-path" d="M 25 15 C 80 5, 160 25, 215 15" stroke="url(#magic-beam-grad)" stroke-width="3" stroke-linecap="round" stroke-dasharray="35 150" class="anim-beam-stream"/>
+          </svg>
+        </div>
+
+        <div class="pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+          <span class="text-[10px] font-mono text-slate-400">@magicui/animated-beam</span>
+          <button
+            type="button"
+            class="copy-motion-snippet-btn text-[11px] font-bold text-peach-600 dark:text-peach-400 hover:underline cursor-pointer"
+            data-prompt="Build an Animated Beam component connecting two distinct cards or nodes using SVG path coordinates and Framer Motion stroke-dashoffset animation."
+          >
+            Copy Prompt
+          </button>
+        </div>
+      </div>
+
+      <!-- Effect 3: Shimmer Button -->
+      <div class="p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm flex flex-col justify-between space-y-4" id="magicui-shimmer-card">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[10px] font-mono text-purple-600 dark:text-purple-400 font-bold uppercase">Magic UI 03</span>
+            <span class="text-[10px] font-mono text-slate-400">Shimmer Button</span>
+          </div>
+          <h5 class="font-black text-sm text-slate-900 dark:text-white">Dynamic Shimmer Button</h5>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+            Rotating radial shimmer highlight with high-conversion tactile feedback.
+          </p>
+        </div>
+
+        <div class="py-4 flex items-center justify-center">
+          <button
+            type="button"
+            id="interactive-shimmer-btn"
+            class="relative overflow-hidden group/shimmer px-6 py-3 rounded-xl bg-slate-950 dark:bg-white text-white dark:text-slate-950 font-black text-xs shadow-lg active:scale-95 transition-transform cursor-pointer"
+          >
+            <div class="shimmer-glimmer"></div>
+            <span class="relative z-10 flex items-center gap-2">
+              <span>Explore Studio</span>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </span>
+          </button>
+        </div>
+
+        <div class="pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+          <span class="text-[10px] font-mono text-slate-400">@magicui/shimmer-button</span>
+          <button
+            type="button"
+            class="copy-motion-snippet-btn text-[11px] font-bold text-peach-600 dark:text-peach-400 hover:underline cursor-pointer"
+            data-prompt="Implement a high-converting Magic UI Shimmer Button with a sweeping radial light reflection and micro-spring scale feedback on press."
+          >
+            Copy Prompt
+          </button>
+        </div>
+      </div>
+
+      <!-- Effect 4: Meteors Container -->
+      <div class="relative overflow-hidden p-5 rounded-2xl bg-slate-950 border border-slate-800 text-white shadow-apple-sm flex flex-col justify-between space-y-4 min-h-[200px]" id="magicui-meteors">
+        <!-- Meteor Streaks -->
+        <span class="meteor-streak" style="top: 15%; left: 80%; animation-delay: 0s; animation-duration: 2.5s;"></span>
+        <span class="meteor-streak" style="top: 35%; left: 95%; animation-delay: 0.8s; animation-duration: 3s;"></span>
+        <span class="meteor-streak" style="top: 60%; left: 70%; animation-delay: 1.4s; animation-duration: 2.2s;"></span>
+        <span class="meteor-streak" style="top: 10%; left: 45%; animation-delay: 2.1s; animation-duration: 2.8s;"></span>
+
+        <div class="relative z-10">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[10px] font-mono text-peach-400 font-bold uppercase">Magic UI 04</span>
+            <span class="text-[10px] font-mono text-slate-400">Meteors</span>
+          </div>
+          <h5 class="font-black text-sm text-white">Meteor Shower Canvas</h5>
+          <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+            Diagonal shooting star streaks with luminous glowing tails and staggered velocity.
+          </p>
+        </div>
+
+        <div class="relative z-10 pt-3 border-t border-white/10 flex items-center justify-between">
+          <span class="text-[10px] font-mono text-slate-400">@magicui/meteors</span>
+          <button
+            type="button"
+            class="copy-motion-snippet-btn text-[11px] font-bold text-peach-400 hover:underline cursor-pointer"
+            data-prompt="Add Magic UI Meteors effect to a dark card container with diagonal shooting star animations, glowing heads, and randomized tail fade-outs."
+          >
+            Copy Prompt
+          </button>
+        </div>
+      </div>
+
+      <!-- Effect 5: Interactive Particles Field -->
+      <div class="relative overflow-hidden p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm flex flex-col justify-between space-y-4 min-h-[200px]" id="magicui-particles">
+        <!-- Floating Particles Layer -->
+        <div class="absolute inset-0 pointer-events-none" id="particles-field-container">
+          <span class="floating-particle" style="top: 20%; left: 15%; animation-duration: 3s; animation-delay: 0s;"></span>
+          <span class="floating-particle" style="top: 40%; left: 65%; animation-duration: 4.5s; animation-delay: 1s;"></span>
+          <span class="floating-particle" style="top: 75%; left: 30%; animation-duration: 3.5s; animation-delay: 0.5s;"></span>
+          <span class="floating-particle" style="top: 60%; left: 85%; animation-duration: 5s; animation-delay: 1.5s;"></span>
+          <span class="floating-particle" style="top: 15%; left: 80%; animation-duration: 4s; animation-delay: 0.2s;"></span>
+        </div>
+
+        <div class="relative z-10">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[10px] font-mono text-purple-600 dark:text-purple-400 font-bold uppercase">Magic UI 05</span>
+            <span class="text-[10px] font-mono text-slate-400">Particles</span>
+          </div>
+          <h5 class="font-black text-sm text-slate-900 dark:text-white">Floating Particle Field</h5>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+            Ambient floating points reacting with subtle vertical drift and particle scatter physics.
+          </p>
+        </div>
+
+        <div class="relative z-10 flex items-center gap-2">
+          <button
+            type="button"
+            id="randomize-particles-btn"
+            class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs transition-colors cursor-pointer"
+          >
+            Scatter Particles
+          </button>
+        </div>
+
+        <div class="relative z-10 pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+          <span class="text-[10px] font-mono text-slate-400">@magicui/particles</span>
+          <button
+            type="button"
+            class="copy-motion-snippet-btn text-[11px] font-bold text-peach-600 dark:text-peach-400 hover:underline cursor-pointer"
+            data-prompt="Build an interactive canvas particle background inspired by Magic UI Particles with mouse repulsion and floating ambient drift."
+          >
+            Copy Prompt
+          </button>
+        </div>
+      </div>
+
+      <!-- Effect 6: Magic UI MCP Integration Card -->
+      <div class="p-5 rounded-2xl bg-gradient-to-br from-purple-900/10 via-peach-500/10 to-indigo-900/10 border border-purple-500/20 dark:border-purple-400/20 shadow-apple-sm flex flex-col justify-between space-y-4">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[10px] font-mono text-purple-600 dark:text-purple-300 font-bold uppercase">Registry Command</span>
+            <span class="text-[10px] font-mono text-slate-400">shadcn/ui CLI</span>
+          </div>
+          <h5 class="font-black text-sm text-slate-900 dark:text-white">One-Command Install</h5>
+          <p class="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
+            Add any kinetic effect directly into your codebase using standard shadcn/ui CLI registry commands.
+          </p>
+        </div>
+
+        <div class="p-2.5 rounded-xl bg-slate-900 text-slate-200 font-mono text-[11px] border border-white/10 flex items-center justify-between overflow-x-auto">
+          <code>npx shadcn@latest add @magicui/all</code>
+          <button
+            type="button"
+            class="copy-motion-snippet-btn ml-2 px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 text-white text-[10px] font-bold"
+            data-prompt="npx shadcn@latest add @magicui/border-beam @magicui/animated-beam @magicui/shimmer-button @magicui/meteors @magicui/particles"
+          >
+            Copy
+          </button>
+        </div>
+
+        <div class="pt-3 border-t border-purple-500/10 flex items-center justify-between">
+          <span class="text-[10px] font-mono text-purple-600 dark:text-purple-300 font-bold">50+ Kinetic Components</span>
+          <a
+            href="https://magicui.design"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-[11px] font-bold text-purple-600 dark:text-purple-300 hover:underline"
+          >
+            magicui.design &rarr;
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
 
 <style>
@@ -250,6 +516,102 @@ import Button from '../ui/Button.astro';
       transform: scale(4);
       opacity: 0;
     }
+  }
+
+  /* Magic UI 1: Border Beam Ring Animation */
+  @keyframes borderBeamRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .border-beam-ring {
+    position: absolute;
+    inset: -150%;
+    background: conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 270deg, #FF7A59 310deg, #9333EA 340deg, #5B3DF5 360deg);
+    animation: borderBeamRotate 4s linear infinite;
+  }
+
+  /* Magic UI 2: Animated Beam Stream */
+  @keyframes beamStreamMove {
+    from { stroke-dashoffset: 185; }
+    to { stroke-dashoffset: 0; }
+  }
+  .anim-beam-stream {
+    animation: beamStreamMove 2.2s linear infinite;
+  }
+  .anim-beam-fast {
+    animation: beamStreamMove 0.8s linear infinite !important;
+  }
+
+  /* Magic UI 3: Shimmer Button Reflection */
+  @keyframes shimmerSweep {
+    0% { transform: translateX(-150%) skewX(-20deg); }
+    100% { transform: translateX(250%) skewX(-20deg); }
+  }
+  .shimmer-glimmer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+    animation: shimmerSweep 2.5s infinite ease-in-out;
+    pointer-events: none;
+  }
+
+  /* Magic UI 4: Meteors */
+  @keyframes meteorFlight {
+    0% {
+      transform: rotate(215deg) translateX(0);
+      opacity: 1;
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      transform: rotate(215deg) translateX(-280px);
+      opacity: 0;
+    }
+  }
+  .meteor-streak {
+    position: absolute;
+    height: 1.5px;
+    width: 50px;
+    background: linear-gradient(to right, #ffffff, transparent);
+    animation: meteorFlight 2.5s linear infinite;
+    pointer-events: none;
+  }
+  .meteor-streak::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px 1px #FF9E7A;
+  }
+
+  /* Magic UI 5: Floating Particles */
+  @keyframes particleFloat {
+    0%, 100% {
+      transform: translateY(0px) scale(1);
+      opacity: 0.7;
+    }
+    50% {
+      transform: translateY(-12px) scale(1.3);
+      opacity: 1;
+    }
+  }
+  .floating-particle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #9333EA;
+    box-shadow: 0 0 8px 1px #C084FC;
+    animation: particleFloat 3s ease-in-out infinite;
+    transition: all 0.5s ease-out;
   }
 </style>
 
@@ -295,7 +657,35 @@ import Button from '../ui/Button.astro';
       });
     }
 
-    // 3. Copy prompt buttons
+    // 3. Magic UI: Animated Beam Pulse Trigger
+    const beamPulseBtn = document.getElementById('trigger-beam-pulse-btn');
+    const activeBeamPath = document.getElementById('magic-beam-active-path');
+    if (beamPulseBtn && activeBeamPath) {
+      beamPulseBtn.addEventListener('click', () => {
+        activeBeamPath.classList.add('anim-beam-fast');
+        beamPulseBtn.textContent = 'Streaming...';
+        setTimeout(() => {
+          activeBeamPath.classList.remove('anim-beam-fast');
+          beamPulseBtn.textContent = 'Pulse';
+        }, 1600);
+      });
+    }
+
+    // 4. Magic UI: Randomize Particles Field
+    const scatterBtn = document.getElementById('randomize-particles-btn');
+    const particles = document.querySelectorAll('.floating-particle');
+    if (scatterBtn && particles.length > 0) {
+      scatterBtn.addEventListener('click', () => {
+        particles.forEach(p => {
+          const randTop = Math.floor(Math.random() * 80) + 10;
+          const randLeft = Math.floor(Math.random() * 80) + 10;
+          p.style.top = `${randTop}%`;
+          p.style.left = `${randLeft}%`;
+        });
+      });
+    }
+
+    // 5. Copy prompt buttons
     document.querySelectorAll('.copy-motion-snippet-btn').forEach(btn => {
       btn.addEventListener('click', async () => {
         const prompt = btn.dataset.prompt;

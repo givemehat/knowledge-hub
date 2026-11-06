@@ -72,6 +72,22 @@ async function runAnimationStudioTest() {
     const durationVal = await page.$eval('#anim-duration-val', el => el.textContent.trim());
     assert(durationVal === '750ms', 'Test 2e: Duration slider dynamically updates value', `Found: "${durationVal}"`);
 
+    // TEST 2f: Magic UI Kinetic Presets in Builder
+    await page.click('button[data-magic="border-beam"]');
+    await page.waitForTimeout(100);
+    const magicBorderPrompt = await page.$eval('#anim-builder-prompt-text', el => el.textContent);
+    assert(magicBorderPrompt.includes('@magicui/border-beam') && magicBorderPrompt.includes('conic-gradient'), 'Test 2f: Magic UI Border Beam preset generates registry prompt');
+
+    await page.click('button[data-magic="shimmer-button"]');
+    await page.waitForTimeout(100);
+    const magicShimmerPrompt = await page.$eval('#anim-builder-prompt-text', el => el.textContent);
+    assert(magicShimmerPrompt.includes('@magicui/shimmer-button'), 'Test 2g: Magic UI Shimmer Button preset configures shimmer sweep');
+
+    await page.click('button[data-magic="meteors"]');
+    await page.waitForTimeout(100);
+    const magicMeteorsPrompt = await page.$eval('#anim-builder-prompt-text', el => el.textContent);
+    assert(magicMeteorsPrompt.includes('@magicui/meteors'), 'Test 2h: Magic UI Meteors preset configures cosmic particle tail');
+
     // TEST 3: Card & Button Motion Dynamics Lab
     const motionSection = await page.$('#card-button-motion-studio');
     assert(motionSection !== null, 'Test 3a: Card & Button Motion Lab is rendered');
@@ -95,6 +111,37 @@ async function runAnimationStudioTest() {
     await page.waitForTimeout(50);
     const rippleSpan = await page.$('#ripple-demo-button .ink-ripple');
     assert(rippleSpan !== null, 'Test 3f: Clicking ripple button injects coordinate-aware ink-ripple element');
+
+    // TEST 3g: Magic UI Kinetic Signature Effects in Section 3
+    const magicSection = await page.$('#magicui-kinetic-effects');
+    assert(magicSection !== null, 'Test 3g: Magic UI Kinetic Effects section is rendered');
+
+    const borderBeamRing = await page.$('#magicui-border-beam-wrapper .border-beam-ring');
+    assert(borderBeamRing !== null, 'Test 3h: Border Beam contains continuous orbiting conic ring element');
+
+    const animatedBeamPath = await page.$('#magicui-animated-beam #magic-beam-active-path');
+    assert(animatedBeamPath !== null, 'Test 3i: Animated Beam contains streaming SVG stroke element');
+
+    // Test Animated Beam Pulse Button
+    await page.click('#trigger-beam-pulse-btn');
+    await page.waitForTimeout(50);
+    const isBeamFast = await page.$eval('#magic-beam-active-path', el => el.classList.contains('anim-beam-fast'));
+    assert(isBeamFast, 'Test 3j: Clicking Pulse accelerates animated beam stream');
+
+    const shimmerGlimmer = await page.$('#interactive-shimmer-btn .shimmer-glimmer');
+    assert(shimmerGlimmer !== null, 'Test 3k: Shimmer Button contains sweeping glimmer overlay');
+
+    const meteors = await page.$$('#magicui-meteors .meteor-streak');
+    assert(meteors.length >= 4, 'Test 3l: Meteors container renders at least 4 diagonal shooting star streaks', `Found: ${meteors.length}`);
+
+    const particles = await page.$$('#magicui-particles .floating-particle');
+    assert(particles.length >= 5, 'Test 3m: Particles canvas renders at least 5 floating ambient points', `Found: ${particles.length}`);
+
+    // Scatter Particles button
+    await page.click('#randomize-particles-btn');
+    await page.waitForTimeout(100);
+    const p1Top = await page.$eval('.floating-particle:first-child', el => el.style.top);
+    assert(p1Top.includes('%'), 'Test 3n: Scatter Particles button re-randomizes particle positions', `Top: "${p1Top}"`);
 
     // TEST 4: Alert & Notification Motion System
     const alertSection = await page.$('#alert-notification-studio');
