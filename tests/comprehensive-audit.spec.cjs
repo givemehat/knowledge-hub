@@ -329,6 +329,29 @@ async function runAudit() {
     await desktopPage.waitForTimeout(200);
     const isSearchClosed = await searchModal.evaluate(el => el.classList.contains('hidden'));
     assert(isSearchClosed, 'Command Palette closes on Escape');
+
+    // 404 Prevention & Route Recovery Checks
+    await desktopPage.evaluate(() => localStorage.setItem('peach_preferred_lang', 'hi'));
+    await desktopPage.goto(`${base}/topics/ai-ui-prompting-engineering/`, { waitUntil: 'domcontentloaded' });
+    await desktopPage.waitForTimeout(300);
+    const topicUrl = desktopPage.url();
+    assert(!topicUrl.includes('/hi/topics/'), 'Topic page does not redirect to non-existent /hi/topics/ when preferred lang is Hindi');
+
+    await desktopPage.goto(`${base}/contact/`, { waitUntil: 'domcontentloaded' });
+    await desktopPage.waitForTimeout(300);
+    const contactUrl = desktopPage.url();
+    assert(!contactUrl.includes('/hi/contact/'), 'Contact page does not redirect to non-existent /hi/contact/ when preferred lang is Hindi');
+
+    await desktopPage.goto(`${base}/hi/topics/llms-how-they-work/`, { waitUntil: 'domcontentloaded' });
+    await desktopPage.waitForTimeout(300);
+    const healedUrl = desktopPage.url();
+    assert(healedUrl.includes('/topics/llms-how-they-work/'), 'Accidental /hi/topics/ URL auto-heals and redirects to canonical topic URL');
+
+    await desktopPage.goto(`${base}/404.html`, { waitUntil: 'domcontentloaded' });
+    await desktopPage.waitForTimeout(300);
+    const notFoundTitle = await desktopPage.$eval('#notfound-title', el => el.textContent.trim());
+    assert(notFoundTitle === 'विषय या पृष्ठ नहीं मिला', '404 page adapts dynamically to Hindi for Hindi users');
+
     await desktopContext.close();
 
   } finally {

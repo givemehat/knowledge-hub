@@ -1,33 +1,136 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import IndianPattern from '../components/ui/IndianPattern.astro';
 import { BRAND } from '../config/brand';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
-<Layout title={`404 — Page Not Found — ${BRAND.name}`}>
-  <div class="relative max-w-2xl mx-auto px-4 py-28 text-center overflow-hidden">
-    <!-- Ambient Backdrop Light -->
-    <div class="pointer-events-none absolute top-10 left-1/3 w-80 h-48 bg-brand-500/[0.08] dark:bg-brand-500/[0.1] rounded-full blur-3xl -z-10"></div>
+<Layout title={`404 — Page Not Found — ${BRAND.name}`} description={`The requested guide or topic could not be found on ${BRAND.name}. Search or return home.`}>
+  <!-- Self-Healing Route Recovery Script (Immediate client-side check) -->
+  <script is:inline define:vars={{ base }}>
+    (function() {
+      try {
+        const path = window.location.pathname;
+        let subpath = path.startsWith(base) ? path.slice(base.length) : path;
+        if (!subpath.startsWith('/')) subpath = '/' + subpath;
 
-    <div class="w-16 h-16 rounded-3xl bg-brand-500/10 dark:bg-brand-950/60 border border-brand-500/20 flex items-center justify-center mx-auto mb-6 shadow-sm">
-      <svg class="w-8 h-8 text-brand-600 dark:text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        // Auto-heal accidental localized prefixes on root-only collections
+        const match = subpath.match(/^\/(en|hi)\/(topics\/[^/]+.*|roadmaps\/[^/]+.*|scenarios\/[^/]+.*|contact.*|updates.*|contribute.*|sources-policy.*|design-system.*)$/);
+        if (match) {
+          const canonicalSubpath = '/' + match[2];
+          const target = base + canonicalSubpath + window.location.search + window.location.hash;
+          window.location.replace(target);
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <div class="relative max-w-3xl mx-auto px-4 py-20 sm:py-28 text-center overflow-hidden">
+    <!-- Ambient Backdrop Light & Traditional Pattern Accent -->
+    <div class="pointer-events-none absolute top-10 left-1/3 w-96 h-56 bg-brand-500/[0.08] dark:bg-brand-500/[0.12] rounded-full blur-3xl -z-10"></div>
+    <IndianPattern variant="rangoli" opacity={0.03} />
+
+    <!-- 404 Icon Platter -->
+    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-brand-500/10 dark:bg-brand-950/60 border border-brand-500/20 flex items-center justify-center mx-auto mb-6 shadow-sm">
+      <svg class="w-8 h-8 sm:w-10 sm:h-10 text-brand-600 dark:text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
       </svg>
     </div>
-    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 dark:bg-white/[0.05] border border-slate-200/80 dark:border-white/10 text-slate-500 dark:text-slate-400 text-xs font-mono mb-4">
+
+    <!-- Error Pill Badge -->
+    <div id="notfound-badge" class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-slate-100 dark:bg-white/[0.05] border border-slate-200/80 dark:border-white/10 text-slate-500 dark:text-slate-400 text-xs font-mono mb-4 tracking-wider">
       ERROR 404 • ROUTE UNRESOLVED
     </div>
-    <h1 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight mb-3">Topic or Page Not Found</h1>
-    <p class="text-sm text-slate-600 dark:text-slate-400 max-w-md mx-auto mb-8 leading-relaxed">
+
+    <!-- Heading -->
+    <h1 id="notfound-title" class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-3">
+      Topic or Page Not Found
+    </h1>
+
+    <!-- Subtitle / Explanation -->
+    <p id="notfound-desc" class="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-lg mx-auto mb-8 leading-relaxed">
       The requested page or topic has not been added to our static repository yet, or there may be a typographical error in the URL.
     </p>
-    <div class="flex items-center justify-center gap-3">
-      <a href={`${base}/`} class="px-5 py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xs hover:bg-brand-600 dark:hover:bg-brand-400 dark:hover:text-white transition-colors shadow-sm">
+
+    <!-- Primary Action Buttons -->
+    <div class="flex flex-wrap items-center justify-center gap-3 mb-12">
+      <a
+        id="notfound-home-btn"
+        href={`${base}/`}
+        class="inline-flex items-center justify-center min-h-[44px] px-6 py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xs hover:bg-brand-600 dark:hover:bg-brand-400 dark:hover:text-white transition-colors shadow-sm"
+      >
         Return Home
       </a>
-      <a href={`${base}/topics/`} class="px-5 py-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 font-bold text-xs hover:bg-slate-200 dark:hover:bg-white/[0.1] transition-colors">
+      <a
+        id="notfound-topics-btn"
+        href={`${base}/topics/`}
+        class="inline-flex items-center justify-center min-h-[44px] px-6 py-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 font-bold text-xs hover:bg-slate-200 dark:hover:bg-white/[0.1] transition-colors"
+      >
         Explore Topics
       </a>
+      <button
+        type="button"
+        onclick="window.dispatchEvent(new CustomEvent('open-search'))"
+        class="inline-flex items-center gap-2 min-h-[44px] px-5 py-2.5 rounded-xl bg-brand-50 dark:bg-brand-950/40 border border-brand-200/80 dark:border-brand-500/20 text-brand-700 dark:text-brand-300 font-bold text-xs hover:bg-brand-100 dark:hover:bg-brand-900/60 transition-colors cursor-pointer"
+      >
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+        <span id="notfound-search-btn">Search Directory (⌘K)</span>
+      </button>
+    </div>
+
+    <!-- Quick Navigation Hub for Lost Users -->
+    <div class="p-6 sm:p-7 rounded-3xl bg-white dark:bg-[#15131b] border border-slate-200/80 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)] text-left max-w-xl mx-auto space-y-3">
+      <h3 id="notfound-hub-heading" class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+        Popular Learning Pathways
+      </h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+        <a href={`${base}/topics/ai-agents-and-rag/`} class="p-2.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] hover:bg-brand-50 dark:hover:bg-brand-950/40 text-slate-800 dark:text-slate-200 font-medium flex items-center justify-between transition-colors">
+          <span>AI Agents & RAG</span>
+          <span class="text-slate-400">→</span>
+        </a>
+        <a href={`${base}/roadmaps/ai-ml-engineer/`} class="p-2.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] hover:bg-brand-50 dark:hover:bg-brand-950/40 text-slate-800 dark:text-slate-200 font-medium flex items-center justify-between transition-colors">
+          <span>AI Engineer Roadmap</span>
+          <span class="text-slate-400">→</span>
+        </a>
+        <a href={`${base}/topics/llms-how-they-work/`} class="p-2.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] hover:bg-brand-50 dark:hover:bg-brand-950/40 text-slate-800 dark:text-slate-200 font-medium flex items-center justify-between transition-colors">
+          <span>LLM Architecture Guide</span>
+          <span class="text-slate-400">→</span>
+        </a>
+        <a href={`${base}/topics/indian-constitution-structure/`} class="p-2.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] hover:bg-brand-50 dark:hover:bg-brand-950/40 text-slate-800 dark:text-slate-200 font-medium flex items-center justify-between transition-colors">
+          <span>Indian Constitution</span>
+          <span class="text-slate-400">→</span>
+        </a>
+      </div>
     </div>
   </div>
+
+  <!-- Client-side Bilingual Text Adaptation -->
+  <script is:inline define:vars={{ base }}>
+    (function() {
+      try {
+        const pref = localStorage.getItem('peach_preferred_lang') || 'hi';
+        const isHi = pref === 'hi';
+        const titleEl = document.getElementById('notfound-title');
+        const descEl = document.getElementById('notfound-desc');
+        const homeBtn = document.getElementById('notfound-home-btn');
+        const topicsBtn = document.getElementById('notfound-topics-btn');
+        const searchBtn = document.getElementById('notfound-search-btn');
+        const badgeEl = document.getElementById('notfound-badge');
+        const hubHeading = document.getElementById('notfound-hub-heading');
+
+        if (isHi) {
+          if (titleEl) titleEl.textContent = 'विषय या पृष्ठ नहीं मिला';
+          if (descEl) descEl.textContent = 'जो विषय या पृष्ठ आप ढूंढ रहे हैं वह अभी रिपॉजिटरी में उपलब्ध नहीं है, या URL में कोई त्रुटि हो सकती है। नीचे दिए गए विकल्पों से सही विषय खोजें।';
+          if (homeBtn) { homeBtn.textContent = 'मुख्य पृष्ठ पर जाएँ'; homeBtn.href = `${base}/hi/`; }
+          if (topicsBtn) { topicsBtn.textContent = 'सभी विषय देखें'; topicsBtn.href = `${base}/hi/topics/`; }
+          if (searchBtn) searchBtn.textContent = 'ज्ञान भंडार खोजें (⌘K)';
+          if (badgeEl) badgeEl.textContent = 'त्रुटि 404 • रूट अनुपलब्ध';
+          if (hubHeading) hubHeading.textContent = 'लोकप्रिय अध्ययन मार्ग';
+        } else {
+          if (homeBtn) { homeBtn.href = `${base}/en/`; }
+          if (topicsBtn) { topicsBtn.href = `${base}/en/topics/`; }
+        }
+      } catch (e) {}
+    })();
+  </script>
 </Layout>

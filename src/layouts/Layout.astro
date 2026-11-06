@@ -111,14 +111,36 @@ const jsonLdWebsite = {
           if (!pref || (pref !== 'en' && pref !== 'hi')) return;
           const path = window.location.pathname;
           const base = '/knowledge-hub';
-          const subpath = path.startsWith(base) ? path.slice(base.length) : path;
-          
-          // Check if we are on an un-prefixed root route (not /en/ or /hi/)
-          const isPrefixed = subpath.startsWith('/en/') || subpath === '/en' || subpath.startsWith('/hi/') || subpath === '/hi';
-          if (!isPrefixed) {
-            const cleanSub = subpath.startsWith('/') ? subpath : '/' + subpath;
-            const target = `${base}/${pref}${cleanSub === '/' ? '/' : cleanSub}`;
-            if (target !== path) {
+          let subpath = path.startsWith(base) ? path.slice(base.length) : path;
+          if (!subpath.startsWith('/')) subpath = '/' + subpath;
+
+          // Never redirect 404 or asset files
+          if (subpath.includes('404') || /\.[a-z0-9]+$/i.test(subpath)) return;
+
+          // Never redirect if already on a localized subpath
+          if (subpath.startsWith('/en/') || subpath === '/en' || subpath.startsWith('/hi/') || subpath === '/hi') return;
+
+          // Normalize trailing slash for index matching
+          let normalized = subpath.endsWith('/') ? subpath : subpath + '/';
+
+          // Strictly whitelist routes that actually have localized versions in src/pages/[locale]/
+          const LOCALIZED_ROUTES = [
+            '/',
+            '/about/',
+            '/resources/',
+            '/research/',
+            '/research/data-cards/',
+            '/research/fact-vs-hypothesis/',
+            '/research/media-sentiment-study/',
+            '/research/methodology/',
+            '/roadmaps/',
+            '/scenarios/',
+            '/topics/'
+          ];
+
+          if (LOCALIZED_ROUTES.includes(normalized)) {
+            const target = `${base}/${pref}${normalized === '/' ? '/' : normalized}`;
+            if (target !== path && target !== path + '/') {
               window.location.replace(target + window.location.search + window.location.hash);
             }
           }
