@@ -17,6 +17,7 @@ import TypographyPromptBuilder from '../../components/interactive/TypographyProm
 import ComponentPromptGallery from '../../components/interactive/ComponentPromptGallery.astro';
 import DeviceFrameShowcase from '../../components/interactive/DeviceFrameShowcase.astro';
 import ShadcnRegistryStudio from '../../components/interactive/ShadcnRegistryStudio.astro';
+import CommunityRegistryStudio from '../../components/interactive/CommunityRegistryStudio.astro';
 import FontPairingMatrix from '../../components/interactive/FontPairingMatrix.astro';
 import TextAnimationStudio from '../../components/interactive/TextAnimationStudio.astro';
 import ScenarioPromptPresets from '../../components/interactive/ScenarioPromptPresets.astro';
@@ -89,6 +90,9 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
             {topic.slug === 'ai-ui-prompting-engineering' && (
               <a href="#shadcn-registry-studio" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
                 ★ shadcn/ui Registry
+              </a>
+              <a href="#community-registry-studio" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
+                ★ 21st.dev Registry & MCP
               </a>
               <a href="#interactive-typography-studio" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
                 ★ Typography Studio
@@ -319,6 +323,11 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
             <!-- 0. shadcn/ui Core Primitives Registry Studio -->
             <section id="shadcn-registry-studio" class="space-y-4">
               <ShadcnRegistryStudio />
+            </section>
+
+            <!-- 0b. 21st.dev Community Registry & AI MCP Studio -->
+            <section id="community-registry-studio" class="space-y-4">
+              <CommunityRegistryStudio />
             </section>
 
             <!-- 1. Typography Prompt Studio -->

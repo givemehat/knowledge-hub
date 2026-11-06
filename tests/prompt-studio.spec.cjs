@@ -100,8 +100,8 @@ async function runPromptStudioTest() {
     assert(desktopVisible, 'Test 6c: Desktop tab switches back to macOS browser frame');
 
     // TEST 7: Left Sticky Table of Contents Links
-    const studioTocLinks = await page.$$('a[href^="#shadcn-registry-studio"], a[href^="#interactive-typography-studio"], a[href^="#component-prompt-templates"], a[href^="#device-mockups-studio"]');
-    assert(studioTocLinks.length === 4, 'Test 7: Sticky TOC includes 4 dedicated links for interactive studios');
+    const studioTocLinks = await page.$$('a[href^="#shadcn-registry-studio"], a[href^="#community-registry-studio"], a[href^="#interactive-typography-studio"], a[href^="#component-prompt-templates"], a[href^="#device-mockups-studio"]');
+    assert(studioTocLinks.length === 5, 'Test 7: Sticky TOC includes 5 dedicated links for interactive studios', `Found: ${studioTocLinks.length}`);
 
     // TEST 8: shadcn/ui Core Primitives Registry Studio Presence & Tabs
     const shadcnSection = await page.$('#shadcn-registry-studio');
@@ -172,8 +172,59 @@ async function runPromptStudioTest() {
     const promptDisplayText = await page.$eval('#shadcn-prompt-output', el => el.textContent);
     assert(promptDisplayText.includes('SheetContent') && promptDisplayText.includes('@radix-ui/react-dialog'), 'Test 13b: Generated prompt includes Radix primitives and accessible Sheet specs');
 
-    // TEST 14: Zero Console Errors
-    assert(consoleErrors.length === 0, 'Test 14: Zero console errors logged on interactive topic page', consoleErrors.join(' | '));
+    // TEST 14: 21st.dev Community Registry Studio Presence & Tabs
+    const communitySection = await page.$('#community-registry-studio');
+    assert(communitySection !== null, 'Test 14a: 21st.dev Community Registry Studio section is rendered');
+
+    const communityTabs = await page.$$('#community-component-tabs .community-tab-btn');
+    assert(communityTabs.length === 5, 'Test 14b: All 5 21st.dev component tabs (ai-chat, glare-card, magnetic-btn, ambient-glow, mcp-agent) rendered', `Found: ${communityTabs.length}`);
+
+    // TEST 15: AI Chat Component Stage & CoT Thinking Toggle
+    await page.click('button[data-comp="ai-chat"]');
+    await page.waitForTimeout(100);
+    const thinkingPanelInitial = await page.$eval('#agent-thinking-panel', el => !el.classList.contains('hidden'));
+    await page.click('#toggle-thinking-btn');
+    await page.waitForTimeout(100);
+    const thinkingPanelToggled = await page.$eval('#agent-thinking-panel', el => !el.classList.contains('hidden'));
+    assert(thinkingPanelInitial !== thinkingPanelToggled, 'Test 15: Thinking Process button toggles Chain of Thought (CoT) panel visibility');
+
+    // TEST 16: 3D Holographic Glare Card Stage
+    await page.click('button[data-comp="glare-card"]');
+    await page.waitForTimeout(100);
+    const glareStageVisible = await page.$eval('#stage-community-glare-card', el => !el.classList.contains('hidden'));
+    assert(glareStageVisible, 'Test 16a: 3D Holographic Glare Card stage is visible');
+
+    await page.hover('#interactive-glare-card');
+    await page.waitForTimeout(100);
+    const glareOpacity = await page.$eval('#glare-overlay', el => el.style.opacity);
+    assert(glareOpacity === '1', 'Test 16b: Hovering Glare Card activates dynamic holographic overlay (opacity: 1)');
+
+    // TEST 17: Magnetic Fluid Button Stage
+    await page.click('button[data-comp="magnetic-btn"]');
+    await page.waitForTimeout(100);
+    const magneticStageVisible = await page.$eval('#stage-community-magnetic-btn', el => !el.classList.contains('hidden'));
+    assert(magneticStageVisible, 'Test 17: Magnetic Fluid Button stage is rendered');
+
+    // TEST 18: Ambient Glow Border Stage
+    await page.click('button[data-comp="ambient-glow"]');
+    await page.waitForTimeout(100);
+    const ambientStageVisible = await page.$eval('#stage-community-ambient-glow', el => !el.classList.contains('hidden'));
+    assert(ambientStageVisible, 'Test 18: Ambient Glow Border stage is rendered');
+
+    // TEST 19: AI MCP Server Protocol Stage & Prompt Output
+    await page.click('button[data-comp="mcp-agent"]');
+    await page.waitForTimeout(100);
+    const mcpStageVisible = await page.$eval('#stage-community-mcp-agent', el => !el.classList.contains('hidden'));
+    assert(mcpStageVisible, 'Test 19a: AI MCP Server Protocol stage is rendered');
+
+    const mcpCliText = await page.$eval('#twentyfirst-active-cli', el => el.textContent.trim());
+    assert(mcpCliText.includes('npx @21st-dev/cli mcp init'), 'Test 19b: 21st.dev CLI command displays MCP init token', `Found: "${mcpCliText}"`);
+
+    const mcpPromptText = await page.$eval('#twentyfirst-prompt-output', el => el.textContent);
+    assert(mcpPromptText.includes('Model Context Protocol') && mcpPromptText.includes('search_community_components'), 'Test 19c: Generated vibe-coding prompt includes 21st.dev MCP specs');
+
+    // TEST 20: Zero Console Errors
+    assert(consoleErrors.length === 0, 'Test 20: Zero console errors logged on interactive topic page', consoleErrors.join(' | '));
 
     await context.close();
   } catch (err) {

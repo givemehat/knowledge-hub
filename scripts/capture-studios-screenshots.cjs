@@ -9,11 +9,13 @@ const LAYOUT_DIR = path.join(ROOT_DIR, 'homepage_screenshots/layout_studio');
 const STYLING_DIR = path.join(ROOT_DIR, 'homepage_screenshots/styling_studio');
 const ANIM_DIR = path.join(ROOT_DIR, 'homepage_screenshots/animation_studio');
 const SHADCN_DIR = path.join(ROOT_DIR, 'homepage_screenshots/shadcn_studio');
+const COMMUNITY_DIR = path.join(ROOT_DIR, 'homepage_screenshots/community_studio');
 
 fs.mkdirSync(LAYOUT_DIR, { recursive: true });
 fs.mkdirSync(STYLING_DIR, { recursive: true });
 fs.mkdirSync(ANIM_DIR, { recursive: true });
 fs.mkdirSync(SHADCN_DIR, { recursive: true });
+fs.mkdirSync(COMMUNITY_DIR, { recursive: true });
 
 const VIEWPORTS = [
   { name: 'desktop', width: 1440, height: 900 },
@@ -180,6 +182,26 @@ async function captureAll() {
           await pageShadcn.waitForTimeout(200);
           await shadcnStudio.first().screenshot({
             path: path.join(SHADCN_DIR, `shadcn_cmdk_${vp.name}_${theme}.png`)
+          });
+        }
+      }
+
+      // 5. 21st.dev Community Registry & AI MCP Studio
+      const communityStudio = pageShadcn.locator('section#community-registry-studio');
+      if (await communityStudio.count() > 0) {
+        await communityStudio.first().scrollIntoViewIfNeeded();
+        await pageShadcn.waitForTimeout(200);
+        await communityStudio.first().screenshot({
+          path: path.join(COMMUNITY_DIR, `community_registry_${vp.name}_${theme}.png`)
+        });
+
+        // Switch to Glare Card tab and capture
+        const glareTab = pageShadcn.locator('#community-component-tabs button[data-comp="glare-card"]');
+        if (await glareTab.count() > 0) {
+          await glareTab.click();
+          await pageShadcn.waitForTimeout(200);
+          await communityStudio.first().screenshot({
+            path: path.join(COMMUNITY_DIR, `community_glare_${vp.name}_${theme}.png`)
           });
         }
       }

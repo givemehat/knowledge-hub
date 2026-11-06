@@ -1,0 +1,526 @@
+---
+import Card from '../ui/Card.astro';
+import Button from '../ui/Button.astro';
+---
+
+<div id="community-registry-studio" class="space-y-6">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-200/80 dark:border-white/10">
+    <div>
+      <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-500 text-white text-[11px] font-black uppercase tracking-wider mb-1 shadow-xs">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <span>21st.dev Community Registry & MCP Hub</span>
+      </div>
+      <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+        The NPM for Design Engineers & AI Agent MCP Studio
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+        Explore curated community-crafted UI primitives, test live design-engineering micro-interactions, and generate verified AI Agent MCP vibe-coding prompts.
+      </p>
+    </div>
+
+    <!-- Official Registry Link -->
+    <div class="flex items-center gap-2">
+      <span class="text-[11px] font-mono text-slate-400">21st.dev</span>
+      <a
+        href="https://21st.dev"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-xs font-bold text-violet-600 dark:text-violet-400 hover:underline inline-flex items-center gap-1"
+      >
+        <span>Explore Registry</span>
+        <span>&rarr;</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Primitives Tabs Bar -->
+  <div class="flex items-center gap-2 p-1 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-white/10 overflow-x-auto" id="community-component-tabs">
+    <button
+      type="button"
+      data-comp="ai-chat"
+      class="community-tab-btn active px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs cursor-pointer shrink-0"
+    >
+      AI Chat & Agentic Card
+    </button>
+    <button
+      type="button"
+      data-comp="glare-card"
+      class="community-tab-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer shrink-0"
+    >
+      3D Holographic Glare Card
+    </button>
+    <button
+      type="button"
+      data-comp="magnetic-btn"
+      class="community-tab-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer shrink-0"
+    >
+      Magnetic Fluid Button
+    </button>
+    <button
+      type="button"
+      data-comp="ambient-glow"
+      class="community-tab-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer shrink-0"
+    >
+      Ambient Glow Border
+    </button>
+    <button
+      type="button"
+      data-comp="mcp-agent"
+      class="community-tab-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer shrink-0"
+    >
+      AI MCP Server Protocol
+    </button>
+  </div>
+
+  <!-- Main Grid: Left Stage (7 cols) + Right Prompt Generator (5 cols) -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+    
+    <!-- LEFT: Interactive Stage Container (7 cols) -->
+    <div class="lg:col-span-7 p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/10">
+        <div class="flex items-center gap-2">
+          <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
+          <span class="text-xs font-bold text-slate-800 dark:text-slate-200" id="community-comp-title">AI Chat & Agentic Card</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span id="community-author-badge" class="text-[10px] font-mono text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md">
+            by @designeng · ★ 2.4k
+          </span>
+        </div>
+      </div>
+
+      <!-- Live Playground Viewport -->
+      <div class="relative min-h-[360px] rounded-xl bg-slate-900 border border-slate-800 overflow-hidden flex flex-col justify-center items-center p-6 text-white" id="community-stage-viewport">
+        
+        <!-- 1. AI CHAT & AGENTIC CARD STAGE -->
+        <div id="stage-community-ai-chat" class="community-stage w-full max-w-md space-y-3">
+          <!-- Agent Message Container -->
+          <div class="p-4 rounded-2xl bg-slate-800/80 border border-slate-700/80 backdrop-blur-md space-y-3 shadow-xl">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-violet-500 to-fuchsia-500 flex items-center justify-center text-[10px] font-black">
+                  ✦
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+                    <span>Synthesizer Agent</span>
+                    <span class="text-[9px] px-1.5 py-0.2 rounded-full bg-violet-500/20 text-violet-300 font-mono">vibe-v2</span>
+                  </div>
+                  <div class="text-[10px] text-slate-400">Streamed 240 tokens · 18ms latency</div>
+                </div>
+              </div>
+              <button
+                type="button"
+                id="toggle-thinking-btn"
+                class="px-2 py-1 rounded-md text-[10px] font-mono bg-slate-700 hover:bg-slate-600 text-slate-300 transition-colors cursor-pointer flex items-center gap-1"
+              >
+                <span>Thinking Process</span>
+                <span id="thinking-indicator" class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              </button>
+            </div>
+
+            <!-- Expandable CoT (Chain of Thought) Panel -->
+            <div id="agent-thinking-panel" class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-[11px] font-mono text-slate-400 space-y-1">
+              <div class="text-violet-400 font-semibold">1. Analyzing component contract:</div>
+              <div>&gt; Queried 21st.dev registry for &ldquo;fluid-magnetic-button&rdquo;</div>
+              <div class="text-emerald-400 font-semibold">2. Radix + Tailwind reconciliation:</div>
+              <div>&gt; Injected spring mass: 0.8, damping: 15, stiffness: 180</div>
+            </div>
+
+            <!-- Agent Generated Response Message -->
+            <div class="text-xs text-slate-300 leading-relaxed font-sans">
+              Here is the updated design token system with dynamic spring physics and accessible ARIA attributes.
+            </div>
+
+            <!-- Code Artifact Snippet Card -->
+            <div class="p-2.5 rounded-lg bg-black/60 border border-white/10 flex items-center justify-between text-xs font-mono">
+              <span class="text-slate-400 text-[11px]">export const buttonVariants = cva(...)</span>
+              <span class="text-emerald-400 text-[10px] font-bold">✓ Verified</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. 3D HOLOGRAPHIC GLARE CARD STAGE -->
+        <div id="stage-community-glare-card" class="community-stage hidden w-full flex flex-col items-center justify-center py-4">
+          <p class="text-xs text-slate-400 text-center mb-4">
+            Move cursor over the card to experience 3D perspective tilt and dynamic holographic glare shader.
+          </p>
+
+          <div
+            id="interactive-glare-card"
+            class="relative w-64 h-84 rounded-2xl bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 border border-white/20 shadow-2xl p-6 flex flex-col justify-between overflow-hidden cursor-pointer transition-transform duration-100 ease-out"
+            style="transform-style: preserve-3d;"
+          >
+            <!-- Dynamic Glare Highlight Overlay -->
+            <div
+              id="glare-overlay"
+              class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 rounded-2xl"
+              style="background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 60%); mix-blend-mode: overlay;"
+            ></div>
+
+            <div class="relative z-10 flex items-center justify-between">
+              <span class="text-[10px] font-mono uppercase tracking-widest text-indigo-300 font-bold">21st.dev Premium</span>
+              <div class="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs">✦</div>
+            </div>
+
+            <div class="relative z-10 space-y-2">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-violet-500 to-pink-500 flex items-center justify-center font-black text-white text-lg shadow-lg">
+                21
+              </div>
+              <h4 class="text-base font-black text-white tracking-tight">Design Engineer Pass</h4>
+              <p class="text-[11px] text-slate-300 leading-snug">Holographic foil shader simulated using CSS 3D perspective and client radial gradient coordinates.</p>
+            </div>
+
+            <div class="relative z-10 flex items-center justify-between pt-3 border-t border-white/10 text-[10px] font-mono text-slate-400">
+              <span>PERSPECTIVE: 1000px</span>
+              <span class="text-indigo-400">SPRING TILT</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. MAGNETIC FLUID BUTTON STAGE -->
+        <div id="stage-community-magnetic-btn" class="community-stage hidden w-full flex flex-col items-center justify-center py-10 space-y-4">
+          <p class="text-xs text-slate-400 text-center max-w-sm">
+            Hover cursor within 80px radius of the button to see fluid magnetic attraction.
+          </p>
+
+          <div id="magnetic-bounding-area" class="p-12 rounded-3xl border border-dashed border-slate-700/60 flex items-center justify-center">
+            <button
+              type="button"
+              id="interactive-magnetic-btn"
+              class="relative px-6 py-3 rounded-full bg-gradient-to-r from-violet-600 via-indigo-600 to-pink-600 text-white font-bold text-xs tracking-wide shadow-xl shadow-indigo-500/25 hover:shadow-indigo-500/50 transition-all duration-200 cursor-pointer select-none"
+            >
+              <span id="magnetic-btn-text" class="relative z-10 flex items-center gap-2">
+                <span>Explore Community Registry</span>
+                <span class="text-xs">&rarr;</span>
+              </span>
+            </button>
+          </div>
+          <span class="text-[10px] font-mono text-slate-500">Magnetic threshold: 80px · Damping: 0.3</span>
+        </div>
+
+        <!-- 4. AMBIENT GLOW BORDER STAGE -->
+        <div id="stage-community-ambient-glow" class="community-stage hidden w-full flex flex-col items-center justify-center py-6 space-y-4">
+          <p class="text-xs text-slate-400 text-center max-w-sm">
+            Hover across the bento card to reveal cursor-tracking ambient gradient lighting.
+          </p>
+
+          <div
+            id="ambient-glow-card"
+            class="relative w-full max-w-md p-6 rounded-2xl bg-slate-900/90 border border-white/10 shadow-2xl overflow-hidden cursor-crosshair"
+          >
+            <!-- Cursor Tracker Ambient Beam -->
+            <div
+              id="ambient-spotlight"
+              class="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300"
+              style="background: radial-gradient(350px circle at 50% 50%, rgba(139, 92, 246, 0.25), transparent 80%);"
+            ></div>
+
+            <div class="relative z-10 space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-mono text-fuchsia-400 font-bold uppercase tracking-wider">Ambient Shader Tile</span>
+                <span class="text-[10px] font-mono text-slate-500">21st.dev/bento</span>
+              </div>
+              <h4 class="text-sm font-black text-white">Dynamic Light Physics in Tailwind CSS</h4>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Utilizes CSS custom properties (<code class="text-fuchsia-300">--mouse-x</code>, <code class="text-fuchsia-300">--mouse-y</code>) to project high-end ambient glow on dark UI surfaces without heavy WebGL shaders.
+              </p>
+              <div class="pt-2 flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300 font-mono">Radial Gradient</span>
+                <span class="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300 font-mono">Zero Dependencies</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. AI MCP SERVER PROTOCOL STAGE -->
+        <div id="stage-community-mcp-agent" class="community-stage hidden w-full max-w-md space-y-3">
+          <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 font-mono text-xs space-y-2.5">
+            <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+              <div class="flex items-center gap-2 text-violet-400 font-bold text-[11px]">
+                <span>●</span>
+                <span>Model Context Protocol (MCP) Stream</span>
+              </div>
+              <span class="text-[10px] text-slate-500">mcp-server: 21st-dev</span>
+            </div>
+
+            <div class="text-slate-400 text-[11px]">
+              &gt; Tool Invoked: <span class="text-fuchsia-300">fetch_registry_component</span>
+            </div>
+
+            <div class="p-2 rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-300 space-y-1">
+              <div>&#123;</div>
+              <div class="pl-3">&quot;query&quot;: &quot;fluid-magnetic-button&quot;,</div>
+              <div class="pl-3">&quot;registry&quot;: &quot;21st.dev/r/shadcn&quot;,</div>
+              <div class="pl-3">&quot;dependencies&quot;: [&quot;framer-motion&quot;, &quot;tailwind-merge&quot;]</div>
+              <div>&#125;</div>
+            </div>
+
+            <div class="text-emerald-400 text-[11px] flex items-center gap-1.5">
+              <span>✓ 200 OK:</span>
+              <span class="text-slate-300">Fetched 1 file (MagneticButton.tsx, 4.2 KB)</span>
+            </div>
+
+            <div class="text-[10px] text-slate-500 pt-1 border-t border-slate-800/80">
+              Agent directly synthesized code into workspace without manual copy-paste.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Component CLI Install Bar -->
+      <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+        <div class="flex items-center gap-2 overflow-x-auto">
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-violet-100 text-violet-700 dark:bg-violet-950/60 dark:text-violet-400 font-bold uppercase shrink-0">
+            CLI
+          </span>
+          <code id="twentyfirst-active-cli" class="font-mono text-xs text-slate-700 dark:text-slate-300">
+            npx @21st-dev/cli add ai-chat-card
+          </code>
+        </div>
+        <button
+          type="button"
+          id="copy-twentyfirst-cli-btn"
+          class="shrink-0 px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold transition-all cursor-pointer"
+        >
+          Copy CLI
+        </button>
+      </div>
+    </div>
+
+    <!-- RIGHT: AI Prompt Specification & MCP Output Generator (5 cols) -->
+    <div class="lg:col-span-5 p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-mono text-violet-600 dark:text-violet-400 font-bold uppercase">AI Agent Vibe-Coding Prompt</span>
+          <h4 class="text-base font-black text-slate-900 dark:text-white mt-0.5">21st.dev Component Prompt</h4>
+        </div>
+        <button
+          type="button"
+          id="copy-twentyfirst-prompt-btn"
+          class="text-xs font-bold text-violet-600 dark:text-violet-400 hover:text-violet-700 flex items-center gap-1 cursor-pointer"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+          <span id="copy-twentyfirst-prompt-label">Copy Prompt</span>
+        </button>
+      </div>
+
+      <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+        Prompt optimized for AI agentic workflows (Cursor, Windsurf, Claude Code, Antigravity) with explicit Framer Motion physics, Radix accessibility, and Tailwind classes.
+      </p>
+
+      <pre id="twentyfirst-prompt-output" class="p-3.5 rounded-xl bg-slate-900 text-slate-200 font-mono text-xs overflow-x-auto whitespace-pre-wrap leading-relaxed border border-slate-800 min-h-[280px]"></pre>
+    </div>
+
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    let currentComp = 'ai-chat';
+
+    const compData = {
+      'ai-chat': {
+        title: 'AI Chat & Agentic Card',
+        author: 'by @designeng · ★ 2.4k saves',
+        cli: 'npx @21st-dev/cli add ai-chat-card',
+        prompt: `Build an Agentic AI Chat Response Card following 21st.dev design engineering patterns:
+• Source / Inspiration: 21st.dev/r/ai-chat-card
+• Stack: React, Framer Motion, Tailwind CSS, Lucide Icons.
+• Features:
+  - Collapsible Chain-of-Thought (CoT) panel displaying step-by-step thinking tokens.
+  - Streaming status pill with glowing pulse animation (vibe-v2 tag).
+  - Code snippet preview with integrated copy-to-clipboard action and verification badge.
+  - Latency and token metadata display formatted in font-mono.`
+      },
+      'glare-card': {
+        title: '3D Holographic Glare Card',
+        author: 'by @marvkr · ★ 3.8k saves',
+        cli: 'npx @21st-dev/cli add holographic-glare-card',
+        prompt: `Create a 3D Holographic Glare Card with dynamic cursor tracking following 21st.dev:
+• Source: 21st.dev/r/glare-card
+• Transform: perspective(1000px) with dynamic rotateX and rotateY based on mouse offset from center.
+• Glare Shader: Radial gradient highlight moving across overlay with mix-blend-mode: overlay.
+• Physics: Smooth ease-out transition when hovering and automatic spring reset on mouse leave.
+• Styling: Dark glassmorphism border with subtle inner glow (border-white/20).`
+      },
+      'magnetic-btn': {
+        title: 'Magnetic Fluid Button',
+        author: 'by @stan · ★ 4.1k saves',
+        cli: 'npx @21st-dev/cli add magnetic-button',
+        prompt: `Implement a Magnetic Fluid Button using Framer Motion and 21st.dev conventions:
+• Source: 21st.dev/r/magnetic-button
+• Interaction: Button tracks mouse cursor within an 80px magnetic pull radius.
+• Physics: Spring physics (stiffness: 150, damping: 15, mass: 0.1) for frictionless pull and recoil.
+• Styling: Gradient pill background (from-violet-600 via-indigo-600 to-pink-600) with dynamic ambient shadow.
+• Accessibility: Respects prefers-reduced-motion by disabling translate offsets.`
+      },
+      'ambient-glow': {
+        title: 'Ambient Glow Border Tile',
+        author: 'by @frontendcraft · ★ 1.9k saves',
+        cli: 'npx @21st-dev/cli add ambient-glow-card',
+        prompt: `Build an Ambient Glow Border Card with cursor-following spotlight:
+• Source: 21st.dev/r/ambient-glow-card
+• Technique: Update CSS custom properties (--mouse-x, --mouse-y) on mousemove over the container.
+• Background: radial-gradient(350px circle at var(--mouse-x) var(--mouse-y), rgba(139, 92, 246, 0.25), transparent 80%).
+• Surface: Dark card with backdrop blur and subtle white/10 border highlighting.
+• Performance: Pure CSS property binding without React state re-renders.`
+      },
+      'mcp-agent': {
+        title: 'AI MCP Server Protocol Stream',
+        author: 'by @21st-core · ★ 5.2k saves',
+        cli: 'npx @21st-dev/cli mcp init',
+        prompt: `Configure Model Context Protocol (MCP) server for 21st.dev in AI Coding Assistant (Cursor / Windsurf / Antigravity):
+• MCP Server: "@21st-dev/mcp-server"
+• Capabilities:
+  - Component search: "search_community_components(query: string)"
+  - Fetch implementation: "get_component_code(id: string, registry: 'shadcn' | 'tailwind')"
+• Vibe-Coding Prompt:
+  "Fetch the fluid-magnetic-button from 21st.dev registry, verify its TypeScript props, reconcile Tailwind classes with my active brand archetype, and place it under src/components/ui."`
+      }
+    };
+
+    function updateComponentView() {
+      const data = compData[currentComp];
+      if (!data) return;
+
+      const titleEl = document.getElementById('community-comp-title');
+      const authorEl = document.getElementById('community-author-badge');
+      const cliEl = document.getElementById('twentyfirst-active-cli');
+      const promptEl = document.getElementById('twentyfirst-prompt-output');
+
+      if (titleEl) titleEl.textContent = data.title;
+      if (authorEl) authorEl.textContent = data.author;
+      if (cliEl) cliEl.textContent = data.cli;
+      if (promptEl) promptEl.textContent = data.prompt;
+
+      // Toggle stages
+      document.querySelectorAll('#community-stage-viewport .community-stage').forEach(el => {
+        el.classList.add('hidden');
+      });
+      const activeStage = document.getElementById(`stage-community-${currentComp}`);
+      if (activeStage) activeStage.classList.remove('hidden');
+
+      // Update tabs styling
+      document.querySelectorAll('#community-component-tabs .community-tab-btn').forEach(btn => {
+        const isCurrent = btn.getAttribute('data-comp') === currentComp;
+        if (isCurrent) {
+          btn.className = 'community-tab-btn active px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs cursor-pointer shrink-0';
+        } else {
+          btn.className = 'community-tab-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer shrink-0';
+        }
+      });
+    }
+
+    // Attach tab click listeners
+    const tabBtns = document.querySelectorAll('#community-component-tabs .community-tab-btn');
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const comp = btn.getAttribute('data-comp');
+        if (comp && compData[comp]) {
+          currentComp = comp;
+          updateComponentView();
+        }
+      });
+    });
+
+    // 1. Thinking Process Toggle Demo (AI Chat)
+    const toggleThinkingBtn = document.getElementById('toggle-thinking-btn');
+    const thinkingPanel = document.getElementById('agent-thinking-panel');
+    if (toggleThinkingBtn && thinkingPanel) {
+      toggleThinkingBtn.addEventListener('click', () => {
+        thinkingPanel.classList.toggle('hidden');
+      });
+    }
+
+    // 2. 3D Holographic Glare Card Physics
+    const glareCard = document.getElementById('interactive-glare-card');
+    const glareOverlay = document.getElementById('glare-overlay');
+    if (glareCard && glareOverlay) {
+      glareCard.addEventListener('mousemove', e => {
+        const rect = glareCard.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -12;
+        const rotateY = ((x - centerX) / centerX) * 12;
+
+        glareCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        glareOverlay.style.opacity = '1';
+        glareOverlay.style.background = `radial-gradient(circle at ${(x / rect.width) * 100}% ${(y / rect.height) * 100}%, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0) 60%)`;
+      });
+
+      glareCard.addEventListener('mouseleave', () => {
+        glareCard.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        glareOverlay.style.opacity = '0';
+      });
+    }
+
+    // 3. Magnetic Button Attraction Physics
+    const boundingArea = document.getElementById('magnetic-bounding-area');
+    const magneticBtn = document.getElementById('interactive-magnetic-btn');
+    if (boundingArea && magneticBtn) {
+      boundingArea.addEventListener('mousemove', e => {
+        const rect = magneticBtn.getBoundingClientRect();
+        const btnCenterX = rect.left + rect.width / 2;
+        const btnCenterY = rect.top + rect.height / 2;
+        const deltaX = (e.clientX - btnCenterX) * 0.35;
+        const deltaY = (e.clientY - btnCenterY) * 0.35;
+        magneticBtn.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+      });
+
+      boundingArea.addEventListener('mouseleave', () => {
+        magneticBtn.style.transform = 'translate(0px, 0px)';
+      });
+    }
+
+    // 4. Ambient Glow Card Tracking
+    const glowCard = document.getElementById('ambient-glow-card');
+    const spotlight = document.getElementById('ambient-spotlight');
+    if (glowCard && spotlight) {
+      glowCard.addEventListener('mousemove', e => {
+        const rect = glowCard.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        spotlight.style.opacity = '1';
+        spotlight.style.background = `radial-gradient(350px circle at ${x}px ${y}px, rgba(139, 92, 246, 0.3), transparent 80%)`;
+      });
+
+      glowCard.addEventListener('mouseleave', () => {
+        spotlight.style.opacity = '0';
+      });
+    }
+
+    // Copy Prompt Button
+    const copyPromptBtn = document.getElementById('copy-twentyfirst-prompt-btn');
+    const copyPromptLabel = document.getElementById('copy-twentyfirst-prompt-label');
+    if (copyPromptBtn && copyPromptLabel) {
+      copyPromptBtn.addEventListener('click', () => {
+        const text = compData[currentComp]?.prompt || '';
+        navigator.clipboard.writeText(text).then(() => {
+          const original = copyPromptLabel.textContent;
+          copyPromptLabel.textContent = 'Copied to Clipboard!';
+          setTimeout(() => { copyPromptLabel.textContent = original; }, 2000);
+        });
+      });
+    }
+
+    // Copy CLI Button
+    const copyCliBtn = document.getElementById('copy-twentyfirst-cli-btn');
+    if (copyCliBtn) {
+      copyCliBtn.addEventListener('click', () => {
+        const cli = compData[currentComp]?.cli || '';
+        navigator.clipboard.writeText(cli).then(() => {
+          const original = copyCliBtn.textContent;
+          copyCliBtn.textContent = 'Copied!';
+          setTimeout(() => { copyCliBtn.textContent = original; }, 2000);
+        });
+      });
+    }
+
+    // Initial load
+    updateComponentView();
+  })();
+</script>
