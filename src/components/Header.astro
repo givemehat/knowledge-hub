@@ -44,7 +44,7 @@ const enUrl = getTargetLocaleUrl('en');
 const hiUrl = getTargetLocaleUrl('hi');
 ---
 
-<header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-white/85 dark:bg-[#121016]/85 border-b border-slate-200/80 dark:border-white/10 transition-colors duration-200">
+<header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-white/85 dark:bg-[#121016]/85 border-b border-slate-200/80 dark:border-white/[0.08] transition-colors duration-200 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
     
     <!-- Clean, Aligned Logo Lockup (Original Peach Mark, Baseline-Aligned) -->
@@ -89,7 +89,7 @@ const hiUrl = getTargetLocaleUrl('hi');
     </a>
 
     <!-- Desktop Nav Links with Active/Hover Indicators -->
-    <nav class="hidden md:flex items-center gap-1 lg:gap-2 text-xs font-semibold text-slate-600 dark:text-slate-300">
+    <nav class="hidden md:flex items-center gap-1 lg:gap-1.5 text-xs font-semibold text-slate-600 dark:text-slate-300">
       {navLinks.map(link => {
         const isActive = currentPath.startsWith(link.href) || (link.match && currentPath.includes(link.match));
         return (
@@ -97,8 +97,8 @@ const hiUrl = getTargetLocaleUrl('hi');
             href={link.href}
             class={`px-3 py-1.5 rounded-lg transition-all duration-150 ${
               isActive
-                ? 'bg-brand-50 dark:bg-brand-950/70 text-brand-600 dark:text-brand-300 font-bold shadow-xs'
-                : 'hover:text-brand-600 dark:hover:text-white hover:bg-slate-100/60 dark:hover:bg-white/5'
+                ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-bold shadow-xs'
+                : 'hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-white/5'
             }`}
           >
             {link.label}
@@ -114,22 +114,22 @@ const hiUrl = getTargetLocaleUrl('hi');
       <button 
         type="button" 
         id="open-search-btn"
-        class="flex items-center gap-2 p-2 sm:px-3 sm:py-1.5 text-xs text-slate-500 dark:text-slate-400 bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800/80 dark:hover:bg-slate-800 rounded-xl border border-slate-200/80 dark:border-white/10 transition-all cursor-pointer shadow-xs active:scale-95"
+        class="flex items-center gap-2 p-2 sm:px-3 sm:py-1.5 text-xs text-slate-500 dark:text-slate-400 bg-slate-100/90 hover:bg-slate-200/80 dark:bg-slate-800/70 dark:hover:bg-slate-800 rounded-xl border border-slate-200/80 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition-all cursor-pointer shadow-xs active:scale-95 group"
         aria-label={isHindi ? "विषय या गाइड खोजें" : "Search topics, roadmaps, or guides"}
         title={isHindi ? "खोजें" : "Quick Search"}
       >
-        <svg class="w-4 h-4 text-slate-500 dark:text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="w-4 h-4 text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"/>
           <path d="m21 21-4.35-4.35"/>
         </svg>
-        <span id="header-search-label" class="hidden font-medium">{t(locale, 'hero.searchLabel')}</span>
+        <span id="header-search-label" class="hidden font-medium text-slate-600 dark:text-slate-300">{t(locale, 'hero.searchLabel')}</span>
         <kbd id="header-search-kbd" class="os-shortcut-hint hidden font-mono text-[10px] font-bold px-1.5 py-0.5 rounded bg-white dark:bg-slate-900 border border-slate-300/80 dark:border-slate-700 text-slate-500 dark:text-slate-400 shadow-xs">⌘K</kbd>
       </button>
 
       <!-- Language Segmented Control: [ EN | HI ] with Route Navigation -->
       <div 
         id="lang-segmented-control" 
-        class="inline-flex p-0.5 rounded-xl bg-slate-100 dark:bg-slate-800/90 border border-slate-200/80 dark:border-white/10 text-xs font-bold"
+        class="inline-flex p-0.5 rounded-xl bg-slate-100/90 dark:bg-slate-800/80 border border-slate-200/80 dark:border-white/10 text-xs font-bold"
         role="group"
         aria-label={isHindi ? "भाषा चुनें" : "Select language"}
       >
@@ -139,7 +139,7 @@ const hiUrl = getTargetLocaleUrl('hi');
           data-url={enUrl}
           class={`lang-btn px-2.5 py-1 rounded-lg transition-all text-[11px] font-semibold cursor-pointer ${
             !isHindi
-              ? 'active bg-white dark:bg-brand-600 text-brand-600 dark:text-white shadow-xs font-bold'
+              ? 'active bg-white dark:bg-white/15 text-slate-900 dark:text-white shadow-xs font-bold'
               : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
           }`}
           aria-label="English mode"
@@ -153,7 +153,7 @@ const hiUrl = getTargetLocaleUrl('hi');
           data-url={hiUrl}
           class={`lang-btn px-2.5 py-1 rounded-lg transition-all text-[11px] font-hindi cursor-pointer ${
             isHindi
-              ? 'active bg-white dark:bg-brand-600 text-brand-600 dark:text-white shadow-xs font-bold'
+              ? 'active bg-white dark:bg-white/15 text-slate-900 dark:text-white shadow-xs font-bold'
               : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-semibold'
           }`}
           aria-label="Hindi mode"
@@ -167,7 +167,7 @@ const hiUrl = getTargetLocaleUrl('hi');
       <button
         type="button"
         id="theme-toggle-btn"
-        class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 transition-all cursor-pointer active:scale-95"
+        class="p-2 rounded-xl bg-slate-100/90 hover:bg-slate-200 dark:bg-slate-800/70 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition-all cursor-pointer active:scale-95"
         aria-label={isHindi ? "डार्क मोड बदलें" : "Toggle dark mode"}
       >
         <svg id="theme-sun" class="w-4 h-4 hidden dark:block text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

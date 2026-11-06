@@ -127,7 +127,14 @@ const jsonLdWebsite = {
     </script>
   </head>
 
-  <body class="bg-surface-light dark:bg-surface-dark text-slate-800 dark:text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-peach-500/20 selection:text-peach-900 dark:selection:text-peach-200">
+  <body class="bg-surface-light dark:bg-surface-dark text-slate-800 dark:text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-peach-500/20 selection:text-peach-900 dark:selection:text-peach-200 relative">
+    <!-- Subtle Architectural Engineering Grid Background -->
+    <div
+      class="pointer-events-none fixed inset-0 z-0 opacity-40 dark:opacity-25"
+      style="background-size: 32px 32px; background-image: radial-gradient(circle, currentColor 0.75px, transparent 0.75px); mask-image: radial-gradient(ellipse 90% 80% at 50% 0%, #000 60%, transparent 100%);"
+      aria-hidden="true"
+    />
+
     <!-- Skip to Main Content Link (WAI-ARIA Accessibility Requirement) -->
     <a
       href="#main-content"

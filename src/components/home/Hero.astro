@@ -36,34 +36,32 @@ const quickTopics = [
 ];
 ---
 
-<section class="relative pt-8 pb-10 sm:pt-12 sm:pb-14 overflow-hidden border-b border-slate-200/80 dark:border-white/10">
+<section class="relative pt-10 pb-14 sm:pt-16 sm:pb-20 overflow-hidden border-b border-slate-200/80 dark:border-white/10">
   <!-- Subtle Colorful Mesh Gradient (Peach, Coral to Electric Indigo) -->
-  <div class="absolute inset-0 bg-gradient-to-tr from-peach-500/[0.06] via-transparent to-brand-500/[0.04] dark:from-peach-500/[0.07] dark:via-darkbg dark:to-brand-500/[0.05] pointer-events-none"></div>
+  <div class="absolute inset-0 bg-gradient-to-tr from-peach-500/[0.04] via-transparent to-brand-500/[0.04] dark:from-peach-500/[0.06] dark:via-darkbg dark:to-brand-500/[0.04] pointer-events-none"></div>
   
   <!-- 21st.dev / Magic UI Ambient Glow Depth -->
-  <div id="hero-ambient-glow" class="pointer-events-none absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[320px] bg-gradient-to-tr from-peach-500/10 via-violet-500/10 to-pink-500/10 dark:from-peach-500/15 dark:via-violet-600/15 dark:to-pink-500/10 rounded-full blur-3xl opacity-75"></div>
+  <div id="hero-ambient-glow" class="pointer-events-none absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-peach-500/15 via-violet-500/12 to-pink-500/10 dark:from-peach-500/20 dark:via-violet-600/18 dark:to-pink-500/10 rounded-full blur-3xl opacity-80"></div>
   
   <!-- Extremely Light Masked Jaali Pattern (Text Area is 100% Clean) -->
   <IndianPattern variant="jaali" masked={true} />
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
       
       <!-- Left Column (55%): Headings, Search, Solid Quick Chips -->
       <div class="lg:col-span-7 flex flex-col items-start text-left">
         
         <!-- Trust Eyebrow Pill -->
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-darkcard border border-peach-500/25 text-peach-800 dark:text-peach-300 text-xs font-semibold shadow-xs mb-4">
-          <svg class="w-3.5 h-3.5 text-peacock-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
-          </svg>
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 dark:bg-darkcard/90 border border-slate-200/80 dark:border-white/10 text-slate-800 dark:text-slate-200 text-xs font-semibold shadow-xs mb-5 backdrop-blur-xs">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           <span>{t(locale, 'hero.trustPill')}</span>
           <span class="text-slate-300 dark:text-slate-600">•</span>
           <span class="text-slate-500 dark:text-slate-400 font-medium">{t(locale, 'hero.noLogin')}</span>
         </div>
 
         <!-- H1 Headline (100% Plain Static Text, Peach Underline, Never Cut Off) -->
-        <h1 id="hero-h1" class="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-black text-slate-900 dark:text-white tracking-[-0.02em] leading-[1.08] mb-4 [text-wrap:balance]">
+        <h1 id="hero-h1" class="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-black text-slate-900 dark:text-white tracking-[-0.03em] leading-[1.08] mb-5 [text-wrap:balance]">
           {isHindi ? (
             <span class="font-hindi">
               सीखो वही जो{' '}
@@ -95,16 +93,16 @@ const quickTopics = [
         </p>
 
         <!-- Primary Bada Search Bar (60px height, Glass, OS-aware) -->
-        <div class="w-full max-w-xl mb-4">
+        <div class="w-full max-w-xl mb-5">
           <button
             type="button"
             id="hero-primary-search"
             onclick="document.getElementById('open-search-btn')?.click()"
-            class="w-full flex items-center justify-between px-4 sm:px-5 py-4 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/15 shadow-apple-md hover:shadow-apple-lg hover:border-brand-500/60 dark:hover:border-brand-400/60 transition-all text-slate-400 cursor-pointer text-left group active:scale-[0.99]"
+            class="w-full flex items-center justify-between px-4 sm:px-5 py-4 rounded-2xl bg-white/95 dark:bg-[#16131E]/95 border border-slate-200/90 dark:border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.08)] hover:shadow-apple-lg hover:border-slate-300 dark:hover:border-white/20 hover:-translate-y-0.5 transition-all text-slate-400 cursor-pointer text-left group active:scale-[0.99]"
             aria-label={t(locale, 'hero.searchPlaceholder')}
           >
             <div class="flex items-center gap-3">
-              <div class="w-9 h-9 rounded-xl bg-brand-50 dark:bg-brand-950/70 flex items-center justify-center text-brand-600 dark:text-brand-400 group-hover:scale-105 transition-transform">
+              <div class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-white/10 flex items-center justify-center text-slate-700 dark:text-slate-200 group-hover:scale-105 transition-transform">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="11" cy="11" r="8"/>
                   <path d="m21 21-4.35-4.35"/>
@@ -121,13 +119,13 @@ const quickTopics = [
         </div>
 
         <!-- Solid Quick Topics & Design Studio Shimmer CTA -->
-        <div class="space-y-3">
+        <div class="space-y-3.5">
           <div class="flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
             <span class="font-semibold text-slate-600 dark:text-slate-300">{t(locale, 'hero.quickTopicsLabel')}</span>
             {quickTopics.map(topic => (
               <a
                 href={topic.href}
-                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-200 font-medium hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-300 transition-all shadow-xs hover:shadow-apple-sm active:scale-95"
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-darkcard border border-slate-200/90 dark:border-white/10 text-slate-700 dark:text-slate-200 font-medium hover:border-slate-300 dark:hover:border-white/25 hover:text-slate-900 dark:hover:text-white transition-all shadow-xs hover:shadow-apple-sm active:scale-95"
               >
                 <span set:html={topic.iconSvg} />
                 <span>{topic.label}</span>
@@ -156,13 +154,107 @@ const quickTopics = [
       <!-- Right Column (45%): Layered Preview Collage (Layered Overlap, 2-4° Angle, Stepper Chips) -->
       <div class="lg:col-span-5 relative mt-6 lg:mt-0">
         <!-- Soft Ambient Radial Glow Behind Collage -->
-        <div class="absolute -inset-4 bg-gradient-to-tr from-brand-500/15 via-peacock-500/10 to-saffron-500/15 rounded-3xl blur-2xl pointer-events-none"></div>
+        <div class="absolute -inset-4 bg-gradient-to-tr from-brand-500/12 via-peacock-500/10 to-peach-500/12 rounded-3xl blur-2xl pointer-events-none"></div>
 
         <div class="relative space-y-3.5 max-w-md mx-auto lg:max-w-none">
           
           <!-- Layer 1: Code / Architecture Snippet (Top Card, Subtle Rotate 1.5°) -->
-          <div class="p-3.5 sm:p-4 rounded-2xl bg-slate-900 text-slate-200 border border-slate-800 shadow-apple-md font-mono text-[11px] transform rotate-1 transition-transform hover:rotate-0">
-            <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-800 text-[10px] text-slate-400">
+          <div class="p-3.5 sm:p-4 rounded-2xl bg-[#0B0910] text-slate-200 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.3)] font-mono text-[11px] transform rotate-1 transition-transform hover:rotate-0">
+            <div class="flex items-center justify-between pb-2 mb-2 border-b border-white/10 text-[10px] text-slate-400">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+                <span class="ml-2 font-mono text-slate-300 font-medium">rag_pipeline.py</span>
+              </div>
+              <span class="text-[9px] text-brand-300 font-semibold px-1.5 py-0.5 rounded bg-brand-950/80 border border-brand-500/30">Python 3.11</span>
+            </div>
+            <div class="space-y-1 text-slate-300">
+              <div><span class="text-purple-400 font-semibold">chunks</span> = retriever.search(query, k=3)</div>
+              <div><span class="text-purple-400 font-semibold">answer</span> = llm.generate(prompt=query, context=chunks)</div>
+            </div>
+          </div>
+
+          <!-- Layer 2: Mini Roadmap Card with 64px Progress Ring & Stepper Chips (Main Anchor) -->
+          <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/90 dark:border-white/10 shadow-apple-lg transition-transform relative z-10">
+            <div class="flex items-center justify-between mb-3.5">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-xl bg-peacock-50 dark:bg-peacock-950/70 flex items-center justify-center text-peacock-600 dark:text-peacock-400 shadow-xs">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                    <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white leading-tight">
+                    {isHindi ? 'DSA से प्लेसमेंट रोडमैप' : 'DSA to Tech Placement'}
+                  </h4>
+                  <span class="text-[10px] text-slate-500 dark:text-slate-400">
+                    {isHindi ? 'फ़ेज़ 2: ट्रीज़ और ग्राफ़्स' : 'Phase 2: Trees & Graphs'}
+                  </span>
+                </div>
+              </div>
+              
+              <!-- 64px Crisp SVG Progress Ring (68%) -->
+              <div class="relative w-12 h-12 flex items-center justify-center">
+                <svg class="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
+                  <path class="text-slate-100 dark:text-slate-800" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                  <path class="text-peacock-500" stroke-dasharray="68, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                </svg>
+                <span class="absolute text-[11px] font-black text-slate-800 dark:text-slate-100 font-mono">68%</span>
+              </div>
+            </div>
+
+            <!-- Stepper Progress Chips: Done / Active / Next -->
+            <div class="grid grid-cols-3 gap-2 text-[10px]">
+              <div class="p-2 rounded-xl bg-peacock-50/80 dark:bg-peacock-950/50 border border-peacock-500/25 text-slate-800 dark:text-slate-200">
+                <span class="text-[9px] font-bold text-peacock-600 dark:text-peacock-400 block mb-0.5">
+                  {isHindi ? '✓ पूर्ण' : '✓ Done'}
+                </span>
+                <span class="font-medium truncate block">Arrays & Strings</span>
+              </div>
+              <div class="p-2 rounded-xl bg-brand-50/80 dark:bg-brand-950/60 border border-brand-500/40 text-brand-950 dark:text-white ring-1 ring-brand-500/20">
+                <span class="text-[9px] font-bold text-brand-600 dark:text-brand-400 block mb-0.5">
+                  {isHindi ? '● सक्रिय' : '● Active'}
+                </span>
+                <span class="font-bold truncate block">Trees & Graphs</span>
+              </div>
+              <div class="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-white/5 text-slate-500 dark:text-slate-400">
+                <span class="text-[9px] font-medium block mb-0.5">
+                  {isHindi ? '○ अगला' : '○ Next'}
+                </span>
+                <span class="font-medium truncate block">System Design</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Layer 3: Mini Topic Card with Verified HIGH Badge (Subtle Rotate -1.5°) -->
+          <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/90 dark:border-white/10 shadow-apple-md transform -rotate-1 transition-transform hover:rotate-0">
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-brand-50 dark:bg-brand-950/70 text-brand-600 dark:text-brand-300 border border-brand-500/20">
+                {isHindi ? 'AI और सिस्टम्स' : 'AI & Systems'}
+              </span>
+              <span class="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 px-2 py-0.5 rounded-md border border-emerald-500/20">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                {isHindi ? 'जाँचा हुआ · उच्च' : 'Verified · HIGH'}
+              </span>
+            </div>
+            
+            <h4 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white mb-1">
+              {isHindi ? 'AI एजेंट्स और RAG आर्किटेक्चर' : 'AI Agents & RAG Architecture'}
+            </h4>
+            
+            <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-2">
+              {isHindi 
+                ? 'वेक्टर सिमिलैरिटी सर्च से प्राइवेट नॉलेज बेस को बिना मॉडल फ़ाइन-ट्यूनिंग के सटीक उत्तर प्राप्त करें।'
+                : 'Query private knowledge bases accurately using vector similarity retrieval without model fine-tuning.'}
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
               <div class="flex items-center gap-1.5">
                 <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
                 <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
