@@ -22,7 +22,7 @@ const searchData = [
     title: isHindi ? (t.shortTitle || t.title) : (t.shortTitleEn || t.title),
     category: isHindi ? t.categoryLabel : (t.category === 'ai-ml' ? 'AI & Machine Learning' : t.category === 'quantum' ? 'Quantum Computing' : t.category === 'career' ? 'Career & Placement' : t.category === 'projects' ? 'Projects Hub' : t.category === 'tech-fundamentals' ? 'Tech Fundamentals' : 'Politics & Governance'),
     level: t.level,
-    url: `${base}/${locale}/topics/${t.slug}/`,
+    url: `${base}/topics/${t.slug}/`,
     summary: isHindi ? t.summary : (t.summaryEn || ''),
     tags: t.tags.join(', ')
   })),
@@ -32,7 +32,7 @@ const searchData = [
     title: isHindi ? (r.titleHindi || r.title) : r.title,
     category: isHindi ? 'रोडमैप' : 'Roadmap Guide',
     level: r.difficulty,
-    url: `${base}/${locale}/roadmaps/${r.slug}/`,
+    url: `${base}/roadmaps/${r.slug}/`,
     summary: isHindi ? r.subtitle : (r.description || 'Step-by-step career and skills learning roadmap.'),
     tags: r.nodes.map(n => n.title).join(', ')
   })),
@@ -42,7 +42,7 @@ const searchData = [
     title: isHindi ? s.titleHindi : s.title,
     category: isHindi ? s.domainLabel : 'Futures Studies',
     level: 'Hypothetical',
-    url: `${base}/${locale}/scenarios/${s.slug}/`,
+    url: `${base}/scenarios/${s.slug}/`,
     summary: isHindi ? s.abstract : (s.subtitle || 'Red-teaming strategic simulation and branch outcomes.'),
     tags: 'scenario, red-teaming, simulation, futures'
   })),
@@ -83,7 +83,7 @@ const searchData = [
     title: isHindi ? 'shadcn/ui कोर प्रिमिटिव्स रजिस्ट्री एक्सप्लोरर' : 'shadcn/ui Core Primitives Registry & AI Prompt Studio',
     category: isHindi ? 'कंपोनेंट रजिस्ट्री' : 'Component Registry',
     level: 'Radix + Tailwind',
-    url: `${base}/${locale}/topics/ai-ui-prompting-engineering/#shadcn-registry-studio`,
+    url: `${base}/topics/ai-ui-prompting-engineering/#shadcn-registry-studio`,
     summary: isHindi ? 'Dialog, cmdk, Form with Zod, Data Table, और Sheet प्रिमिटिव्स।' : 'Production-grade Radix UI primitives, Tailwind CVA tokenization, and copy-paste component prompts.',
     tags: 'shadcn, dialog, modal, cmdk, command, form, zod, data table, sheet, drawer'
   },
@@ -93,7 +93,7 @@ const searchData = [
     title: isHindi ? '21st.dev कम्युनिटी रजिस्ट्री और AI MCP हब' : '21st.dev Design Engineer Community Registry & AI MCP Studio',
     category: isHindi ? 'डिज़ाइन इंजीनियरिंग' : 'Design Engineering',
     level: 'Framer Motion + MCP',
-    url: `${base}/${locale}/topics/ai-ui-prompting-engineering/#community-registry-studio`,
+    url: `${base}/topics/ai-ui-prompting-engineering/#community-registry-studio`,
     summary: isHindi ? 'AI Chat with CoT thinking, 3D Glare Card, Magnetic Button, और MCP सर्वर।' : 'The NPM for Design Engineers: interactive glare cards, magnetic buttons, and Model Context Protocol agent prompts.',
     tags: '21st dev, npm, design engineer, mcp, model context protocol, glare card, magnetic button, ambient glow, ai chat'
   },
@@ -103,7 +103,7 @@ const searchData = [
     title: isHindi ? 'Magic UI काइनेटिक इफेक्ट्स और बेंटो मैट्रिक्स' : 'Magic UI Kinetic Signature Effects & Bento Grid Matrix',
     category: isHindi ? 'काइनेटिक मोशन' : 'Kinetic Motion',
     level: 'Shimmer & Beam',
-    url: `${base}/${locale}/topics/ui-animation-micro-interactions/#magicui-kinetic-effects`,
+    url: `${base}/topics/ui-animation-micro-interactions/#magicui-kinetic-effects`,
     summary: isHindi ? 'Border Beam, Animated Beam, Shimmer Button, Meteors, और Particles।' : 'High-impact motion primitives: border beams, kinetic particles, shimmer actions, and bento archetypes.',
     tags: 'magic ui, border beam, animated beam, shimmer button, meteors, particles, bento grid'
   },
@@ -113,7 +113,7 @@ const searchData = [
     title: isHindi ? 'Motion Primitives macOS फ्लोटिंग डॉक और शेडर्स' : 'Motion Primitives macOS Floating Dock & Progressive Blur',
     category: isHindi ? 'UI फिजिक्स' : 'UI Physics',
     level: 'Spring Physics',
-    url: `${base}/${locale}/topics/ui-animation-micro-interactions/#motion-primitives-studio`,
+    url: `${base}/topics/ui-animation-micro-interactions/#motion-primitives-studio`,
     summary: isHindi ? 'स्प्रिंग मैग्निफिकेशन डॉक, मॉर्फिंग पॉपओवर, और प्रोग्रेसिव ब्लर।' : 'Fluid spring-physics floating dock, morphing popover, and progressive blur shader effects.',
     tags: 'motion primitives, floating dock, spring, morphing popover, progressive blur, shader'
   },
@@ -123,7 +123,7 @@ const searchData = [
     title: isHindi ? 'टाइपोग्राफी स्टूडियो और फॉन्ट पेयरिंग मैट्रिक्स' : 'Typography Prompt Studio & Font Pairing Matrix',
     category: isHindi ? 'टाइपोग्राफी' : 'Typography Scale',
     level: 'Font Scaling',
-    url: `${base}/${locale}/topics/typography-prompting-font-pairing/#font-pairing-matrix`,
+    url: `${base}/topics/typography-prompting-font-pairing/#font-pairing-matrix`,
     summary: isHindi ? '6 टाइपफेस, डायनामिक स्केलिंग, और 6 टेक्स्ट एनिमेशन प्लेग्राउंड्स।' : 'Live font pairing matrix, modular typographic scale, and 6 text animation playgrounds.',
     tags: 'typography, font pairing, bricolage grotesque, inter, text animation, font scale'
   },
@@ -133,7 +133,7 @@ const searchData = [
     title: isHindi ? 'WCAG कलर कॉन्ट्रास्ट और एलिवेशन लैब' : 'WCAG Contrast Ratio Lab & Elevation Shadow Studio',
     category: isHindi ? 'कलर व शैडो' : 'Color Systems',
     level: 'WCAG AA/AAA',
-    url: `${base}/${locale}/topics/ui-styling-color-systems/#wcag-contrast-lab`,
+    url: `${base}/topics/ui-styling-color-systems/#wcag-contrast-lab`,
     summary: isHindi ? 'रियल-टाइम WCAG 4.5:1 / 7:1 कॉन्ट्रास्ट कैलकुलेटर और ऐप्पल शैडो लेयर्स।' : 'Real-time WCAG contrast verification, 5 brand archetypes, and elevation shadow generator.',
     tags: 'wcag, contrast, color, better design, linear, stripe, vercel, supabase, apple, shadow'
   }
