@@ -101,6 +101,15 @@ async function captureAll() {
           path: path.join(ANIM_DIR, `magicui_kinetic_${vp.name}_${theme}.png`)
         });
       }
+
+      const mpSection = pageAnim.locator('section#motion-primitives-studio');
+      if (await mpSection.count() > 0) {
+        await mpSection.first().scrollIntoViewIfNeeded();
+        await pageAnim.waitForTimeout(200);
+        await mpSection.first().screenshot({
+          path: path.join(ANIM_DIR, `motion_primitives_${vp.name}_${theme}.png`)
+        });
+      }
       await pageAnim.close();
 
       // 3. Styling Studio

@@ -173,14 +173,53 @@ async function runAnimationStudioTest() {
     const stackedItems = await page.$$('#slot-bottom-toasts > div');
     assert(stackedItems.length >= 2, 'Test 4e: Triggering stack queue appends multiple notifications', `Found: ${stackedItems.length}`);
 
-    // TEST 5: Sticky TOC Rail Links
+    // TEST 5: Motion Primitives Studio (Dock, Morphing Popover, Progressive Blur)
+    const mpSection = await page.$('#motion-primitives-studio');
+    assert(mpSection !== null, 'Test 5a: Motion Primitives Studio section is rendered');
+
+    const dockItems = await page.$$('#mp-floating-dock .dock-item');
+    assert(dockItems.length === 6, 'Test 5b: macOS Floating Dock renders exactly 6 interactive items', `Found: ${dockItems.length}`);
+
+    // Test dock item hover and distance magnification
+    const secondDockItem = await page.$('#mp-floating-dock .dock-item:nth-child(2)');
+    if (secondDockItem) {
+      await secondDockItem.hover();
+      await page.waitForTimeout(100);
+      const scaleText = await page.$eval('#mp-dock-scale-feedback', el => el.textContent.trim());
+      const scaleVal = parseFloat(scaleText);
+      assert(scaleVal > 1.2, 'Test 5c: Hovering over dock item triggers spring magnification (> 1.2x)', `Found: "${scaleText}"`);
+    }
+
+    // Test Morphing Popover toggle
+    await page.click('#mp-popover-trigger');
+    await page.waitForTimeout(100);
+    const isPopoverOpen = await page.$eval('#mp-popover-panel', el => !el.classList.contains('hidden'));
+    assert(isPopoverOpen, 'Test 5d: Morphing popover expands into command palette on trigger click');
+
+    await page.click('#mp-popover-close-btn');
+    await page.waitForTimeout(100);
+    const isPopoverClosed = await page.$eval('#mp-popover-panel', el => el.classList.contains('hidden'));
+    assert(isPopoverClosed, 'Test 5e: Morphing popover collapses back on close button click');
+
+    // Test Progressive Blur slider
+    await page.evaluate(() => {
+      const slider = document.getElementById('mp-blur-slider');
+      slider.value = '24';
+      slider.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    await page.waitForTimeout(50);
+    const blurText = await page.$eval('#mp-blur-val', el => el.textContent.trim());
+    assert(blurText === '24px', 'Test 5f: Progressive blur slider adjusts blur depth to 24px', blurText);
+
+    // TEST 6: Sticky TOC Rail Links
     const tocBuilderLink = await page.$('aside a[href="#animation-prompt-builder"]');
     const tocMotionLink = await page.$('aside a[href="#card-button-motion-studio"]');
     const tocAlertLink = await page.$('aside a[href="#alert-notification-studio"]');
-    assert(tocBuilderLink !== null && tocMotionLink !== null && tocAlertLink !== null, 'Test 5: Sticky TOC rail contains links to all 3 animation studios');
+    const tocMpLink = await page.$('aside a[href="#motion-primitives-studio"]');
+    assert(tocBuilderLink !== null && tocMotionLink !== null && tocAlertLink !== null && tocMpLink !== null, 'Test 6: Sticky TOC rail contains links to all 4 animation studios');
 
-    // TEST 6: Zero Console Errors
-    assert(consoleErrors.length === 0, 'Test 6: Zero console errors on topic page', `Errors: ${consoleErrors.join('; ') || 'None'}`);
+    // TEST 7: Zero Console Errors
+    assert(consoleErrors.length === 0, 'Test 7: Zero console errors on topic page', `Errors: ${consoleErrors.join('; ') || 'None'}`);
 
   } catch (err) {
     console.error('Test runner exception:', err);

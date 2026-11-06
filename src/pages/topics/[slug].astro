@@ -22,6 +22,7 @@ import ScenarioPromptPresets from '../../components/interactive/ScenarioPromptPr
 import AnimationPromptBuilder from '../../components/interactive/AnimationPromptBuilder.astro';
 import CardButtonMotionStudio from '../../components/interactive/CardButtonMotionStudio.astro';
 import AlertNotificationStudio from '../../components/interactive/AlertNotificationStudio.astro';
+import MotionPrimitivesStudio from '../../components/interactive/MotionPrimitivesStudio.astro';
 import LayoutPromptBuilder from '../../components/interactive/LayoutPromptBuilder.astro';
 import ResponsivePatternSimulator from '../../components/interactive/ResponsivePatternSimulator.astro';
 import DynamicBentoMatrix from '../../components/interactive/DynamicBentoMatrix.astro';
@@ -115,6 +116,9 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
               </a>
               <a href="#alert-notification-studio" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
                 ★ Alert & Toast System
+              </a>
+              <a href="#motion-primitives-studio" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
+                ★ Motion Primitives Lab
               </a>
             )}
             {topic.slug === 'responsive-layouts-bento-grid' && (
@@ -361,6 +365,11 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
             <!-- 3. Alert & Toast Notification System -->
             <section id="alert-notification-studio" class="space-y-4">
               <AlertNotificationStudio />
+            </section>
+
+            <!-- 4. Motion Primitives Studio (Floating Dock, Morphing Popover, Progressive Blur) -->
+            <section id="motion-primitives-studio" class="space-y-4">
+              <MotionPrimitivesStudio />
             </section>
           </div>
         )}
