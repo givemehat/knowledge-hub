@@ -30,6 +30,33 @@ import Button from '../ui/Button.astro';
     <!-- Left Column: Controls (5 cols) -->
     <div class="lg:col-span-5 space-y-4 p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm">
       
+      <!-- 0. Brand Design Archetypes (Better Design / MCP Registry Presets) -->
+      <div class="space-y-2 pb-3 border-b border-slate-100 dark:border-white/5">
+        <div class="flex items-center justify-between">
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            Brand Archetype Presets
+          </label>
+          <span class="text-[10px] font-mono text-peach-600 dark:text-peach-400 font-semibold">Better Design MCP</span>
+        </div>
+        <div class="grid grid-cols-5 gap-1.5" id="brand-archetype-selector">
+          <button type="button" data-brand="linear" class="brand-btn px-2 py-1.5 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 cursor-pointer">
+            Linear
+          </button>
+          <button type="button" data-brand="stripe" class="brand-btn px-2 py-1.5 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 cursor-pointer">
+            Stripe
+          </button>
+          <button type="button" data-brand="vercel" class="brand-btn px-2 py-1.5 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 cursor-pointer">
+            Vercel
+          </button>
+          <button type="button" data-brand="supabase" class="brand-btn px-2 py-1.5 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 cursor-pointer">
+            Supabase
+          </button>
+          <button type="button" data-brand="apple" class="brand-btn px-2 py-1.5 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 cursor-pointer">
+            Apple
+          </button>
+        </div>
+      </div>
+
       <!-- 1. Style Type Selection -->
       <div class="space-y-2">
         <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
@@ -215,6 +242,65 @@ import Button from '../ui/Button.astro';
     let currentShadow = 'medium';
     let currentDevice = 'desktop';
     let currentPalette = 'modern';
+    let activeBrand = null;
+
+    const brandPresets = {
+      linear: {
+        name: 'Linear',
+        style: 'minimalist',
+        theme: 'dark',
+        colorName: 'Linear Indigo',
+        colorHex: '#5E6AD2',
+        shadow: 'small',
+        palette: 'monochrome',
+        device: 'desktop',
+        guideline: 'Obsidian #08090A base, hairline 1px rgba(255,255,255,0.08) borders, micro 8px radius, keyboard shortcut pills ⌘K'
+      },
+      stripe: {
+        name: 'Stripe',
+        style: 'flat',
+        theme: 'light',
+        colorName: 'Stripe Blurple',
+        colorHex: '#635BFF',
+        shadow: 'large',
+        palette: 'vibrant',
+        device: 'desktop',
+        guideline: 'Pure white #FFFFFF cards, deep multi-layer 0 13px 27px -5px rgba(50,50,93,0.25) elevation, vibrant gradient CTAs, pill badges'
+      },
+      vercel: {
+        name: 'Vercel',
+        style: 'brutalist',
+        theme: 'dark',
+        colorName: 'Pure White',
+        colorHex: '#FFFFFF',
+        shadow: 'none',
+        palette: 'monochrome',
+        device: 'desktop',
+        guideline: 'Pitch black #000000 canvas, high-contrast #FFFFFF typography, sharp 0-4px geometric radii, #222222 hairline borders'
+      },
+      supabase: {
+        name: 'Supabase',
+        style: 'material',
+        theme: 'dark',
+        colorName: 'Supabase Emerald',
+        colorHex: '#3ECF8E',
+        shadow: 'medium',
+        palette: 'ocean',
+        device: 'desktop',
+        guideline: 'Developer charcoal #1C1C1C canvas, neon emerald #3ECF8E accent with ambient green glow, 12px rounded cards'
+      },
+      apple: {
+        name: 'Apple',
+        style: 'glass',
+        theme: 'light',
+        colorName: 'Apple Blue',
+        colorHex: '#0071E3',
+        shadow: 'medium',
+        palette: 'modern',
+        device: 'desktop',
+        guideline: 'Frosted glassmorphism backdrop-filter blur(20px), generous 20px squircle radii, subtle translucent borders, SF Pro typography'
+      }
+    };
 
     const shadowStyles = {
       none: 'none',
@@ -244,7 +330,7 @@ import Button from '../ui/Button.astro';
 
       // 1. Theme Canvas Base
       if (isDark) {
-        canvas.style.backgroundColor = '#121016';
+        canvas.style.backgroundColor = activeBrand === 'linear' ? '#08090A' : (activeBrand === 'vercel' ? '#000000' : (activeBrand === 'supabase' ? '#141414' : '#121016'));
         canvas.style.borderColor = 'rgba(255, 255, 255, 0.1)';
         canvas.style.color = '#F8FAFC';
       } else {
@@ -255,9 +341,9 @@ import Button from '../ui/Button.astro';
 
       // 2. Primary Button Styling
       btnPrimary.style.backgroundColor = currentColorHex;
-      btnPrimary.style.color = '#FFFFFF';
+      btnPrimary.style.color = (activeBrand === 'vercel' || currentColorHex === '#FFFFFF') ? '#000000' : '#FFFFFF';
       btnPrimary.style.boxShadow = currentStyle === 'flat' ? 'none' : shadowValue;
-      btnPrimary.style.borderRadius = currentStyle === 'ios' ? '1rem' : (currentStyle === 'brutalist' ? '0px' : '0.75rem');
+      btnPrimary.style.borderRadius = currentStyle === 'ios' ? '1rem' : (currentStyle === 'brutalist' ? '0px' : (activeBrand === 'linear' ? '0.5rem' : '0.75rem'));
       btnPrimary.style.border = currentStyle === 'brutalist' ? '2px solid #000' : 'none';
 
       // 3. Secondary Button
@@ -267,7 +353,7 @@ import Button from '../ui/Button.astro';
       btnSecondary.style.borderRadius = currentStyle === 'ios' ? '1rem' : (currentStyle === 'brutalist' ? '0px' : '0.75rem');
 
       // 4. Text Button
-      btnText.style.color = currentColorHex;
+      btnText.style.color = (activeBrand === 'vercel') ? '#F8FAFC' : currentColorHex;
 
       // 5. Input & Select
       const inputBg = isDark ? '#1E293B' : '#FFFFFF';
@@ -299,9 +385,9 @@ import Button from '../ui/Button.astro';
           : '6px 6px 14px #c2c5cc, -6px -6px 14px #ffffff';
       } else if (currentStyle === 'brutalist') {
         card.style.backgroundColor = isDark ? '#000000' : '#FFFFFF';
-        card.style.border = '3px solid #000000';
-        card.style.borderRadius = '0px';
-        card.style.boxShadow = '5px 5px 0px #000000';
+        card.style.border = activeBrand === 'vercel' ? '1px solid #333333' : '3px solid #000000';
+        card.style.borderRadius = activeBrand === 'vercel' ? '4px' : '0px';
+        card.style.boxShadow = activeBrand === 'vercel' ? 'none' : '5px 5px 0px #000000';
       } else if (currentStyle === 'outline') {
         card.style.backgroundColor = 'transparent';
         card.style.border = `2px solid ${currentColorHex}`;
@@ -320,17 +406,18 @@ import Button from '../ui/Button.astro';
       } else { // flat & minimalist
         card.style.backgroundColor = isDark ? '#1A1722' : '#FFFFFF';
         card.style.border = `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : '#E2E8F0'}`;
-        card.style.borderRadius = '1rem';
+        card.style.borderRadius = activeBrand === 'linear' ? '0.5rem' : '1rem';
         card.style.boxShadow = currentStyle === 'flat' ? 'none' : shadowValue;
       }
 
       // 7. Card Badge
-      cardBadge.style.backgroundColor = currentColorHex + '20';
-      cardBadge.style.color = currentColorHex;
+      cardBadge.style.backgroundColor = currentColorHex === '#FFFFFF' ? '#333333' : currentColorHex + '20';
+      cardBadge.style.color = currentColorHex === '#FFFFFF' ? '#FFFFFF' : currentColorHex;
 
       // 8. Summary label
       if (summary) {
-        summary.textContent = `${currentStyle.toUpperCase()} • ${currentTheme.toUpperCase()} • ${currentColorName} • ${currentShadow.toUpperCase()}`;
+        const brandTag = activeBrand ? `[${brandPresets[activeBrand].name.toUpperCase()}] ` : '';
+        summary.textContent = `${brandTag}${currentStyle.toUpperCase()} • ${currentTheme.toUpperCase()} • ${currentColorName} • ${currentShadow.toUpperCase()}`;
       }
 
       // 9. Generate Deterministic Prompt
@@ -341,14 +428,82 @@ import Button from '../ui/Button.astro';
     }
 
     function generatePrompt() {
-      return `Create a production-grade UI design with ${currentStyle.toUpperCase()} styling and ${currentTheme.toUpperCase()} theme:
+      const brandInfo = activeBrand ? brandPresets[activeBrand] : null;
+      let prompt = `Create a production-grade UI design with ${currentStyle.toUpperCase()} styling and ${currentTheme.toUpperCase()} theme:
 • Visual Style Archetype: ${currentStyle} with authentic token semantics (${currentStyle === 'glass' ? 'backdrop-filter: blur(16px), 1px translucent border' : currentStyle === 'neumorphic' ? 'tactile extruded dual light/dark shadows' : currentStyle === 'brutalist' ? 'bold 3px black borders with sharp 5px hard shadow offset' : 'clean borders with calibrated hierarchy'}).
 • Theme & Background: ${currentTheme === 'dark' ? 'Dark obsidian background (#121016) with light text' : currentTheme === 'light' ? 'Warm neutral light background (#FAF8F5) with dark charcoal text' : 'Adaptive system theme switching between light and dark modes'}.
 • Primary Accent Color: ${currentColorName} (${currentColorHex}) following the 60-30-10 distribution rule (10% accent for CTAs & key links, 30% secondary structural containers, 60% neutral surface).
 • Shadow Elevation: ${currentShadow} depth (${shadowStyles[currentShadow] || 'none'}).
 • Target Device Optimization: ${currentDevice} (${currentDevice === 'mobile' ? 'min 44px touch targets, single-column vertical flow, thumb-friendly actions' : 'multi-column grid with smooth hover micro-interactions'}).
 • Color Harmony: ${currentPalette} palette ensuring strict WCAG AA contrast ratio compliance (4.5:1 for body copy, 3:1 for large text & UI controls).`;
+
+      if (brandInfo) {
+        prompt += `\n• Brand Archetype Inspiration: ${brandInfo.name} Design System (${brandInfo.guideline}).
+• Registry & MCP Alignment: Styled for seamless compatibility with Better Design MCP server and shadcn/ui custom registries.`;
+      }
+
+      return prompt;
     }
+
+    // Brand Archetype Selector
+    document.querySelectorAll('.brand-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const brandKey = btn.dataset.brand;
+        const brand = brandPresets[brandKey];
+        if (!brand) return;
+
+        document.querySelectorAll('.brand-btn').forEach(b => {
+          b.classList.remove('active', 'bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+          b.classList.add('border-slate-200', 'dark:border-white/10', 'text-slate-700', 'dark:text-slate-300');
+        });
+        btn.classList.add('active', 'bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+        btn.classList.remove('border-slate-200', 'dark:border-white/10', 'text-slate-700', 'dark:text-slate-300');
+
+        activeBrand = brandKey;
+        currentStyle = brand.style;
+        currentTheme = brand.theme;
+        currentColorName = brand.colorName;
+        currentColorHex = brand.colorHex;
+        currentShadow = brand.shadow;
+        currentPalette = brand.palette;
+        currentDevice = brand.device;
+
+        // Sync Style Buttons UI
+        document.querySelectorAll('.style-type-btn').forEach(b => {
+          const isActive = b.dataset.style === currentStyle;
+          b.classList.toggle('active', isActive);
+          b.classList.toggle('bg-peach-500/10', isActive);
+          b.classList.toggle('border-peach-500', isActive);
+          b.classList.toggle('text-peach-900', isActive);
+          b.classList.toggle('dark:text-peach-200', isActive);
+        });
+
+        // Sync Theme Buttons UI
+        document.querySelectorAll('.style-theme-btn').forEach(b => {
+          const isActive = b.dataset.theme === currentTheme;
+          b.classList.toggle('active', isActive);
+          b.classList.toggle('bg-peach-500/10', isActive);
+          b.classList.toggle('border-peach-500', isActive);
+          b.classList.toggle('text-peach-900', isActive);
+          b.classList.toggle('dark:text-peach-200', isActive);
+        });
+
+        // Sync Shadow Buttons UI
+        document.querySelectorAll('.style-shadow-btn').forEach(b => {
+          const isActive = b.dataset.shadow === currentShadow;
+          b.classList.toggle('active', isActive);
+          b.classList.toggle('bg-peach-500/10', isActive);
+          b.classList.toggle('border-peach-500', isActive);
+          b.classList.toggle('text-peach-900', isActive);
+          b.classList.toggle('dark:text-peach-200', isActive);
+        });
+
+        const colorLabel = document.getElementById('active-color-name');
+        if (colorLabel) colorLabel.textContent = `${currentColorName} (${currentColorHex})`;
+
+        updatePreview();
+      });
+    });
 
     // Event Listeners for Style Buttons
     document.querySelectorAll('.style-type-btn').forEach(btn => {

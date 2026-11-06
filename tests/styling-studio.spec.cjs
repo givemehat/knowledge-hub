@@ -74,6 +74,32 @@ async function runStylingStudioTests() {
     const promptTextDark = await page.$eval('#styling-prompt-output', el => el.innerText);
     assert(promptTextDark.includes('DARK'), 'Test 2c: Theme mode updates to DARK');
 
+    // Test 2d: Brand Archetypes (Linear, Stripe, Vercel, Supabase, Apple)
+    const linearBtn = page.locator('#brand-archetype-selector button[data-brand="linear"]');
+    await linearBtn.click();
+    const promptLinear = await page.$eval('#styling-prompt-output', el => el.innerText);
+    assert(promptLinear.includes('Linear Design System') && promptLinear.includes('#5E6AD2'), 'Test 2d: Linear brand archetype sets #5E6AD2 accent and Linear tokens');
+
+    const stripeBtn = page.locator('#brand-archetype-selector button[data-brand="stripe"]');
+    await stripeBtn.click();
+    const promptStripe = await page.$eval('#styling-prompt-output', el => el.innerText);
+    assert(promptStripe.includes('Stripe Design System') && promptStripe.includes('#635BFF'), 'Test 2e: Stripe brand archetype sets #635BFF accent and Stripe tokens');
+
+    const vercelBtn = page.locator('#brand-archetype-selector button[data-brand="vercel"]');
+    await vercelBtn.click();
+    const promptVercel = await page.$eval('#styling-prompt-output', el => el.innerText);
+    assert(promptVercel.includes('Vercel Design System') && promptVercel.includes('#FFFFFF'), 'Test 2f: Vercel brand archetype sets #FFFFFF accent and brutalist tokens');
+
+    const supabaseBtn = page.locator('#brand-archetype-selector button[data-brand="supabase"]');
+    await supabaseBtn.click();
+    const promptSupabase = await page.$eval('#styling-prompt-output', el => el.innerText);
+    assert(promptSupabase.includes('Supabase Design System') && promptSupabase.includes('#3ECF8E'), 'Test 2g: Supabase brand archetype sets #3ECF8E accent and neon tokens');
+
+    const appleBtn = page.locator('#brand-archetype-selector button[data-brand="apple"]');
+    await appleBtn.click();
+    const promptApple = await page.$eval('#styling-prompt-output', el => el.innerText);
+    assert(promptApple.includes('Apple Design System') && promptApple.includes('#0071E3'), 'Test 2h: Apple brand archetype sets #0071E3 accent and glass tokens');
+
     // Test 3: WCAG Contrast Lab - Preset Selection (Slate on White)
     const presetSlateBtn = page.locator('#contrast-presets button:first-child');
     await presetSlateBtn.click();
