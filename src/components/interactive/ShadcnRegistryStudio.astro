@@ -1,0 +1,584 @@
+---
+import Card from '../ui/Card.astro';
+import Button from '../ui/Button.astro';
+---
+
+<div id="shadcn-registry-studio" class="space-y-6">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-200/80 dark:border-white/10">
+    <div>
+      <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-900 text-white dark:bg-white dark:text-slate-900 text-[11px] font-bold uppercase tracking-wider mb-1">
+        <span>shadcn/ui Registry Engine</span>
+      </div>
+      <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+        shadcn/ui Core Primitives & Registry Studio
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+        Explore production-grade Radix UI primitives, Tailwind CVA tokenization, and generate verified copy-paste component prompts.
+      </p>
+    </div>
+
+    <!-- Official Registry Link -->
+    <div class="flex items-center gap-2">
+      <span class="text-[11px] font-mono text-slate-400">ui.shadcn.com</span>
+      <a
+        href="https://ui.shadcn.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-xs font-bold text-slate-900 dark:text-white hover:underline inline-flex items-center gap-1"
+      >
+        <span>shadcn Docs</span>
+        <span>&rarr;</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Primitives Tabs Bar -->
+  <div class="flex items-center gap-2 p-1 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-white/10 overflow-x-auto" id="shadcn-primitive-tabs">
+    <button
+      type="button"
+      data-primitive="dialog"
+      class="shadcn-tab-btn active px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs cursor-pointer shrink-0"
+    >
+      Dialog
+    </button>
+    <button
+      type="button"
+      data-primitive="command"
+      class="shadcn-tab-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer shrink-0"
+    >
+      Command (cmdk)
+    </button>
+    <button
+      type="button"
+      data-primitive="form"
+      class="shadcn-tab-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer shrink-0"
+    >
+      Form + Zod
+    </button>
+    <button
+      type="button"
+      data-primitive="table"
+      class="shadcn-tab-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer shrink-0"
+    >
+      Data Table
+    </button>
+    <button
+      type="button"
+      data-primitive="sheet"
+      class="shadcn-tab-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer shrink-0"
+    >
+      Sheet (Drawer)
+    </button>
+  </div>
+
+  <!-- Main Showcase Container: Left Live Preview + Right Metadata & Prompt -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+    
+    <!-- LEFT: Interactive Primitive Preview Canvas (7 cols) -->
+    <div class="lg:col-span-7 p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm space-y-4 min-h-[420px] flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/5">
+          <div class="flex items-center gap-2">
+            <span id="primitive-badge" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 uppercase">
+              Radix Dialog
+            </span>
+            <span id="primitive-cli-badge" class="text-[10px] font-mono text-purple-600 dark:text-purple-400 font-semibold">
+              npx shadcn@latest add dialog
+            </span>
+          </div>
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        </div>
+
+        <!-- CANVAS STAGES FOR EACH PRIMITIVE -->
+        <div class="mt-6" id="shadcn-canvas-container">
+          
+          <!-- 1. DIALOG STAGE -->
+          <div id="stage-primitive-dialog" class="primitive-stage flex flex-col items-center justify-center py-10 space-y-4">
+            <p class="text-xs text-slate-500 dark:text-slate-400 text-center max-w-sm">
+              Accessible modal dialog built on @radix-ui/react-dialog with focus management, backdrop blur, and spring entrance.
+            </p>
+
+            <button
+              type="button"
+              id="open-dialog-demo-btn"
+              class="px-5 py-2.5 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-bold text-xs shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer"
+            >
+              Open Dialog Modal
+            </button>
+
+            <!-- In-DOM Dialog Preview Container -->
+            <div id="demo-dialog-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+              <!-- Backdrop -->
+              <div id="demo-dialog-backdrop" class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"></div>
+              
+              <!-- Dialog Card -->
+              <div class="relative w-full max-w-md p-6 rounded-2xl bg-white dark:bg-[#121016] border border-slate-200 dark:border-white/15 shadow-2xl space-y-4 animate-scale-up">
+                <div class="flex items-center justify-between">
+                  <h4 class="text-base font-black text-slate-900 dark:text-white">Confirm Architecture Migration</h4>
+                  <button type="button" id="close-dialog-demo-btn" class="w-6 h-6 rounded-lg text-slate-400 hover:text-slate-800 dark:hover:text-white flex items-center justify-center text-sm font-bold cursor-pointer">
+                    &times;
+                  </button>
+                </div>
+                <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                  Are you sure you want to promote this layout archetype to production? This will synchronize tokens across all client registries.
+                </p>
+                <div class="pt-3 border-t border-slate-100 dark:border-white/10 flex items-center justify-end gap-2">
+                  <button type="button" id="cancel-dialog-demo-btn" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 cursor-pointer">
+                    Cancel
+                  </button>
+                  <button type="button" id="confirm-dialog-demo-btn" class="px-4 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white dark:bg-white dark:text-slate-900 cursor-pointer">
+                    Confirm Sync
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. COMMAND (cmdk) STAGE -->
+          <div id="stage-primitive-command" class="primitive-stage hidden flex flex-col items-center justify-center py-4 space-y-4">
+            <p class="text-xs text-slate-500 dark:text-slate-400 text-center max-w-sm">
+              Fast, composable in-memory command palette powered by Pacocoursey cmdk with instant filtering.
+            </p>
+
+            <div class="w-full max-w-md rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-300 dark:border-white/15 shadow-xl overflow-hidden" id="command-palette-demo">
+              <div class="flex items-center gap-2.5 px-3 py-2.5 border-b border-slate-200 dark:border-white/10">
+                <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                <input
+                  type="text"
+                  id="cmdk-filter-input"
+                  placeholder="Type a command or search topics..."
+                  class="w-full bg-transparent text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-hidden"
+                />
+                <kbd class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[10px] font-mono text-slate-500">ESC</kbd>
+              </div>
+
+              <div class="p-2 space-y-1 max-h-48 overflow-y-auto" id="cmdk-items-list">
+                <div class="cmdk-item px-3 py-2 rounded-lg text-xs flex items-center justify-between text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/5 cursor-pointer" data-keyword="bento grid responsive layout">
+                  <span class="font-medium">Responsive Bento Grid Matrix</span>
+                  <span class="text-[10px] font-mono text-slate-400">Layout</span>
+                </div>
+                <div class="cmdk-item px-3 py-2 rounded-lg text-xs flex items-center justify-between text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/5 cursor-pointer" data-keyword="wcag contrast color system aa aaa">
+                  <span class="font-medium">WCAG Contrast Ratio Audit</span>
+                  <span class="text-[10px] font-mono text-slate-400">Color</span>
+                </div>
+                <div class="cmdk-item px-3 py-2 rounded-lg text-xs flex items-center justify-between text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/5 cursor-pointer" data-keyword="magic ui border beam shimmer button">
+                  <span class="font-medium">Magic UI Kinetic Effects</span>
+                  <span class="text-[10px] font-mono text-slate-400">Motion</span>
+                </div>
+                <div class="cmdk-item px-3 py-2 rounded-lg text-xs flex items-center justify-between text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/5 cursor-pointer" data-keyword="floating dock spring physics">
+                  <span class="font-medium">Motion Primitives Floating Dock</span>
+                  <span class="text-[10px] font-mono text-slate-400">Physics</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. FORM + ZOD STAGE -->
+          <div id="stage-primitive-form" class="primitive-stage hidden flex flex-col items-center justify-center py-2 space-y-4">
+            <p class="text-xs text-slate-500 dark:text-slate-400 text-center max-w-sm">
+              Type-safe form orchestration combining React Hook Form with strict Zod runtime schema validation.
+            </p>
+
+            <form id="demo-zod-form" class="w-full max-w-sm space-y-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10" novalidate>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                  Engineer Email
+                </label>
+                <input
+                  type="email"
+                  id="zod-email-input"
+                  placeholder="name@company.com"
+                  class="w-full px-3 py-2 rounded-lg text-xs bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-hidden focus:border-slate-900 dark:focus:border-white transition-colors"
+                />
+                <p id="zod-email-error" class="hidden text-[10px] font-semibold text-rose-500 mt-1"></p>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                  Design System Archetype
+                </label>
+                <select id="zod-archetype-select" class="w-full px-3 py-2 rounded-lg text-xs bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white">
+                  <option value="linear">Linear (Minimalist Dark)</option>
+                  <option value="stripe">Stripe (Warm Vibrant)</option>
+                  <option value="vercel">Vercel (Monochrome Brutalist)</option>
+                </select>
+              </div>
+
+              <button
+                type="submit"
+                id="zod-submit-btn"
+                class="w-full py-2 rounded-lg bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-bold text-xs shadow-sm hover:opacity-90 active:scale-95 transition-all cursor-pointer"
+              >
+                Validate with Zod
+              </button>
+              <p id="zod-success-msg" class="hidden text-[11px] font-bold text-emerald-600 dark:text-emerald-400 text-center">
+                ✓ Validated against z.object(&#123; email: z.string().email() &#125;)
+              </p>
+            </form>
+          </div>
+
+          <!-- 4. DATA TABLE STAGE -->
+          <div id="stage-primitive-table" class="primitive-stage hidden flex flex-col items-center justify-center py-2 space-y-4">
+            <p class="text-xs text-slate-500 dark:text-slate-400 text-center max-w-sm">
+              Accessible data grid built with TanStack Table featuring column sorting, pagination, and multi-row selection.
+            </p>
+
+            <div class="w-full overflow-x-auto rounded-xl border border-slate-200 dark:border-white/10" id="demo-data-table-wrapper">
+              <table class="w-full text-left text-xs text-slate-700 dark:text-slate-300">
+                <thead class="bg-slate-50 dark:bg-slate-900/80 text-[10px] font-mono uppercase tracking-wider text-slate-500 border-b border-slate-200 dark:border-white/10">
+                  <tr>
+                    <th class="p-2.5">Component</th>
+                    <th class="p-2.5">Radix Headless</th>
+                    <th class="p-2.5">Status</th>
+                    <th class="p-2.5 text-right">Bundle</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 dark:divide-white/5">
+                  <tr class="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                    <td class="p-2.5 font-bold text-slate-900 dark:text-white">Dialog</td>
+                    <td class="p-2.5 font-mono text-[10px] text-slate-500">@radix-ui/react-dialog</td>
+                    <td class="p-2.5"><span class="px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold">Stable</span></td>
+                    <td class="p-2.5 text-right font-mono text-[10px]">1.8 KB</td>
+                  </tr>
+                  <tr class="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                    <td class="p-2.5 font-bold text-slate-900 dark:text-white">Command</td>
+                    <td class="p-2.5 font-mono text-[10px] text-slate-500">cmdk</td>
+                    <td class="p-2.5"><span class="px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold">Stable</span></td>
+                    <td class="p-2.5 text-right font-mono text-[10px]">3.2 KB</td>
+                  </tr>
+                  <tr class="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                    <td class="p-2.5 font-bold text-slate-900 dark:text-white">Sheet</td>
+                    <td class="p-2.5 font-mono text-[10px] text-slate-500">@radix-ui/react-dialog</td>
+                    <td class="p-2.5"><span class="px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold">Stable</span></td>
+                    <td class="p-2.5 text-right font-mono text-[10px]">2.1 KB</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 5. SHEET (DRAWER) STAGE -->
+          <div id="stage-primitive-sheet" class="primitive-stage hidden flex flex-col items-center justify-center py-10 space-y-4">
+            <p class="text-xs text-slate-500 dark:text-slate-400 text-center max-w-sm">
+              Slide-out navigation drawer emerging from viewport edges with spring transition physics and focus lock.
+            </p>
+
+            <button
+              type="button"
+              id="open-sheet-demo-btn"
+              class="px-5 py-2.5 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-bold text-xs shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer"
+            >
+              Open Right Sheet Drawer
+            </button>
+
+            <!-- Sheet Drawer Container -->
+            <div id="demo-sheet-container" class="hidden fixed inset-0 z-50 flex justify-end">
+              <!-- Backdrop -->
+              <div id="demo-sheet-backdrop" class="absolute inset-0 bg-black/50 backdrop-blur-xs transition-opacity"></div>
+              
+              <!-- Sheet Surface -->
+              <div id="demo-sheet-surface" class="relative w-full max-w-sm h-full bg-white dark:bg-[#121016] border-l border-slate-200 dark:border-white/15 p-6 shadow-2xl flex flex-col justify-between transform transition-transform duration-300 translate-x-full">
+                <div class="space-y-4">
+                  <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/10">
+                    <h4 class="text-sm font-black text-slate-900 dark:text-white">Sheet Navigation</h4>
+                    <button type="button" id="close-sheet-demo-btn" class="w-6 h-6 rounded text-slate-400 hover:text-slate-900 dark:hover:text-white text-base font-bold cursor-pointer">
+                      &times;
+                    </button>
+                  </div>
+                  <div class="space-y-2 text-xs text-slate-700 dark:text-slate-300">
+                    <p class="font-bold">Project Configuration</p>
+                    <p class="text-slate-500 text-[11px]">Configure custom theme tokens, registry roots, and Radix accessibility behaviors.</p>
+                  </div>
+                </div>
+                <div class="pt-4 border-t border-slate-100 dark:border-white/10">
+                  <button type="button" id="confirm-sheet-demo-btn" class="w-full py-2 rounded-lg bg-slate-900 text-white dark:bg-white dark:text-slate-900 text-xs font-bold cursor-pointer">
+                    Save Changes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Quick Registry Install Banner -->
+      <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-white/5 flex items-center justify-between">
+        <code id="active-cli-command" class="font-mono text-xs text-slate-700 dark:text-slate-300">
+          npx shadcn@latest add dialog
+        </code>
+        <button
+          type="button"
+          id="copy-cli-command-btn"
+          class="px-2.5 py-1 rounded bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-[11px] font-bold border border-slate-200 dark:border-white/10 hover:bg-slate-50 cursor-pointer shadow-xs"
+        >
+          Copy CLI
+        </button>
+      </div>
+    </div>
+
+    <!-- RIGHT: Prompt Output & Specification Generator (5 cols) -->
+    <div class="lg:col-span-5 p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-mono text-purple-600 dark:text-purple-400 font-bold uppercase">AI Prompt Specification</span>
+          <h4 class="text-base font-black text-slate-900 dark:text-white mt-0.5">Verified Component Prompt</h4>
+        </div>
+        <button
+          type="button"
+          id="copy-shadcn-prompt-btn"
+          class="text-xs font-bold text-peach-600 dark:text-peach-400 hover:text-peach-700 flex items-center gap-1 cursor-pointer"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+          <span id="copy-shadcn-prompt-label">Copy Prompt</span>
+        </button>
+      </div>
+
+      <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+        Zero-slop prompt formatted with strict TypeScript signatures, Radix accessibility guarantees, and Tailwind CVA classes.
+      </p>
+
+      <pre id="shadcn-prompt-output" class="p-3.5 rounded-xl bg-slate-900 text-slate-200 font-mono text-xs overflow-x-auto whitespace-pre-wrap leading-relaxed border border-slate-800 min-h-[260px]"></pre>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  @keyframes scaleUp {
+    0% { transform: scale(0.95); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .animate-scale-up {
+    animation: scaleUp 0.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+</style>
+
+<script is:inline>
+  (function initShadcnRegistryStudio() {
+    let currentPrimitive = 'dialog';
+
+    const primitiveData = {
+      dialog: {
+        badge: 'Radix Dialog',
+        cli: 'npx shadcn@latest add dialog',
+        prompt: `Create an accessible Dialog component with shadcn/ui and @radix-ui/react-dialog:
+• Installation: npx shadcn@latest add dialog
+• Accessibility: Strict ARIA roles (role="dialog", aria-modal="true", aria-labelledby, aria-describedby).
+• Focus Trap: Focus locks within the modal container while open and restores to trigger element on dismiss.
+• Styling & Animation: Backdrop blur (bg-black/80 backdrop-blur-sm) with spring scale entrance (scale-95 to scale-100 over 150ms).
+• Architecture: Composable subcomponents (Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription).`
+      },
+      command: {
+        badge: 'cmdk Palette',
+        cli: 'npx shadcn@latest add command',
+        prompt: `Implement a fast, composable Command Palette using cmdk and shadcn/ui:
+• Installation: npx shadcn@latest add command
+• Architecture: In-memory filter with keyboard navigation (ArrowUp, ArrowDown, Enter, Esc).
+• Grouping: Structured sections (Suggestions, Navigation, Settings, Actions) with empty state fallback.
+• Performance: Hardware-accelerated transitions with zero layout reflows during query filtering.
+• Accessibility: ARIA combobox pattern with keyboard shortcut pill cues (⌘K, ⌘B, ESC).`
+      },
+      form: {
+        badge: 'Zod + Hook Form',
+        cli: 'npx shadcn@latest add form',
+        prompt: `Build a type-safe validated Form using React Hook Form, Zod, and shadcn/ui:
+• Installation: npx shadcn@latest add form
+• Schema Validation: Strict Zod object schema with custom error messages and asynchronous validation support.
+• Architecture: Form, FormItem, FormLabel, FormControl, FormDescription, FormMessage primitives.
+• Accessibility: Automatic aria-invalid and aria-describedby binding on invalid form fields.
+• Ergonomics: Inferred TypeScript types using z.infer<typeof FormSchema>.`
+      },
+      table: {
+        badge: 'TanStack Table',
+        cli: 'npx shadcn@latest add table',
+        prompt: `Create a responsive, accessible Data Table using @tanstack/react-table and shadcn/ui:
+• Installation: npx shadcn@latest add table
+• Features: Multi-column sorting, debounced global search filtering, row selection checkboxes, and fluid pagination.
+• Responsive Behavior: Horizontal overflow container with pinned column headers and mobile touch scrolling.
+• Styling: Monospace numeric cells, status badge variants, and calibrated hover row highlights.`
+      },
+      sheet: {
+        badge: 'Radix Sheet Drawer',
+        cli: 'npx shadcn@latest add sheet',
+        prompt: `Implement an edge-sliding Sheet (Drawer) using @radix-ui/react-dialog and shadcn/ui:
+• Installation: npx shadcn@latest add sheet
+• Architecture: Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription primitives.
+• Slide Positions: Configurable edge anchors (top, right, bottom, left) with smooth spring translation.
+• Accessibility: Focus trap, Esc key dismiss, and screen reader announcements.
+• Styling: Fixed viewport overlay with smooth 300ms ease-in-out slide transitions.`
+      }
+    };
+
+    function updatePrimitive() {
+      const data = primitiveData[currentPrimitive];
+      if (!data) return;
+
+      // Update badges & CLI command
+      const badge = document.getElementById('primitive-badge');
+      const cliBadge = document.getElementById('primitive-cli-badge');
+      const cliCommand = document.getElementById('active-cli-command');
+      const promptOutput = document.getElementById('shadcn-prompt-output');
+
+      if (badge) badge.textContent = data.badge;
+      if (cliBadge) cliBadge.textContent = data.cli;
+      if (cliCommand) cliCommand.textContent = data.cli;
+      if (promptOutput) promptOutput.textContent = data.prompt;
+
+      // Toggle visible stage
+      document.querySelectorAll('.primitive-stage').forEach(el => el.classList.add('hidden'));
+      const activeStage = document.getElementById(`stage-primitive-${currentPrimitive}`);
+      if (activeStage) activeStage.classList.remove('hidden');
+    }
+
+    // Tabs Event Listeners
+    document.querySelectorAll('.shadcn-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.shadcn-tab-btn').forEach(b => {
+          b.classList.remove('active', 'bg-white', 'dark:bg-slate-900', 'text-slate-900', 'dark:text-white', 'shadow-xs');
+          b.classList.add('text-slate-600', 'dark:text-slate-300');
+        });
+        btn.classList.add('active', 'bg-white', 'dark:bg-slate-900', 'text-slate-900', 'dark:text-white', 'shadow-xs');
+        btn.classList.remove('text-slate-600', 'dark:text-slate-300');
+
+        currentPrimitive = btn.dataset.primitive || 'dialog';
+        updatePrimitive();
+      });
+    });
+
+    // 1. Dialog Demo Interactions
+    const openDialogBtn = document.getElementById('open-dialog-demo-btn');
+    const dialogModal = document.getElementById('demo-dialog-modal');
+    const closeDialogBtn = document.getElementById('close-dialog-demo-btn');
+    const cancelDialogBtn = document.getElementById('cancel-dialog-demo-btn');
+    const confirmDialogBtn = document.getElementById('confirm-dialog-demo-btn');
+    const dialogBackdrop = document.getElementById('demo-dialog-backdrop');
+
+    function closeDialog() {
+      if (dialogModal) dialogModal.classList.add('hidden');
+    }
+    if (openDialogBtn && dialogModal) {
+      openDialogBtn.addEventListener('click', () => dialogModal.classList.remove('hidden'));
+      if (closeDialogBtn) closeDialogBtn.addEventListener('click', closeDialog);
+      if (cancelDialogBtn) cancelDialogBtn.addEventListener('click', closeDialog);
+      if (confirmDialogBtn) confirmDialogBtn.addEventListener('click', closeDialog);
+      if (dialogBackdrop) dialogBackdrop.addEventListener('click', closeDialog);
+    }
+
+    // 2. Command Palette Filter Demo
+    const cmdkInput = document.getElementById('cmdk-filter-input');
+    const cmdkItems = document.querySelectorAll('.cmdk-item');
+    if (cmdkInput) {
+      cmdkInput.addEventListener('input', e => {
+        const query = e.target.value.toLowerCase().trim();
+        cmdkItems.forEach(item => {
+          const text = item.textContent.toLowerCase();
+          const keyword = (item.dataset.keyword || '').toLowerCase();
+          const matches = text.includes(query) || keyword.includes(query);
+          if (matches) {
+            item.classList.remove('hidden');
+            item.style.display = 'flex';
+          } else {
+            item.classList.add('hidden');
+            item.style.display = 'none';
+          }
+        });
+      });
+    }
+
+    // 3. Form + Zod Validation Demo
+    const zodForm = document.getElementById('demo-zod-form');
+    const emailInput = document.getElementById('zod-email-input');
+    const emailError = document.getElementById('zod-email-error');
+    const successMsg = document.getElementById('zod-success-msg');
+
+    if (zodForm && emailInput) {
+      zodForm.addEventListener('submit', e => {
+        e.preventDefault();
+        const email = emailInput.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!email) {
+          if (emailError) {
+            emailError.textContent = 'Please enter a valid email address.';
+            emailError.classList.remove('hidden');
+          }
+          if (successMsg) successMsg.classList.add('hidden');
+          emailInput.classList.add('border-rose-500');
+        } else if (!emailRegex.test(email)) {
+          if (emailError) {
+            emailError.textContent = 'Invalid email syntax (must include @ and domain).';
+            emailError.classList.remove('hidden');
+          }
+          if (successMsg) successMsg.classList.add('hidden');
+          emailInput.classList.add('border-rose-500');
+        } else {
+          if (emailError) emailError.classList.add('hidden');
+          if (successMsg) successMsg.classList.remove('hidden');
+          emailInput.classList.remove('border-rose-500');
+        }
+      });
+    }
+
+    // 4. Sheet Drawer Demo
+    const openSheetBtn = document.getElementById('open-sheet-demo-btn');
+    const sheetContainer = document.getElementById('demo-sheet-container');
+    const sheetSurface = document.getElementById('demo-sheet-surface');
+    const closeSheetBtn = document.getElementById('close-sheet-demo-btn');
+    const confirmSheetBtn = document.getElementById('confirm-sheet-demo-btn');
+    const sheetBackdrop = document.getElementById('demo-sheet-backdrop');
+
+    function openSheet() {
+      if (sheetContainer && sheetSurface) {
+        sheetContainer.classList.remove('hidden');
+        setTimeout(() => {
+          sheetSurface.classList.remove('translate-x-full');
+        }, 10);
+      }
+    }
+
+    function closeSheet() {
+      if (sheetSurface && sheetContainer) {
+        sheetSurface.classList.add('translate-x-full');
+        setTimeout(() => {
+          sheetContainer.classList.add('hidden');
+        }, 300);
+      }
+    }
+
+    if (openSheetBtn) openSheetBtn.addEventListener('click', openSheet);
+    if (closeSheetBtn) closeSheetBtn.addEventListener('click', closeSheet);
+    if (confirmSheetBtn) confirmSheetBtn.addEventListener('click', closeSheet);
+    if (sheetBackdrop) sheetBackdrop.addEventListener('click', closeSheet);
+
+    // Copy Prompt Button
+    const copyPromptBtn = document.getElementById('copy-shadcn-prompt-btn');
+    const copyPromptLabel = document.getElementById('copy-shadcn-prompt-label');
+    if (copyPromptBtn && copyPromptLabel) {
+      copyPromptBtn.addEventListener('click', () => {
+        const text = primitiveData[currentPrimitive]?.prompt || '';
+        navigator.clipboard.writeText(text).then(() => {
+          const original = copyPromptLabel.textContent;
+          copyPromptLabel.textContent = 'Copied to Clipboard!';
+          setTimeout(() => { copyPromptLabel.textContent = original; }, 2000);
+        });
+      });
+    }
+
+    // Copy CLI Command Button
+    const copyCliBtn = document.getElementById('copy-cli-command-btn');
+    if (copyCliBtn) {
+      copyCliBtn.addEventListener('click', () => {
+        const cli = primitiveData[currentPrimitive]?.cli || '';
+        navigator.clipboard.writeText(cli).then(() => {
+          const original = copyCliBtn.textContent;
+          copyCliBtn.textContent = 'Copied!';
+          setTimeout(() => { copyCliBtn.textContent = original; }, 2000);
+        });
+      });
+    }
+
+    // Initial load
+    updatePrimitive();
+  })();
+</script>

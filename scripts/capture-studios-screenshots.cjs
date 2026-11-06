@@ -8,10 +8,12 @@ const ROOT_DIR = '/Users/rajnishsingh/projects/knowledge-hub';
 const LAYOUT_DIR = path.join(ROOT_DIR, 'homepage_screenshots/layout_studio');
 const STYLING_DIR = path.join(ROOT_DIR, 'homepage_screenshots/styling_studio');
 const ANIM_DIR = path.join(ROOT_DIR, 'homepage_screenshots/animation_studio');
+const SHADCN_DIR = path.join(ROOT_DIR, 'homepage_screenshots/shadcn_studio');
 
 fs.mkdirSync(LAYOUT_DIR, { recursive: true });
 fs.mkdirSync(STYLING_DIR, { recursive: true });
 fs.mkdirSync(ANIM_DIR, { recursive: true });
+fs.mkdirSync(SHADCN_DIR, { recursive: true });
 
 const VIEWPORTS = [
   { name: 'desktop', width: 1440, height: 900 },
@@ -152,6 +154,36 @@ async function captureAll() {
         });
       }
       await page2.close();
+
+      // 4. shadcn/ui Core Primitives Registry Studio
+      const pageShadcn = await browser.newPage({ viewport: { width: vp.width, height: vp.height } });
+      await pageShadcn.goto(`http://localhost:${PORT}/knowledge-hub/topics/ai-ui-prompting-engineering/`);
+      if (theme === 'dark') {
+        await pageShadcn.evaluate(() => document.documentElement.classList.add('dark'));
+      } else {
+        await pageShadcn.evaluate(() => document.documentElement.classList.remove('dark'));
+      }
+      await pageShadcn.waitForTimeout(300);
+
+      const shadcnStudio = pageShadcn.locator('section#shadcn-registry-studio');
+      if (await shadcnStudio.count() > 0) {
+        await shadcnStudio.first().scrollIntoViewIfNeeded();
+        await pageShadcn.waitForTimeout(200);
+        await shadcnStudio.first().screenshot({
+          path: path.join(SHADCN_DIR, `shadcn_registry_${vp.name}_${theme}.png`)
+        });
+
+        // Switch to Command tab and capture
+        const cmdTab = pageShadcn.locator('#shadcn-primitive-tabs button[data-primitive="command"]');
+        if (await cmdTab.count() > 0) {
+          await cmdTab.click();
+          await pageShadcn.waitForTimeout(200);
+          await shadcnStudio.first().screenshot({
+            path: path.join(SHADCN_DIR, `shadcn_cmdk_${vp.name}_${theme}.png`)
+          });
+        }
+      }
+      await pageShadcn.close();
       console.log(`Captured ${vp.name} (${theme}) screenshots.`);
     }
   }

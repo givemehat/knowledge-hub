@@ -16,6 +16,7 @@ import SoftCTA from '../../components/creator/SoftCTA.astro';
 import TypographyPromptBuilder from '../../components/interactive/TypographyPromptBuilder.astro';
 import ComponentPromptGallery from '../../components/interactive/ComponentPromptGallery.astro';
 import DeviceFrameShowcase from '../../components/interactive/DeviceFrameShowcase.astro';
+import ShadcnRegistryStudio from '../../components/interactive/ShadcnRegistryStudio.astro';
 import FontPairingMatrix from '../../components/interactive/FontPairingMatrix.astro';
 import TextAnimationStudio from '../../components/interactive/TextAnimationStudio.astro';
 import ScenarioPromptPresets from '../../components/interactive/ScenarioPromptPresets.astro';
@@ -86,6 +87,9 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
               3. Core Concepts & Code
             </a>
             {topic.slug === 'ai-ui-prompting-engineering' && (
+              <a href="#shadcn-registry-studio" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
+                ★ shadcn/ui Registry
+              </a>
               <a href="#interactive-typography-studio" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
                 ★ Typography Studio
               </a>
@@ -312,6 +316,11 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
         <!-- Interactive Studios (For AI UI Prompting Engineering Guide) -->
         {topic.slug === 'ai-ui-prompting-engineering' && (
           <div class="space-y-12 pt-4">
+            <!-- 0. shadcn/ui Core Primitives Registry Studio -->
+            <section id="shadcn-registry-studio" class="space-y-4">
+              <ShadcnRegistryStudio />
+            </section>
+
             <!-- 1. Typography Prompt Studio -->
             <section id="interactive-typography-studio" class="space-y-4">
               <TypographyPromptBuilder />
