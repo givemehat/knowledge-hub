@@ -95,7 +95,7 @@ async function runI18nTestSuite() {
     assert(enHeading === 'What do you want to learn today?', 'Test 4c: Domain heading updates to "What do you want to learn today?"', `Found: "${enHeading}"`);
     assert(enCta === 'Explore domain', 'Test 4d: Domain CTA updates to "Explore domain"', `Found: "${enCta}"`);
     assert(enProjCount === '1 guide', 'Test 4e: English singular count pill renders "1 guide"', `Found: "${enProjCount}"`);
-    assert(enAiCount === '9 guides' || enAiCount === '8 guides' || enAiCount === '7 guides' || enAiCount === '6 guides', 'Test 4f: English plural count pill renders valid guides count', `Found: "${enAiCount}"`);
+    assert(enAiCount === '11 guides' || enAiCount === '10 guides' || enAiCount === '9 guides' || enAiCount === '8 guides' || enAiCount === '7 guides' || enAiCount === '6 guides', 'Test 4f: English plural count pill renders valid guides count', `Found: "${enAiCount}"`);
 
     // TEST 5: Dynamic Switching back to Hindi (हिं button click)
     await page.click('button[data-lang="hi"]');

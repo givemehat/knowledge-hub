@@ -22,6 +22,12 @@ import ScenarioPromptPresets from '../../components/interactive/ScenarioPromptPr
 import AnimationPromptBuilder from '../../components/interactive/AnimationPromptBuilder.astro';
 import CardButtonMotionStudio from '../../components/interactive/CardButtonMotionStudio.astro';
 import AlertNotificationStudio from '../../components/interactive/AlertNotificationStudio.astro';
+import LayoutPromptBuilder from '../../components/interactive/LayoutPromptBuilder.astro';
+import ResponsivePatternSimulator from '../../components/interactive/ResponsivePatternSimulator.astro';
+import DynamicBentoMatrix from '../../components/interactive/DynamicBentoMatrix.astro';
+import StylingPromptBuilder from '../../components/interactive/StylingPromptBuilder.astro';
+import WcagContrastLab from '../../components/interactive/WcagContrastLab.astro';
+import ElevationShadowLab from '../../components/interactive/ElevationShadowLab.astro';
 import { CREATOR } from '../../data/creator';
 
 export function getStaticPaths() {
@@ -109,6 +115,28 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
               </a>
               <a href="#alert-notification-studio" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
                 ★ Alert & Toast System
+              </a>
+            )}
+            {topic.slug === 'responsive-layouts-bento-grid' && (
+              <a href="#layout-prompt-builder" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
+                ★ Layout Builder
+              </a>
+              <a href="#responsive-pattern-simulator" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
+                ★ 4 Pattern Simulators
+              </a>
+              <a href="#dynamic-bento-matrix" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
+                ★ Bento Grid Matrix
+              </a>
+            )}
+            {topic.slug === 'ui-styling-color-systems' && (
+              <a href="#styling-prompt-builder" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
+                ★ Styling Builder
+              </a>
+              <a href="#wcag-contrast-lab" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
+                ★ WCAG Contrast Lab
+              </a>
+              <a href="#elevation-shadow-lab" class="block py-1.5 px-2.5 rounded-lg text-peach-700 dark:text-peach-400 font-bold bg-peach-50/60 dark:bg-peach-950/30 hover:bg-peach-100 dark:hover:bg-peach-900/50 transition-colors">
+                ★ Elevation Studio
               </a>
             )}
             {topic.roadmapSteps && topic.roadmapSteps.length > 0 && (
@@ -333,6 +361,46 @@ const editUrl = `https://github.com/givemehat/knowledge-hub/edit/main/content/to
             <!-- 3. Alert & Toast Notification System -->
             <section id="alert-notification-studio" class="space-y-4">
               <AlertNotificationStudio />
+            </section>
+          </div>
+        )}
+
+        <!-- Interactive Studios (For Responsive Layouts & Bento Grid Architecture) -->
+        {topic.slug === 'responsive-layouts-bento-grid' && (
+          <div class="space-y-12 pt-4">
+            <!-- 1. Interactive Layout Prompt Builder -->
+            <section id="layout-prompt-builder" class="space-y-4">
+              <LayoutPromptBuilder />
+            </section>
+
+            <!-- 2. Responsive Pattern Simulators -->
+            <section id="responsive-pattern-simulator" class="space-y-4">
+              <ResponsivePatternSimulator />
+            </section>
+
+            <!-- 3. Dynamic Bento Grid Matrix -->
+            <section id="dynamic-bento-matrix" class="space-y-4">
+              <DynamicBentoMatrix />
+            </section>
+          </div>
+        )}
+
+        <!-- Interactive Studios (For UI Styling, Themes & Color Systems) -->
+        {topic.slug === 'ui-styling-color-systems' && (
+          <div class="space-y-12 pt-4">
+            <!-- 1. Interactive Styling Prompt Builder -->
+            <section id="styling-prompt-builder" class="space-y-4">
+              <StylingPromptBuilder />
+            </section>
+
+            <!-- 2. WCAG Contrast & Color Blindness Lab -->
+            <section id="wcag-contrast-lab" class="space-y-4">
+              <WcagContrastLab />
+            </section>
+
+            <!-- 3. Elevation Hierarchy & Shadow Studio -->
+            <section id="elevation-shadow-lab" class="space-y-4">
+              <ElevationShadowLab />
             </section>
           </div>
         )}

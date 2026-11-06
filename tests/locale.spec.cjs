@@ -277,7 +277,7 @@ async function runLocaleTestSuite() {
 
     const aiCardEnCount = await page.$eval('[data-category="ai-ml"] .count-pill', el => el.innerText.trim());
     const projCardEnCount = await page.$eval('[data-category="projects"] .count-pill', el => el.innerText.trim());
-    assert(aiCardEnCount === '9 guides' || aiCardEnCount === '8 guides' || aiCardEnCount === '7 guides', 'Test 5a: Plural count in English outputs valid guides count with space', `Found: "${aiCardEnCount}"`);
+    assert(aiCardEnCount === '11 guides' || aiCardEnCount === '10 guides' || aiCardEnCount === '9 guides' || aiCardEnCount === '8 guides' || aiCardEnCount === '7 guides', 'Test 5a: Plural count in English outputs valid guides count with space', `Found: "${aiCardEnCount}"`);
     assert(projCardEnCount === '1 guide', 'Test 5b: Singular count in English outputs "1 guide" with space', `Found: "${projCardEnCount}"`);
 
     // Check Hindi Card
@@ -286,7 +286,7 @@ async function runLocaleTestSuite() {
     const projCardHiCount = await page.$eval('[data-category="projects"] .count-pill', el => el.innerText.trim());
     const hiReadingTime = await page.$eval('[data-category="ai-ml"] .topic-row:first-child', el => el.innerText.trim());
 
-    assert(aiCardHiCount === '9 गाइड' || aiCardHiCount === '8 गाइड' || aiCardHiCount === '7 गाइड', 'Test 5c: Hindi plural count outputs valid गाइड count with space', `Found: "${aiCardHiCount}"`);
+    assert(aiCardHiCount === '11 गाइड' || aiCardHiCount === '10 गाइड' || aiCardHiCount === '9 गाइड' || aiCardHiCount === '8 गाइड' || aiCardHiCount === '7 गाइड', 'Test 5c: Hindi plural count outputs valid गाइड count with space', `Found: "${aiCardHiCount}"`);
     assert(projCardHiCount === '1 गाइड', 'Test 5d: Hindi singular count outputs "1 गाइड" with space', `Found: "${projCardHiCount}"`);
     assert(hiReadingTime.includes('12 मिनट'), 'Test 5e: Hindi reading time outputs "12 मिनट" with space', `Found in: "${hiReadingTime}"`);
     assert(!/[\d]मि\b/.test(hiReadingTime), 'Test 5f: Hindi reading time does NOT use glued "मि"');

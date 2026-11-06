@@ -1,0 +1,364 @@
+---
+import Card from '../ui/Card.astro';
+import Button from '../ui/Button.astro';
+---
+
+<div id="layout-prompt-builder" class="space-y-6">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-200/80 dark:border-white/10">
+    <div>
+      <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-peach-500/10 text-peach-700 dark:text-peach-300 border border-peach-500/20 text-[11px] font-bold uppercase tracking-wider mb-1">
+        <span>Spatial Architecture Engine</span>
+      </div>
+      <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+        Interactive Layout Prompt Builder
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+        Configure layout types, content goals, and component features to generate deterministic responsive prompts for AI models.
+      </p>
+    </div>
+
+    <!-- Reset to Defaults Button -->
+    <button
+      id="reset-layout-builder-btn"
+      type="button"
+      class="self-start sm:self-auto text-xs font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-white px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+    >
+      Reset Defaults
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+    <!-- Left Column: Options & Controls (5 cols) -->
+    <div class="lg:col-span-5 space-y-4 p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm">
+      
+      <!-- 1. Layout Type -->
+      <div class="space-y-2">
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          1. Layout Type
+        </label>
+        <div class="grid grid-cols-3 gap-2" id="layout-type-selector">
+          <button
+            type="button"
+            data-layout="responsive"
+            class="layout-type-btn active px-2 py-2 rounded-xl text-xs font-semibold text-center border transition-all bg-peach-500/10 border-peach-500 text-peach-900 dark:text-peach-200 shadow-sm"
+          >
+            RESPONSIVE
+          </button>
+          <button
+            type="button"
+            data-layout="bento"
+            class="layout-type-btn px-2 py-2 rounded-xl text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20"
+          >
+            BENTO
+          </button>
+          <button
+            type="button"
+            data-layout="grid"
+            class="layout-type-btn px-2 py-2 rounded-xl text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20"
+          >
+            GRID
+          </button>
+          <button
+            type="button"
+            data-layout="list"
+            class="layout-type-btn px-2 py-2 rounded-xl text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20"
+          >
+            LIST
+          </button>
+          <button
+            type="button"
+            data-layout="custom"
+            class="layout-type-btn px-2 py-2 rounded-xl text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20 col-span-2"
+          >
+            CUSTOM APP
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. Content Purpose -->
+      <div class="space-y-2 pt-2 border-t border-slate-100 dark:border-white/5">
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          2. Content Purpose
+        </label>
+        <div class="grid grid-cols-3 gap-2" id="layout-purpose-selector">
+          <button type="button" data-purpose="website" class="layout-purpose-btn active px-2 py-1.5 rounded-lg text-xs font-semibold text-center border transition-all bg-peach-500/10 border-peach-500 text-peach-900 dark:text-peach-200">WEBSITE</button>
+          <button type="button" data-purpose="product" class="layout-purpose-btn px-2 py-1.5 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300">PRODUCT</button>
+          <button type="button" data-purpose="dashboard" class="layout-purpose-btn px-2 py-1.5 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300">DASHBOARD</button>
+          <button type="button" data-purpose="portfolio" class="layout-purpose-btn px-2 py-1.5 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300">PORTFOLIO</button>
+          <button type="button" data-purpose="article" class="layout-purpose-btn px-2 py-1.5 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300">ARTICLE</button>
+          <button type="button" data-purpose="mobile" class="layout-purpose-btn px-2 py-1.5 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300">MOBILE APP</button>
+        </div>
+      </div>
+
+      <!-- 3. Additional Features (Multi-Select Chips) -->
+      <div class="space-y-2 pt-2 border-t border-slate-100 dark:border-white/5">
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          3. Additional Feature Blocks
+        </label>
+        <div class="flex flex-wrap gap-1.5" id="layout-features-selector">
+          <button type="button" data-feat="Navigation" class="feature-chip active px-2.5 py-1 rounded-full text-xs font-semibold border transition-all bg-peach-500/10 border-peach-500 text-peach-900 dark:text-peach-200">Navigation</button>
+          <button type="button" data-feat="Hero" class="feature-chip active px-2.5 py-1 rounded-full text-xs font-semibold border transition-all bg-peach-500/10 border-peach-500 text-peach-900 dark:text-peach-200">Hero Section</button>
+          <button type="button" data-feat="Cards" class="feature-chip active px-2.5 py-1 rounded-full text-xs font-semibold border transition-all bg-peach-500/10 border-peach-500 text-peach-900 dark:text-peach-200">Feature Cards</button>
+          <button type="button" data-feat="Sidebar" class="feature-chip px-2.5 py-1 rounded-full text-xs font-semibold border transition-all border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:border-slate-300">Sidebar</button>
+          <button type="button" data-feat="Tabs" class="feature-chip px-2.5 py-1 rounded-full text-xs font-semibold border transition-all border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:border-slate-300">Tabbed Content</button>
+          <button type="button" data-feat="Footer" class="feature-chip active px-2.5 py-1 rounded-full text-xs font-semibold border transition-all bg-peach-500/10 border-peach-500 text-peach-900 dark:text-peach-200">Footer</button>
+          <button type="button" data-feat="Dark Mode" class="feature-chip px-2.5 py-1 rounded-full text-xs font-semibold border transition-all border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:border-slate-300">Dark Mode</button>
+          <button type="button" data-feat="Animations" class="feature-chip px-2.5 py-1 rounded-full text-xs font-semibold border transition-all border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:border-slate-300">Micro-Animations</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Column: Live Schematic Preview & Generated Prompt (7 cols) -->
+    <div class="lg:col-span-7 space-y-4">
+      
+      <!-- Live Schematic Wireframe Stage Card -->
+      <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/5">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Architectural Wireframe</span>
+          </div>
+          <span id="active-layout-badge" class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+            RESPONSIVE WEBSITE
+          </span>
+        </div>
+
+        <!-- Schematic Wireframe Canvas Box -->
+        <div id="wireframe-canvas" class="p-5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/60 dark:border-white/5 min-h-[220px] transition-all space-y-3 font-mono text-[11px]">
+          <!-- Injected dynamically via script -->
+        </div>
+
+        <!-- Breakpoint Badges -->
+        <div class="flex flex-wrap items-center gap-2 pt-1 text-[10px] font-mono text-slate-500 dark:text-slate-400">
+          <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">Mobile: &lt;640px (1-Col)</span>
+          <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">Tablet: 768px (2-Col)</span>
+          <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">Desktop: 1024px+ (Bento / Grid)</span>
+        </div>
+      </div>
+
+      <!-- Generated Prompt Output Card -->
+      <div class="p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <svg class="w-3.5 h-3.5 text-peach-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span>Production Layout Prompt</span>
+          </div>
+          <button
+            id="copy-layout-prompt-btn"
+            type="button"
+            class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-peach-500 hover:text-white dark:hover:bg-peach-500 dark:hover:text-white text-xs font-bold text-slate-700 dark:text-slate-300 transition-colors cursor-pointer"
+          >
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            <span id="copy-layout-label">Copy Prompt</span>
+          </button>
+        </div>
+
+        <pre id="layout-builder-prompt-text" class="p-3.5 rounded-xl bg-slate-900 text-slate-200 text-xs font-mono leading-relaxed whitespace-pre-wrap break-words border border-slate-800 max-h-52 overflow-y-auto">Create a responsive layout for a website with a mobile-first approach. Include Navigation menu, Hero section, Feature Cards, and Footer. The layout should stack elements vertically on mobile screens (below 640px) and expand to a multi-column layout on larger screens. Include appropriate breakpoints at 640px, 768px, and 1024px with 16px/24px gutters.</pre>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function initLayoutPromptBuilder() {
+    let state = {
+      layout: 'responsive',
+      purpose: 'website',
+      features: ['Navigation', 'Hero', 'Cards', 'Footer']
+    };
+
+    const canvas = document.getElementById('wireframe-canvas');
+    const badge = document.getElementById('active-layout-badge');
+    const promptEl = document.getElementById('layout-builder-prompt-text');
+    const copyBtn = document.getElementById('copy-layout-prompt-btn');
+    const copyLabel = document.getElementById('copy-layout-label');
+    const resetBtn = document.getElementById('reset-layout-builder-btn');
+
+    function renderWireframe() {
+      if (!canvas) return;
+
+      if (state.layout === 'bento') {
+        canvas.innerHTML = `
+          <div class="p-2.5 rounded-lg bg-peach-500/10 border border-peach-500/30 text-peach-700 dark:text-peach-300 text-center font-bold">
+            TOP NAVIGATION BAR (Full Width)
+          </div>
+          <div class="grid grid-cols-3 gap-2.5">
+            <div class="col-span-2 row-span-2 p-6 rounded-xl bg-slate-200/70 dark:bg-slate-800/80 border border-slate-300 dark:border-white/10 flex flex-col justify-between">
+              <span class="font-bold text-slate-800 dark:text-white">FEATURED HERO PROJECT (2x2)</span>
+              <span class="text-[10px] text-slate-500">Asymmetric Anchor Card</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-200/50 dark:bg-slate-800/50 border border-slate-300 dark:border-white/10">
+              <span class="font-bold text-slate-700 dark:text-slate-300">METRIC (1x1)</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-200/50 dark:bg-slate-800/50 border border-slate-300 dark:border-white/10">
+              <span class="font-bold text-slate-700 dark:text-slate-300">METRIC (1x1)</span>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-2.5">
+            <div class="p-3.5 rounded-xl bg-slate-200/50 dark:bg-slate-800/50 border border-slate-300 dark:border-white/10">
+              <span class="font-bold text-slate-700 dark:text-slate-300">SECONDARY ROW (1x1)</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-200/50 dark:bg-slate-800/50 border border-slate-300 dark:border-white/10">
+              <span class="font-bold text-slate-700 dark:text-slate-300">SECONDARY ROW (1x1)</span>
+            </div>
+          </div>
+        `;
+      } else if (state.layout === 'list') {
+        canvas.innerHTML = `
+          <div class="p-2.5 rounded-lg bg-peach-500/10 border border-peach-500/30 text-peach-700 dark:text-peach-300 text-center font-bold">
+            SEARCH & FILTER HEADER
+          </div>
+          <div class="space-y-2">
+            <div class="p-3 rounded-xl bg-slate-200/50 dark:bg-slate-800/50 border border-slate-300 dark:border-white/10 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-peach-500/20 flex items-center justify-center font-bold">1</span>
+                <span class="font-bold text-slate-700 dark:text-slate-300">List Row Item 01</span>
+              </div>
+              <span class="text-[10px] text-slate-400 font-mono">44px Touch Target</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-200/50 dark:bg-slate-800/50 border border-slate-300 dark:border-white/10 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-peach-500/20 flex items-center justify-center font-bold">2</span>
+                <span class="font-bold text-slate-700 dark:text-slate-300">List Row Item 02</span>
+              </div>
+              <span class="text-[10px] text-slate-400 font-mono">44px Touch Target</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-200/50 dark:bg-slate-800/50 border border-slate-300 dark:border-white/10 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-peach-500/20 flex items-center justify-center font-bold">3</span>
+                <span class="font-bold text-slate-700 dark:text-slate-300">List Row Item 03</span>
+              </div>
+              <span class="text-[10px] text-slate-400 font-mono">44px Touch Target</span>
+            </div>
+          </div>
+        `;
+      } else if (state.layout === 'grid') {
+        canvas.innerHTML = `
+          <div class="p-2.5 rounded-lg bg-peach-500/10 border border-peach-500/30 text-peach-700 dark:text-peach-300 text-center font-bold">
+            GRID CATALOG HEADER (4 Cols Desktop · 2 Tablet · 1 Mobile)
+          </div>
+          <div class="grid grid-cols-4 gap-2">
+            <div class="p-4 rounded-xl bg-slate-200/50 dark:bg-slate-800/50 border border-slate-300 dark:border-white/10 text-center">CARD 1</div>
+            <div class="p-4 rounded-xl bg-slate-200/50 dark:bg-slate-800/50 border border-slate-300 dark:border-white/10 text-center">CARD 2</div>
+            <div class="p-4 rounded-xl bg-slate-200/50 dark:bg-slate-800/50 border border-slate-300 dark:border-white/10 text-center">CARD 3</div>
+            <div class="p-4 rounded-xl bg-slate-200/50 dark:bg-slate-800/50 border border-slate-300 dark:border-white/10 text-center">CARD 4</div>
+          </div>
+        `;
+      } else {
+        // Default Responsive
+        canvas.innerHTML = `
+          <div class="p-2.5 rounded-lg bg-peach-500/10 border border-peach-500/30 text-peach-700 dark:text-peach-300 text-center font-bold">
+            TOP NAVIGATION BAR (Sticky, Collapses to Mobile Drawer)
+          </div>
+          <div class="p-5 rounded-xl bg-slate-200/70 dark:bg-slate-800/80 border border-slate-300 dark:border-white/10 text-center">
+            <span class="font-bold text-slate-800 dark:text-white">HERO SECTION (Headline Left · Media Right)</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2.5">
+            <div class="p-3.5 rounded-xl bg-slate-200/50 dark:bg-slate-800/50 border border-slate-300 dark:border-white/10 text-center">FEATURE 1</div>
+            <div class="p-3.5 rounded-xl bg-slate-200/50 dark:bg-slate-800/50 border border-slate-300 dark:border-white/10 text-center">FEATURE 2</div>
+            <div class="p-3.5 rounded-xl bg-slate-200/50 dark:bg-slate-800/50 border border-slate-300 dark:border-white/10 text-center">FEATURE 3</div>
+          </div>
+          <div class="p-2.5 rounded-lg bg-slate-200/40 dark:bg-slate-800/40 border border-slate-300 dark:border-white/10 text-center text-[10px] text-slate-500">
+            FOOTER SECTION (Multi-column stacks on mobile)
+          </div>
+        `;
+      }
+
+      if (badge) {
+        badge.textContent = `${state.layout.toUpperCase()} · ${state.purpose.toUpperCase()}`;
+      }
+
+      updatePrompt();
+    }
+
+    function updatePrompt() {
+      if (!promptEl) return;
+      const featList = state.features.length > 0 ? state.features.join(', ') : 'standard components';
+      const prompt = `Create a ${state.layout} layout architecture for a modern ${state.purpose} using a mobile-first approach.
+• Components: Include ${featList}.
+• Breakpoint Strategy: 
+  - Mobile (<640px): 1-column vertical stack with minimum 44px touch targets and overflow-x-hidden.
+  - Tablet (768px): 2-column grid with condensed navigation.
+  - Desktop (1024px+): Multi-column Bento grid with asymmetric hero spans.
+• Spacing & Hierarchy: Maintain strict 16px/24px gutters, rounded-2xl radii, and pinned action baselines.
+• Accessibility: Ensure keyboard tab-indexes, high-contrast states, and responsive drawer trap focus.`;
+
+      promptEl.textContent = prompt;
+    }
+
+    // Layout buttons
+    const layoutBtns = document.querySelectorAll('.layout-type-btn');
+    layoutBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        layoutBtns.forEach(b => {
+          b.classList.remove('active', 'bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+          b.classList.add('border-slate-200', 'dark:border-white/10', 'text-slate-700', 'dark:text-slate-300');
+        });
+        btn.classList.add('active', 'bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+        btn.classList.remove('border-slate-200', 'dark:border-white/10', 'text-slate-700', 'dark:text-slate-300');
+        state.layout = btn.dataset.layout;
+        renderWireframe();
+      });
+    });
+
+    // Purpose buttons
+    const purposeBtns = document.querySelectorAll('.layout-purpose-btn');
+    purposeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        purposeBtns.forEach(b => {
+          b.classList.remove('active', 'bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+          b.classList.add('border-slate-200', 'dark:border-white/10', 'text-slate-700', 'dark:text-slate-300');
+        });
+        btn.classList.add('active', 'bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+        btn.classList.remove('border-slate-200', 'dark:border-white/10', 'text-slate-700', 'dark:text-slate-300');
+        state.purpose = btn.dataset.purpose;
+        renderWireframe();
+      });
+    });
+
+    // Feature chips (multi-select)
+    const featureChips = document.querySelectorAll('.feature-chip');
+    featureChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        const feat = chip.dataset.feat;
+        if (state.features.includes(feat)) {
+          state.features = state.features.filter(f => f !== feat);
+          chip.classList.remove('active', 'bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+          chip.classList.add('border-slate-200', 'dark:border-white/10', 'text-slate-600', 'dark:text-slate-400');
+        } else {
+          state.features.push(feat);
+          chip.classList.add('active', 'bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+          chip.classList.remove('border-slate-200', 'dark:border-white/10', 'text-slate-600', 'dark:text-slate-400');
+        }
+        updatePrompt();
+      });
+    });
+
+    // Reset button
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        state = { layout: 'responsive', purpose: 'website', features: ['Navigation', 'Hero', 'Cards', 'Footer'] };
+        renderWireframe();
+      });
+    }
+
+    // Copy Prompt Button
+    if (copyBtn && promptEl) {
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(promptEl.textContent.trim());
+          if (copyLabel) copyLabel.textContent = 'Copied!';
+          setTimeout(() => {
+            if (copyLabel) copyLabel.textContent = 'Copy Prompt';
+          }, 2000);
+        } catch (e) {
+          console.error('Clipboard copy failed:', e);
+        }
+      });
+    }
+
+    renderWireframe();
+  })();
+</script>

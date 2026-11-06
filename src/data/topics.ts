@@ -3351,5 +3351,400 @@ export const TOPICS: Topic[] = [
         "accessed": "2026-11-06"
       }
     ]
+  },
+  {
+    "slug": "responsive-layouts-bento-grid",
+    "title": "Responsive Layouts: Bento Grid Architecture, Breakpoint Strategies & Component Framing",
+    "titleHindi": "रिस्पॉन्सिव लेआउट्स: बेंटो ग्रिड आर्किटेक्चर, ब्रेकपॉइंट स्ट्रेटेजी और कंपोनेंट फ्रेमिंग",
+    "shortTitle": "रिस्पॉन्सिव लेआउट और बेंटो ग्रिड",
+    "shortTitleEn": "Responsive Layouts & Bento Grid",
+    "summary": "आधुनिक वेब डिज़ाइन में रिस्पॉन्सिव लेआउट्स और बेंटो ग्रिड आर्किटेक्चर में महारत हासिल करें। जानिए 4 क्लासिक रिस्पॉन्सिव पैटर्न्स (कॉलम ड्रॉप, लेआउट शिफ्टर, ऑफ-कैनवस और फ्लूइड ग्रिड), 44px मिनिमम टच टार्गेट्स, और AI प्रॉम्प्टिंग तकनीकों के माध्यम से त्रुटिहीन लेआउट कैसे तैयार करें।",
+    "summaryEn": "Master responsive layout engineering and Bento Grid architecture: the 4 core responsive patterns (Column Drop, Layout Shifter, Off-Canvas, Mostly Fluid), fluid breakpoint strategies, mobile-first touch ergonomics, and production-grade AI layout prompt engineering.",
+    "tldr": [
+      "**4 Foundational Patterns:** Responsive web architecture relies on 4 proven patterns: Column Drop, Layout Shifter, Off-Canvas Drawer, and Mostly Fluid grids.",
+      "**Bento Grid Geometry:** Japanese lunchbox metaphor where asymmetrical 2x2, 1x1, and 1x2 cells eliminate scanning fatigue and establish immediate hierarchy.",
+      "**Mobile Touch Ergonomics:** WCAG AA and Apple HIG mandate 44x44px minimum interactive touch targets to prevent misclicks on touchscreens.",
+      "**Deterministic AI Prompting:** Always specify explicit CSS Grid column spans, gaps (16px mobile, 24px desktop), and minmax(0, 1fr) to prevent overflow."
+    ],
+    "tldrEn": "Construct adaptive responsive layouts and modern Bento grids across all viewports. Master the 4 responsive patterns, 44px mobile touch ergonomics, and deterministic AI layout prompt design.",
+    "category": "ai-ml",
+    "categoryLabel": "AI & Machine Learning",
+    "tags": [
+      "layout",
+      "bento-grid",
+      "responsive-design",
+      "css-grid",
+      "ai-prompting",
+      "touch-targets"
+    ],
+    "level": "intermediate",
+    "readingMinutes": 14,
+    "lastVerified": "2026-11-06",
+    "confidence": "high",
+    "prerequisites": [
+      "Basic understanding of HTML and CSS Box Model",
+      "Familiarity with CSS Grid and Flexbox layout semantics",
+      "Knowledge of media queries and responsive breakpoints"
+    ],
+    "keyQuestions": [
+      "What are the 4 fundamental responsive layout patterns and when should each be used?",
+      "How does Bento Grid architecture solve visual hierarchy and scanning fatigue?",
+      "Why is 44px the universal standard for mobile touch targets?",
+      "How do we write deterministic AI layout prompts that avoid squished text and broken grids?"
+    ],
+    "coreConcepts": [
+      {
+        "heading": "The 4 Foundational Responsive Layout Patterns",
+        "content": "Responsive design reflows across four archetypal patterns established by modern interface standards: 1) Column Drop: multi-column desktop layouts drop columns underneath each other as viewport narrows. 2) Layout Shifter: structural rearrangement where elements swap order (e.g. actions shift above hero). 3) Off-Canvas Drawer: secondary navigations slide off-screen on mobile and appear upon toggle. 4) Mostly Fluid: multi-column grids fluidly shrink margins and reflow columns (4-col -> 2-col -> 1-col).",
+        "codeSnippet": {
+          "language": "css",
+          "code": "/* Column Drop Implementation using CSS Grid */\n.layout-container {\n  display: grid;\n  grid-template-columns: 1fr;\n  gap: 1.5rem;\n}\n\n@media (min-width: 768px) {\n  .layout-container {\n    grid-template-columns: 2fr 1fr;\n  }\n}\n\n@media (min-width: 1024px) {\n  .layout-container {\n    grid-template-columns: 3fr 1fr 1fr;\n  }\n}"
+        }
+      },
+      {
+        "heading": "Bento Grid Architecture: Asymmetric Spatial Hierarchy",
+        "content": "Derived from traditional Japanese bento lunchboxes, the Bento Grid organizes heterogeneous content blocks into clean, compartmentalized rectangular cells within an overarching grid container. Unlike uniform card grids, Bento designs use asymmetrical column and row spans (e.g. 2x2 featured case study paired with 1x1 metric tiles and 1x2 vertical timelines). This creates natural visual hierarchy, eliminates monotonic scanning fatigue, and highlights core value propositions instantly.",
+        "codeSnippet": {
+          "language": "html",
+          "code": "<!-- Apple/Linear Style 4-Column Bento Grid Container -->\n<div class=\"grid grid-cols-1 md:grid-cols-4 gap-4 max-w-6xl mx-auto\">\n  <!-- Primary Hero Cell (2x2) -->\n  <div class=\"md:col-span-2 md:row-span-2 p-6 rounded-2xl bg-gradient-to-br from-indigo-900 to-slate-900 text-white\">\n    <h3>Featured System Architecture</h3>\n  </div>\n  <!-- Secondary Metric (1x1) -->\n  <div class=\"p-4 rounded-2xl bg-white border border-slate-200\">\n    <span>99.9% Uptime</span>\n  </div>\n  <!-- Vertical Feed (1x2) -->\n  <div class=\"md:row-span-2 p-4 rounded-2xl bg-white border border-slate-200\">\n    <span>Timeline Feed</span>\n  </div>\n</div>"
+        }
+      },
+      {
+        "heading": "Mobile-First Touch Ergonomics & The 44px Rule",
+        "content": "WCAG 2.1 Success Criterion 2.5.5 and Apple Human Interface Guidelines mandate a minimum interactive touch target of 44x44 CSS pixels. When prompting generative AI tools for mobile interfaces, always enforce explicit touch padding. Smaller touch targets increase error rates (rage taps) by 34% on mobile devices and fail automated accessibility audits.",
+        "codeSnippet": {
+          "language": "css",
+          "code": "/* Enforce Accessible Touch Ergonomics */\n.touch-target {\n  min-height: 44px;\n  min-width: 44px;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  padding: 0.75rem 1.25rem;\n}"
+        }
+      },
+      {
+        "heading": "Breakpoint Calibration & Fluid Clamping",
+        "content": "Instead of rigid pixel steps, modern responsive architecture pairs fluid CSS clamp() with standard media query ranges: Mobile (0-640px), Tablet (641-1024px), Desktop (1025px+), and Ultrawide (1440px+). When prompting LLMs, instruct the model to provide percentage or flex-based column widths with minmax(0, 1fr) to prevent content overflow on mobile viewports.",
+        "codeSnippet": {
+          "language": "css",
+          "code": "/* Prevent Horizontal Overflow with minmax(0, 1fr) */\n.fluid-bento-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));\n  gap: clamp(1rem, 2.5vw, 2rem);\n}"
+        }
+      }
+    ],
+    "roadmapSteps": [
+      "Step 1: Define Content Purpose — Classify your interface as Website, SaaS Dashboard, Portfolio, Article, or Mobile App.",
+      "Step 2: Choose Architectural Layout Type — Select Responsive Flow, Bento Grid, Uniform Grid, Structured List, or Custom App Layout.",
+      "Step 3: Establish Breakpoint Strategy — Define fluid container widths: 100% on mobile, 768px on tablet, 1200px max-width on desktop.",
+      "Step 4: Map Asymmetric Cell Geometry — Allocate col-span and row-span tokens according to content priority (2x2 for primary hero, 1x1 for secondary metrics).",
+      "Step 5: Enforce Mobile Ergonomics — Verify all interactive triggers satisfy the 44x44px minimum touch target requirement.",
+      "Step 6: Validate Fluid Collapse — Test graceful degradation using the 4 Responsive Pattern Simulators across all viewports."
+    ],
+    "handsOn": [
+      {
+        "title": "Build a SaaS Analytics Bento Grid with Live Prompts",
+        "task": "Use the Dynamic Bento Matrix to configure an executive dashboard layout with a 2x2 cohort retention chart, 2 1x1 KPI tiles, and a 2x1 live audit activity feed. Copy the generated prompt and render in Astro with Tailwind CSS.",
+        "deliverable": "A responsive Bento Grid dashboard component that gracefully collapses into a single-column stack on mobile viewports without horizontal scrolling."
+      },
+      {
+        "title": "Simulate and Test the 4 Responsive Patterns",
+        "task": "Test the 4 classic responsive patterns in the simulator across 1024px, 768px, and 360px viewports. Verify that the Off-Canvas drawer functions cleanly with escape key support.",
+        "deliverable": "Fully responsive HTML/CSS code snippet implementing the Column Drop or Off-Canvas pattern with zero layout shifts."
+      }
+    ],
+    "mistakesAndMyths": [
+      {
+        "myth": "Bento grids are only for desktop landing pages and look broken on mobile.",
+        "reality": "Properly authored Bento grids use CSS Grid with mobile-first media queries, seamlessly collapsing into an ergonomic vertical stack on mobile with zero code duplication."
+      },
+      {
+        "myth": "Mobile responsive design just means shrinking desktop elements proportionally.",
+        "reality": "Shrinking desktop elements makes text illegible and touch targets unusable. Mobile responsiveness requires structural reorganization (e.g. Column Drop, Off-Canvas drawer, reordered quick actions)."
+      },
+      {
+        "myth": "Using px for grid column widths is fine if tested on standard monitors.",
+        "reality": "Fixed px column widths cause horizontal scrollbars on smaller laptops and tablets. Always use fr units with minmax(0, 1fr) for fluid, responsive grid containers."
+      }
+    ],
+    "resources": [
+      {
+        "type": "doc",
+        "title": "Aura Build: Prompt for Layout Guide",
+        "url": "https://www.aura.build/learn/prompt-for-layout",
+        "author": "Aura Design",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Complete guide to layout prompt engineering, Bento grid geometry, responsive patterns, and device optimization."
+      },
+      {
+        "type": "doc",
+        "title": "LukeW: Multi-Device Layout Patterns",
+        "url": "https://www.lukew.com/ff/entry.asp?1514",
+        "author": "Luke Wroblewski",
+        "language": "en",
+        "free": true,
+        "whyWatch": "The definitive foundational paper that defined Column Drop, Layout Shifter, Mostly Fluid, and Off-Canvas patterns."
+      },
+      {
+        "type": "doc",
+        "title": "MDN Web Docs: CSS Grid Layout",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout",
+        "author": "MDN",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Complete reference for grid-template-columns, grid-template-rows, col-span, and responsive auto-fill algorithms."
+      },
+      {
+        "type": "doc",
+        "title": "W3C WCAG 2.1: Success Criterion 2.5.5 (Target Size)",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/target-size.html",
+        "author": "W3C",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Accessibility guidelines mandating 44x44px minimum interactive touch target dimensions."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "How do I prompt AI tools to generate Bento Grids without squished cards?",
+        "answer": "Explicitly state the CSS Grid container and individual cell spans: 'Create a 4-column Bento grid using grid-cols-1 md:grid-cols-4 gap-4. Cell 1 should be col-span-2 row-span-2. Use minmax(0, 1fr) to prevent content overflow.'"
+      },
+      {
+        "question": "What is the difference between Column Drop and Layout Shifter?",
+        "answer": "In Column Drop, elements maintain their relative reading order and simply stack vertically as screen width shrinks. In Layout Shifter, elements actually relocate and reorganize structurally (e.g. a sidebar toolstrip moves into the top header)."
+      },
+      {
+        "question": "Why is the 44px minimum touch target size critical for mobile?",
+        "answer": "Human fingertips cover approximately 10-14mm on touchscreens. A 44x44px bounding box prevents accidental clicks on neighboring links and satisfies WCAG AA accessibility requirements."
+      },
+      {
+        "question": "What gap size is recommended for Bento Grids?",
+        "answer": "A gap of 16px (1rem) on mobile and 24px (1.5rem) on desktop provides clean spatial separation without wasting viewport real estate."
+      }
+    ],
+    "relatedSlugs": [
+      "ui-styling-color-systems",
+      "ai-ui-prompting-engineering",
+      "typography-prompting-font-pairing",
+      "ui-animation-micro-interactions"
+    ],
+    "sources": [
+      {
+        "title": "Aura Build: Prompt for Layout Guide",
+        "url": "https://www.aura.build/learn/prompt-for-layout",
+        "publisher": "Aura",
+        "accessed": "2026-11-06"
+      },
+      {
+        "title": "Multi-Device Layout Patterns",
+        "url": "https://www.lukew.com/ff/entry.asp?1514",
+        "publisher": "LukeW Ideation",
+        "accessed": "2026-11-06"
+      },
+      {
+        "title": "Apple Human Interface Guidelines: Layout",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/layout",
+        "publisher": "Apple Inc.",
+        "accessed": "2026-11-06"
+      },
+      {
+        "title": "W3C Web Content Accessibility Guidelines 2.1",
+        "url": "https://www.w3.org/TR/WCAG21/",
+        "publisher": "W3C",
+        "accessed": "2026-11-06"
+      }
+    ]
+  },
+  {
+    "slug": "ui-styling-color-systems",
+    "title": "UI Styling & Visual Systems: Glassmorphism, Neumorphism, Shadows & WCAG Contrast",
+    "titleHindi": "UI स्टाइलिंग और विज़ुअल सिस्टम्स: ग्लासमॉर्फिज्म, न्यूमॉर्फिज्म, शैडोज़ और WCAG कंट्रास्ट",
+    "shortTitle": "UI स्टाइलिंग और विज़ुअल सिस्टम्स",
+    "shortTitleEn": "UI Styling & Visual Systems",
+    "summary": "आधुनिक UI स्टाइलिंग, विज़ुअल हाइरार्की और कलर सिस्टम्स में महारत हासिल करें। जानिए 6 प्रमुख स्टाइल आर्कटाइप्स (ग्लासमॉर्फिज्म, न्यूमॉर्फिज्म, iOS, मटीरियल, फ्लैट और ब्रूटलिस्ट), 60-30-10 कलर डिस्ट्रीब्यूशन नियम, 5-स्तरीय एलिवेशन शैडोज़ और WCAG 2.1 AA (4.5:1) कंट्रास्ट मानक।",
+    "summaryEn": "Master production-grade UI styling and visual systems: 6 core style archetypes (Glassmorphism, Neumorphism, iOS, Material, Flat, Brutalist), the 60-30-10 color distribution rule, 5-tier elevation shadow hierarchies, and strict WCAG 2.1 AA (4.5:1) contrast compliance.",
+    "tldr": [
+      "**6 Style Archetypes:** Choose purposefully between Glassmorphism, Neumorphism, iOS, Material, Flat, and Neo-Brutalist styles based on brand and user context.",
+      "**60-30-10 Color Rule:** Allocate 60% dominant neutral surface, 30% secondary structural containers, and strictly 10% intentional accent for CTAs.",
+      "**WCAG 2.1 AA Contrast:** Text must satisfy a minimum 4.5:1 ratio against backgrounds (3:1 for large text >=18pt) using mathematical relative luminance.",
+      "**5-Tier Elevation:** Realistic depth is built via layered soft shadows (Levels 0-4) with negative spread and subtle tinted alphas rather than harsh black."
+    ],
+    "tldrEn": "Design cohesive, accessible interfaces with AI styling prompts. Master 6 visual style archetypes, 5-tier elevation shadows, the 60-30-10 color rule, and real-time WCAG 2.1 AA contrast calibration.",
+    "category": "ai-ml",
+    "categoryLabel": "AI & Machine Learning",
+    "tags": [
+      "styling",
+      "glassmorphism",
+      "neumorphism",
+      "wcag-contrast",
+      "shadows",
+      "color-theory",
+      "ai-prompting"
+    ],
+    "level": "intermediate",
+    "readingMinutes": 15,
+    "lastVerified": "2026-11-06",
+    "confidence": "high",
+    "prerequisites": [
+      "Basic understanding of CSS colors, borders, and shadows",
+      "Familiarity with design systems and design tokens",
+      "Basic knowledge of web accessibility standards"
+    ],
+    "keyQuestions": [
+      "What are the 6 core visual style archetypes and when should each be used?",
+      "How does the 60-30-10 color rule prevent visual chaos in UI interfaces?",
+      "What is the mathematical formula behind WCAG 2.1 contrast ratios?",
+      "How do multi-layered soft shadows convey realistic 3D elevation hierarchy?"
+    ],
+    "coreConcepts": [
+      {
+        "heading": "Visual Hierarchy & The 6 Styling Archetypes",
+        "content": "Every digital product communicates an implicit brand personality through its visual style archetype. 1) Flat Design: zero shadows or gradients, pure color fills, maximal speed. 2) Outline / Ghost: transparent fills with crisp 1-2px structural borders. 3) Minimalist: generous white space, restrained palette, subtle 1px dividers. 4) Glassmorphism: semi-transparent backdrop-filter blur (12-20px) with frosted 1px translucent borders. 5) iOS Design: large corner radii (20-28px), fluid depth, vibrant system accents. 6) Material Design: structured elevation levels (1-4) with surface shadows conveying z-index. 7) Neumorphism: soft extruded dual-shadow plastic effect with identical surface and background colors. 8) Neo-Brutalism: high-contrast 3px dark borders, hard offset shadows, zero radius.",
+        "codeSnippet": {
+          "language": "css",
+          "code": "/* Glassmorphism Implementation */\n.glass-panel {\n  background: rgba(255, 255, 255, 0.65);\n  backdrop-filter: blur(16px);\n  -webkit-backdrop-filter: blur(16px);\n  border: 1px solid rgba(255, 255, 255, 0.75);\n  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08);\n}\n\n/* Neumorphic Dual Soft Shadow */\n.neumorphic-panel {\n  background: #E6E9F0;\n  border-radius: 1.25rem;\n  box-shadow: 6px 6px 14px #c2c5cc, -6px -6px 14px #ffffff;\n}"
+        }
+      },
+      {
+        "heading": "The 60-30-10 Color Harmony Rule",
+        "content": "To prevent visual fatigue and maintain coherent brand identity, professional interfaces follow the 60-30-10 color distribution rule. 60% Dominant Neutral: page surfaces, background canvases, and primary reading areas (#FAF8F5 in light mode, #121016 in dark mode). 30% Secondary Structural: cards, navigation bars, sidebars, and form borders (giving structure and contrast). 10% Intentional Accent: high-priority calls-to-action, active indicators, and focus outlines. Sticking strictly to 10% accent ensures interactive buttons pop immediately upon user scan.",
+        "codeSnippet": {
+          "language": "css",
+          "code": ":root {\n  /* 60% Dominant Neutral */\n  --surface-canvas: #FAF8F5;\n  --text-primary: #0F172A;\n  \n  /* 30% Secondary Structural */\n  --surface-card: #FFFFFF;\n  --border-subtle: #E2E8F0;\n  \n  /* 10% Intentional Accent */\n  --accent-cta: #FF7A59; /* Peach */\n  --accent-focus: #5B3DF5; /* Electric Indigo */\n}"
+        }
+      },
+      {
+        "heading": "WCAG 2.1 Contrast Standards: Mathematical Luminance",
+        "content": "The W3C Web Content Accessibility Guidelines (WCAG) 2.1 define contrast ratio as (L1 + 0.05) / (L2 + 0.05), where L is the relative luminance of the lighter and darker colors calculated from sRGB gamma curves. Level AA mandates a minimum contrast of 4.5:1 for normal body text (<18pt/24px) and 3:1 for large text (>=18pt or >=14pt bold) and active UI component borders. Level AAA mandates 7:1 for body copy. Never use color as the sole conveyor of information (always combine with icons, text labels, or underline styling).",
+        "codeSnippet": {
+          "language": "javascript",
+          "code": "// W3C Relative Luminance & Contrast Calculation\nfunction getLuminance(r, g, b) {\n  const [rs, gs, bs] = [r, g, b].map(c => {\n    c /= 255;\n    return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);\n  });\n  return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;\n}\n\nfunction getContrastRatio(l1, l2) {\n  const lighter = Math.max(l1, l2);\n  const darker = Math.min(l1, l2);\n  return (lighter + 0.05) / (darker + 0.05);\n}"
+        }
+      },
+      {
+        "heading": "5-Tier Elevation Hierarchy & Directional Soft Shadows",
+        "content": "Shadows simulate realistic environmental depth and establish z-axis spatial hierarchy. Natural lighting casts multi-layered shadows with soft blur rather than harsh black smudges. The 5-tier elevation scale consists of: Level 0 (Ground canvas, no shadow), Level 1 (Cards and Inset panels: 2-4px Y-offset, 8-12px blur, negative spread), Level 2 (Interactive Buttons and Inputs: 6-8px Y-offset, 16-20px blur), Level 3 (Floating dropdown menus and toolbars: 12-16px Y-offset, 24-32px blur), and Level 4 (Modals and Dialog overlays: 24-32px Y-offset, 48-64px blur).",
+        "codeSnippet": {
+          "language": "css",
+          "code": "/* Calibrated Multi-Layered Soft Shadows */\n.elevation-level-1 {\n  box-shadow: 0 4px 12px -2px rgba(20, 18, 26, 0.08), 0 2px 4px -1px rgba(20, 18, 26, 0.04);\n}\n.elevation-level-2 {\n  box-shadow: 0 8px 20px -4px rgba(20, 18, 26, 0.12), 0 4px 8px -2px rgba(20, 18, 26, 0.06);\n}\n.elevation-level-4 {\n  box-shadow: 0 28px 48px -8px rgba(20, 18, 26, 0.20), 0 12px 24px -4px rgba(20, 18, 26, 0.10);\n}"
+        }
+      }
+    ],
+    "roadmapSteps": [
+      "Step 1: Select Brand Visual Style Archetype — Choose Flat, Glassmorphism, iOS, Material, Minimalist, Neumorphic, or Brutalist.",
+      "Step 2: Define Theme Canvas & Surfaces — Establish light/dark neutral palettes with high-contrast text tokens.",
+      "Step 3: Implement 60-30-10 Color Architecture — Restrict primary accent colors strictly to 10% of total interface surface.",
+      "Step 4: Audit WCAG 2.1 Contrast Ratios — Verify all text-to-background combinations exceed 4.5:1 using the Contrast Lab.",
+      "Step 5: Apply Calibrated 5-Tier Elevation — Assign consistent shadow levels to cards (L1), buttons (L2), menus (L3), and modals (L4).",
+      "Step 6: Test Color Vision Deficiency — Evaluate your interface under Protanopia, Deuteranopia, and Achromatopsia simulation filters."
+    ],
+    "handsOn": [
+      {
+        "title": "Generate a Multi-Theme SaaS Dashboard Styling Prompt",
+        "task": "Use the Interactive Styling Prompt Builder to generate a complete design specification for a Glassmorphism dashboard in dark mode with Peach accent (#FF7A59) and Level 2 elevation shadows. Verify button and input states.",
+        "deliverable": "A deterministic AI prompt and clean CSS token specification for a modern, accessible SaaS interface."
+      },
+      {
+        "title": "Audit and Fix Low-Contrast UI Combinations",
+        "task": "Use the WCAG Contrast Lab to test 4 color combinations from your design system. Identify low-contrast failures and use the Auto-Fix button to calibrate them to WCAG AA compliance (>=4.5:1).",
+        "deliverable": "Contrast audit matrix documenting before/after ratios and verified accessible hex tokens."
+      }
+    ],
+    "mistakesAndMyths": [
+      {
+        "myth": "Glassmorphism can be created by simply setting background opacity to 0.5.",
+        "reality": "Semi-transparent backgrounds without backdrop-filter blur cause text to become illegible over background patterns. Authentic glass requires backdrop-filter: blur(12-20px) paired with a 1px translucent border."
+      },
+      {
+        "myth": "Dark mode is just an automatic color inversion of light mode.",
+        "reality": "Direct color inversion creates glaring contrast, neon artifacts, and unreadable saturated accents. Dark mode requires desaturated brand accents, tinted charcoal surfaces (#121016), and softened white typography (#F1F5F9)."
+      },
+      {
+        "myth": "Using pure black (#000000) shadows looks crisp and modern.",
+        "reality": "Pure black shadows look harsh and artificial. Real-world shadows pick up environmental ambient tones. Use soft tinted dark slate (e.g. rgba(20, 18, 26, 0.08)) with negative spread for soft, luxurious depth."
+      }
+    ],
+    "resources": [
+      {
+        "type": "doc",
+        "title": "Aura Build: Prompt for Styling Guide",
+        "url": "https://www.aura.build/learn/prompt-for-styling",
+        "author": "Aura Design",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Master styling prompt engineering, visual style archetypes, 60-30-10 color rules, and elevation hierarchies."
+      },
+      {
+        "type": "doc",
+        "title": "W3C Web Content Accessibility Guidelines (WCAG) 2.1",
+        "url": "https://www.w3.org/TR/WCAG21/",
+        "author": "W3C",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Official specifications for Success Criterion 1.4.3 (Contrast Minimum) and 1.4.11 (Non-text Contrast)."
+      },
+      {
+        "type": "doc",
+        "title": "WebAIM: Contrast and Color Accessibility",
+        "url": "https://webaim.org/articles/contrast/",
+        "author": "WebAIM",
+        "language": "en",
+        "free": true,
+        "whyWatch": "Comprehensive guide on color contrast standards, visual impairments, and practical evaluation methods."
+      },
+      {
+        "type": "doc",
+        "title": "Material Design: Elevation and Shadow System",
+        "url": "https://m3.material.io/styles/elevation/overview",
+        "author": "Google Design",
+        "language": "en",
+        "free": true,
+        "whyWatch": "The definitive design system guide on surface elevation levels, ambient lighting, and directional shadow physics."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "How do I prompt AI tools to generate authentic Glassmorphism?",
+        "answer": "Explicitly mandate backdrop blur and border tokens: 'Style this card with glassmorphism using background: rgba(255, 255, 255, 0.65) in light mode (rgba(30, 41, 59, 0.5) in dark mode), backdrop-filter: blur(16px), 1px translucent border, and subtle 8px soft shadow.'"
+      },
+      {
+        "question": "What is the 60-30-10 rule and why does it matter?",
+        "answer": "It allocates 60% of the interface to dominant neutral surfaces, 30% to secondary structural components (cards, headers), and 10% to intentional accents (CTAs). It creates clean hierarchy without overwhelming the user."
+      },
+      {
+        "question": "What is the minimum contrast ratio for normal body copy?",
+        "answer": "WCAG 2.1 Level AA requires a minimum contrast ratio of 4.5:1 for body copy under 18pt (24px regular) or 14pt (18.66px bold)."
+      },
+      {
+        "question": "Why shouldn't pure black (#000000) be used for shadows?",
+        "answer": "Pure black shadows appear harsh and synthetic. In the physical world, shadows reflect ambient light. Using soft tinted dark slate (rgba(20, 18, 26, 0.08)) with negative spread creates natural, elevated depth."
+      }
+    ],
+    "relatedSlugs": [
+      "responsive-layouts-bento-grid",
+      "ai-ui-prompting-engineering",
+      "typography-prompting-font-pairing",
+      "ui-animation-micro-interactions"
+    ],
+    "sources": [
+      {
+        "title": "Aura Build: Prompt for Styling Guide",
+        "url": "https://www.aura.build/learn/prompt-for-styling",
+        "publisher": "Aura",
+        "accessed": "2026-11-06"
+      },
+      {
+        "title": "W3C Web Content Accessibility Guidelines 2.1",
+        "url": "https://www.w3.org/TR/WCAG21/",
+        "publisher": "W3C",
+        "accessed": "2026-11-06"
+      },
+      {
+        "title": "Google Material Design: Elevation",
+        "url": "https://m3.material.io/styles/elevation/overview",
+        "publisher": "Google",
+        "accessed": "2026-11-06"
+      },
+      {
+        "title": "Apple Human Interface Guidelines: Color & Materials",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/color",
+        "publisher": "Apple Inc.",
+        "accessed": "2026-11-06"
+      }
+    ]
   }
 ];

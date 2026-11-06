@@ -116,7 +116,7 @@ async function runDomainsTestSuite() {
 
     // AI/ML has multiple guides -> plural "गाइड" in Hindi
     const aiCount = await page.$eval('[data-category="ai-ml"] .count-pill', el => el.innerText.trim());
-    assert(aiCount === '9 गाइड' || aiCount === '8 गाइड' || aiCount === '7 गाइड' || aiCount === '6 गाइड', 'Test 7b: Correct Hindi plural for multiple guides', `Found: "${aiCount}"`);
+    assert(aiCount === '11 गाइड' || aiCount === '10 गाइड' || aiCount === '9 गाइड' || aiCount === '8 गाइड' || aiCount === '7 गाइड' || aiCount === '6 गाइड', 'Test 7b: Correct Hindi plural for multiple guides', `Found: "${aiCount}"`);
 
     // TEST 8: Zero Console Errors
     assert(consoleErrors.length === 0, 'Test 8: Zero console errors on homepage during render', consoleErrors.join(' | '));

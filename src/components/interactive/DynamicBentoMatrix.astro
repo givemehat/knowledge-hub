@@ -1,0 +1,296 @@
+---
+import Card from '../ui/Card.astro';
+import Button from '../ui/Button.astro';
+---
+
+<div id="dynamic-bento-matrix" class="space-y-6">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-200/80 dark:border-white/10">
+    <div>
+      <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-peach-500/10 text-peach-700 dark:text-peach-300 border border-peach-500/20 text-[11px] font-bold uppercase tracking-wider mb-1">
+        <span>Asymmetric Grid Systems</span>
+      </div>
+      <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+        Dynamic Bento Matrix & Archetypes
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+        Explore modern Apple and Linear style Bento Grid archetypes with asymmetric visual hierarchy, live cell geometry, and copyable prompts.
+      </p>
+    </div>
+
+    <!-- Archetype Selector Tabs -->
+    <div class="inline-flex p-1 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-white/10" id="bento-archetype-tabs">
+      <button
+        type="button"
+        data-archetype="portfolio"
+        class="bento-tab-btn active px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-white dark:bg-peach-600 text-peach-600 dark:text-white shadow-xs cursor-pointer"
+      >
+        Portfolio
+      </button>
+      <button
+        type="button"
+        data-archetype="dashboard"
+        class="bento-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer"
+      >
+        Dashboard
+      </button>
+      <button
+        type="button"
+        data-archetype="features"
+        class="bento-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer"
+      >
+        Product Features
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Bento Grid Canvas -->
+  <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm space-y-6">
+    <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+      <span id="bento-title-label" class="font-bold text-slate-800 dark:text-slate-200">Portfolio Showcase Bento Grid</span>
+      <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">4-Column Fluid Grid Layout</span>
+    </div>
+
+    <!-- Live Asymmetric Bento Canvas -->
+    <div id="bento-canvas-container" class="min-h-[360px] p-4 sm:p-6 rounded-2xl bg-slate-100/60 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10">
+      
+      <!-- 1. PORTFOLIO ARCHETYPE -->
+      <div id="bento-grid-portfolio" class="bento-grid-view grid grid-cols-1 md:grid-cols-4 gap-4">
+        <!-- Hero Cell (2x2) -->
+        <div class="md:col-span-2 md:row-span-2 p-6 rounded-2xl bg-gradient-to-br from-peach-500 via-coral-500 to-brand-500 text-white shadow-md flex flex-col justify-between min-h-[220px]">
+          <div>
+            <span class="px-2.5 py-1 rounded-md bg-white/20 text-white text-[10px] font-black uppercase tracking-wider">Primary Hero Cell (2x2)</span>
+            <h4 class="text-xl font-black mt-3">Featured Case Study</h4>
+            <p class="text-xs text-white/90 mt-1">High-velocity engineering & AI infrastructure redesign with 99.9% uptime.</p>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-white/20">
+            <span class="text-[11px] font-mono">React • Astro • TypeScript</span>
+            <span class="text-xs font-bold underline">Inspect Project &rarr;</span>
+          </div>
+        </div>
+
+        <!-- Cell B: Skills (1x1) -->
+        <div class="p-4 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-xs space-y-2">
+          <span class="text-[10px] font-mono text-peach-600 dark:text-peach-400 font-bold uppercase">Cell B (1x1)</span>
+          <h5 class="text-xs font-black text-slate-900 dark:text-white">Core Skills</h5>
+          <div class="flex flex-wrap gap-1">
+            <span class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[10px] font-semibold text-slate-600 dark:text-slate-300">PyTorch</span>
+            <span class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[10px] font-semibold text-slate-600 dark:text-slate-300">Next.js</span>
+            <span class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[10px] font-semibold text-slate-600 dark:text-slate-300">Tailwind</span>
+          </div>
+        </div>
+
+        <!-- Cell C: Experience (1x2) -->
+        <div class="md:row-span-2 p-4 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-xs space-y-3 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] font-mono text-peach-600 dark:text-peach-400 font-bold uppercase">Cell C (1x2 Tall)</span>
+            <h5 class="text-xs font-black text-slate-900 dark:text-white mt-1">Experience</h5>
+            <div class="space-y-2 mt-2 text-[11px] text-slate-600 dark:text-slate-400">
+              <div class="border-l-2 border-peach-500 pl-2">
+                <p class="font-bold text-slate-800 dark:text-slate-200">Staff Engineer</p>
+                <p class="text-[10px]">Cloud & ML Infrastructure</p>
+              </div>
+              <div class="border-l-2 border-slate-300 dark:border-slate-700 pl-2">
+                <p class="font-bold text-slate-800 dark:text-slate-200">Senior Frontend</p>
+                <p class="text-[10px]">Design Systems Lab</p>
+              </div>
+            </div>
+          </div>
+          <span class="text-[10px] text-slate-400">4+ Years Production Exp.</span>
+        </div>
+
+        <!-- Cell D: Social / Connect (1x1) -->
+        <div class="p-4 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-xs space-y-2 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] font-mono text-peach-600 dark:text-peach-400 font-bold uppercase">Cell D (1x1)</span>
+            <h5 class="text-xs font-black text-slate-900 dark:text-white">Get in Touch</h5>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Open for architectural consulting & roles.</p>
+          </div>
+          <span class="text-xs font-bold text-peach-600 dark:text-peach-400">Contact &rarr;</span>
+        </div>
+      </div>
+
+      <!-- 2. DASHBOARD ARCHETYPE -->
+      <div id="bento-grid-dashboard" class="bento-grid-view grid grid-cols-1 md:grid-cols-4 gap-4 hidden">
+        <!-- KPI 1 -->
+        <div class="p-4 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-xs">
+          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total MRR</span>
+          <p class="text-2xl font-black text-slate-900 dark:text-white mt-1">$48,250</p>
+          <span class="text-[10px] text-emerald-600 font-bold">+14.2% this month</span>
+        </div>
+
+        <!-- KPI 2 -->
+        <div class="p-4 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-xs">
+          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Active Users</span>
+          <p class="text-2xl font-black text-slate-900 dark:text-white mt-1">128,400</p>
+          <span class="text-[10px] text-emerald-600 font-bold">+8.6% engagement</span>
+        </div>
+
+        <!-- Analytics Chart (2x2) -->
+        <div class="md:col-span-2 md:row-span-2 p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-xs flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black text-slate-900 dark:text-white">Cohort Retention Curve</span>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold">Healthy (92%)</span>
+          </div>
+          <!-- Visual chart schematic -->
+          <div class="h-28 flex items-end gap-2 pt-4">
+            <div class="flex-1 bg-peach-500/20 rounded-t h-40%"></div>
+            <div class="flex-1 bg-peach-500/40 rounded-t h-60%"></div>
+            <div class="flex-1 bg-peach-500/60 rounded-t h-75%"></div>
+            <div class="flex-1 bg-peach-500/80 rounded-t h-90%"></div>
+            <div class="flex-1 bg-peach-500 rounded-t h-100%"></div>
+          </div>
+          <span class="text-[10px] font-mono text-slate-400">Aggregated 90-day retention vector</span>
+        </div>
+
+        <!-- Activity Feed (2x1) -->
+        <div class="md:col-span-2 p-4 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-xs space-y-1">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Live Audit Activity</span>
+          <div class="text-xs text-slate-700 dark:text-slate-300">Database migration completed in region ap-south-1</div>
+          <span class="text-[10px] text-slate-400">2 minutes ago • Automated CI/CD</span>
+        </div>
+      </div>
+
+      <!-- 3. PRODUCT FEATURES ARCHETYPE -->
+      <div id="bento-grid-features" class="bento-grid-view grid grid-cols-1 md:grid-cols-4 gap-4 hidden">
+        <!-- Banner (4x1) -->
+        <div class="md:col-span-4 p-5 rounded-2xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white shadow-md flex items-center justify-between">
+          <div class="space-y-1">
+            <span class="px-2 py-0.5 rounded bg-brand-500 text-[9px] font-black uppercase tracking-wider">Top Banner (4x1 Full Width)</span>
+            <h4 class="text-base sm:text-lg font-black">Autonomous Multi-Agent Orchestration</h4>
+            <p class="text-xs text-slate-300">Run parallel LLM reasoning agents with deterministic state rollbacks and live sandboxing.</p>
+          </div>
+          <button type="button" class="px-4 py-2 rounded-xl bg-peach-500 text-white font-bold text-xs hover:bg-peach-600 transition-colors shrink-0">Explore SDK &rarr;</button>
+        </div>
+
+        <!-- Feature Tile 1 -->
+        <div class="p-4 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-xs space-y-2">
+          <div class="w-8 h-8 rounded-lg bg-peach-500/10 text-peach-600 flex items-center justify-center font-bold text-xs">01</div>
+          <h5 class="text-xs font-black text-slate-900 dark:text-white">Context Caching</h5>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400">Save 80% on API costs with semantic prompt token caching.</p>
+        </div>
+
+        <!-- Feature Tile 2 -->
+        <div class="p-4 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-xs space-y-2">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 flex items-center justify-center font-bold text-xs">02</div>
+          <h5 class="text-xs font-black text-slate-900 dark:text-white">Structured Output</h5>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400">Guaranteed JSON schema enforcement with Zod and TypeScript.</p>
+        </div>
+
+        <!-- Feature Tile 3 -->
+        <div class="p-4 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-xs space-y-2">
+          <div class="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-600 flex items-center justify-center font-bold text-xs">03</div>
+          <h5 class="text-xs font-black text-slate-900 dark:text-white">Deterministic Eval</h5>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400">Automated Playwright assertions for zero layout breakage.</p>
+        </div>
+
+        <!-- Feature Tile 4 -->
+        <div class="p-4 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-xs space-y-2">
+          <div class="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-600 flex items-center justify-center font-bold text-xs">04</div>
+          <h5 class="text-xs font-black text-slate-900 dark:text-white">Zero Telemetry</h5>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400">100% open-source, no trackers, strict user privacy by design.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Generated Bento Prompt Block -->
+    <div class="space-y-2 pt-4 border-t border-slate-100 dark:border-white/5">
+      <div class="flex items-center justify-between">
+        <label class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          Generated Bento Grid Prompt
+        </label>
+        <button
+          id="copy-bento-prompt-btn"
+          type="button"
+          class="text-xs font-bold text-peach-600 dark:text-peach-400 hover:text-peach-700 flex items-center gap-1 cursor-pointer"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+          <span id="copy-bento-prompt-label">Copy Bento Prompt</span>
+        </button>
+      </div>
+      <pre id="bento-prompt-output" class="p-3.5 rounded-xl bg-slate-900 text-slate-200 font-mono text-xs overflow-x-auto whitespace-pre-wrap leading-relaxed border border-slate-800"></pre>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function initDynamicBentoMatrix() {
+    let currentArchetype = 'portfolio';
+
+    const bentoPrompts = {
+      portfolio: `Create an asymmetric Bento Grid portfolio showcase:
+• Container: CSS Grid (grid-cols-1 md:grid-cols-4 gap-4, max-w-6xl).
+• Cell A (Primary Hero, 2x2): Prominent case study banner with gradient background, high-contrast typography, and explicit CTA.
+• Cell B (Skills Matrix, 1x1): Compact technical badges organized by category.
+• Cell C (Experience Timeline, 1x2 Tall): Vertical milestone strip with border-left accent.
+• Cell D (Direct Connect, 1x1): Contact action tile with subtle hover elevation.
+• Responsive Behavior: On mobile viewports (<768px), collapse cleanly into a single vertical card stack with 16px fluid padding.`,
+
+      dashboard: `Design an executive SaaS analytics dashboard using Bento Grid architecture:
+• Container: CSS Grid (grid-cols-1 md:grid-cols-4 gap-4).
+• Cell 1 & 2 (1x1 each): Top-line KPI metrics (MRR, Active Users) with trend percentage badges.
+• Cell 3 (2x2): Cohort retention line chart occupying the right half across two row spans.
+• Cell 4 (2x1 wide): Horizontal live audit log activity feed pinned to bottom-left.
+• Micro-interactions: Smooth hover depth transitions, subtle borders, and semantic metric color indicators.`,
+
+      features: `Implement an Apple-style Bento product capability matrix:
+• Container: CSS Grid (grid-cols-1 md:grid-cols-4 gap-4).
+• Top Cell (4x1 Full Width): Overarching platform vision banner with dark glassmorphism background and high-visibility CTA.
+• Bottom Cells (4x 1x1): 4 distinct capability cards each featuring a numbered duotone badge, bold concise heading, and 2-line explanation.
+• Ensure WCAG AA contrast compliance and fluid responsive collapse for mobile screens.`
+    };
+
+    function updateBentoArchetype() {
+      // 1. Show active grid view
+      document.querySelectorAll('.bento-grid-view').forEach(el => el.classList.add('hidden'));
+      const activeGrid = document.getElementById('bento-grid-' + currentArchetype);
+      if (activeGrid) activeGrid.classList.remove('hidden');
+
+      // 2. Update title label
+      const titleLabel = document.getElementById('bento-title-label');
+      if (titleLabel) {
+        if (currentArchetype === 'portfolio') titleLabel.textContent = 'Portfolio Showcase Bento Grid';
+        else if (currentArchetype === 'dashboard') titleLabel.textContent = 'Executive Dashboard Bento Grid';
+        else if (currentArchetype === 'features') titleLabel.textContent = 'Product Capability Bento Grid';
+      }
+
+      // 3. Update prompt output
+      const output = document.getElementById('bento-prompt-output');
+      if (output) {
+        output.textContent = bentoPrompts[currentArchetype] || '';
+      }
+    }
+
+    // Archetype switching buttons
+    document.querySelectorAll('.bento-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.bento-tab-btn').forEach(b => {
+          b.classList.remove('active', 'bg-white', 'dark:bg-peach-600', 'text-peach-600', 'dark:text-white', 'shadow-xs');
+          b.classList.add('text-slate-600', 'dark:text-slate-300');
+        });
+        btn.classList.add('active', 'bg-white', 'dark:bg-peach-600', 'text-peach-600', 'dark:text-white', 'shadow-xs');
+        btn.classList.remove('text-slate-600', 'dark:text-slate-300');
+
+        currentArchetype = btn.dataset.archetype || 'portfolio';
+        updateBentoArchetype();
+      });
+    });
+
+    // 1-Click Copy Prompt
+    const copyBtn = document.getElementById('copy-bento-prompt-btn');
+    const copyLabel = document.getElementById('copy-bento-prompt-label');
+    if (copyBtn && copyLabel) {
+      copyBtn.addEventListener('click', () => {
+        const text = bentoPrompts[currentArchetype] || '';
+        navigator.clipboard.writeText(text).then(() => {
+          const original = copyLabel.textContent;
+          copyLabel.textContent = 'Copied to Clipboard!';
+          if (window.showToast) window.showToast('Bento grid prompt copied!');
+          setTimeout(() => { copyLabel.textContent = original; }, 2000);
+        });
+      });
+    }
+
+    // Initial render
+    updateBentoArchetype();
+  })();
+</script>

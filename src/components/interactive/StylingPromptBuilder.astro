@@ -1,0 +1,463 @@
+---
+import Card from '../ui/Card.astro';
+import Button from '../ui/Button.astro';
+---
+
+<div id="styling-prompt-builder" class="space-y-6">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-200/80 dark:border-white/10">
+    <div>
+      <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-peach-500/10 text-peach-700 dark:text-peach-300 border border-peach-500/20 text-[11px] font-bold uppercase tracking-wider mb-1">
+        <span>Visual Architecture Engine</span>
+      </div>
+      <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+        Interactive Styling Prompt Builder
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+        Configure visual style types, themes, shadows, and color harmonies to generate production-ready styling prompts for AI and design systems.
+      </p>
+    </div>
+
+    <button
+      id="reset-styling-builder-btn"
+      type="button"
+      class="self-start sm:self-auto text-xs font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-white px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+    >
+      Reset Defaults
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+    <!-- Left Column: Controls (5 cols) -->
+    <div class="lg:col-span-5 space-y-4 p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm">
+      
+      <!-- 1. Style Type Selection -->
+      <div class="space-y-2">
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          1. Style Type
+        </label>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5" id="style-type-selector">
+          <button type="button" data-style="flat" class="style-type-btn active px-2 py-1.5 rounded-lg text-xs font-semibold text-center border transition-all bg-peach-500/10 border-peach-500 text-peach-900 dark:text-peach-200">Flat</button>
+          <button type="button" data-style="outline" class="style-type-btn px-2 py-1.5 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300">Outline</button>
+          <button type="button" data-style="minimalist" class="style-type-btn px-2 py-1.5 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300">Minimal</button>
+          <button type="button" data-style="glass" class="style-type-btn px-2 py-1.5 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300">Glass</button>
+          <button type="button" data-style="ios" class="style-type-btn px-2 py-1.5 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300">iOS</button>
+          <button type="button" data-style="material" class="style-type-btn px-2 py-1.5 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300">Material</button>
+          <button type="button" data-style="neumorphic" class="style-type-btn px-2 py-1.5 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300">Neumorphic</button>
+          <button type="button" data-style="brutalist" class="style-type-btn px-2 py-1.5 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300">Brutalist</button>
+        </div>
+      </div>
+
+      <!-- 2. Theme Mode -->
+      <div class="space-y-2 pt-2 border-t border-slate-100 dark:border-white/5">
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          2. Theme Mode
+        </label>
+        <div class="grid grid-cols-3 gap-2" id="style-theme-selector">
+          <button type="button" data-theme="light" class="style-theme-btn active px-2 py-1.5 rounded-lg text-xs font-semibold text-center border transition-all bg-peach-500/10 border-peach-500 text-peach-900 dark:text-peach-200">Light</button>
+          <button type="button" data-theme="dark" class="style-theme-btn px-2 py-1.5 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300">Dark</button>
+          <button type="button" data-theme="auto" class="style-theme-btn px-2 py-1.5 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300">Adaptive</button>
+        </div>
+      </div>
+
+      <!-- 3. Primary Color Accent -->
+      <div class="space-y-2 pt-2 border-t border-slate-100 dark:border-white/5">
+        <div class="flex items-center justify-between">
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            3. Accent Color
+          </label>
+          <span id="active-color-name" class="font-mono text-[11px] text-peach-600 dark:text-peach-400 font-bold">Blue (#3B82F6)</span>
+        </div>
+        <div class="grid grid-cols-8 gap-2" id="style-color-selector">
+          <button type="button" data-color-name="Blue" data-color-hex="#3B82F6" class="style-color-btn active w-7 h-7 rounded-full bg-[#3B82F6] ring-2 ring-offset-2 ring-[#3B82F6] transition-all cursor-pointer" title="Blue"></button>
+          <button type="button" data-color-name="Peach" data-color-hex="#FF7A59" class="style-color-btn w-7 h-7 rounded-full bg-[#FF7A59] ring-offset-2 hover:ring-2 hover:ring-[#FF7A59] transition-all cursor-pointer" title="Peach"></button>
+          <button type="button" data-color-name="Emerald" data-color-hex="#10B981" class="style-color-btn w-7 h-7 rounded-full bg-[#10B981] ring-offset-2 hover:ring-2 hover:ring-[#10B981] transition-all cursor-pointer" title="Emerald"></button>
+          <button type="button" data-color-name="Purple" data-color-hex="#8B5CF6" class="style-color-btn w-7 h-7 rounded-full bg-[#8B5CF6] ring-offset-2 hover:ring-2 hover:ring-[#8B5CF6] transition-all cursor-pointer" title="Purple"></button>
+          <button type="button" data-color-name="Saffron" data-color-hex="#FF851A" class="style-color-btn w-7 h-7 rounded-full bg-[#FF851A] ring-offset-2 hover:ring-2 hover:ring-[#FF851A] transition-all cursor-pointer" title="Saffron"></button>
+          <button type="button" data-color-name="Rose" data-color-hex="#EF4444" class="style-color-btn w-7 h-7 rounded-full bg-[#EF4444] ring-offset-2 hover:ring-2 hover:ring-[#EF4444] transition-all cursor-pointer" title="Rose Red"></button>
+          <button type="button" data-color-name="Teal" data-color-hex="#14B8A6" class="style-color-btn w-7 h-7 rounded-full bg-[#14B8A6] ring-offset-2 hover:ring-2 hover:ring-[#14B8A6] transition-all cursor-pointer" title="Teal"></button>
+          <button type="button" data-color-name="Slate" data-color-hex="#64748B" class="style-color-btn w-7 h-7 rounded-full bg-[#64748B] ring-offset-2 hover:ring-2 hover:ring-[#64748B] transition-all cursor-pointer" title="Slate Gray"></button>
+        </div>
+      </div>
+
+      <!-- 4. Shadow Depth -->
+      <div class="space-y-2 pt-2 border-t border-slate-100 dark:border-white/5">
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          4. Shadow Depth
+        </label>
+        <div class="grid grid-cols-4 gap-1.5" id="style-shadow-selector">
+          <button type="button" data-shadow="none" class="style-shadow-btn px-2 py-1 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300">None</button>
+          <button type="button" data-shadow="small" class="style-shadow-btn px-2 py-1 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300">Small</button>
+          <button type="button" data-shadow="medium" class="style-shadow-btn active px-2 py-1 rounded-lg text-xs font-semibold text-center border transition-all bg-peach-500/10 border-peach-500 text-peach-900 dark:text-peach-200">Medium</button>
+          <button type="button" data-shadow="large" class="style-shadow-btn px-2 py-1 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300">Large</button>
+          <button type="button" data-shadow="xl" class="style-shadow-btn px-2 py-1 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300">X-Large</button>
+          <button type="button" data-shadow="2xl" class="style-shadow-btn px-2 py-1 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300">2XL Hero</button>
+          <button type="button" data-shadow="inner" class="style-shadow-btn px-2 py-1 rounded-lg text-xs font-semibold text-center border transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 col-span-2">Inner Inset</button>
+        </div>
+      </div>
+
+      <!-- 5. Device Target & Palette -->
+      <div class="grid grid-cols-2 gap-3 pt-2 border-t border-slate-100 dark:border-white/5">
+        <div class="space-y-1.5">
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            5. Device Target
+          </label>
+          <select id="style-device-select" class="w-full text-xs font-semibold p-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200">
+            <option value="desktop">Desktop (1024px+)</option>
+            <option value="tablet">Tablet (768px-1023px)</option>
+            <option value="mobile">Mobile (0-767px)</option>
+          </select>
+        </div>
+
+        <div class="space-y-1.5">
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            6. Color Harmony
+          </label>
+          <select id="style-palette-select" class="w-full text-xs font-semibold p-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200">
+            <option value="modern">Modern Professional</option>
+            <option value="vibrant">Vibrant & Creative</option>
+            <option value="earth">Earth & Warm Tones</option>
+            <option value="monochrome">Monochrome Minimal</option>
+            <option value="ocean">Ocean Depths (Cool)</option>
+            <option value="sunset">Sunset Gradient</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Live Interactive Preview & Prompt (7 cols) -->
+    <div class="lg:col-span-7 space-y-4">
+      <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm space-y-4">
+        <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-white/5 pb-2">
+          <span class="font-bold text-slate-800 dark:text-slate-200">Live Component Preview</span>
+          <span id="preview-active-summary" class="font-mono text-[11px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+            Flat • Light • Blue • Medium
+          </span>
+        </div>
+
+        <!-- Dynamic Preview Surface Container -->
+        <div id="styling-preview-canvas" class="p-6 rounded-2xl transition-all duration-300 space-y-5 bg-slate-50 border border-slate-200">
+          
+          <!-- Sample Action Buttons Row -->
+          <div class="space-y-2">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Interactive Controls</span>
+            <div class="flex flex-wrap items-center gap-3">
+              <button id="preview-btn-primary" type="button" class="px-4 py-2 rounded-xl font-bold text-xs transition-all cursor-pointer">
+                Primary Action
+              </button>
+              <button id="preview-btn-secondary" type="button" class="px-4 py-2 rounded-xl font-semibold text-xs transition-all cursor-pointer">
+                Secondary
+              </button>
+              <button id="preview-btn-text" type="button" class="px-3 py-2 font-bold text-xs transition-all cursor-pointer">
+                Text Button &rarr;
+              </button>
+            </div>
+          </div>
+
+          <!-- Sample Input & Select -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            <div class="space-y-1">
+              <label class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Form Input Field</label>
+              <input id="preview-input" type="text" value="Sample interactive input" class="w-full text-xs p-2.5 rounded-xl transition-all" />
+            </div>
+            <div class="space-y-1">
+              <label class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Select Control</label>
+              <select id="preview-select" class="w-full text-xs p-2.5 rounded-xl transition-all">
+                <option>Selected Option 1</option>
+                <option>Option 2</option>
+                <option>Option 3</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Sample Card Component -->
+          <div id="preview-card" class="p-5 rounded-2xl transition-all space-y-3">
+            <div class="flex items-center justify-between">
+              <span id="preview-card-badge" class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">
+                Feature Tile
+              </span>
+              <span class="text-[10px] font-mono opacity-60">WCAG AA 4.5:1</span>
+            </div>
+            <h4 id="preview-card-title" class="text-base font-black">Design Token Architecture</h4>
+            <p id="preview-card-body" class="text-xs leading-relaxed opacity-80">
+              This card visually demonstrates the selected visual style type, background blur, borders, and elevation depth in real-time.
+            </p>
+          </div>
+        </div>
+
+        <!-- Generated Styling Prompt Block -->
+        <div class="space-y-2 pt-2 border-t border-slate-100 dark:border-white/5">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              Generated Styling Prompt
+            </label>
+            <button
+              id="copy-styling-prompt-btn"
+              type="button"
+              class="text-xs font-bold text-peach-600 dark:text-peach-400 hover:text-peach-700 flex items-center gap-1 cursor-pointer"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+              <span id="copy-styling-prompt-label">Copy Styling Prompt</span>
+            </button>
+          </div>
+          <pre id="styling-prompt-output" class="p-3.5 rounded-xl bg-slate-900 text-slate-200 font-mono text-xs overflow-x-auto whitespace-pre-wrap leading-relaxed border border-slate-800"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function initStylingPromptBuilder() {
+    let currentStyle = 'flat';
+    let currentTheme = 'light';
+    let currentColorName = 'Blue';
+    let currentColorHex = '#3B82F6';
+    let currentShadow = 'medium';
+    let currentDevice = 'desktop';
+    let currentPalette = 'modern';
+
+    const shadowStyles = {
+      none: 'none',
+      small: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+      medium: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+      large: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+      xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+      '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+      inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)'
+    };
+
+    function updatePreview() {
+      const canvas = document.getElementById('styling-preview-canvas');
+      const btnPrimary = document.getElementById('preview-btn-primary');
+      const btnSecondary = document.getElementById('preview-btn-secondary');
+      const btnText = document.getElementById('preview-btn-text');
+      const input = document.getElementById('preview-input');
+      const select = document.getElementById('preview-select');
+      const card = document.getElementById('preview-card');
+      const cardBadge = document.getElementById('preview-card-badge');
+      const summary = document.getElementById('preview-active-summary');
+
+      if (!canvas || !btnPrimary || !card) return;
+
+      const isDark = currentTheme === 'dark';
+      const shadowValue = shadowStyles[currentShadow] || shadowStyles.medium;
+
+      // 1. Theme Canvas Base
+      if (isDark) {
+        canvas.style.backgroundColor = '#121016';
+        canvas.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+        canvas.style.color = '#F8FAFC';
+      } else {
+        canvas.style.backgroundColor = '#F8FAFC';
+        canvas.style.borderColor = '#E2E8F0';
+        canvas.style.color = '#0F172A';
+      }
+
+      // 2. Primary Button Styling
+      btnPrimary.style.backgroundColor = currentColorHex;
+      btnPrimary.style.color = '#FFFFFF';
+      btnPrimary.style.boxShadow = currentStyle === 'flat' ? 'none' : shadowValue;
+      btnPrimary.style.borderRadius = currentStyle === 'ios' ? '1rem' : (currentStyle === 'brutalist' ? '0px' : '0.75rem');
+      btnPrimary.style.border = currentStyle === 'brutalist' ? '2px solid #000' : 'none';
+
+      // 3. Secondary Button
+      btnSecondary.style.backgroundColor = isDark ? '#1E293B' : '#FFFFFF';
+      btnSecondary.style.color = isDark ? '#F1F5F9' : '#1E293B';
+      btnSecondary.style.border = `1px solid ${isDark ? 'rgba(255,255,255,0.15)' : '#CBD5E1'}`;
+      btnSecondary.style.borderRadius = currentStyle === 'ios' ? '1rem' : (currentStyle === 'brutalist' ? '0px' : '0.75rem');
+
+      // 4. Text Button
+      btnText.style.color = currentColorHex;
+
+      // 5. Input & Select
+      const inputBg = isDark ? '#1E293B' : '#FFFFFF';
+      const inputBorder = isDark ? 'rgba(255,255,255,0.1)' : '#CBD5E1';
+      input.style.backgroundColor = inputBg;
+      input.style.borderColor = inputBorder;
+      input.style.color = isDark ? '#F8FAFC' : '#0F172A';
+      input.style.borderRadius = currentStyle === 'ios' ? '0.75rem' : (currentStyle === 'brutalist' ? '0px' : '0.5rem');
+      select.style.backgroundColor = inputBg;
+      select.style.borderColor = inputBorder;
+      select.style.color = isDark ? '#F8FAFC' : '#0F172A';
+      select.style.borderRadius = currentStyle === 'ios' ? '0.75rem' : (currentStyle === 'brutalist' ? '0px' : '0.5rem');
+
+      // 6. Style Archetype Specific Rules on Card
+      card.style.backdropFilter = 'none';
+      if (currentStyle === 'glass') {
+        card.style.backgroundColor = isDark ? 'rgba(30, 41, 59, 0.5)' : 'rgba(255, 255, 255, 0.65)';
+        card.style.backdropFilter = 'blur(16px)';
+        card.style.border = `1px solid ${isDark ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.8)'}`;
+        card.style.boxShadow = '0 8px 32px 0 rgba(0, 0, 0, 0.12)';
+        card.style.borderRadius = '1.25rem';
+      } else if (currentStyle === 'neumorphic') {
+        const neumBg = isDark ? '#181520' : '#E6E9F0';
+        card.style.backgroundColor = neumBg;
+        card.style.border = 'none';
+        card.style.borderRadius = '1.25rem';
+        card.style.boxShadow = isDark
+          ? '6px 6px 14px #0d0b12, -6px -6px 14px #231f2e'
+          : '6px 6px 14px #c2c5cc, -6px -6px 14px #ffffff';
+      } else if (currentStyle === 'brutalist') {
+        card.style.backgroundColor = isDark ? '#000000' : '#FFFFFF';
+        card.style.border = '3px solid #000000';
+        card.style.borderRadius = '0px';
+        card.style.boxShadow = '5px 5px 0px #000000';
+      } else if (currentStyle === 'outline') {
+        card.style.backgroundColor = 'transparent';
+        card.style.border = `2px solid ${currentColorHex}`;
+        card.style.borderRadius = '1rem';
+        card.style.boxShadow = 'none';
+      } else if (currentStyle === 'ios') {
+        card.style.backgroundColor = isDark ? '#1C1C1E' : '#FFFFFF';
+        card.style.border = `1px solid ${isDark ? '#2C2C2E' : '#E5E5EA'}`;
+        card.style.borderRadius = '1.5rem';
+        card.style.boxShadow = shadowValue;
+      } else if (currentStyle === 'material') {
+        card.style.backgroundColor = isDark ? '#1E1B2E' : '#FFFFFF';
+        card.style.border = 'none';
+        card.style.borderRadius = '0.75rem';
+        card.style.boxShadow = shadowValue;
+      } else { // flat & minimalist
+        card.style.backgroundColor = isDark ? '#1A1722' : '#FFFFFF';
+        card.style.border = `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : '#E2E8F0'}`;
+        card.style.borderRadius = '1rem';
+        card.style.boxShadow = currentStyle === 'flat' ? 'none' : shadowValue;
+      }
+
+      // 7. Card Badge
+      cardBadge.style.backgroundColor = currentColorHex + '20';
+      cardBadge.style.color = currentColorHex;
+
+      // 8. Summary label
+      if (summary) {
+        summary.textContent = `${currentStyle.toUpperCase()} • ${currentTheme.toUpperCase()} • ${currentColorName} • ${currentShadow.toUpperCase()}`;
+      }
+
+      // 9. Generate Deterministic Prompt
+      const promptOutput = document.getElementById('styling-prompt-output');
+      if (promptOutput) {
+        promptOutput.textContent = generatePrompt();
+      }
+    }
+
+    function generatePrompt() {
+      return `Create a production-grade UI design with ${currentStyle.toUpperCase()} styling and ${currentTheme.toUpperCase()} theme:
+• Visual Style Archetype: ${currentStyle} with authentic token semantics (${currentStyle === 'glass' ? 'backdrop-filter: blur(16px), 1px translucent border' : currentStyle === 'neumorphic' ? 'tactile extruded dual light/dark shadows' : currentStyle === 'brutalist' ? 'bold 3px black borders with sharp 5px hard shadow offset' : 'clean borders with calibrated hierarchy'}).
+• Theme & Background: ${currentTheme === 'dark' ? 'Dark obsidian background (#121016) with light text' : currentTheme === 'light' ? 'Warm neutral light background (#FAF8F5) with dark charcoal text' : 'Adaptive system theme switching between light and dark modes'}.
+• Primary Accent Color: ${currentColorName} (${currentColorHex}) following the 60-30-10 distribution rule (10% accent for CTAs & key links, 30% secondary structural containers, 60% neutral surface).
+• Shadow Elevation: ${currentShadow} depth (${shadowStyles[currentShadow] || 'none'}).
+• Target Device Optimization: ${currentDevice} (${currentDevice === 'mobile' ? 'min 44px touch targets, single-column vertical flow, thumb-friendly actions' : 'multi-column grid with smooth hover micro-interactions'}).
+• Color Harmony: ${currentPalette} palette ensuring strict WCAG AA contrast ratio compliance (4.5:1 for body copy, 3:1 for large text & UI controls).`;
+    }
+
+    // Event Listeners for Style Buttons
+    document.querySelectorAll('.style-type-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.style-type-btn').forEach(b => {
+          b.classList.remove('active', 'bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+          b.classList.add('border-slate-200', 'dark:border-white/10', 'text-slate-700', 'dark:text-slate-300');
+        });
+        btn.classList.add('active', 'bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+        btn.classList.remove('border-slate-200', 'dark:border-white/10', 'text-slate-700', 'dark:text-slate-300');
+        currentStyle = btn.dataset.style || 'flat';
+        updatePreview();
+      });
+    });
+
+    // Theme Buttons
+    document.querySelectorAll('.style-theme-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.style-theme-btn').forEach(b => {
+          b.classList.remove('active', 'bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+          b.classList.add('border-slate-200', 'dark:border-white/10', 'text-slate-700', 'dark:text-slate-300');
+        });
+        btn.classList.add('active', 'bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+        btn.classList.remove('border-slate-200', 'dark:border-white/10', 'text-slate-700', 'dark:text-slate-300');
+        currentTheme = btn.dataset.theme || 'light';
+        updatePreview();
+      });
+    });
+
+    // Color Buttons
+    document.querySelectorAll('.style-color-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.style-color-btn').forEach(b => {
+          b.classList.remove('active', 'ring-2', 'ring-offset-2');
+        });
+        btn.classList.add('active', 'ring-2', 'ring-offset-2');
+        currentColorName = btn.dataset.colorName || 'Blue';
+        currentColorHex = btn.dataset.colorHex || '#3B82F6';
+        
+        const label = document.getElementById('active-color-name');
+        if (label) label.textContent = `${currentColorName} (${currentColorHex})`;
+        updatePreview();
+      });
+    });
+
+    // Shadow Buttons
+    document.querySelectorAll('.style-shadow-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.style-shadow-btn').forEach(b => {
+          b.classList.remove('active', 'bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+          b.classList.add('border-slate-200', 'dark:border-white/10', 'text-slate-700', 'dark:text-slate-300');
+        });
+        btn.classList.add('active', 'bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+        btn.classList.remove('border-slate-200', 'dark:border-white/10', 'text-slate-700', 'dark:text-slate-300');
+        currentShadow = btn.dataset.shadow || 'medium';
+        updatePreview();
+      });
+    });
+
+    // Selects
+    const deviceSelect = document.getElementById('style-device-select');
+    if (deviceSelect) {
+      deviceSelect.addEventListener('change', (e) => {
+        currentDevice = e.target.value;
+        updatePreview();
+      });
+    }
+
+    const paletteSelect = document.getElementById('style-palette-select');
+    if (paletteSelect) {
+      paletteSelect.addEventListener('change', (e) => {
+        currentPalette = e.target.value;
+        updatePreview();
+      });
+    }
+
+    // Reset Defaults
+    const resetBtn = document.getElementById('reset-styling-builder-btn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        currentStyle = 'flat';
+        currentTheme = 'light';
+        currentColorName = 'Blue';
+        currentColorHex = '#3B82F6';
+        currentShadow = 'medium';
+        currentDevice = 'desktop';
+        currentPalette = 'modern';
+        if (deviceSelect) deviceSelect.value = 'desktop';
+        if (paletteSelect) paletteSelect.value = 'modern';
+        updatePreview();
+      });
+    }
+
+    // 1-Click Copy
+    const copyBtn = document.getElementById('copy-styling-prompt-btn');
+    const copyLabel = document.getElementById('copy-styling-prompt-label');
+    if (copyBtn && copyLabel) {
+      copyBtn.addEventListener('click', () => {
+        const text = generatePrompt();
+        navigator.clipboard.writeText(text).then(() => {
+          const original = copyLabel.textContent;
+          copyLabel.textContent = 'Copied to Clipboard!';
+          if (window.showToast) window.showToast('Styling prompt copied!');
+          setTimeout(() => { copyLabel.textContent = original; }, 2000);
+        });
+      });
+    }
+
+    // Initial render
+    updatePreview();
+  })();
+</script>

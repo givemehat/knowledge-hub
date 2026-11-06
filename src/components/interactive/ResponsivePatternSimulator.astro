@@ -1,0 +1,377 @@
+---
+import Card from '../ui/Card.astro';
+import Button from '../ui/Button.astro';
+---
+
+<div id="responsive-pattern-simulator" class="space-y-6">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-200/80 dark:border-white/10">
+    <div>
+      <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-peach-500/10 text-peach-700 dark:text-peach-300 border border-peach-500/20 text-[11px] font-bold uppercase tracking-wider mb-1">
+        <span>Responsive Architecture</span>
+      </div>
+      <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+        4 Responsive Pattern Simulators
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+        Experience how the 4 foundational responsive design patterns reflow across Desktop, Tablet, and Mobile viewports with live simulation.
+      </p>
+    </div>
+
+    <!-- Viewport Switcher Controls -->
+    <div class="inline-flex p-1 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-white/10" id="sim-viewport-control">
+      <button
+        type="button"
+        data-viewport="desktop"
+        class="sim-vp-btn active px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-white dark:bg-peach-600 text-peach-600 dark:text-white shadow-xs cursor-pointer flex items-center gap-1.5"
+      >
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2" stroke-width="2"/><line x1="8" y1="21" x2="16" y2="21" stroke-width="2"/><line x1="12" y1="17" x2="12" y2="21" stroke-width="2"/></svg>
+        <span>Desktop</span>
+      </button>
+      <button
+        type="button"
+        data-viewport="tablet"
+        class="sim-vp-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer flex items-center gap-1.5"
+      >
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="4" y="2" width="16" height="20" rx="2" stroke-width="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="3"/></svg>
+        <span>Tablet</span>
+      </button>
+      <button
+        type="button"
+        data-viewport="mobile"
+        class="sim-vp-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer flex items-center gap-1.5"
+      >
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="6" y="2" width="12" height="20" rx="2" stroke-width="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="3"/></svg>
+        <span>Mobile</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Pattern Selection Tabs -->
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="pattern-tabs">
+    <button
+      type="button"
+      data-pattern="column-drop"
+      class="pattern-tab-btn active p-3 rounded-xl border text-left transition-all bg-peach-500/10 border-peach-500 text-peach-900 dark:text-peach-200 cursor-pointer"
+    >
+      <span class="block text-xs font-bold uppercase tracking-wider">1. Column Drop</span>
+      <span class="block text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Multi-col drops to vertical stack</span>
+    </button>
+    <button
+      type="button"
+      data-pattern="layout-shifter"
+      class="pattern-tab-btn p-3 rounded-xl border text-left transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20 cursor-pointer"
+    >
+      <span class="block text-xs font-bold uppercase tracking-wider">2. Layout Shifter</span>
+      <span class="block text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Structural rearrangement across breaks</span>
+    </button>
+    <button
+      type="button"
+      data-pattern="off-canvas"
+      class="pattern-tab-btn p-3 rounded-xl border text-left transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20 cursor-pointer"
+    >
+      <span class="block text-xs font-bold uppercase tracking-wider">3. Off-Canvas</span>
+      <span class="block text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Tucked navigation & drawer flyout</span>
+    </button>
+    <button
+      type="button"
+      data-pattern="mostly-fluid"
+      class="pattern-tab-btn p-3 rounded-xl border text-left transition-all border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20 cursor-pointer"
+    >
+      <span class="block text-xs font-bold uppercase tracking-wider">4. Mostly Fluid</span>
+      <span class="block text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Fluid margins + adaptive grid flow</span>
+    </button>
+  </div>
+
+  <!-- Interactive Simulation Canvas -->
+  <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm space-y-6">
+    <!-- Viewport Container Frame -->
+    <div class="flex flex-col items-center">
+      <div class="w-full flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 pb-2 mb-2 border-b border-slate-100 dark:border-white/5">
+        <span id="active-pattern-title" class="font-bold text-slate-800 dark:text-slate-200">Column Drop Pattern Preview</span>
+        <span id="active-viewport-label" class="font-mono text-[11px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">Desktop (100% / 1024px+)</span>
+      </div>
+
+      <!-- Resizable / Switchable Device Simulation Shell -->
+      <div
+        id="device-frame"
+        class="w-full max-w-full transition-all duration-300 ease-out p-4 sm:p-6 rounded-2xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-300/80 dark:border-white/10 relative overflow-hidden min-h-[320px] flex flex-col justify-center"
+      >
+        <!-- PATTERN 1: COLUMN DROP -->
+        <div id="sim-view-column-drop" class="pattern-view w-full space-y-3">
+          <div class="w-full h-10 rounded-xl bg-peach-500/20 border border-peach-500/30 flex items-center justify-center text-xs font-bold text-peach-700 dark:text-peach-300">
+            Header & Navigation
+          </div>
+          <div id="cd-columns" class="grid grid-cols-1 md:grid-cols-12 gap-3 transition-all duration-300">
+            <div class="cd-main md:col-span-6 p-4 rounded-xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-xs space-y-2">
+              <span class="text-xs font-black text-slate-800 dark:text-white">Primary Content (Col 1)</span>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                Main article text or hero presentation. In desktop mode it sits beside secondary columns; on mobile it stays full width at the top.
+              </p>
+            </div>
+            <div class="cd-side1 md:col-span-3 p-4 rounded-xl bg-peach-50 dark:bg-peach-950/40 border border-peach-200 dark:border-peach-800/40 shadow-xs space-y-2">
+              <span class="text-xs font-bold text-peach-800 dark:text-peach-300">Sidebar Widget (Col 2)</span>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                Filters or metadata. Drops down beneath primary content on narrower viewports.
+              </p>
+            </div>
+            <div class="cd-side2 md:col-span-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-white/10 shadow-xs space-y-2">
+              <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Related Links (Col 3)</span>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                Tertiary recommendations. Drops to bottom stack on mobile.
+              </p>
+            </div>
+          </div>
+          <div class="w-full h-8 rounded-xl bg-slate-200/60 dark:bg-slate-800/60 flex items-center justify-center text-[10px] font-bold text-slate-500">
+            Footer Global Container
+          </div>
+        </div>
+
+        <!-- PATTERN 2: LAYOUT SHIFTER -->
+        <div id="sim-view-layout-shifter" class="pattern-view w-full space-y-3 hidden">
+          <div id="ls-container" class="grid grid-cols-1 md:grid-cols-12 gap-3">
+            <div class="ls-hero md:col-span-8 p-5 rounded-xl bg-gradient-to-tr from-peach-500 to-coral-500 text-white shadow-sm space-y-2">
+              <span class="text-xs font-black uppercase tracking-wider">Dynamic Layout Shifter Hero</span>
+              <p class="text-xs opacity-90">Elements reorder logically instead of purely stacking linearly.</p>
+            </div>
+            <div class="ls-quick-actions md:col-span-4 p-4 rounded-xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 space-y-2">
+              <span class="text-xs font-bold text-slate-800 dark:text-white">Quick Actions (Shifts to Top on Mobile)</span>
+              <div class="flex gap-1.5">
+                <span class="px-2 py-1 rounded bg-peach-100 dark:bg-peach-950 text-[10px] font-bold text-peach-700 dark:text-peach-300">Action 1</span>
+                <span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-[10px] font-bold text-slate-600 dark:text-slate-300">Action 2</span>
+              </div>
+            </div>
+            <div class="ls-analytics md:col-span-12 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-white/10 text-xs text-slate-600 dark:text-slate-300">
+              Full-width multi-variable data matrix adapting column spans dynamically across viewports.
+            </div>
+          </div>
+        </div>
+
+        <!-- PATTERN 3: OFF-CANVAS DRAWER -->
+        <div id="sim-view-off-canvas" class="pattern-view w-full space-y-3 hidden relative overflow-hidden">
+          <div class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10">
+            <div class="flex items-center gap-2">
+              <button id="toggle-offcanvas-btn" type="button" class="p-1.5 rounded-lg bg-peach-500 text-white text-xs font-bold flex items-center gap-1 cursor-pointer">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <span>Toggle Drawer</span>
+              </button>
+              <span class="text-xs font-bold text-slate-700 dark:text-slate-200">App Canvas Header</span>
+            </div>
+            <span class="text-[11px] font-mono text-slate-400">Off-canvas navigation mode</span>
+          </div>
+
+          <div class="relative min-h-[160px] p-4 rounded-xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 overflow-hidden">
+            <div id="offcanvas-drawer" class="absolute inset-y-0 left-0 w-48 bg-slate-900 text-white p-3 transform -translate-x-full transition-transform duration-300 z-20 shadow-xl flex flex-col justify-between">
+              <div class="space-y-2">
+                <span class="text-xs font-bold text-peach-300 uppercase tracking-wider">Slide-out Drawer</span>
+                <div class="space-y-1 text-xs text-slate-300">
+                  <div class="p-1.5 rounded bg-white/10">Home Dashboard</div>
+                  <div class="p-1.5 rounded hover:bg-white/5">Settings & Roles</div>
+                  <div class="p-1.5 rounded hover:bg-white/5">Export Datasets</div>
+                </div>
+              </div>
+              <button id="close-drawer-btn" type="button" class="text-[10px] text-slate-400 hover:text-white text-left underline cursor-pointer">Close Drawer ✕</button>
+            </div>
+
+            <div class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
+              <span class="font-bold text-slate-900 dark:text-white">Main Viewport Canvas</span>
+              <p class="leading-relaxed">
+                Secondary navigation and contextual filter toolbars remain hidden off-canvas on constrained mobile widths, preserving 100% of the screen estate for critical reading and interactions.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- PATTERN 4: MOSTLY FLUID -->
+        <div id="sim-view-mostly-fluid" class="pattern-view w-full space-y-3 hidden">
+          <div class="text-xs font-bold text-slate-700 dark:text-slate-300">Fluid Multi-Column Flow (4-Col &rarr; 2-Col &rarr; 1-Col)</div>
+          <div id="mf-grid" class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div class="p-3 rounded-xl bg-peach-500/10 border border-peach-500/30 text-center space-y-1">
+              <span class="text-xs font-bold text-peach-800 dark:text-peach-200">Fluid Tile A</span>
+              <p class="text-[10px] text-slate-500 dark:text-slate-400">Flex shrink/grow</p>
+            </div>
+            <div class="p-3 rounded-xl bg-peach-500/10 border border-peach-500/30 text-center space-y-1">
+              <span class="text-xs font-bold text-peach-800 dark:text-peach-200">Fluid Tile B</span>
+              <p class="text-[10px] text-slate-500 dark:text-slate-400">Flex shrink/grow</p>
+            </div>
+            <div class="p-3 rounded-xl bg-peach-500/10 border border-peach-500/30 text-center space-y-1">
+              <span class="text-xs font-bold text-peach-800 dark:text-peach-200">Fluid Tile C</span>
+              <p class="text-[10px] text-slate-500 dark:text-slate-400">Flex shrink/grow</p>
+            </div>
+            <div class="p-3 rounded-xl bg-peach-500/10 border border-peach-500/30 text-center space-y-1">
+              <span class="text-xs font-bold text-peach-800 dark:text-peach-200">Fluid Tile D</span>
+              <p class="text-[10px] text-slate-500 dark:text-slate-400">Flex shrink/grow</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Generated Pattern AI Prompt Block -->
+    <div class="space-y-2 pt-4 border-t border-slate-100 dark:border-white/5">
+      <div class="flex items-center justify-between">
+        <label class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          Generated Responsive Architecture Prompt
+        </label>
+        <button
+          id="copy-sim-prompt-btn"
+          type="button"
+          class="text-xs font-bold text-peach-600 dark:text-peach-400 hover:text-peach-700 flex items-center gap-1 cursor-pointer"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+          <span id="copy-sim-prompt-label">Copy Pattern Prompt</span>
+        </button>
+      </div>
+      <pre id="sim-prompt-output" class="p-3.5 rounded-xl bg-slate-900 text-slate-200 font-mono text-xs overflow-x-auto whitespace-pre-wrap leading-relaxed border border-slate-800"></pre>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function initResponsivePatternSimulator() {
+    let currentPattern = 'column-drop';
+    let currentViewport = 'desktop';
+    let isDrawerOpen = false;
+
+    const patternPrompts = {
+      'column-drop': `Create a responsive layout utilizing the classic Column Drop pattern:
+• Desktop (1024px+): 3-column layout (Primary content 6 cols, Sidebar 3 cols, Related widgets 3 cols).
+• Tablet (768px-1023px): 2-row layout where Primary content drops to 8 cols and Sidebar takes 4 cols, while tertiary widgets drop to full width underneath.
+• Mobile (0-767px): All 3 columns drop into a clean single-column vertical stack with 44px min touch targets and 16px fluid padding.`,
+      
+      'layout-shifter': `Create an adaptive layout using the Layout Shifter pattern:
+• Desktop (1024px+): Asymmetric grid where quick actions sit to the right of the primary banner.
+• Tablet (768px-1023px): Quick action toolbar shifts to a horizontal strip positioned directly beneath the main navigation.
+• Mobile (0-767px): Quick actions reorder to the very top above the hero banner for rapid thumb accessibility, with analytics charts collapsed into swipeable card panels.`,
+
+      'off-canvas': `Implement an Off-Canvas responsive drawer pattern:
+• Desktop (1024px+): Persistent left sidebar navigation (240px fixed width) alongside a fluid main workspace canvas.
+• Mobile (0-767px): Sidebar transforms into an off-canvas drawer hidden with CSS transform translate-x-full. Accessible via a prominent hamburger trigger in the top header with backdrop blur overlay and Escape key dismissal.`,
+
+      'mostly-fluid': `Design a Mostly Fluid responsive grid pattern:
+• Maintain fluid percentage-based margins that expand gracefully on ultra-wide screens.
+• Desktop (1024px+): 4-column fluid grid with 24px gap.
+• Tablet (768px-1023px): Automatically reflows into a 2-column grid without explicit breakpoint hacks.
+• Mobile (0-767px): Fluidly collapses into a single-column card stack with 100% viewport utilization.`
+    };
+
+    function updateSimulation() {
+      // 1. Update pattern view
+      document.querySelectorAll('.pattern-view').forEach(el => el.classList.add('hidden'));
+      const activeView = document.getElementById('sim-view-' + currentPattern);
+      if (activeView) activeView.classList.remove('hidden');
+
+      // 2. Update device frame width
+      const frame = document.getElementById('device-frame');
+      const label = document.getElementById('active-viewport-label');
+      if (frame && label) {
+        if (currentViewport === 'desktop') {
+          frame.style.maxWidth = '100%';
+          label.textContent = 'Desktop (100% / 1024px+)';
+        } else if (currentViewport === 'tablet') {
+          frame.style.maxWidth = '768px';
+          label.textContent = 'Tablet (768px Emulated)';
+        } else if (currentViewport === 'mobile') {
+          frame.style.maxWidth = '360px';
+          label.textContent = 'Mobile (360px Emulated)';
+        }
+      }
+
+      // 3. Update Column Drop classes based on simulated viewport
+      const cdCols = document.getElementById('cd-columns');
+      if (cdCols) {
+        if (currentViewport === 'mobile') {
+          cdCols.className = 'grid grid-cols-1 gap-2';
+        } else if (currentViewport === 'tablet') {
+          cdCols.className = 'grid grid-cols-2 gap-2';
+        } else {
+          cdCols.className = 'grid grid-cols-1 md:grid-cols-12 gap-3';
+        }
+      }
+
+      // 4. Update Mostly Fluid grid based on viewport
+      const mfGrid = document.getElementById('mf-grid');
+      if (mfGrid) {
+        if (currentViewport === 'mobile') {
+          mfGrid.className = 'grid grid-cols-1 gap-2';
+        } else if (currentViewport === 'tablet') {
+          mfGrid.className = 'grid grid-cols-2 gap-2';
+        } else {
+          mfGrid.className = 'grid grid-cols-2 md:grid-cols-4 gap-3';
+        }
+      }
+
+      // 5. Update prompt output
+      const output = document.getElementById('sim-prompt-output');
+      if (output) {
+        output.textContent = patternPrompts[currentPattern] || '';
+      }
+    }
+
+    // Pattern Tab Switching
+    document.querySelectorAll('.pattern-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.pattern-tab-btn').forEach(b => {
+          b.classList.remove('active', 'bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+          b.classList.add('border-slate-200', 'dark:border-white/10', 'text-slate-700', 'dark:text-slate-300');
+        });
+        btn.classList.add('active', 'bg-peach-500/10', 'border-peach-500', 'text-peach-900', 'dark:text-peach-200');
+        btn.classList.remove('border-slate-200', 'dark:border-white/10', 'text-slate-700', 'dark:text-slate-300');
+
+        currentPattern = btn.dataset.pattern || 'column-drop';
+        updateSimulation();
+      });
+    });
+
+    // Viewport Switcher
+    document.querySelectorAll('.sim-vp-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.sim-vp-btn').forEach(b => {
+          b.classList.remove('active', 'bg-white', 'dark:bg-peach-600', 'text-peach-600', 'dark:text-white', 'shadow-xs');
+          b.classList.add('text-slate-600', 'dark:text-slate-300');
+        });
+        btn.classList.add('active', 'bg-white', 'dark:bg-peach-600', 'text-peach-600', 'dark:text-white', 'shadow-xs');
+        btn.classList.remove('text-slate-600', 'dark:text-slate-300');
+
+        currentViewport = btn.dataset.viewport || 'desktop';
+        updateSimulation();
+      });
+    });
+
+    // Off-Canvas Drawer Toggle
+    const toggleDrawerBtn = document.getElementById('toggle-offcanvas-btn');
+    const closeDrawerBtn = document.getElementById('close-drawer-btn');
+    const drawer = document.getElementById('offcanvas-drawer');
+
+    if (toggleDrawerBtn && drawer) {
+      toggleDrawerBtn.addEventListener('click', () => {
+        isDrawerOpen = !isDrawerOpen;
+        drawer.style.transform = isDrawerOpen ? 'translateX(0)' : 'translateX(-100%)';
+      });
+    }
+
+    if (closeDrawerBtn && drawer) {
+      closeDrawerBtn.addEventListener('click', () => {
+        isDrawerOpen = false;
+        drawer.style.transform = 'translateX(-100%)';
+      });
+    }
+
+    // 1-Click Copy Prompt
+    const copyBtn = document.getElementById('copy-sim-prompt-btn');
+    const copyLabel = document.getElementById('copy-sim-prompt-label');
+    if (copyBtn && copyLabel) {
+      copyBtn.addEventListener('click', () => {
+        const text = patternPrompts[currentPattern] || '';
+        navigator.clipboard.writeText(text).then(() => {
+          const original = copyLabel.textContent;
+          copyLabel.textContent = 'Copied to Clipboard!';
+          if (window.showToast) window.showToast('Responsive pattern prompt copied!');
+          setTimeout(() => { copyLabel.textContent = original; }, 2000);
+        });
+      });
+    }
+
+    // Initial render
+    updateSimulation();
+  })();
+</script>

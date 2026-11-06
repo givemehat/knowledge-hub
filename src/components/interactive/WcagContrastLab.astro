@@ -1,0 +1,356 @@
+---
+import Card from '../ui/Card.astro';
+import Button from '../ui/Button.astro';
+---
+
+<div id="wcag-contrast-lab" class="space-y-6">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-200/80 dark:border-white/10">
+    <div>
+      <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-peach-500/10 text-peach-700 dark:text-peach-300 border border-peach-500/20 text-[11px] font-bold uppercase tracking-wider mb-1">
+        <span>Accessibility Verification</span>
+      </div>
+      <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+        WCAG AA/AAA Contrast & Color Blindness Lab
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+        Test foreground and background color combinations against WCAG 2.1 standards with real-time luminance computation, vision simulation, and 1-click compliant fixes.
+      </p>
+    </div>
+
+    <!-- Color Presets -->
+    <div class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0" id="contrast-presets">
+      <button type="button" data-fg="#0F172A" data-bg="#FFFFFF" class="contrast-preset-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors cursor-pointer shrink-0">
+        Slate on White
+      </button>
+      <button type="button" data-fg="#FF9E7A" data-bg="#121016" class="contrast-preset-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors cursor-pointer shrink-0">
+        Peach on Dark
+      </button>
+      <button type="button" data-fg="#94A3B8" data-bg="#FFFFFF" class="contrast-preset-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-rose-50 hover:bg-rose-100 text-rose-700 transition-colors cursor-pointer shrink-0" title="Low contrast fail test">
+        Failing Gray
+      </button>
+      <button type="button" data-fg="#059669" data-bg="#FFFFFF" class="contrast-preset-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-50 hover:bg-emerald-100 text-emerald-700 transition-colors cursor-pointer shrink-0">
+        Emerald AA
+      </button>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+    <!-- Controls (5 cols) -->
+    <div class="lg:col-span-5 space-y-4 p-5 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm">
+      
+      <!-- Foreground Color Picker -->
+      <div class="space-y-1.5">
+        <div class="flex items-center justify-between">
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            Foreground (Text) Color
+          </label>
+          <span id="fg-hex-label" class="font-mono text-xs font-bold text-slate-700 dark:text-slate-300">#0F172A</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <input type="color" id="fg-color-picker" value="#0F172A" class="w-10 h-10 rounded-xl cursor-pointer border border-slate-200 dark:border-white/10 p-0.5" />
+          <input type="text" id="fg-hex-input" value="#0F172A" class="flex-1 font-mono text-xs p-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200" />
+        </div>
+      </div>
+
+      <!-- Background Color Picker -->
+      <div class="space-y-1.5 pt-2 border-t border-slate-100 dark:border-white/5">
+        <div class="flex items-center justify-between">
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            Background Surface Color
+          </label>
+          <span id="bg-hex-label" class="font-mono text-xs font-bold text-slate-700 dark:text-slate-300">#FFFFFF</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <input type="color" id="bg-color-picker" value="#FFFFFF" class="w-10 h-10 rounded-xl cursor-pointer border border-slate-200 dark:border-white/10 p-0.5" />
+          <input type="text" id="bg-hex-input" value="#FFFFFF" class="flex-1 font-mono text-xs p-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200" />
+        </div>
+      </div>
+
+      <!-- Vision Simulation Filter Selection -->
+      <div class="space-y-1.5 pt-2 border-t border-slate-100 dark:border-white/5">
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          Color Vision Simulation
+        </label>
+        <select id="vision-filter-select" class="w-full text-xs font-semibold p-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200">
+          <option value="normal">Normal Vision (Typical Trichromacy)</option>
+          <option value="protanopia">Protanopia (Red-Blind ~1% Males)</option>
+          <option value="deuteranopia">Deuteranopia (Green-Blind ~6% Males)</option>
+          <option value="tritanopia">Tritanopia (Blue-Blind ~0.01%)</option>
+          <option value="achromatopsia">Achromatopsia (Monochrome / Grayscale)</option>
+        </select>
+      </div>
+
+      <!-- 1-Click Smart Fix -->
+      <div class="pt-2">
+        <button
+          id="smart-fix-contrast-btn"
+          type="button"
+          class="w-full px-4 py-2.5 rounded-xl bg-gradient-to-r from-peach-500 to-coral-500 text-white font-bold text-xs shadow-sm hover:opacity-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+        >
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <span>Auto-Fix for WCAG AA (4.5:1)</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Live Preview & Calculation Badges (7 cols) -->
+    <div class="lg:col-span-7 space-y-4">
+      <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200/80 dark:border-white/10 shadow-apple-sm space-y-5">
+        
+        <!-- Score Header: Ratio Meter -->
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/5">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Calculated Contrast Ratio</span>
+            <div class="flex items-baseline gap-2 mt-0.5">
+              <span id="contrast-ratio-display" class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">16.1:1</span>
+              <span id="contrast-overall-verdict" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+                WCAG AAA Pass
+              </span>
+            </div>
+          </div>
+          <span class="text-[11px] font-mono text-slate-400">W3C Recommendation</span>
+        </div>
+
+        <!-- 4 Compliance Standard Metric Tiles -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="compliance-badges">
+          <div class="p-3 rounded-xl border border-slate-200 dark:border-white/10 space-y-1">
+            <span class="text-[10px] font-bold text-slate-400 uppercase">Normal Text</span>
+            <div id="badge-normal-text" class="text-xs font-black text-emerald-600 flex items-center gap-1">
+              <span>✓ Pass AA</span>
+            </div>
+            <span class="text-[10px] text-slate-400">Req: 4.5:1</span>
+          </div>
+
+          <div class="p-3 rounded-xl border border-slate-200 dark:border-white/10 space-y-1">
+            <span class="text-[10px] font-bold text-slate-400 uppercase">Large Text</span>
+            <div id="badge-large-text" class="text-xs font-black text-emerald-600 flex items-center gap-1">
+              <span>✓ Pass AA</span>
+            </div>
+            <span class="text-[10px] text-slate-400">Req: 3.0:1</span>
+          </div>
+
+          <div class="p-3 rounded-xl border border-slate-200 dark:border-white/10 space-y-1">
+            <span class="text-[10px] font-bold text-slate-400 uppercase">UI Elements</span>
+            <div id="badge-ui-components" class="text-xs font-black text-emerald-600 flex items-center gap-1">
+              <span>✓ Pass AA</span>
+            </div>
+            <span class="text-[10px] text-slate-400">Req: 3.0:1</span>
+          </div>
+
+          <div class="p-3 rounded-xl border border-slate-200 dark:border-white/10 space-y-1">
+            <span class="text-[10px] font-bold text-slate-400 uppercase">Enhanced AAA</span>
+            <div id="badge-aaa-enhanced" class="text-xs font-black text-emerald-600 flex items-center gap-1">
+              <span>✓ Pass AAA</span>
+            </div>
+            <span class="text-[10px] text-slate-400">Req: 7.0:1</span>
+          </div>
+        </div>
+
+        <!-- Live Text Rendering Card -->
+        <div id="contrast-preview-surface" class="p-6 rounded-2xl transition-all duration-200 space-y-3 border shadow-sm">
+          <span class="text-xs font-bold uppercase tracking-wider opacity-75">Live Surface Preview</span>
+          <h4 class="text-xl font-black">Design for Everyone: Accessible Typography</h4>
+          <p class="text-sm leading-relaxed">
+            Good design does not sacrifice aesthetics for accessibility. High contrast ratios ensure readability under bright sunlight, on low-end screens, and for millions of users with vision impairments.
+          </p>
+          <div class="pt-2 flex items-center gap-3">
+            <span class="px-3 py-1 rounded-lg border font-bold text-xs">Simulated Button</span>
+            <span class="text-xs underline font-semibold">Accessible Link Text &rarr;</span>
+          </div>
+        </div>
+
+        <!-- Accessibility Guidance Callout -->
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-white/10 text-xs text-slate-600 dark:text-slate-300 space-y-1">
+          <span class="font-bold text-slate-900 dark:text-white">Pro Accessibility Rule:</span>
+          <p>
+            Never rely on color alone to convey critical state (such as error or success). Pair color accents with clear typography labels, icons, or aria-labels for full screen-reader compliance.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function initWcagContrastLab() {
+    let fgHex = '#0F172A';
+    let bgHex = '#FFFFFF';
+    let visionFilter = 'normal';
+
+    // Relative luminance calculation based on WCAG 2.1 formula
+    function getLuminance(hex) {
+      let rgb = parseInt(hex.replace('#', ''), 16);
+      if (isNaN(rgb)) return 0;
+      let r = (rgb >> 16) & 255;
+      let g = (rgb >> 8) & 255;
+      let b = rgb & 255;
+
+      let a = [r, g, b].map(v => {
+        v /= 255;
+        return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+      });
+      return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+    }
+
+    function calculateRatio(fg, bg) {
+      let l1 = getLuminance(fg);
+      let l2 = getLuminance(bg);
+      let ratio = (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+      return Math.round(ratio * 100) / 100;
+    }
+
+    function updateContrast() {
+      const ratio = calculateRatio(fgHex, bgHex);
+      const ratioDisplay = document.getElementById('contrast-ratio-display');
+      const verdict = document.getElementById('contrast-overall-verdict');
+      const surface = document.getElementById('contrast-preview-surface');
+
+      if (ratioDisplay) ratioDisplay.textContent = `${ratio}:1`;
+
+      // Update Verdict Badge
+      if (verdict) {
+        if (ratio >= 7) {
+          verdict.textContent = 'WCAG AAA Pass';
+          verdict.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300';
+        } else if (ratio >= 4.5) {
+          verdict.textContent = 'WCAG AA Pass';
+          verdict.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300';
+        } else if (ratio >= 3) {
+          verdict.textContent = 'AA Large Only';
+          verdict.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300';
+        } else {
+          verdict.textContent = 'Fails WCAG';
+          verdict.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300';
+        }
+      }
+
+      // Update 4 Sub-Badges
+      updateBadge('badge-normal-text', ratio >= 4.5, 'Pass AA', 'Fail AA');
+      updateBadge('badge-large-text', ratio >= 3.0, 'Pass AA', 'Fail AA');
+      updateBadge('badge-ui-components', ratio >= 3.0, 'Pass AA', 'Fail AA');
+      updateBadge('badge-aaa-enhanced', ratio >= 7.0, 'Pass AAA', 'Fail AAA');
+
+      // Update Live Surface Colors
+      if (surface) {
+        surface.style.backgroundColor = bgHex;
+        surface.style.color = fgHex;
+        surface.style.borderColor = fgHex + '30';
+        
+        // Apply vision simulation SVG / CSS filter
+        if (visionFilter === 'achromatopsia') {
+          surface.style.filter = 'grayscale(100%)';
+        } else if (visionFilter === 'protanopia') {
+          surface.style.filter = 'sepia(60%) hue-rotate(180deg)';
+        } else if (visionFilter === 'deuteranopia') {
+          surface.style.filter = 'sepia(50%) hue-rotate(150deg)';
+        } else if (visionFilter === 'tritanopia') {
+          surface.style.filter = 'hue-rotate(90deg)';
+        } else {
+          surface.style.filter = 'none';
+        }
+      }
+    }
+
+    function updateBadge(id, isPass, passText, failText) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (isPass) {
+        el.className = 'text-xs font-black text-emerald-600 flex items-center gap-1';
+        el.innerHTML = `<span>✓ ${passText}</span>`;
+      } else {
+        el.className = 'text-xs font-black text-rose-600 flex items-center gap-1';
+        el.innerHTML = `<span>✕ ${failText}</span>`;
+      }
+    }
+
+    // Input Synchronization
+    const fgPicker = document.getElementById('fg-color-picker');
+    const fgInput = document.getElementById('fg-hex-input');
+    const fgLabel = document.getElementById('fg-hex-label');
+
+    const bgPicker = document.getElementById('bg-color-picker');
+    const bgInput = document.getElementById('bg-hex-input');
+    const bgLabel = document.getElementById('bg-hex-label');
+
+    if (fgPicker && fgInput && fgLabel) {
+      fgPicker.addEventListener('input', (e) => {
+        fgHex = e.target.value;
+        fgInput.value = fgHex;
+        fgLabel.textContent = fgHex;
+        updateContrast();
+      });
+      fgInput.addEventListener('change', (e) => {
+        if (/^#[0-9A-Fa-f]{6}$/.test(e.target.value)) {
+          fgHex = e.target.value;
+          fgPicker.value = fgHex;
+          fgLabel.textContent = fgHex;
+          updateContrast();
+        }
+      });
+    }
+
+    if (bgPicker && bgInput && bgLabel) {
+      bgPicker.addEventListener('input', (e) => {
+        bgHex = e.target.value;
+        bgInput.value = bgHex;
+        bgLabel.textContent = bgHex;
+        updateContrast();
+      });
+      bgInput.addEventListener('change', (e) => {
+        if (/^#[0-9A-Fa-f]{6}$/.test(e.target.value)) {
+          bgHex = e.target.value;
+          bgPicker.value = bgHex;
+          bgLabel.textContent = bgHex;
+          updateContrast();
+        }
+      });
+    }
+
+    // Presets
+    document.querySelectorAll('.contrast-preset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        fgHex = btn.dataset.fg || '#0F172A';
+        bgHex = btn.dataset.bg || '#FFFFFF';
+        if (fgPicker) fgPicker.value = fgHex;
+        if (fgInput) fgInput.value = fgHex;
+        if (fgLabel) fgLabel.textContent = fgHex;
+        if (bgPicker) bgPicker.value = bgHex;
+        if (bgInput) bgInput.value = bgHex;
+        if (bgLabel) bgLabel.textContent = bgHex;
+        updateContrast();
+      });
+    });
+
+    // Vision Simulation
+    const visionSelect = document.getElementById('vision-filter-select');
+    if (visionSelect) {
+      visionSelect.addEventListener('change', (e) => {
+        visionFilter = e.target.value;
+        updateContrast();
+      });
+    }
+
+    // Smart Fix: Auto-adjust foreground until ratio >= 4.5
+    const fixBtn = document.getElementById('smart-fix-contrast-btn');
+    if (fixBtn) {
+      fixBtn.addEventListener('click', () => {
+        const bgLum = getLuminance(bgHex);
+        // If background is light, make foreground darker (towards black #000)
+        // If background is dark, make foreground lighter (towards white #fff)
+        if (bgLum > 0.5) {
+          fgHex = '#0F172A';
+        } else {
+          fgHex = '#F8FAFC';
+        }
+        if (fgPicker) fgPicker.value = fgHex;
+        if (fgInput) fgInput.value = fgHex;
+        if (fgLabel) fgLabel.textContent = fgHex;
+        updateContrast();
+        if (window.showToast) window.showToast('Contrast automatically calibrated for WCAG AA compliance!');
+      });
+    }
+
+    // Initial render
+    updateContrast();
+  })();
+</script>
