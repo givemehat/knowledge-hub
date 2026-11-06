@@ -114,9 +114,34 @@ async function runSiteElevationTestSuite() {
     assert(galleryCards.length === 5, 'Test 4b: Gallery displays all 5 curated design engineering primitives (shadcn, 21st, magicui, motion-primitives, better-design)', `Found: ${galleryCards.length}`);
 
     // -------------------------------------------------------------
-    // TEST 5: Zero Console Errors
+    // TEST 5: Mobile Navigation Drawer (360px Viewport)
     // -------------------------------------------------------------
-    assert(consoleErrors.length === 0, 'Test 5: Zero console errors logged across site elevation features', consoleErrors.join(' | '));
+    await page.setViewportSize({ width: 360, height: 800 });
+    await page.goto(`${base}/`, { waitUntil: 'networkidle' });
+
+    const mobileToggle = await page.$('#mobile-menu-toggle-btn');
+    assert(mobileToggle !== null, 'Test 5a: Mobile menu toggle button is visible at 360px');
+
+    await page.click('#mobile-menu-toggle-btn');
+    await page.waitForTimeout(150);
+    const drawerOpen = await page.$eval('#mobile-nav-drawer', el => !el.classList.contains('hidden'));
+    assert(drawerOpen, 'Test 5b: Clicking mobile menu toggle opens mobile nav drawer');
+
+    const drawerLinks = await page.$$eval('#mobile-nav-drawer nav a', links => links.length);
+    assert(drawerLinks >= 6, 'Test 5c: Mobile nav drawer contains all primary links', `Found: ${drawerLinks}`);
+
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(150);
+    const drawerClosed = await page.$eval('#mobile-nav-drawer', el => el.classList.contains('hidden'));
+    assert(drawerClosed, 'Test 5d: Escape key closes mobile nav drawer');
+
+    // Restore desktop viewport
+    await page.setViewportSize({ width: 1440, height: 900 });
+
+    // -------------------------------------------------------------
+    // TEST 6: Zero Console Errors
+    // -------------------------------------------------------------
+    assert(consoleErrors.length === 0, 'Test 6: Zero console errors logged across site elevation features', consoleErrors.join(' | '));
 
     await context.close();
   } catch (err) {
