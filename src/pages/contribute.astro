@@ -7,56 +7,58 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <Layout title={`How to Contribute — ${BRAND.name}`} description={`Open-source guide on submitting new topics, fixing typos, and proposing roadmap improvements to ${BRAND.name}.`}>
-  <div class="relative overflow-hidden border-b border-slate-200/80 dark:border-white/10 py-12">
+  <div class="relative overflow-hidden border-b border-slate-200/80 dark:border-white/10 py-14 sm:py-16">
+    <!-- Ambient Backdrop Light -->
+    <div class="pointer-events-none absolute -top-10 left-1/4 w-96 h-64 bg-peacock-500/[0.08] dark:bg-peacock-500/[0.1] rounded-full blur-3xl -z-10"></div>
     <IndianPattern variant="rangoli" opacity={0.03} />
 
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-peacock-500/10 text-peacock-700 dark:text-peacock-300 border border-peacock-500/20 text-xs font-semibold mb-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-peacock-500/10 text-peacock-700 dark:text-peacock-300 border border-peacock-500/20 text-xs font-semibold mb-4 backdrop-blur-xs">
         <svg class="w-3.5 h-3.5 text-peacock-600 dark:text-peacock-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
-        Open Source & Community Driven
+        <span>Open Source & Community Driven</span>
       </div>
-      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
+      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
         Contribute to {BRAND.name}
       </h1>
       <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
-        {BRAND.name} is an open-source public good. If you notice a factual discrepancy, typo, or want to contribute a new guide, open a pull request directly on GitHub!
+        {BRAND.name} is an open-source public good. If you notice a factual discrepancy, typo, or want to contribute a new guide, open a pull request directly on GitHub.
       </p>
     </div>
   </div>
 
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
     <div class="space-y-6 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
       <!-- Card 1: Flow -->
-      <div class="p-6 sm:p-8 rounded-3xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-sm space-y-4">
-        <div class="flex items-center gap-2.5 pb-2 border-b border-slate-100 dark:border-white/10">
-          <div class="w-8 h-8 rounded-xl bg-brand-50 dark:bg-brand-950 flex items-center justify-center text-brand-600 dark:text-brand-400">
+      <div class="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#15131b] border border-slate-200/80 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)] space-y-4">
+        <div class="flex items-center gap-2.5 pb-3 border-b border-slate-100 dark:border-white/10">
+          <div class="w-8 h-8 rounded-xl bg-brand-50 dark:bg-brand-950 flex items-center justify-center text-brand-600 dark:text-brand-400 shrink-0">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
           </div>
           <h3 class="font-bold text-base text-slate-900 dark:text-white">Step-by-Step Contribution Flow</h3>
         </div>
         <ol class="space-y-3 list-decimal pl-5">
-          <li><strong>Fork the Repository:</strong> <a href="https://github.com/givemehat/knowledge-hub" target="_blank" rel="noopener noreferrer" class="text-brand-600 dark:text-brand-400 underline font-medium">github.com/givemehat/knowledge-hub</a> par jaakar "Fork" button dabayein.</li>
+          <li><strong>Fork the Repository:</strong> Visit <a href="https://github.com/givemehat/knowledge-hub" target="_blank" rel="noopener noreferrer" class="text-brand-600 dark:text-brand-400 underline font-medium">github.com/givemehat/knowledge-hub</a> and click "Fork".</li>
           <li><strong>Clone Locally:</strong> <code class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">git clone https://github.com/YOUR_USERNAME/knowledge-hub.git</code></li>
-          <li><strong>Add or Edit Topic:</strong> <code class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">src/data/topics.ts</code> me structured topic object add karein following our schema.</li>
-          <li><strong>Run Build Test:</strong> <code class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">npm run build</code> chala kar check karein ki build zero error ke sath pass ho rahi hai.</li>
-          <li><strong>Submit Pull Request:</strong> Branch push karein aur GitHub par PR open karein. Automated CI build verify karega!</li>
+          <li><strong>Add or Edit Content:</strong> Add structured guides to <code class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">src/data/topics.ts</code> or update Markdown files following the schema.</li>
+          <li><strong>Verify Locally:</strong> Run <code class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">npm run build</code> and <code class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">npm test</code> to ensure zero compilation or assertion errors.</li>
+          <li><strong>Submit Pull Request:</strong> Push your branch and open a PR on GitHub. Automated CI workflows will validate all assertions.</li>
         </ol>
       </div>
 
       <!-- Card 2: Quality Checklist -->
-      <div class="p-6 sm:p-8 rounded-3xl bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 shadow-sm space-y-4">
-        <div class="flex items-center gap-2.5 pb-2 border-b border-slate-100 dark:border-white/10">
-          <div class="w-8 h-8 rounded-xl bg-peacock-50 dark:bg-peacock-950 flex items-center justify-center text-peacock-600 dark:text-peacock-400">
+      <div class="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#15131b] border border-slate-200/80 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)] space-y-4">
+        <div class="flex items-center gap-2.5 pb-3 border-b border-slate-100 dark:border-white/10">
+          <div class="w-8 h-8 rounded-xl bg-peacock-50 dark:bg-peacock-950 flex items-center justify-center text-peacock-600 dark:text-peacock-400 shrink-0">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
           </div>
           <h3 class="font-bold text-base text-slate-900 dark:text-white">Editorial Quality Checklist for PRs</h3>
         </div>
-        <ul class="space-y-2 list-disc pl-5 text-slate-600 dark:text-slate-400">
-          <li>Har claim ke sath kam se kam 1 primary source citation (academic paper, official doc, government report) hona chahiye.</li>
-          <li>TL;DR me exactly 3 se 5 crisp bullet points hone chahiye (Miller's Law cognitive chunking).</li>
-          <li>Hinglish natural aur approachable honi chahiye, bina artificial heavy translations ke.</li>
-          <li>Code snippets runnable aur minimal hone chahiye (no pseudo-code without context).</li>
-          <li>UI emojis use na karein—sirf Lucide SVG vector icons use karein.</li>
+        <ul class="space-y-2.5 list-disc pl-5 text-slate-600 dark:text-slate-400">
+          <li>Every factual claim must cite at least one primary source (peer-reviewed paper, official doc, or official gazette).</li>
+          <li>TL;DR sections must feature exactly 3 to 5 concise bullet points (Miller's Law cognitive chunking).</li>
+          <li>Maintain strict bilingual integrity: pure English on English routes, pure Devanagari on Hindi routes.</li>
+          <li>Code snippets must be executable and minimal with context.</li>
+          <li>Use SVG vector icons from Lucide — avoid decorative emojis in system UIs.</li>
         </ul>
       </div>
     </div>

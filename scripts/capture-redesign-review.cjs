@@ -6,6 +6,7 @@ const path = require('path');
 const PORT = 4345;
 const ROOT_DIR = '/Users/rajnishsingh/projects/knowledge-hub';
 const OUT_DIR = path.join(ROOT_DIR, 'homepage_screenshots/redesign_v2');
+const ARTIFACT_DIR = '/Users/rajnishsingh/.gemini/antigravity/brain/74659deb-02b7-4218-a0f1-f2cc2d48f1b6';
 
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
@@ -29,6 +30,8 @@ async function captureRedesign() {
   for (const vp of VIEWPORTS) {
     for (const theme of ['light', 'dark']) {
       const page = await browser.newPage({ viewport: { width: vp.width, height: vp.height } });
+
+      // 1. Homepage
       await page.goto(`http://localhost:${PORT}/knowledge-hub/en/`, { waitUntil: 'networkidle' });
       if (theme === 'dark') {
         await page.evaluate(() => document.documentElement.classList.add('dark'));
@@ -37,40 +40,53 @@ async function captureRedesign() {
       }
       await page.waitForTimeout(300);
 
-      // 1. Capture Hero + Header Viewport
+      const heroPath = path.join(OUT_DIR, `hero_fold_${vp.name}_${theme}.png`);
       await page.screenshot({
-        path: path.join(OUT_DIR, `hero_fold_${vp.name}_${theme}.png`),
+        path: heroPath,
         clip: { x: 0, y: 0, width: vp.width, height: Math.min(vp.height, 900) }
       });
+      fs.copyFileSync(heroPath, path.join(ARTIFACT_DIR, `hero_fold_${vp.name}_${theme}.png`));
 
-      // 2. Capture Bento Domains Section
-      const domainsSec = page.locator('#domains-section');
-      if (await domainsSec.count() > 0) {
-        await domainsSec.scrollIntoViewIfNeeded();
-        await page.waitForTimeout(200);
-        await domainsSec.screenshot({
-          path: path.join(OUT_DIR, `domains_${vp.name}_${theme}.png`)
-        });
-      }
+      // 2. Scenarios Catalog
+      await page.goto(`http://localhost:${PORT}/knowledge-hub/en/scenarios/`, { waitUntil: 'networkidle' });
+      if (theme === 'dark') await page.evaluate(() => document.documentElement.classList.add('dark'));
+      await page.waitForTimeout(200);
+      const scPath = path.join(OUT_DIR, `scenarios_${vp.name}_${theme}.png`);
+      await page.screenshot({ path: scPath, clip: { x: 0, y: 0, width: vp.width, height: Math.min(vp.height, 900) } });
+      fs.copyFileSync(scPath, path.join(ARTIFACT_DIR, `scenarios_${vp.name}_${theme}.png`));
 
-      // 3. Capture Roadmap Banner
-      const roadmapSec = page.locator('section').filter({ hasText: 'From DSA to Placement' });
-      if (await roadmapSec.count() > 0) {
-        await roadmapSec.scrollIntoViewIfNeeded();
-        await page.waitForTimeout(200);
-        await roadmapSec.screenshot({
-          path: path.join(OUT_DIR, `roadmap_banner_${vp.name}_${theme}.png`)
-        });
-      }
+      // 3. About Creator Page
+      await page.goto(`http://localhost:${PORT}/knowledge-hub/en/about/`, { waitUntil: 'networkidle' });
+      if (theme === 'dark') await page.evaluate(() => document.documentElement.classList.add('dark'));
+      await page.waitForTimeout(200);
+      const aboutPath = path.join(OUT_DIR, `about_${vp.name}_${theme}.png`);
+      await page.screenshot({ path: aboutPath, clip: { x: 0, y: 0, width: vp.width, height: Math.min(vp.height, 900) } });
+      fs.copyFileSync(aboutPath, path.join(ARTIFACT_DIR, `about_${vp.name}_${theme}.png`));
+
+      // 4. Contact Form Page
+      await page.goto(`http://localhost:${PORT}/knowledge-hub/contact/`, { waitUntil: 'networkidle' });
+      if (theme === 'dark') await page.evaluate(() => document.documentElement.classList.add('dark'));
+      await page.waitForTimeout(200);
+      const contactPath = path.join(OUT_DIR, `contact_${vp.name}_${theme}.png`);
+      await page.screenshot({ path: contactPath, clip: { x: 0, y: 0, width: vp.width, height: Math.min(vp.height, 900) } });
+      fs.copyFileSync(contactPath, path.join(ARTIFACT_DIR, `contact_${vp.name}_${theme}.png`));
+
+      // 5. Changelog / Updates Page
+      await page.goto(`http://localhost:${PORT}/knowledge-hub/updates/`, { waitUntil: 'networkidle' });
+      if (theme === 'dark') await page.evaluate(() => document.documentElement.classList.add('dark'));
+      await page.waitForTimeout(200);
+      const updatesPath = path.join(OUT_DIR, `updates_${vp.name}_${theme}.png`);
+      await page.screenshot({ path: updatesPath, clip: { x: 0, y: 0, width: vp.width, height: Math.min(vp.height, 900) } });
+      fs.copyFileSync(updatesPath, path.join(ARTIFACT_DIR, `updates_${vp.name}_${theme}.png`));
 
       await page.close();
-      console.log(`Captured redesign ${vp.name} (${theme})`);
+      console.log(`Captured all pages for ${vp.name} (${theme})`);
     }
   }
 
   await browser.close();
   srv.kill();
-  console.log('Redesign screenshots captured successfully!');
+  console.log('All responsive subpage screenshots captured successfully!');
 }
 
 captureRedesign().catch(err => {

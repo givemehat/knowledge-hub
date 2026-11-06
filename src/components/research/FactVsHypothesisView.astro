@@ -106,23 +106,27 @@ const t = isHindi ? ui.hi : ui.en;
 ---
 
 <Layout title={t.title} description={t.desc} lang={locale}>
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+  <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-14 overflow-hidden">
+    <!-- Ambient Backdrop Light -->
+    <div class="pointer-events-none absolute -top-10 left-1/3 w-96 h-64 bg-amber-500/[0.07] dark:bg-amber-500/[0.08] rounded-full blur-3xl -z-10"></div>
+
     <!-- Breadcrumbs -->
-    <nav class="flex items-center gap-2 text-xs text-slate-500 mb-6 font-medium">
-      <a href={`${base}/${locale}/`} class="hover:text-indigo-500">{t.home}</a>
+    <nav class="flex items-center gap-2 text-xs text-slate-500 mb-8 font-medium">
+      <a href={`${base}/${locale}/`} class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">{t.home}</a>
       <span>/</span>
-      <a href={`${base}/${locale}/research/`} class="hover:text-indigo-500">{t.research}</a>
+      <a href={`${base}/${locale}/research/`} class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">{t.research}</a>
       <span>/</span>
       <span class="text-slate-900 dark:text-white font-semibold">{t.factHypo}</span>
     </nav>
 
     <!-- Header -->
-    <div class="space-y-4 mb-10">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-saffron-50 dark:bg-saffron-950/60 border border-saffron-300/40 text-saffron-700 dark:text-saffron-300 text-xs font-bold">
-        <svg class="w-3.5 h-3.5 text-saffron-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" /></svg>
+    <div class="space-y-4 mb-12">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/10 text-amber-700 dark:text-amber-300 text-xs font-bold backdrop-blur-xs">
+        <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+        <svg class="w-3.5 h-3.5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" /></svg>
         <span>{t.eyebrow}</span>
       </div>
-      <h1 class={`text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight ${isHindi ? 'font-hindi' : ''}`}>
+      <h1 class={`text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight ${isHindi ? 'font-hindi' : ''}`}>
         {t.heading}
       </h1>
       <p class={`text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed ${isHindi ? 'font-hindi' : ''}`}>
@@ -131,26 +135,26 @@ const t = isHindi ? ui.hi : ui.en;
     </div>
 
     <!-- Visual Badge Comparison Table -->
-    <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-200 dark:border-darkborder space-y-4 mb-12">
+    <div class="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#15131b] border border-slate-200/80 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)] space-y-4 mb-12">
       <h2 class={`text-base font-bold text-slate-900 dark:text-white ${isHindi ? 'font-hindi' : ''}`}>
         {t.badgeTitle}
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-        <div class="p-4 rounded-xl bg-emerald-500/10 border-2 border-emerald-500/40 space-y-2">
-          <span class="px-2.5 py-0.5 rounded bg-emerald-600 text-white font-black uppercase text-[10px]">
+        <div class="p-5 rounded-2xl bg-emerald-500/[0.08] border border-emerald-500/30 dark:border-emerald-500/25 space-y-2.5">
+          <span class="px-2.5 py-0.5 rounded-md bg-emerald-600 text-white font-black uppercase text-[10px] tracking-wider shadow-xs">
             {t.factBadge}
           </span>
-          <p class={`font-bold text-slate-900 dark:text-white ${isHindi ? 'font-hindi' : ''}`}>{t.factTitle}</p>
+          <p class={`font-bold text-sm text-slate-900 dark:text-white ${isHindi ? 'font-hindi' : ''}`}>{t.factTitle}</p>
           <p class={`text-slate-600 dark:text-slate-300 leading-relaxed ${isHindi ? 'font-hindi' : ''}`}>
             {t.factDesc}
           </p>
         </div>
 
-        <div class="p-4 rounded-xl bg-amber-500/10 border-2 border-amber-500/40 space-y-2">
-          <span class="px-2.5 py-0.5 rounded bg-amber-500 text-slate-950 font-black uppercase text-[10px]">
+        <div class="p-5 rounded-2xl bg-amber-500/[0.08] border border-amber-500/30 dark:border-amber-500/25 space-y-2.5">
+          <span class="px-2.5 py-0.5 rounded-md bg-amber-500 text-slate-950 font-black uppercase text-[10px] tracking-wider shadow-xs">
             {t.hypoBadge}
           </span>
-          <p class={`font-bold text-slate-900 dark:text-white ${isHindi ? 'font-hindi' : ''}`}>{t.hypoTitle}</p>
+          <p class={`font-bold text-sm text-slate-900 dark:text-white ${isHindi ? 'font-hindi' : ''}`}>{t.hypoTitle}</p>
           <p class={`text-slate-600 dark:text-slate-300 leading-relaxed ${isHindi ? 'font-hindi' : ''}`}>
             {t.hypoDesc}
           </p>
@@ -160,15 +164,15 @@ const t = isHindi ? ui.hi : ui.en;
 
     <!-- The 6 Non-Negotiable Standards -->
     <div class="space-y-6 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-      <h2 class={`text-xl font-black text-slate-900 dark:text-white tracking-tight ${isHindi ? 'font-hindi' : ''}`}>
+      <h2 class={`text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight ${isHindi ? 'font-hindi' : ''}`}>
         {t.standardsTitle}
       </h2>
 
-      <div class="space-y-4">
+      <div class="space-y-3.5">
         {t.standards.map(st => (
-          <div class="p-4 rounded-xl bg-slate-50 dark:bg-darkcard border border-slate-200 dark:border-darkborder space-y-1">
-            <strong class={`text-slate-900 dark:text-white font-bold block ${isHindi ? 'font-hindi' : ''}`}>{st.title}</strong>
-            <p class={isHindi ? 'font-hindi' : ''}>{st.desc}</p>
+          <div class="p-5 rounded-2xl bg-white dark:bg-[#15131b] border border-slate-200/80 dark:border-white/10 shadow-xs space-y-1.5 hover:border-amber-500/30 dark:hover:border-amber-400/30 transition-colors">
+            <strong class={`text-slate-900 dark:text-white font-bold block text-sm ${isHindi ? 'font-hindi' : ''}`}>{st.title}</strong>
+            <p class={`leading-relaxed text-slate-600 dark:text-slate-300 ${isHindi ? 'font-hindi' : ''}`}>{st.desc}</p>
           </div>
         ))}
       </div>

@@ -67,21 +67,22 @@ const text = isHindi ? ui.hi : ui.en;
   description={text.desc}
   lang={locale}
 >
-  <div class="relative overflow-hidden border-b border-slate-200/80 dark:border-white/10 py-12">
+  <div class="relative overflow-hidden border-b border-slate-200/80 dark:border-white/[0.08] py-14 sm:py-18">
     <IndianPattern variant="rangoli" opacity={0.03} />
+    <div class="pointer-events-none absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[260px] bg-gradient-to-tr from-peacock-500/10 via-brand-500/10 to-transparent rounded-full blur-3xl opacity-60"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="max-w-3xl">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-peacock-500/10 text-peacock-700 dark:text-peacock-300 border border-peacock-500/20 text-xs font-semibold mb-4">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 dark:bg-darkcard/90 text-slate-800 dark:text-slate-200 border border-slate-200/80 dark:border-white/10 text-xs font-semibold mb-4 shadow-2xs backdrop-blur-xs">
           <svg class="w-3.5 h-3.5 text-peacock-600 dark:text-peacock-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
           </svg>
           <span id="page-eyebrow">{text.eyebrow}</span>
         </div>
-        <h1 id="page-heading" class={`text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight ${isHindi ? 'font-hindi' : ''}`}>
+        <h1 id="page-heading" class={`text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-[-0.03em] ${isHindi ? 'font-hindi' : ''}`}>
           {text.heading}
         </h1>
-        <p id="page-subtext" class={`text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-3 leading-relaxed ${isHindi ? 'font-hindi' : ''}`}>
+        <p id="page-subtext" class={`text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-3 leading-relaxed max-w-2xl ${isHindi ? 'font-hindi' : ''}`}>
           {text.subtext}
         </p>
       </div>
@@ -90,27 +91,27 @@ const text = isHindi ? ui.hi : ui.en;
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
     <!-- Filter Controls Toolbar -->
-    <div class="bg-white dark:bg-darkcard border border-slate-200 dark:border-white/10 rounded-2xl p-4 sm:p-5 mb-8 shadow-sm space-y-4">
+    <div class="bg-white/90 dark:bg-darkcard/90 border border-slate-200/90 dark:border-white/10 rounded-2xl p-4 sm:p-5 mb-8 shadow-2xs backdrop-blur-xs space-y-4">
       <!-- Row 1: Type Tabs & Search -->
       <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
         <!-- Type Tabs -->
         <div class="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none" id="type-tabs">
-          <button class="type-filter-btn active px-3 py-1.5 rounded-xl text-xs font-semibold bg-brand-500 text-white shadow-sm cursor-pointer" data-type="all">
+          <button class="type-filter-btn active px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-xs cursor-pointer transition-all" data-type="all">
             {text.all} ({CURATED_RESOURCES.length})
           </button>
-          <button class="type-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer" data-type="video">
+          <button class="type-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100/90 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 hover:bg-slate-200/80 dark:hover:bg-slate-700 cursor-pointer transition-colors" data-type="video">
             {text.video}
           </button>
-          <button class="type-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer" data-type="doc">
+          <button class="type-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100/90 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 hover:bg-slate-200/80 dark:hover:bg-slate-700 cursor-pointer transition-colors" data-type="doc">
             {text.doc}
           </button>
-          <button class="type-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer" data-type="course">
+          <button class="type-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100/90 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 hover:bg-slate-200/80 dark:hover:bg-slate-700 cursor-pointer transition-colors" data-type="course">
             {text.course}
           </button>
-          <button class="type-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer" data-type="tool">
+          <button class="type-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100/90 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 hover:bg-slate-200/80 dark:hover:bg-slate-700 cursor-pointer transition-colors" data-type="tool">
             {text.tool}
           </button>
-          <button class="type-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer" data-type="book">
+          <button class="type-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100/90 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 hover:bg-slate-200/80 dark:hover:bg-slate-700 cursor-pointer transition-colors" data-type="book">
             {text.book}
           </button>
         </div>
@@ -121,7 +122,7 @@ const text = isHindi ? ui.hi : ui.en;
             type="text" 
             id="resource-search" 
             placeholder={text.searchPlaceholder}
-            class="w-full text-xs px-3.5 py-2 pl-9 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-brand-500"
+            class="w-full text-xs px-3.5 py-2 pl-9 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/90 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-slate-400 dark:focus:border-white/30 transition-all"
           />
           <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
